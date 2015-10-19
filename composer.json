@@ -1,0 +1,11 @@
+{
+	"description" : "Sigma",
+	"require": {
+		"php": ">=5.4",
+		"codeigniter/framework": "3.0.*",
+		"kenjis/codeigniter-ss-twig": "1.0.x@dev"
+	},
+	"require-dev": {
+		"mikey179/vfsStream": "1.1.*"
+	}
+}
