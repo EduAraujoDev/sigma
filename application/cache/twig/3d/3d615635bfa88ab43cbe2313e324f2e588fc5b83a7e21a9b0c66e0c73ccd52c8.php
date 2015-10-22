@@ -29,7 +29,7 @@ class __TwigTemplate_181b07cc0eec664be0e028f9882239b49060541c7dbf6d68bf1d94ef3cd
         <link rel=\"stylesheet\" href=\"";
         // line 11
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
-        echo "public/AdminLTE/bootstrap/css/bootstrap.min.css\">
+        echo "public/bootstrap/css/bootstrap.min.css\">
         <!-- Font Awesome -->
         <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css\">
         <!-- Ionicons -->
@@ -38,12 +38,12 @@ class __TwigTemplate_181b07cc0eec664be0e028f9882239b49060541c7dbf6d68bf1d94ef3cd
         <link rel=\"stylesheet\" href=\"";
         // line 17
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
-        echo "public/AdminLTE/dist/css/AdminLTE.min.css\">
+        echo "public/dist/css/AdminLTE.min.css\">
         <!-- iCheck -->
         <link rel=\"stylesheet\" href=\"";
         // line 19
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
-        echo "public/AdminLTE/plugins/iCheck/square/blue.css\">
+        echo "public/plugins/iCheck/square/blue.css\">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -102,17 +102,17 @@ class __TwigTemplate_181b07cc0eec664be0e028f9882239b49060541c7dbf6d68bf1d94ef3cd
         <script src=\"";
         // line 69
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
-        echo "public/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js\"></script>
+        echo "public/plugins/jQuery/jQuery-2.1.4.min.js\"></script>
         <!-- Bootstrap 3.3.5 -->
         <script src=\"";
         // line 71
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
-        echo "public/AdminLTE/bootstrap/js/bootstrap.min.js\"></script>
+        echo "public/bootstrap/js/bootstrap.min.js\"></script>
         <!-- iCheck -->
         <script src=\"";
         // line 73
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
-        echo "public/AdminLTE/plugins/iCheck/icheck.min.js\"></script>
+        echo "public/plugins/iCheck/icheck.min.js\"></script>
         <script>
             \$(function () {
                 \$('input').iCheck({
@@ -152,15 +152,15 @@ class __TwigTemplate_181b07cc0eec664be0e028f9882239b49060541c7dbf6d68bf1d94ef3cd
 /*         <!-- Tell the browser to be responsive to screen width -->*/
 /*         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">*/
 /*         <!-- Bootstrap 3.3.5 -->*/
-/*         <link rel="stylesheet" href="{{base_url}}public/AdminLTE/bootstrap/css/bootstrap.min.css">*/
+/*         <link rel="stylesheet" href="{{base_url}}public/bootstrap/css/bootstrap.min.css">*/
 /*         <!-- Font Awesome -->*/
 /*         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">*/
 /*         <!-- Ionicons -->*/
 /*         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">*/
 /*         <!-- Theme style -->*/
-/*         <link rel="stylesheet" href="{{base_url}}public/AdminLTE/dist/css/AdminLTE.min.css">*/
+/*         <link rel="stylesheet" href="{{base_url}}public/dist/css/AdminLTE.min.css">*/
 /*         <!-- iCheck -->*/
-/*         <link rel="stylesheet" href="{{base_url}}public/AdminLTE/plugins/iCheck/square/blue.css">*/
+/*         <link rel="stylesheet" href="{{base_url}}public/plugins/iCheck/square/blue.css">*/
 /* */
 /*         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->*/
 /*         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->*/
@@ -210,11 +210,11 @@ class __TwigTemplate_181b07cc0eec664be0e028f9882239b49060541c7dbf6d68bf1d94ef3cd
 /*         <!-- /.login-box -->*/
 /* */
 /*         <!-- jQuery 2.1.4 -->*/
-/*         <script src="{{base_url}}public/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script>*/
+/*         <script src="{{base_url}}public/plugins/jQuery/jQuery-2.1.4.min.js"></script>*/
 /*         <!-- Bootstrap 3.3.5 -->*/
-/*         <script src="{{base_url}}public/AdminLTE/bootstrap/js/bootstrap.min.js"></script>*/
+/*         <script src="{{base_url}}public/bootstrap/js/bootstrap.min.js"></script>*/
 /*         <!-- iCheck -->*/
-/*         <script src="{{base_url}}public/AdminLTE/plugins/iCheck/icheck.min.js"></script>*/
+/*         <script src="{{base_url}}public/plugins/iCheck/icheck.min.js"></script>*/
 /*         <script>*/
 /*             $(function () {*/
 /*                 $('input').iCheck({*/
