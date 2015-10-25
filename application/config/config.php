@@ -17,7 +17,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = 'http://sigma.local';
+// $config['base_url'] = 'http://sigma.local'; // Vitor's local host
+$config['base_url'] = 'http://localhost:81/sigma'; // Eduardo's local host
 
 /*
 |--------------------------------------------------------------------------
