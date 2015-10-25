@@ -64,17 +64,17 @@ class __TwigTemplate_91732a2fae17d5a2b1adc532eb5fd62e9c28d80626cac51ae109f6b3dc9
             <!-- /.login-logo -->
             <div class=\"login-box-body\">
                 <p class=\"login-box-msg\">Digite seu email e sua senha para logar</p>
-
                 <form action=\"";
-        // line 38
+        // line 37
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
-        echo "dashboard\" method=\"post\">
+        echo "login/validarUsuario\" method=\"post\">
                     <div class=\"form-group has-feedback\">
-                        <input type=\"email\" class=\"form-control\" placeholder=\"Email\">
+                        <!-- <input type=\"email\" name=\"usuario\" class=\"form-control\" placeholder=\"Email\"> -->
+                        <input type=\"text\" name=\"usuario\" class=\"form-control\" placeholder=\"Login\">
                         <span class=\"glyphicon glyphicon-envelope form-control-feedback\"></span>
                     </div>
                     <div class=\"form-group has-feedback\">
-                        <input type=\"password\" class=\"form-control\" placeholder=\"Senha\">
+                        <input type=\"password\" name=\"senha\" class=\"form-control\" placeholder=\"Senha\">
                         <span class=\"glyphicon glyphicon-lock form-control-feedback\"></span>
                     </div>
                     <div class=\"row\">
@@ -139,7 +139,7 @@ class __TwigTemplate_91732a2fae17d5a2b1adc532eb5fd62e9c28d80626cac51ae109f6b3dc9
 
     public function getDebugInfo()
     {
-        return array (  114 => 73,  109 => 71,  104 => 69,  70 => 38,  61 => 32,  45 => 19,  40 => 17,  31 => 11,  19 => 1,);
+        return array (  114 => 73,  109 => 71,  104 => 69,  69 => 37,  61 => 32,  45 => 19,  40 => 17,  31 => 11,  19 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -178,14 +178,14 @@ class __TwigTemplate_91732a2fae17d5a2b1adc532eb5fd62e9c28d80626cac51ae109f6b3dc9
 /*             <!-- /.login-logo -->*/
 /*             <div class="login-box-body">*/
 /*                 <p class="login-box-msg">Digite seu email e sua senha para logar</p>*/
-/* */
-/*                 <form action="{{base_url}}dashboard" method="post">*/
+/*                 <form action="{{base_url}}login/validarUsuario" method="post">*/
 /*                     <div class="form-group has-feedback">*/
-/*                         <input type="email" class="form-control" placeholder="Email">*/
+/*                         <!-- <input type="email" name="usuario" class="form-control" placeholder="Email"> -->*/
+/*                         <input type="text" name="usuario" class="form-control" placeholder="Login">*/
 /*                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>*/
 /*                     </div>*/
 /*                     <div class="form-group has-feedback">*/
-/*                         <input type="password" class="form-control" placeholder="Senha">*/
+/*                         <input type="password" name="senha" class="form-control" placeholder="Senha">*/
 /*                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>*/
 /*                     </div>*/
 /*                     <div class="row">*/

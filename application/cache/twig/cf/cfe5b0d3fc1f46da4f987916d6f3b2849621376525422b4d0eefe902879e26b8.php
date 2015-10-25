@@ -286,7 +286,10 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
                                             <a href=\"#\" class=\"btn btn-default btn-flat\">Profile</a>
                                         </div>
                                         <div class=\"pull-right\">
-                                            <a href=\"#\" class=\"btn btn-default btn-flat\">Sign out</a>
+                                            <a href=\"";
+        // line 293
+        echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
+        echo "login/logout\" class=\"btn btn-default btn-flat\">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -873,9 +876,14 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
         return "base_layout.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  866 => 725,  861 => 723,  856 => 721,  851 => 719,  846 => 717,  841 => 715,  836 => 713,  831 => 711,  825 => 708,  820 => 706,  816 => 705,  811 => 703,  806 => 701,  800 => 698,  789 => 690,  786 => 689,  783 => 688,  779 => 481,  776 => 480,  772 => 477,  769 => 476,  756 => 33,  751 => 31,  746 => 29,  741 => 27,  736 => 25,  731 => 23,  726 => 21,  720 => 18,  711 => 12,  706 => 9,  703 => 8,  698 => 6,  692 => 727,  690 => 688,  482 => 482,  480 => 480,  476 => 478,  474 => 476,  38 => 42,  36 => 8,  31 => 6,  24 => 1,);
+        return array (  869 => 725,  864 => 723,  859 => 721,  854 => 719,  849 => 717,  844 => 715,  839 => 713,  834 => 711,  828 => 708,  823 => 706,  819 => 705,  814 => 703,  809 => 701,  803 => 698,  792 => 690,  789 => 689,  786 => 688,  782 => 481,  779 => 480,  775 => 477,  772 => 476,  759 => 33,  754 => 31,  749 => 29,  744 => 27,  739 => 25,  734 => 23,  729 => 21,  723 => 18,  714 => 12,  709 => 9,  706 => 8,  701 => 6,  695 => 727,  693 => 688,  485 => 482,  483 => 480,  479 => 478,  477 => 476,  291 => 293,  38 => 42,  36 => 8,  31 => 6,  24 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -1170,7 +1178,7 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
 /*                                             <a href="#" class="btn btn-default btn-flat">Profile</a>*/
 /*                                         </div>*/
 /*                                         <div class="pull-right">*/
-/*                                             <a href="#" class="btn btn-default btn-flat">Sign out</a>*/
+/*                                             <a href="{{base_url}}login/logout" class="btn btn-default btn-flat">Sign out</a>*/
 /*                                         </div>*/
 /*                                     </li>*/
 /*                                 </ul>*/
