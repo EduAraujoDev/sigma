@@ -28,7 +28,7 @@ class Login extends CI_Controller
             $usuario    = $this->input->post('usuario');
             $senha      = md5($this->input->post('senha'));
 
-            $retorno = $this->usuario_model->get_user_bypwd( $usuario, $senha)->row();
+            $retorno = $this->usuario_model->get_usuario_bypwd( $usuario, $senha)->row();
 
             if($retorno != NULL)
             {
@@ -52,7 +52,7 @@ class Login extends CI_Controller
                     redirect('/usuario','refresh');
                 }
             } else {
-                $this->session->set_flashdata('usuarioInvalido','Login ou senha inv&aacute;lido');
+                $this->session->set_flashdata('usuarioInvalido','Login ou senha invalido');
                 redirect('/', 'refresh');
             }            			
 		} else {     

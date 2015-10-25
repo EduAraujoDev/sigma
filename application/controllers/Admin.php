@@ -7,6 +7,7 @@ class Admin extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('usuario_model','usuario_model');
+		$this->load->model('perfil_model','perfil_model');
 
 		if(isset($_SESSION['userLogin'])){
             if(strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO'){
@@ -22,4 +23,12 @@ class Admin extends CI_Controller {
 		$data = ['base_url' => $this->config->base_url()];
         $this->twig->display('admin/dashboard_admin', $data);
 	}
+
+    public function listarUsuario()
+    {
+		$data = ['base_url'		=> $this->config->base_url(), 
+				 'usuarios' 	=> $this->usuario_model->get_usuario_all()->result()];
+
+        $this->twig->display('admin/listarUsuario', $data);        
+    }
 }
