@@ -65,8 +65,8 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
                                         <tr role=\"row\">
                                             <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example2\" rowspan=\"1\" colspan=\"1\" aria-sort=\"ascending\" aria-label=\"Rendering engine: activate to sort column descending\">Id</th>
                                             <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example2\" rowspan=\"1\" colspan=\"1\" aria-sort=\"ascending\" aria-label=\"Rendering engine: activate to sort column descending\">Nome Usuário</th>
-                                            <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example2\" rowspan=\"1\" colspan=\"1\" aria-sort=\"ascending\" aria-label=\"Rendering engine: activate to sort column descending\"></th>
-                                            <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example2\" rowspan=\"1\" colspan=\"1\" aria-sort=\"ascending\" aria-label=\"Rendering engine: activate to sort column descending\"></th>
+                                            <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example2\" rowspan=\"1\" colspan=\"1\" aria-sort=\"ascending\" aria-label=\"Rendering engine: activate to sort column descending\">Perfil</th>
+                                            <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example2\" rowspan=\"1\" colspan=\"1\" aria-sort=\"ascending\" aria-label=\"Rendering engine: activate to sort column descending\">Ação</th>
                                         </tr>
                                     </thead>
                                     <<tbody>
@@ -85,21 +85,31 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
             // line 37
             echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "LOGIN", array()), "html", null, true);
             echo "</td>
-                                                <td><a href=\"";
+                                                <td>";
             // line 38
+            echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "DescricaoTipoPerfis", array()), "html", null, true);
+            echo "</td>
+                                                <td>
+                                                    <a class=\"btn btn-primary btn-xs\" href=\"";
+            // line 40
             echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
-            echo "admin/alteraUsuario/usuario.UsuarioID\">Alterar</a></td>
-                                                <td><a href=\"";
-            // line 39
+            echo "admin/alterarUsuario/";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "UsuarioID", array()), "html", null, true);
+            echo "\">Alterar</a>
+                                                    <a class=\"btn btn-danger btn-xs\" href=\"";
+            // line 41
             echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
-            echo "admin/excluiUsuario/usuario.UsuarioID\">Excluir</a></td>
+            echo "admin/deletarUsuario/";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "UsuarioID", array()), "html", null, true);
+            echo "\">Excluir</a>
+                                                </td>
                                             </tr>
                                         ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['usuario'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 42
+        // line 45
         echo "                                    </tbody>
                                 </table>
                             </div>
@@ -124,7 +134,7 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
 
     public function getDebugInfo()
     {
-        return array (  103 => 42,  94 => 39,  90 => 38,  86 => 37,  82 => 36,  79 => 35,  75 => 34,  56 => 17,  53 => 16,  39 => 5,  36 => 4,  30 => 2,  11 => 1,);
+        return array (  113 => 45,  101 => 41,  95 => 40,  90 => 38,  86 => 37,  82 => 36,  79 => 35,  75 => 34,  56 => 17,  53 => 16,  39 => 5,  36 => 4,  30 => 2,  11 => 1,);
     }
 }
 /* {% extends "base_layout.twig" %}*/
@@ -155,8 +165,8 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
 /*                                         <tr role="row">*/
 /*                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Id</th>*/
 /*                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome Usuário</th>*/
-/*                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"></th>*/
-/*                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"></th>*/
+/*                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Perfil</th>*/
+/*                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Ação</th>*/
 /*                                         </tr>*/
 /*                                     </thead>*/
 /*                                     <<tbody>*/
@@ -164,8 +174,11 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
 /*                                             <tr>*/
 /*                                                 <td>{{ usuario.UsuarioID }}</td>*/
 /*                                                 <td>{{ usuario.LOGIN }}</td>*/
-/*                                                 <td><a href="{{base_url}}admin/alteraUsuario/usuario.UsuarioID">Alterar</a></td>*/
-/*                                                 <td><a href="{{base_url}}admin/excluiUsuario/usuario.UsuarioID">Excluir</a></td>*/
+/*                                                 <td>{{ usuario.DescricaoTipoPerfis }}</td>*/
+/*                                                 <td>*/
+/*                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}admin/alterarUsuario/{{ usuario.UsuarioID }}">Alterar</a>*/
+/*                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}admin/deletarUsuario/{{ usuario.UsuarioID }}">Excluir</a>*/
+/*                                                 </td>*/
 /*                                             </tr>*/
 /*                                         {% endfor %}*/
 /*                                     </tbody>*/

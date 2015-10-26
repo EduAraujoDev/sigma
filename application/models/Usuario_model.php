@@ -33,6 +33,15 @@ class Usuario_model extends CI_Model {
         return $this->db->get('Usuario');
     }
 
+    public function get_usuario_perfil()
+    {
+        $this->db->select('UsuarioID, LOGIN, DescricaoTipoPerfis');
+        $this->db->from('usuario');
+        $this->db->join('TipoPerfis', 'TipoPerfilID = TipoPerfil');
+
+        return $this->db->get();
+    }
+
     public function set_usuario($dados=NULL)
     {
         if($dados <> NULL){
