@@ -57,7 +57,7 @@ class __TwigTemplate_bf5f23ca9d0090a162b4a81b0f4bf118e3d1b976bd4e27893a3b317de3e
         <div class=\"col-md-12\">
             <div class=\"box box-primary\">
                 <div class=\"box-header with-border\">
-                    <h3 class=\"box-title\">Dados novo usuário</h3>
+                    <h3 class=\"box-title\">Dados do usuário</h3>
                 </div>
                 <form role=\"form\" action=\"";
         // line 23
@@ -144,7 +144,7 @@ class __TwigTemplate_bf5f23ca9d0090a162b4a81b0f4bf118e3d1b976bd4e27893a3b317de3e
 /*         <div class="col-md-12">*/
 /*             <div class="box box-primary">*/
 /*                 <div class="box-header with-border">*/
-/*                     <h3 class="box-title">Dados novo usuário</h3>*/
+/*                     <h3 class="box-title">Dados do usuário</h3>*/
 /*                 </div>*/
 /*                 <form role="form" action="{{base_url}}admin/incluirNovoUsuario" method="post">*/
 /*                     <div class="box-body">*/

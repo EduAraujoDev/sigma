@@ -341,6 +341,17 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
                         </li>
                         <li class=\"treeview\">
                             <a href=\"#\">
+                                <i class=\"fa  fa-mouse-pointer\"></i> <span>Atualizações</span> <i class=\"fa fa-angle-left pull-right\"></i>
+                            </a>
+                            <ul class=\"treeview-menu\">
+                                <li><a href=\"";
+        // line 348
+        echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
+        echo "admin/listarUsuario\"><i class=\"fa fa-circle-o\"></i>Usuários</a></li>
+                            </ul>
+                        </li>                        
+                        <li class=\"treeview\">
+                            <a href=\"#\">
                                 <i class=\"fa fa-files-o\"></i>
                                 <span>Layout Options</span>
                                 <span class=\"label label-primary pull-right\">4</span>
@@ -473,15 +484,15 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
             <div class=\"content-wrapper\">
                 <!-- Content Header (Page header) -->
                 ";
-        // line 476
+        // line 484
         $this->displayBlock('content_header', $context, $blocks);
-        // line 478
+        // line 486
         echo "                
                 <!-- Main content -->
                 ";
-        // line 480
+        // line 488
         $this->displayBlock('content', $context, $blocks);
-        // line 482
+        // line 490
         echo "                <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
@@ -689,9 +700,9 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
         </div>
         <!-- ./wrapper -->
         ";
-        // line 688
+        // line 696
         $this->displayBlock('js', $context, $blocks);
-        // line 727
+        // line 735
         echo "    </body>
 </html>
 ";
@@ -768,27 +779,27 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
         ";
     }
 
-    // line 476
+    // line 484
     public function block_content_header($context, array $blocks = array())
     {
-        // line 477
+        // line 485
         echo "                ";
     }
 
-    // line 480
+    // line 488
     public function block_content($context, array $blocks = array())
     {
-        // line 481
+        // line 489
         echo "                ";
     }
 
-    // line 688
+    // line 696
     public function block_js($context, array $blocks = array())
     {
-        // line 689
+        // line 697
         echo "            <!-- jQuery 2.1.4 -->
             <script src=\"";
-        // line 690
+        // line 698
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/jQuery/jQuery-2.1.4.min.js\"></script>
             <!-- jQuery UI 1.11.4 -->
@@ -799,73 +810,73 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
             </script>
             <!-- Bootstrap 3.3.5 -->
             <script src=\"";
-        // line 698
+        // line 706
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/bootstrap/js/bootstrap.min.js\"></script>
             <!-- Morris.js charts -->
             <script src=\"https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js\"></script>
             <script src=\"";
-        // line 701
+        // line 709
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/morris/morris.min.js\"></script>
             <!-- Sparkline -->
             <script src=\"";
-        // line 703
+        // line 711
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/sparkline/jquery.sparkline.min.js\"></script>
             <!-- jvectormap -->
             <script src=\"";
-        // line 705
+        // line 713
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js\"></script>
             <script src=\"";
-        // line 706
+        // line 714
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/jvectormap/jquery-jvectormap-world-mill-en.js\"></script>
             <!-- jQuery Knob Chart -->
             <script src=\"";
-        // line 708
+        // line 716
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/knob/jquery.knob.js\"></script>
             <!-- daterangepicker -->
             <script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js\"></script>
             <script src=\"";
-        // line 711
+        // line 719
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/daterangepicker/daterangepicker.js\"></script>
             <!-- datepicker -->
             <script src=\"";
-        // line 713
+        // line 721
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/datepicker/bootstrap-datepicker.js\"></script>
             <!-- Bootstrap WYSIHTML5 -->
             <script src=\"";
-        // line 715
+        // line 723
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js\"></script>
             <!-- Slimscroll -->
             <script src=\"";
-        // line 717
+        // line 725
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/slimScroll/jquery.slimscroll.min.js\"></script>
             <!-- FastClick -->
             <script src=\"";
-        // line 719
+        // line 727
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/plugins/fastclick/fastclick.js\"></script>
             <!-- AdminLTE App -->
             <script src=\"";
-        // line 721
+        // line 729
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/dist/js/app.min.js\"></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
             <script src=\"";
-        // line 723
+        // line 731
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/dist/js/pages/dashboard.js\"></script>
             <!-- AdminLTE for demo purposes -->
             <script src=\"";
-        // line 725
+        // line 733
         echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
         echo "public/dist/js/demo.js\"></script>
         ";
@@ -883,7 +894,7 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
 
     public function getDebugInfo()
     {
-        return array (  869 => 725,  864 => 723,  859 => 721,  854 => 719,  849 => 717,  844 => 715,  839 => 713,  834 => 711,  828 => 708,  823 => 706,  819 => 705,  814 => 703,  809 => 701,  803 => 698,  792 => 690,  789 => 689,  786 => 688,  782 => 481,  779 => 480,  775 => 477,  772 => 476,  759 => 33,  754 => 31,  749 => 29,  744 => 27,  739 => 25,  734 => 23,  729 => 21,  723 => 18,  714 => 12,  709 => 9,  706 => 8,  701 => 6,  695 => 727,  693 => 688,  485 => 482,  483 => 480,  479 => 478,  477 => 476,  291 => 293,  38 => 42,  36 => 8,  31 => 6,  24 => 1,);
+        return array (  880 => 733,  875 => 731,  870 => 729,  865 => 727,  860 => 725,  855 => 723,  850 => 721,  845 => 719,  839 => 716,  834 => 714,  830 => 713,  825 => 711,  820 => 709,  814 => 706,  803 => 698,  800 => 697,  797 => 696,  793 => 489,  790 => 488,  786 => 485,  783 => 484,  770 => 33,  765 => 31,  760 => 29,  755 => 27,  750 => 25,  745 => 23,  740 => 21,  734 => 18,  725 => 12,  720 => 9,  717 => 8,  712 => 6,  706 => 735,  704 => 696,  496 => 490,  494 => 488,  490 => 486,  488 => 484,  349 => 348,  291 => 293,  38 => 42,  36 => 8,  31 => 6,  24 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -1228,6 +1239,14 @@ class __TwigTemplate_2fecc115cd97ab4dad796f0739a2dad3e137173257dba5be45f0dc303de
 /*                                 <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>*/
 /*                             </ul>*/
 /*                         </li>*/
+/*                         <li class="treeview">*/
+/*                             <a href="#">*/
+/*                                 <i class="fa  fa-mouse-pointer"></i> <span>Atualizações</span> <i class="fa fa-angle-left pull-right"></i>*/
+/*                             </a>*/
+/*                             <ul class="treeview-menu">*/
+/*                                 <li><a href="{{base_url}}admin/listarUsuario"><i class="fa fa-circle-o"></i>Usuários</a></li>*/
+/*                             </ul>*/
+/*                         </li>                        */
 /*                         <li class="treeview">*/
 /*                             <a href="#">*/
 /*                                 <i class="fa fa-files-o"></i>*/

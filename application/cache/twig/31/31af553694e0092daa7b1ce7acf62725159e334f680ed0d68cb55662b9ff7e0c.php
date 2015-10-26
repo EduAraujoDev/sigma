@@ -116,6 +116,12 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
                         </div>
                     </div>
                 </div>
+                <div class=\"box-footer\">
+                    <a class=\"btn btn-primary btn-lg\" href=\"";
+        // line 52
+        echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
+        echo "admin/incluirUsuario\">Incluir</a>
+                </div>
             </div>
         </div>
     </section>
@@ -134,7 +140,7 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
 
     public function getDebugInfo()
     {
-        return array (  113 => 45,  101 => 41,  95 => 40,  90 => 38,  86 => 37,  82 => 36,  79 => 35,  75 => 34,  56 => 17,  53 => 16,  39 => 5,  36 => 4,  30 => 2,  11 => 1,);
+        return array (  122 => 52,  113 => 45,  101 => 41,  95 => 40,  90 => 38,  86 => 37,  82 => 36,  79 => 35,  75 => 34,  56 => 17,  53 => 16,  39 => 5,  36 => 4,  30 => 2,  11 => 1,);
     }
 }
 /* {% extends "base_layout.twig" %}*/
@@ -186,6 +192,9 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
 /*                             </div>*/
 /*                         </div>*/
 /*                     </div>*/
+/*                 </div>*/
+/*                 <div class="box-footer">*/
+/*                     <a class="btn btn-primary btn-lg" href="{{base_url}}admin/incluirUsuario">Incluir</a>*/
 /*                 </div>*/
 /*             </div>*/
 /*         </div>*/
