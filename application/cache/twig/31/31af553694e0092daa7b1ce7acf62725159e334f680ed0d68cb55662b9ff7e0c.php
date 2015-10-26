@@ -69,7 +69,7 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
                                             <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example2\" rowspan=\"1\" colspan=\"1\" aria-sort=\"ascending\" aria-label=\"Rendering engine: activate to sort column descending\">Ação</th>
                                         </tr>
                                     </thead>
-                                    <<tbody>
+                                    <tbody>
                                         ";
         // line 34
         $context['_parent'] = $context;
@@ -169,7 +169,7 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
 /*                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Ação</th>*/
 /*                                         </tr>*/
 /*                                     </thead>*/
-/*                                     <<tbody>*/
+/*                                     <tbody>*/
 /*                                         {% for usuario in usuarios %}*/
 /*                                             <tr>*/
 /*                                                 <td>{{ usuario.UsuarioID }}</td>*/

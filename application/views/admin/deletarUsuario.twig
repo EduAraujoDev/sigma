@@ -14,5 +14,36 @@
     </section>
 {% endblock %}
 {% block content %}
-
+    <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Dados do usuário</h3>
+                </div>
+                <form role="form" action="{{base_url}}admin/deletarUsuarioSelecionado/{{ usuario.UsuarioID }}" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="login">Nome usuário</label>
+                            <input type="text" class="form-control" id="login" name="login" placeholder="Digite o Nome" value="{{ usuario.LOGIN }}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Perfil</label>
+                            <select class="form-control" name="perfil" disabled>
+                                {% for Perfil in tiposPerfis %}
+                                    {% if Perfil.TipoPerfilID == usuario.TipoPerfil %}
+                                        <option selected="selected" value="{{ Perfil.TipoPerfilID }}">{{ Perfil.DescricaoTipoPerfis }}</option>
+                                    {% else %}
+                                        <option value="{{ Perfil.TipoPerfilID }}">{{ Perfil.DescricaoTipoPerfis }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>                        
+                        </div>                   
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Deletar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 {% endblock %}  

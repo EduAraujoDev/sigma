@@ -112,9 +112,32 @@ class Admin extends CI_Controller {
 
 	public function deletarUsuario()
 	{
-		$data = ['base_url'		=> $this->config->base_url(), 
-				 'tiposPerfis'	=> $this->perfil_model->get_tiposPerfil_all()->result()];
+		$idUsuario = $this->uri->segment(3);
 
-        $this->twig->display('admin/deletarUsuario', $data);		
+        if($idUsuario <> NULL)
+		{
+			$data = ['base_url'		=> $this->config->base_url(), 
+					 'tiposPerfis'	=> $this->perfil_model->get_tiposPerfil_all()->result(),
+					 'usuario' 		=> $this->usuario_model->get_usuario_byid($idUsuario)->row()];
+
+	        $this->twig->display('admin/deletarUsuario', $data);
+	    } else {
+	    	redirect('admin/listarUsuario','refresh');
+	    }		
+	}
+
+	public function deletarUsuarioSelecionado()
+	{
+		$idUsuario = $this->uri->segment(3);
+
+        if($idUsuario <> NULL){
+            $this->usuario_model->delete_usuario(array('UsuarioID' => $idUsuario));
+
+            $this->session->set_flashdata('usuarioOk','Usuario deletado!');
+        } else {
+            $this->session->set_flashdata('usuarioOk','Erro ao excluir usuário!');
+        }
+
+        redirect('admin/listarUsuario','refresh');
 	}	
 }
