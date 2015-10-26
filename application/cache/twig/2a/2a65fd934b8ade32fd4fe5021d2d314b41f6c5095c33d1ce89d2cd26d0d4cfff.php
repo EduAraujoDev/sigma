@@ -38,12 +38,12 @@ class __TwigTemplate_49d7828960f6a9d343360579f06356622086e85af236b93ac98bc225bdb
         // line 5
         echo "    <section class=\"content-header\">
         <h1>
-            Dashboard Administrador
+            Área Administrador
             <small>Control panel</small>
         </h1>
         <ol class=\"breadcrumb\">
             <li><a href=\"#\"><i class=\"fa fa-dashboard\"></i> Home</a></li>
-            <li class=\"active\">Dashboard Administrador</li>
+            <li class=\"active\">Área Administrador</li>
         </ol>
     </section>
 ";
@@ -571,12 +571,12 @@ class __TwigTemplate_49d7828960f6a9d343360579f06356622086e85af236b93ac98bc225bdb
 /* {% block content_header %}*/
 /*     <section class="content-header">*/
 /*         <h1>*/
-/*             Dashboard Administrador*/
+/*             Área Administrador*/
 /*             <small>Control panel</small>*/
 /*         </h1>*/
 /*         <ol class="breadcrumb">*/
 /*             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>*/
-/*             <li class="active">Dashboard Administrador</li>*/
+/*             <li class="active">Área Administrador</li>*/
 /*         </ol>*/
 /*     </section>*/
 /* {% endblock %}*/

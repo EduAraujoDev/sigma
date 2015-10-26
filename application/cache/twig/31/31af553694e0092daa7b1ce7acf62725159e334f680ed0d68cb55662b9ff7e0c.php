@@ -38,7 +38,7 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
         // line 5
         echo "    <section class=\"content-header\">
         <h1>
-            Dashboard Administrador
+            Área Administrador
             <small>Listar usuário</small>
         </h1>
         <ol class=\"breadcrumb\">
@@ -85,8 +85,14 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
             // line 37
             echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "LOGIN", array()), "html", null, true);
             echo "</td>
-                                                <td><a href=\"\">Alterar</a></td>
-                                                <td><a href=\"\">Excluir</a></td>
+                                                <td><a href=\"";
+            // line 38
+            echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
+            echo "admin/alteraUsuario/usuario.UsuarioID\">Alterar</a></td>
+                                                <td><a href=\"";
+            // line 39
+            echo twig_escape_filter($this->env, (isset($context["base_url"]) ? $context["base_url"] : null), "html", null, true);
+            echo "admin/excluiUsuario/usuario.UsuarioID\">Excluir</a></td>
                                             </tr>
                                         ";
         }
@@ -118,7 +124,7 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
 
     public function getDebugInfo()
     {
-        return array (  97 => 42,  86 => 37,  82 => 36,  79 => 35,  75 => 34,  56 => 17,  53 => 16,  39 => 5,  36 => 4,  30 => 2,  11 => 1,);
+        return array (  103 => 42,  94 => 39,  90 => 38,  86 => 37,  82 => 36,  79 => 35,  75 => 34,  56 => 17,  53 => 16,  39 => 5,  36 => 4,  30 => 2,  11 => 1,);
     }
 }
 /* {% extends "base_layout.twig" %}*/
@@ -127,7 +133,7 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
 /* {% block content_header %}*/
 /*     <section class="content-header">*/
 /*         <h1>*/
-/*             Dashboard Administrador*/
+/*             Área Administrador*/
 /*             <small>Listar usuário</small>*/
 /*         </h1>*/
 /*         <ol class="breadcrumb">*/
@@ -158,8 +164,8 @@ class __TwigTemplate_f657d495c2f241e955eee0722ed39642b73e9edeb5eee6a851f7bdf41dd
 /*                                             <tr>*/
 /*                                                 <td>{{ usuario.UsuarioID }}</td>*/
 /*                                                 <td>{{ usuario.LOGIN }}</td>*/
-/*                                                 <td><a href="">Alterar</a></td>*/
-/*                                                 <td><a href="">Excluir</a></td>*/
+/*                                                 <td><a href="{{base_url}}admin/alteraUsuario/usuario.UsuarioID">Alterar</a></td>*/
+/*                                                 <td><a href="{{base_url}}admin/excluiUsuario/usuario.UsuarioID">Excluir</a></td>*/
 /*                                             </tr>*/
 /*                                         {% endfor %}*/
 /*                                     </tbody>*/
