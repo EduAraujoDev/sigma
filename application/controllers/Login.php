@@ -1,5 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * 
+ * Controller para controle de login do sistema
+ * 
+ * @author Eduardo Araujo <eduardo.araujo0@outlook.com>
+ * @author Vitor Mantovani <email>
+ * */
 class Login extends CI_Controller 
 {
     function __construct() 
