@@ -38,7 +38,7 @@ class Login extends CI_Controller
 
             if($retorno != NULL)
             {
-                if($retorno->TipoPerfil == 1)
+                if($retorno->id_tipo_perfil == 1)
                 {
                     $tipoAcesso = 'ADMIN';
                 } else {
@@ -46,7 +46,7 @@ class Login extends CI_Controller
                 }
 
                 $data = array(
-                    'usuario' => $retorno->LOGIN,
+                    'usuario' => $retorno->login,
                     'tipoAcesso' => $tipoAcesso
                     );
 

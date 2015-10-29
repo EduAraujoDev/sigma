@@ -9,7 +9,7 @@ class Usuario_model extends CI_Model {
             $this->db->where('senha', $senha);
             $this->db->limit(1);
 
-            return $this->db->get('Usuario');
+            return $this->db->get('usuario');
         } else {
             return NULL;
         }
@@ -19,10 +19,10 @@ class Usuario_model extends CI_Model {
     {
         if($id <> NULL)
         {
-            $this->db->where('UsuarioID',$id);
+            $this->db->where('id_usuario',$id);
             $this->db->limit(1);
 
-            return $this->db->get('Usuario');
+            return $this->db->get('usuario');
         } else {
             return NULL;
         }
@@ -30,15 +30,14 @@ class Usuario_model extends CI_Model {
 
     public function get_usuario_all()
     {
-        return $this->db->get('Usuario');
+        return $this->db->get('usuario');
     }
 
     public function get_usuario_perfil()
     {
-        $this->db->select('UsuarioID, LOGIN, DescricaoTipoPerfis');
+        $this->db->select('id_usuario, login, descricao');
         $this->db->from('usuario');
-        $this->db->join('TipoPerfis', 'TipoPerfilID = TipoPerfil');
-
+        $this->db->join('tipo_perfil', 'id_tipo_perfil = id_tipo_perfil');
         return $this->db->get();
     }
 
@@ -53,7 +52,7 @@ class Usuario_model extends CI_Model {
     {
         if($dados <> null && $condicao <> NULL)
         {
-            $this->db->update('Usuario',$dados, $condicao);
+            $this->db->update('usuario',$dados, $condicao);
         }
     }
 
@@ -61,7 +60,7 @@ class Usuario_model extends CI_Model {
     {
         if($condicao <> NULL)
         {
-            $this->db->delete("Usuario",$condicao);
+            $this->db->delete("usuario",$condicao);
         }
     }
 }
