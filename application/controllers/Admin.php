@@ -56,7 +56,9 @@ class Admin extends CI_Controller {
     // Grava o usuario na base de dados
     public function incluirNovoUsuario() {
         // Validacoes de campo do formulario
+        $this->form_validation->set_rules('nome', 'nome', 'required');
         $this->form_validation->set_rules('login', 'login', 'required|is_unique[usuario.login]');
+        $this->form_validation->set_rules('email', 'email', 'required|valid_email');
         $this->form_validation->set_rules('perfil', 'perfil', 'required|is_natural');
         $this->form_validation->set_rules('senha1', 'senha2', 'required');
         $this->form_validation->set_rules('senha2', 'senha2', 'required|matches[senha1]');
@@ -64,7 +66,9 @@ class Admin extends CI_Controller {
         if ($this->form_validation->run() == TRUE) {
             // Monta um array com as informacoes do usuario
             $dados = array(
+                'nome' => $this->input->post('nome'),
                 'login' => $this->input->post('login'),
+                'email' => $this->input->post('email'),
                 'senha' => md5($this->input->post('senha1')),
                 'id_tipo_perfil' => $this->input->post('perfil')
             );
@@ -99,6 +103,8 @@ class Admin extends CI_Controller {
     // Altera as informacoes do usuario selecionado na base de dados
     public function alteraUsuarioSelecionado() {
         // Validacoes de campo do formulario
+        $this->form_validation->set_rules('nome', 'nome', 'required');
+        $this->form_validation->set_rules('email', 'email', 'required|valid_email');        
         $this->form_validation->set_rules('perfil', 'perfil', 'required|is_natural');
         $this->form_validation->set_rules('senha1', 'senha2', 'required');
         $this->form_validation->set_rules('senha2', 'senha2', 'required|matches[senha1]');
@@ -108,6 +114,8 @@ class Admin extends CI_Controller {
 
         if ($this->form_validation->run() == TRUE) {
             $dados = array(
+                'nome' => $this->input->post('nome'),
+                'email' => $this->input->post('email'),
                 'senha' => md5($this->input->post('senha1')),
                 'id_tipo_perfil' => $this->input->post('perfil')
             );

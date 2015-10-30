@@ -35,9 +35,10 @@ class Usuario_model extends CI_Model {
 
     public function get_usuario_perfil()
     {
-        $this->db->select('id_usuario, login, titulo');
+        $this->db->select(' * ');
         $this->db->from('usuario');
         $this->db->join('tipo_perfil', 'tipo_perfil.id_tipo_perfil = usuario.id_tipo_perfil');
+        $this->db->order_by('id_usuario');
         return $this->db->get();
     }
 
