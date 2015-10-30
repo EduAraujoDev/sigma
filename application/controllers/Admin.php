@@ -8,7 +8,7 @@ if (!defined('BASEPATH'))
  * Controller para usuario com perfil de administrador
  * 
  * @author Eduardo Araujo <eduardo.araujo0@outlook.com>
- * @author Vitor Mantovani <email>
+ * @author Vitor Mantovani <vtrmantovani@gmail.com>
  * */
 class Admin extends CI_Controller {
 
