@@ -22,7 +22,7 @@ CREATE TABLE `caixa` (
   `id_transacao` int(11) NOT NULL,
   `id_tipo_transacao` int(11) NOT NULL,
   `data_transacao` datetime NOT NULL,
-  `sing` smallint(6) NOT NULL,
+  `sign` smallint(6) NOT NULL,
   PRIMARY KEY (`id_caixa`),
   KEY `Fk_Caixa` (`id_tipo_transacao`),
   CONSTRAINT `Fk_Caixa` FOREIGN KEY (`id_tipo_transacao`) REFERENCES `tipo_transacao` (`id_tipo_transacao`)
