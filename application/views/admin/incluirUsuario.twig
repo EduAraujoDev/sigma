@@ -30,7 +30,7 @@
                             <label for="exampleInputEmail1">Perfil</label>
                             <select class="form-control" name="perfil">
                                 {% for Perfil in tiposPerfis %}
-                                    <option value="{{ Perfil.TipoPerfilID }}">{{ Perfil.DescricaoTipoPerfis }}</option>
+                                    <option value="{{ Perfil.id_tipo_perfil }}">{{ Perfil.titulo }}</option>
                                 {% endfor %}
                             </select>                        
                         </div>

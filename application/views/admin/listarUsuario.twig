@@ -33,12 +33,12 @@
                                     <tbody>
                                         {% for usuario in usuarios %}
                                             <tr>
-                                                <td>{{ usuario.UsuarioID }}</td>
-                                                <td>{{ usuario.LOGIN }}</td>
-                                                <td>{{ usuario.DescricaoTipoPerfis }}</td>
+                                                <td>{{ usuario.id_usuario }}</td>
+                                                <td>{{ usuario.login }}</td>
+                                                <td>{{ usuario.titulo }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}admin/alterarUsuario/{{ usuario.UsuarioID }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}admin/deletarUsuario/{{ usuario.UsuarioID }}">Excluir</a>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}admin/alterarUsuario/{{ usuario.id_usuario }}">Alterar</a>
+                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}admin/deletarUsuario/{{ usuario.id_usuario }}">Excluir</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}

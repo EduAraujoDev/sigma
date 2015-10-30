@@ -66,7 +66,7 @@ class Admin extends CI_Controller {
             $dados = array(
                 'login' => $this->input->post('login'),
                 'senha' => md5($this->input->post('senha1')),
-                'TipoPerfil' => $this->input->post('perfil')
+                'id_tipo_perfil' => $this->input->post('perfil')
             );
 
             // Altera as informacoes do usuario
@@ -109,10 +109,10 @@ class Admin extends CI_Controller {
         if ($this->form_validation->run() == TRUE) {
             $dados = array(
                 'senha' => md5($this->input->post('senha1')),
-                'TipoPerfil' => $this->input->post('perfil')
+                'id_tipo_perfil' => $this->input->post('perfil')
             );
 
-            $this->usuario_model->update_usuario($dados, array('UsuarioID' => $idUsuario));
+            $this->usuario_model->update_usuario($dados, array('id_usuario' => $idUsuario));
 
             $this->session->set_flashdata('usuarioOk', 'Usuario alterado!');
 
@@ -149,7 +149,7 @@ class Admin extends CI_Controller {
 
         if ($idUsuario <> NULL) {
             // Deleta o usuario na base de dadps
-            $this->usuario_model->delete_usuario(array('UsuarioID' => $idUsuario));
+            $this->usuario_model->delete_usuario(array('id_usuario' => $idUsuario));
 
             $this->session->set_flashdata('usuarioOk', 'Usuario deletado!');
         } else {
@@ -158,5 +158,4 @@ class Admin extends CI_Controller {
 
         redirect('admin/listarUsuario', 'refresh');
     }
-
 }

@@ -37,7 +37,7 @@ class Usuario_model extends CI_Model {
     {
         $this->db->select('id_usuario, login, titulo');
         $this->db->from('usuario');
-        $this->db->join('tipo_perfil', 'id_tipo_perfil = id_tipo_perfil');
+        $this->db->join('tipo_perfil', 'tipo_perfil.id_tipo_perfil = usuario.id_tipo_perfil');
         return $this->db->get();
     }
 
