@@ -42,7 +42,7 @@ CREATE TABLE `fornecedor` (
   `ierg` varchar(18)  NULL,
   `data_fundacao` date  NULL,
   `logradouro` varchar(100) NULL,
-  `numero` int(11)  NULL,
+  `numero` varchar(100)  NULL,
   `complemento` varchar(100)  NULL,
   `bairro` varchar(40)  NULL,
   `cidade` varchar(50)  NULL,
@@ -50,6 +50,7 @@ CREATE TABLE `fornecedor` (
   `cep` varchar(10)  NULL,
   `telefone_fixo` varchar(18) NOT NULL,
   `celular` varchar(18) NULL,
+  `email` varchar(30) NOT NULL,
   `observacoes` text,
   PRIMARY KEY (`id_fornecedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
