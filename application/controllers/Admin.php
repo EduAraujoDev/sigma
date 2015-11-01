@@ -19,6 +19,7 @@ class Admin extends CI_Controller {
         $this->load->model('perfil_model', 'perfil_model');
         $this->load->model('fornecedor_model', 'fornecedor_model');
         $this->load->model('categoria_model', 'categoria_model');
+        $this->load->model('marca_model', 'marca_model');
 
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
@@ -359,7 +360,7 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('descricao', 'descricao', 'required');
 
         if ($this->form_validation->run() == TRUE) {
-            // Monta um array com as informacoes do fornecedor
+            // Monta um array com as informacoes da categoria
             $dados = array(
                 'titulo' => $this->input->post('descricao')
             );
@@ -445,5 +446,114 @@ class Admin extends CI_Controller {
         }
 
         redirect('admin/listarCategoria', 'refresh');
-    }    
+    }
+
+    // Pagina que lista as Marcas
+    public function listarMarca(){
+        $data = ['base_url' => $this->config->base_url(),            
+            'marcas' => $this->marca_model->get_marca_all()->result()];
+
+        $this->twig->display('admin/listarMarca', $data); 
+    }
+
+    // Pagina com o formulario para inclusao da nova marca
+    public function incluirMarca() {
+        $data = ['base_url' => $this->config->base_url()];
+
+        $this->twig->display('admin/incluirMarca', $data);
+    } 
+
+    // Grava a marca na base de dados
+    public function incluirNovaMarca() {
+        // Validacoes de campo do formulario
+        $this->form_validation->set_rules('descricao', 'descricao', 'required');
+
+        if ($this->form_validation->run() == TRUE) {
+            // Monta um array com as informacoes da marca
+            $dados = array(
+                'titulo' => $this->input->post('descricao')
+            );
+
+            $this->marca_model->set_marca($dados);
+
+            $this->session->set_flashdata('marcaOk', 'Marca cadastrada!');
+
+            redirect('admin/listarMarca', 'refresh');
+        } else {
+            redirect('admin/incluirMarca', 'refresh');
+        }
+    }
+
+    // Pagina com a marca para alterar o fornecedor selecionado
+    public function alterarMarca() {
+        // Carrega variavel com o id contido na url
+        $idMarca = $this->uri->segment(3);
+
+        if ($idMarca <> NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'marca' => $this->marca_model->get_marca_byid($idMarca)->row()];
+
+            $this->twig->display('admin/alterarMarca', $data);
+        } else {
+            redirect('admin/listarMarca', 'refresh');
+        }
+    }
+
+    // Altera as informacoes da marca selecionada na base de dados
+    public function alteraMarcaSelecionada() {
+        // Validacoes de campo do formulario
+        $this->form_validation->set_rules('descricao', 'descricao', 'required');
+
+        // Carrega variavel com o id contido na url
+        $idMarca = $this->uri->segment(3);
+
+        if ($this->form_validation->run() == TRUE) {
+            $dados = array(
+                'titulo' => $this->input->post('descricao')
+            );
+
+            $this->marca_model->update_marca($dados, array('id_marca' => $idMarca));
+
+            $this->session->set_flashdata('marcaOk', 'Marca alterada!');
+
+            redirect('admin/listarMarca', 'refresh');
+        } else {
+            $data = ['base_url' => $this->config->base_url(),
+                'marca' => $this->marca_model->get_marca_byid($idMarca)->row()];
+
+            $this->twig->display('admin/alterarMarca', $data);            
+        }
+    }
+
+    // Pagina com as informacoes da marca a ser selecionado
+    public function deletarMarca() {
+        // Carrega variavel com o id contido na url
+        $idMarca = $this->uri->segment(3);
+
+        if ($idMarca <> NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'marca' => $this->marca_model->get_marca_byid($idMarca)->row()];
+
+            $this->twig->display('admin/deletarMarca', $data);
+        } else {
+            redirect('admin/listarMarca', 'refresh');
+        }
+    }
+
+    // Deleta a marca selecionado na base de dados
+    public function deletarMarcaSelecionado() {
+        // Carrega variavel com o id contido na url
+        $idMarca = $this->uri->segment(3);
+
+        if ($idMarca <> NULL) {
+            // Deleta o usuario na base de dadps
+            $this->marca_model->delete_marca(array('id_marca' => $idMarca));
+
+            $this->session->set_flashdata('marcaOk', 'Marca deletado!');
+        } else {
+            $this->session->set_flashdata('marcaOk', 'Erro ao excluir Marca!');
+        }
+
+        redirect('admin/listarMarca', 'refresh');
+    }       
 }
