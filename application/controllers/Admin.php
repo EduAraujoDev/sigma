@@ -200,6 +200,7 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('cep', 'cep', 'required');
         $this->form_validation->set_rules('telFixo', 'telFixo', 'required');
         $this->form_validation->set_rules('telCel', 'telCel', 'required');
+        $this->form_validation->set_rules('email', 'email', 'required|valid_email');
 
         if ($this->form_validation->run() == TRUE) {
             // Monta um array com as informacoes do fornecedor
@@ -218,6 +219,7 @@ class Admin extends CI_Controller {
                 'cep'           => $this->input->post('cep'),
                 'telefone_fixo' => $this->input->post('telFixo'),
                 'celular'       => $this->input->post('telCel'),
+                'email'         => $this->input->post('email'),
                 'observacoes'   => $this->input->post('obs')
             );
 
@@ -263,6 +265,7 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('cep', 'cep', 'required');
         $this->form_validation->set_rules('telFixo', 'telFixo', 'required');
         $this->form_validation->set_rules('telCel', 'telCel', 'required');
+        $this->form_validation->set_rules('email', 'email', 'required|valid_email');
 
         // Carrega variavel com o id contido na url
         $idFornecedor = $this->uri->segment(3);
@@ -283,6 +286,7 @@ class Admin extends CI_Controller {
                 'cep'           => $this->input->post('cep'),
                 'telefone_fixo' => $this->input->post('telFixo'),
                 'celular'       => $this->input->post('telCel'),
+                'email'         => $this->input->post('email'),
                 'observacoes'   => $this->input->post('obs')
             );
 
