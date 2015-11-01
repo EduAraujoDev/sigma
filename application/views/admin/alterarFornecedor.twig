@@ -1,0 +1,101 @@
+{% extends "base_layout.twig" %}
+{% block title %}Alterar Fornecedor{% endblock %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Alterar Fornecedor</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Alterar Fornecedor</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Dados do Fornecedor</h3>
+                </div>
+                <form role="form" action="{{base_url}}admin/alteraFornecedorSelecionado/{{ fornecedor.id_fornecedor }}" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome" value="{{ fornecedor.nome }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="nomeFantasia">Nome fantasia</label>
+                            <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" placeholder="Digite o Nome fantasia" value="{{ fornecedor.nome_fantasia }}" >
+                        </div>
+                        <div class="form-group">
+                            <label for="cnpj">Cnpj</label>
+                            <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite o cnpj" value="{{ fornecedor.cpf_cnpj }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="ie">Inscrição estadual</label>
+                            <input type="text" class="form-control" id="ie" name="ie" placeholder="Digite a Inscrição estadual" value="{{ fornecedor.ierg }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="dataFundacao">Data de fundação</label>
+                            <input type="text" class="form-control" id="dataFundacao" name="dataFundacao" placeholder="Digite a data de fundação" value="{{ fornecedor.data_fundacao }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="logradouro">Logradouro</label>
+                            <input type="text" class="form-control" id="logradouro" name="logradouro" placeholder="Digite o Logradouro" value="{{ fornecedor.logradouro }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="numero">Numero</label>
+                            <input type="text" class="form-control" id="numero" name="numero" placeholder="Digite o número" value="{{ fornecedor.numero }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="complemento">Complemento</label>
+                            <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Digite o complemento" value="{{ fornecedor.complemento }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Digite o bairro" value="{{ fornecedor.bairro }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="cidade">Cidade</label>
+                            <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Digite a cidade" value="{{ fornecedor.cidade }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="uf">Uf</label>
+                            <select class="form-control" name="uf">
+                                {% for UF in UFS %}
+                                    {% if UF == fornecedor.uf %}
+                                        <option selected="selected" value="{{ UF }}">{{ UF }}</option>
+                                    {% else %}
+                                        <option value="{{ UF }}">{{ UF }}</option>
+                                    {% endif %}                                    
+                                {% endfor %}
+                            </select>                        
+                        </div>
+                        <div class="form-group">
+                            <label for="cep">CEP</label>
+                            <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite o CEP" value="{{ fornecedor.cep }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="telFixo">Telefone Fixo</label>
+                            <input type="text" class="form-control" id="telFixo" name="telFixo" placeholder="Digite o telefone fixo" value="{{ fornecedor.telefone_fixo }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="telCel">Celular</label>
+                            <input type="text" class="form-control" id="telCel" name="telCel" placeholder="Digite o celular" value="{{ fornecedor.celular }}" >
+                        </div>
+                        <div class="form-group">
+                            <label for="obs">Observações</label>
+                            <textarea class="form-control" id="obs" name="obs" placeholder="Observações">{{ fornecedor.observacoes }}</textarea>                            
+                        </div>                        
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Alterar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
