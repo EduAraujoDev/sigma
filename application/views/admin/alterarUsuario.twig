@@ -20,20 +20,28 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do usuário</h3>
                 </div>
-                <form role="form" action="{{base_url}}admin/alteraUsuarioSelecionado/{{ usuario.UsuarioID }}" method="post">
+                <form role="form" action="{{base_url}}admin/alteraUsuarioSelecionado/{{ usuario.id_usuario }}" method="post">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="login">Nome usuário</label>
-                            <input type="text" class="form-control" id="login" name="login" placeholder="Digite o Nome" value="{{ usuario.LOGIN }}" disabled>
+                            <label for="login">Login</label>
+                            <input type="text" class="form-control" id="login" name="login" placeholder="Digite o login" value="{{ usuario.login }}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="nome">Nome usuário</label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o Nome" value="{{ usuario.nome }}">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite o email" value="{{ usuario.email }}">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Perfil</label>
                             <select class="form-control" name="perfil">
                                 {% for Perfil in tiposPerfis %}
-                                    {% if Perfil.TipoPerfilID == usuario.TipoPerfil %}
-                                        <option selected="selected" value="{{ Perfil.TipoPerfilID }}">{{ Perfil.DescricaoTipoPerfis }}</option>
+                                    {% if Perfil.id_tipo_perfil == usuario.id_tipo_perfil %}
+                                        <option selected="selected" value="{{ Perfil.id_tipo_perfil }}">{{ Perfil.titulo }}</option>
                                     {% else %}
-                                        <option value="{{ Perfil.TipoPerfilID }}">{{ Perfil.DescricaoTipoPerfis }}</option>
+                                        <option value="{{ Perfil.id_tipo_perfil }}">{{ Perfil.titulo }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>                        
@@ -54,4 +62,4 @@
             </div>
         </div>
     </section>
-{% endblock %} 
+{% endblock %}

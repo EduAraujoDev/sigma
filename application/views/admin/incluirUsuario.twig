@@ -23,14 +23,22 @@
                 <form role="form" action="{{base_url}}admin/incluirNovoUsuario" method="post">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="login">Nome usuário</label>
-                            <input type="text" class="form-control" id="login" name="login" placeholder="Digite o Nome">
+                            <label for="login">Login</label>
+                            <input type="text" class="form-control" id="login" name="login" placeholder="Digite o login">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome">Nome usuário</label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o Nome">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite o email">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Perfil</label>
                             <select class="form-control" name="perfil">
                                 {% for Perfil in tiposPerfis %}
-                                    <option value="{{ Perfil.TipoPerfilID }}">{{ Perfil.DescricaoTipoPerfis }}</option>
+                                    <option value="{{ Perfil.id_tipo_perfil }}">{{ Perfil.titulo }}</option>
                                 {% endfor %}
                             </select>                        
                         </div>
