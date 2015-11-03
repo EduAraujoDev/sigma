@@ -1,0 +1,77 @@
+{% extends "base_layout.twig" %}
+{% block title %}Alterar Produto{% endblock %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Alterar Produto</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Alterar Produto</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Dados do Produto</h3>
+                </div>
+                <form role="form" action="{{base_url}}admin/alteraProdutoSelecionado/{{ produto.id_produto }}" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="nome">Descrição</label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite a descrição do produto" value="{{ produto.nome }}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantEstoque">Quantidade em estoque</label>
+                            <input type="number" class="form-control" id="quantEstoque" name="quantEstoque" min="0" value="{{ produto.quantidade_estoque }}">
+                        </div>                        
+                        <div class="form-group">
+                            <label for="quantReservada">Quantidade reservada</label>
+                            <input type="number" class="form-control" id="quantReservada" name="quantReservada" min="0" value="{{ produto.quantidade_reservada }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="valorCusto">Valor Custo</label>
+                            <input type="number" class="form-control" id="valorCusto" name="valorCusto" min="0" value="{{ produto.valor_custo }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="valorVenda">Valor Venda</label>
+                            <input type="number" class="form-control" id="valorVenda" name="valorVenda" min="0" value="{{ produto.valor_venda }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Marca</label>
+                            <select class="form-control" name="marca">
+                                {% for marca in marcas %}
+                                    {% if marca.id_marca == produto.id_marca %}
+                                        <option selected="selected" value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
+                                    {% else %}
+                                        <option value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Categoria</label>
+                            <select class="form-control" name="categoria">
+                                {% for categoria in categorias %}
+                                    {% if categoria.id_categoria == produto.id_categoria %}
+                                        <option selected="selected" value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                    {% else %}
+                                        <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                    {% endif %}                                    
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Alterar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

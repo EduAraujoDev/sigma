@@ -1,0 +1,69 @@
+{% extends "base_layout.twig" %}
+{% block title %}Novo Produto{% endblock %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Novo Produto</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Novo Produto</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Dados do Produto</h3>
+                </div>
+                <form role="form" action="{{base_url}}admin/incluirNovoProduto" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="nome">Descrição</label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite a descrição do produto">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantEstoque">Quantidade em estoque</label>
+                            <input type="number" class="form-control" id="quantEstoque" name="quantEstoque" min="0" value=0>
+                        </div>                        
+                        <div class="form-group">
+                            <label for="quantReservada">Quantidade reservada</label>
+                            <input type="number" class="form-control" id="quantReservada" name="quantReservada" min="0" value=0>
+                        </div>
+                        <div class="form-group">
+                            <label for="valorCusto">Valor Custo</label>
+                            <input type="number" class="form-control" id="valorCusto" name="valorCusto" min="0" value=0>
+                        </div>
+                        <div class="form-group">
+                            <label for="valorVenda">Valor Venda</label>
+                            <input type="number" class="form-control" id="valorVenda" name="valorVenda" min="0" value=0>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Marca</label>
+                            <select class="form-control" name="marca">
+                                {% for marca in marcas %}
+                                    <option value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Categoria</label>
+                            <select class="form-control" name="categoria">
+                                {% for categoria in categorias %}
+                                    <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
