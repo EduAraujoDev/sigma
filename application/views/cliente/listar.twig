@@ -1,0 +1,66 @@
+{% extends "base_layout.twig" %}
+{% block title %}Listar Clientes{% endblock %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Listar Clientes</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Listar Clientes</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <form role="form" action="{{base_url}}cliente/buscar" method="GET">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            <input type="text" name="busca" class="form-control" placeholder="CPF ou CNPJ">
+                            <span class="input-group-addon"><input type="submit"  value="buscar"></span>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Nome</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">CPF / CNPJ</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Email</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Celular</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for cliente in clientes %}
+                                            <tr>
+                                                <td>{{ cliente.nome }}</td>
+                                                <td>{{ cliente.cpf_cnpj }}</td>
+                                                <td>{{ cliente.email }}</td>
+                                                <td>{{ cliente.celular }}</td>
+                                                <td>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}cliente/editar/{{ cliente.id_cliente }}">Alterar</a>
+                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}cliente/deletar/{{ cliente.id_cliente }}">Excluir</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <a class="btn btn-primary btn-lg" href="{{base_url}}cliente/novo">Incluir</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}	

@@ -175,6 +175,7 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) NOT NULL,
+  `email` varchar(100) NULL,
   `cpf_cnpj` varchar(80) NULL,
   `data_nascimento` date NULL,
   `logradouro` varchar(100)  NULL,
