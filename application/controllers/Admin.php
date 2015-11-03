@@ -20,6 +20,7 @@ class Admin extends CI_Controller {
         $this->load->model('fornecedor_model', 'fornecedor_model');
         $this->load->model('categoria_model', 'categoria_model');
         $this->load->model('marca_model', 'marca_model');
+        $this->load->model('produto_model', 'produto_model');
 
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
@@ -555,5 +556,144 @@ class Admin extends CI_Controller {
         }
 
         redirect('admin/listarMarca', 'refresh');
-    }       
+    }
+
+    // Pagina que lista os produtos
+    public function listarProduto(){
+        $data = ['base_url' => $this->config->base_url(),
+            'produtos' => $this->produto_model->get_produto_all()->result()];
+
+        $this->twig->display('admin/listarProduto', $data);
+    }
+
+    // Pagina com o formulario para inclusao do novo produto
+    public function incluirProduto() {
+        $data = ['base_url' => $this->config->base_url(),
+            'categorias' => $this->categoria_model->get_categoria_all()->result(),
+            'marcas' => $this->marca_model->get_marca_all()->result()];
+
+        $this->twig->display('admin/incluirProduto', $data);
+    }
+
+    // Grava o produto na base de dados
+    public function incluirNovoProduto() {
+        // Validacoes de campo do formulario
+        $this->form_validation->set_rules('nome', 'nome', 'required');
+        $this->form_validation->set_rules('quantEstoque', 'quantEstoque', 'required');
+        $this->form_validation->set_rules('quantReservada', 'quantReservada', 'required');
+        $this->form_validation->set_rules('valorCusto', 'valorCusto', 'required');
+        $this->form_validation->set_rules('valorVenda', 'valorVenda', 'required');
+        $this->form_validation->set_rules('marca', 'marca', 'required|is_natural');
+        $this->form_validation->set_rules('categoria', 'categoria', 'required|is_natural');
+
+        if ($this->form_validation->run() == TRUE) {
+            // Monta um array com as informacoes da marca
+            $dados = array(
+                'nome' => $this->input->post('nome'),
+                'quantidade_estoque' => $this->input->post('quantEstoque'),
+                'quantidade_reservada' => $this->input->post('quantReservada'),
+                'valor_custo' => $this->input->post('valorCusto'),
+                'valor_venda' => $this->input->post('valorVenda'),
+                'id_categoria' => $this->input->post('categoria'),
+                'id_marca' => $this->input->post('marca')
+            );
+
+            $this->produto_model->set_produto($dados);
+
+            $this->session->set_flashdata('produtoOk', 'Produto cadastrado!');
+
+            redirect('admin/listarProduto', 'refresh');
+        } else {
+            redirect('admin/incluirProduto', 'refresh');
+        }
+    }
+
+    // Pagina com a marca para alterar o produto selecionado
+    public function alterarProduto() {
+        // Carrega variavel com o id contido na url
+        $idProduto = $this->uri->segment(3);
+
+        if ($idProduto <> NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'categorias' => $this->categoria_model->get_categoria_all()->result(),
+                'marcas' => $this->marca_model->get_marca_all()->result(),
+                'produto' => $this->produto_model->get_produto_byid($idProduto)->row()];
+
+            $this->twig->display('admin/alterarProduto', $data);
+        } else {
+            redirect('admin/listarProduto', 'refresh');
+        }
+    }
+
+    // Altera as informacoes do produto selecionada na base de dados
+    public function alteraProdutoSelecionado() {
+        // Validacoes de campo do formulario
+        $this->form_validation->set_rules('quantEstoque', 'quantEstoque', 'required');
+        $this->form_validation->set_rules('quantReservada', 'quantReservada', 'required');
+        $this->form_validation->set_rules('valorCusto', 'valorCusto', 'required');
+        $this->form_validation->set_rules('valorVenda', 'valorVenda', 'required');
+        $this->form_validation->set_rules('marca', 'marca', 'required|is_natural');
+        $this->form_validation->set_rules('categoria', 'categoria', 'required|is_natural');
+
+        // Carrega variavel com o id contido na url
+        $idProduto = $this->uri->segment(3);
+
+        if ($this->form_validation->run() == TRUE) {
+            $dados = array(
+                'quantidade_estoque' => $this->input->post('quantEstoque'),
+                'quantidade_reservada' => $this->input->post('quantReservada'),
+                'valor_custo' => $this->input->post('valorCusto'),
+                'valor_venda' => $this->input->post('valorVenda'),
+                'id_categoria' => $this->input->post('categoria'),
+                'id_marca' => $this->input->post('marca')
+            );
+
+            $this->produto_model->update_produto($dados, array('id_produto' => $idProduto));
+
+            $this->session->set_flashdata('produtoOk', 'Produto alterado!');
+
+            redirect('admin/listarProduto', 'refresh');
+        } else {
+            $data = ['base_url' => $this->config->base_url(),
+                'categorias' => $this->categoria_model->get_categoria_all()->result(),
+                'marcas' => $this->marca_model->get_marca_all()->result(),
+                'produto' => $this->produto_model->get_produto_byid($idProduto)->row()];
+
+            $this->twig->display('admin/alterarProduto', $data);       
+        }
+    }
+
+    // Pagina com as informacoes do produto a ser selecionado
+    public function deletarProduto() {
+        // Carrega variavel com o id contido na url
+        $idProduto = $this->uri->segment(3);
+
+        if ($idProduto <> NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'categorias' => $this->categoria_model->get_categoria_all()->result(),
+                'marcas' => $this->marca_model->get_marca_all()->result(),
+                'produto' => $this->produto_model->get_produto_byid($idProduto)->row()];
+
+            $this->twig->display('admin/deletarProduto', $data);
+        } else {
+            redirect('admin/listarProduto', 'refresh');
+        }
+    }
+
+    // Deleta o produto selecionado na base de dados
+    public function deletarProdutoSelecionado() {
+        // Carrega variavel com o id contido na url
+        $idProduto = $this->uri->segment(3);
+
+        if ($idProduto <> NULL) {
+            // Deleta o usuario na base de dadps
+            $this->produto_model->delete_produto(array('id_produto' => $idProduto));
+
+            $this->session->set_flashdata('produtoOk', 'Produto deletado!');
+        } else {
+            $this->session->set_flashdata('produtoOk', 'Erro ao excluir Produto!');
+        }
+
+        redirect('admin/listarProduto', 'refresh');
+    }    
 }

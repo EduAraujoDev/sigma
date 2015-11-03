@@ -1,0 +1,63 @@
+{% extends "base_layout.twig" %}
+{% block title %}Listar Produto{% endblock %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Listar Produto</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Listar Produto</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Id</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Descrição</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Quant. estoque</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Quant. reserva</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Valor custo</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Valor venda</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produto in produtos %}
+                                            <tr>
+                                                <td>{{ produto.id_produto }}</td>
+                                                <td>{{ produto.nome }}</td>
+                                                <td>{{ produto.quantidade_estoque }}</td>
+                                                <td>{{ produto.quantidade_reservada }}</td>
+                                                <td>{{ produto.valor_custo }}</td>
+                                                <td>{{ produto.valor_venda }}</td>
+                                                <td>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}admin/alterarProduto/{{ produto.id_produto }}">Alterar</a>
+                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}admin/deletarProduto/{{ produto.id_produto }}">Excluir</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <a class="btn btn-primary btn-lg" href="{{base_url}}admin/incluirProduto">Incluir</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}  
