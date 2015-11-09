@@ -3,6 +3,13 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
+/**
+ * 
+ * Controller para o cliente
+ * 
+ * @author Eduardo Araujo <eduardo.araujo0@outlook.com>
+ * @author Vitor Mantovani <vtrmantovani@gmail.com>
+ * */
 class Cliente extends CI_Controller {
 
     public function __construct() {
