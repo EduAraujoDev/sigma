@@ -3,6 +3,13 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
+/**
+ * 
+ * Controller para o fornecedor
+ * 
+ * @author Eduardo Araujo <eduardo.araujo0@outlook.com>
+ * @author Vitor Mantovani <vtrmantovani@gmail.com>
+ * */
 class Fornecedor extends CI_Controller {
 
     public function __construct() {
@@ -48,7 +55,7 @@ class Fornecedor extends CI_Controller {
                 'nome_fantasia' => $this->input->post('nomeFantasia'),
                 'cpf_cnpj' => $this->input->post('cnpj'),
                 'ierg' => $this->input->post('ie'),
-                'data_fundacao' => $this->input->post('logradouro'),
+                'data_fundacao' => $this->input->post('dataFundacao'),
                 'logradouro' => $this->input->post('logradouro'),
                 'numero' => $this->input->post('numero'),
                 'complemento' => $this->input->post('complemento'),
@@ -99,7 +106,7 @@ class Fornecedor extends CI_Controller {
                     'nome_fantasia' => $this->input->post('nomeFantasia'),
                     'cpf_cnpj' => $this->input->post('cnpj'),
                     'ierg' => $this->input->post('ie'),
-                    'data_fundacao' => $this->input->post('logradouro'),
+                    'data_fundacao' => $this->input->post('dataFundacao'),
                     'logradouro' => $this->input->post('logradouro'),
                     'numero' => $this->input->post('numero'),
                     'complemento' => $this->input->post('complemento'),
