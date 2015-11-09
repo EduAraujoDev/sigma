@@ -20,7 +20,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Fornecedor</h3>
                 </div>
-                <form role="form" action="{{base_url}}admin/incluirNovoFornecedor" method="post">
+                <form role="form" action="{{base_url}}fornecedor/adicionar" method="post">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="nome">Nome</label>
@@ -41,6 +41,10 @@
                         <div class="form-group">
                             <label for="dataFundacao">Data de fundação</label>
                             <input type="text" class="form-control" id="dataFundacao" name="dataFundacao" placeholder="Digite a data de fundação">
+                        </div>
+                        <div class="form-group">
+                            <label for="cep">CEP</label>
+                            <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite o CEP">
                         </div>
                         <div class="form-group">
                             <label for="logradouro">Logradouro</label>
@@ -69,10 +73,6 @@
                                     <option value="{{ UF }}">{{ UF }}</option>
                                 {% endfor %}
                             </select>                        
-                        </div>
-                        <div class="form-group">
-                            <label for="cep">CEP</label>
-                            <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite o CEP">
                         </div>
                         <div class="form-group">
                             <label for="telFixo">Telefone Fixo</label>

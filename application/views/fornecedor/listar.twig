@@ -45,8 +45,8 @@
                                                 <td>{{ fornecedor.cidade }}</td>
                                                 <td>{{ fornecedor.uf }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}admin/alterarFornecedor/{{ fornecedor.id_fornecedor }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}admin/deletarFornecedor/{{ fornecedor.id_fornecedor }}">Excluir</a>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}fornecedor/editar/{{ fornecedor.id_fornecedor }}">Alterar</a>
+                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}fornecedor/deletar/{{ fornecedor.id_fornecedor }}">Excluir</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a class="btn btn-primary btn-lg" href="{{base_url}}admin/incluirFornecedor">Incluir</a>
+                    <a class="btn btn-primary btn-lg" href="{{base_url}}fornecedor/novo">Incluir</a>
                 </div>
             </div>
         </div>
