@@ -56,7 +56,7 @@ class Cliente extends CI_Controller {
         $this->twig->display('cliente/novo', $data);
     }
 
-    //Adicona novo clinete
+    //Adicona novo cliente
     public function adicionar() {
         // Validacoes de campo do formulario
         $validacao_formulario = $this->validarformularioCliente();

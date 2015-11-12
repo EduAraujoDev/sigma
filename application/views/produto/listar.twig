@@ -43,8 +43,8 @@
                                                 <td>{{ produto.valor_custo }}</td>
                                                 <td>{{ produto.valor_venda }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}admin/alterarProduto/{{ produto.id_produto }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}admin/deletarProduto/{{ produto.id_produto }}">Excluir</a>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}produto/editar/{{ produto.id_produto }}">Alterar</a>
+                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}produto/deletar/{{ produto.id_produto }}">Excluir</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a class="btn btn-primary btn-lg" href="{{base_url}}admin/incluirProduto">Incluir</a>
+                    <a class="btn btn-primary btn-lg" href="{{base_url}}produto/novo">Incluir</a>
                 </div>
             </div>
         </div>

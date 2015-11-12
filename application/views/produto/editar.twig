@@ -20,11 +20,11 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Produto</h3>
                 </div>
-                <form role="form" action="{{base_url}}admin/alteraProdutoSelecionado/{{ produto.id_produto }}" method="post">
+                <form role="form" action="{{base_url}}produto/atualizar/{{ produto.id_produto }}" method="post">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="nome">Descrição</label>
-                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite a descrição do produto" value="{{ produto.nome }}" disabled>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite a descrição do produto" value="{{ produto.nome }}">
                         </div>
                         <div class="form-group">
                             <label for="quantEstoque">Quantidade em estoque</label>
