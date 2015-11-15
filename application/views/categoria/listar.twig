@@ -35,8 +35,8 @@
                                                 <td>{{ categoria.id_categoria }}</td>
                                                 <td>{{ categoria.titulo }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}admin/alterarCategoria/{{ categoria.id_categoria }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}admin/deletarCategoria/{{ categoria.id_categoria }}">Excluir</a>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}categoria/editar/{{ categoria.id_categoria }}">Alterar</a>
+                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}categoria/deletar/{{ categoria.id_categoria }}">Excluir</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a class="btn btn-primary btn-lg" href="{{base_url}}admin/incluirCategoria">Incluir</a>
+                    <a class="btn btn-primary btn-lg" href="{{base_url}}categoria/novo">Incluir</a>
                 </div>
             </div>
         </div>
