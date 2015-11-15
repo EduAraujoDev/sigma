@@ -1,15 +1,15 @@
 {% extends "base_layout.twig" %}
-{% block title %}Novo Marca{% endblock %}
+{% block title %}Alterar Marca{% endblock %}
 
 {% block content_header %}
     <section class="content-header">
         <h1>
             Área Administrador
-            <small>Novo Marca</small>
+            <small>Alterar Marca</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Novo Marca</li>
+            <li class="active">Alterar Marca</li>
         </ol>
     </section>
 {% endblock %}
@@ -20,15 +20,15 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Marca</h3>
                 </div>
-                <form role="form" action="{{base_url}}admin/incluirNovaMarca" method="post">
+                <form role="form" action="{{base_url}}marca/atualizar/{{ marca.id_marca }}" method="post">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="descricao">Descrição</label>
-                            <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a marca">
-                        </div>                      
+                            <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a marca" value="{{ marca.titulo }}">
+                        </div>                       
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="submit" class="btn btn-primary">Alterar</button>
                     </div>
                 </form>
             </div>

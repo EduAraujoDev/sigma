@@ -35,8 +35,8 @@
                                                 <td>{{ marca.id_marca }}</td>
                                                 <td>{{ marca.titulo }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}admin/alterarMarca/{{ marca.id_marca }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}admin/deletarMarca/{{ marca.id_marca }}">Excluir</a>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}marca/editar/{{ marca.id_marca }}">Alterar</a>
+                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}marca/deletar/{{ marca.id_marca }}">Excluir</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a class="btn btn-primary btn-lg" href="{{base_url}}admin/incluirMarca">Incluir</a>
+                    <a class="btn btn-primary btn-lg" href="{{base_url}}marca/novo">Incluir</a>
                 </div>
             </div>
         </div>
