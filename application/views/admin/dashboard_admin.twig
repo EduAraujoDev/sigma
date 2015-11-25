@@ -20,11 +20,17 @@
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
+                    <span class="info-box-icon bg-aqua">
+                        <a href="{{base_url}}cliente/listar" style="color: #fff;">
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Clientes</span>
-                        <span class="info-box-number">1,410</span>
+                        <a href="{{base_url}}cliente/listar" style="color: #000;">
+                            <span class="info-box-text">Clientes</span>
+                            <span class="info-box-number">1,410</span>
+                        </a>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -33,11 +39,17 @@
             <!-- /.col -->
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-green"><i class="fa fa-wrench"></i></span>
+                    <span class="info-box-icon bg-green">
+                        <a href="{{base_url}}servico/listar" style="color: #fff;">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                    </span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Serviços</span>
-                        <span class="info-box-number">410</span>
+                        <a href="{{base_url}}servico/listar" style="color: #000;">
+                            <span class="info-box-text">Serviços</span>
+                            <span class="info-box-number">410</span>
+                        </a>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -46,80 +58,116 @@
             <!-- /.col -->
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-yellow"><i><img src="public/dist/img/icons/produtos-sigma.png" alt="produtos"></i></span>
+                    <span class="info-box-icon bg-yellow">
+                        <a href="{{base_url}}produto/listar" style="color: #fff;">
+                            <i><img src="{{base_url}}public/dist/img/icons/produtos-sigma.png" alt="produtos"></i>
+                        </a>
+                    </span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Produtos</span>
-                        <span class="info-box-number">13,648</span>
+                        <a href="{{base_url}}produto/listar" style="color: #000;">
+                            <span class="info-box-text">Produtos</span>
+                            <span class="info-box-number">13,648</span>
+                        </a>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
                 <!-- /.info-box -->
             </div>
             <!-- /.col -->
-            <div class="col-md-3 col-sm-6 col-xs-12">
+{#            <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-file-text-o"></i></span>
+                    <span class="info-box-icon bg-red">
+                        <a href="#" style="color: #fff;">
+                            <i class="fa fa-file-text-o"></i>
+                        </a>
+                    </span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Orçamentos</span>
-                        <span class="info-box-number">93,139</span>
+                        <a href="#" style="color: #000;">
+                            <span class="info-box-text">Orçamentos</span>
+                            <span class="info-box-number">93,139</span>
+                        </a>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
                 <!-- /.info-box -->
-            </div>
+            </div>#}
             <!-- /.col -->
 
-            <div class="col-md-3 col-sm-6 col-xs-12">
+            {#           <div class="col-md-3 col-sm-6 col-xs-12">
+                           <div class="info-box">
+                               <span class="info-box-icon bg-red">
+                                   <a href="#" style="color: #fff;">
+                                       <i class="fa fa-list-alt"></i>
+                                   </a>
+                               </span>
+           
+                               <div class="info-box-content">
+                                   <a href="#" style="color: #000;">
+                                       <span class="info-box-text">Ordens de Serviço</span>
+                                       <span class="info-box-number">93,139</span>
+                                   </a>
+                               </div>
+                               <!-- /.info-box-content -->
+                           </div>
+                           <!-- /.info-box -->
+                       </div>#}
+            <!-- /.col -->
+
+{#            <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-list-alt"></i></span>
+                    <span class="info-box-icon bg-red">
+                        <a href="#" style="color: #fff;">
+                            <img alt="produtos" src="/public/dist/img/icons/despesas-sigma.png">
+                        </a>
+                    </span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Ordens de Serviço</span>
-                        <span class="info-box-number">93,139</span>
+                        <a href="#" style="color: #000;">
+                            <span class="info-box-text">Despesas</span>
+                            <span class="info-box-number">93,139</span>
+                        </a>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
                 <!-- /.info-box -->
-            </div>
+            </div>#}
             <!-- /.col -->
 
-            <div class="col-md-3 col-sm-6 col-xs-12">
+{#            <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-red"><img alt="produtos" src="/public/dist/img/icons/despesas-sigma.png"></span>
+                    <span class="info-box-icon bg-red"
+                          <a href="#" style="color: #fff;">
+                            <img src="public/dist/img/icons/pedidos-sigma.png" alt="pedidos de compra">
+                        </a>
+                    </span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Despesas</span>
-                        <span class="info-box-number">93,139</span>
+                        <a href="#" style="color: #000;">
+                            <span class="info-box-text">Pedidos de<br/> compra</span>
+                            <span class="info-box-number">93,139</span>
+                        </a>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
                 <!-- /.info-box -->
-            </div>
+            </div>#}
             <!-- /.col -->
 
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-red"><img src="public/dist/img/icons/pedidos-sigma.png" alt="pedidos de compra"></i></span>
+                    <span class="info-box-icon bg-red">
+                        <a href="{{base_url}}fornecedor/listar" style="color: #fff;">
+                            <i class="fa fa-truck"></i>
+                        </a>
+                    </span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Pedidos de<br/> compra</span>
-                        <span class="info-box-number">93,139</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-truck"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Fornecedores</span>
-                        <span class="info-box-number">93,139</span>
+                        <a href="{{base_url}}fornecedor/listar" style="color: #000;">
+                            <span class="info-box-text">Fornecedores</span>
+                            <span class="info-box-number">93,139</span>
+                        </a>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

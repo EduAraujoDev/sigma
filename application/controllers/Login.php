@@ -36,6 +36,9 @@ class Login extends CI_Controller {
             $usuario = $this->input->post('usuario');
             $senha = md5($this->input->post('senha'));
 
+            // echo $senha;
+            // die;
+
             $retorno = $this->usuario_model->get_usuario_bypwd($usuario, $senha)->row();
 
             if ($retorno != NULL) {
