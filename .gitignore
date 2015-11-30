@@ -1,4 +1,5 @@
-application/cache/
 .DS_Store
+application/cache/
+application/config/database.php
 /nbproject
 vendor/
