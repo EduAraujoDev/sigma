@@ -40,5 +40,13 @@ class Fornecedor_model extends CI_Model {
         {
             $this->db->delete("fornecedor",$condicao);
         }
-    }    
+    }
+
+    public function delete_logical_fornecedor($condicao=NULL)
+    {
+        if($condicao <> NULL)
+        {
+            $this->db->update('fornecedor', array('deletado' => 1), $condicao);
+        }
+    }
 }

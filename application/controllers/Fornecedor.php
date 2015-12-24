@@ -66,6 +66,7 @@ class Fornecedor extends CI_Controller {
                 'telefone_fixo' => $this->input->post('telFixo'),
                 'celular' => $this->input->post('telCel'),
                 'email' => $this->input->post('email'),
+                'deletado' => 0,
                 'observacoes' => $this->input->post('obs')
             );
 
@@ -130,7 +131,8 @@ class Fornecedor extends CI_Controller {
     public function deletar() {
         $fornecedor_id = $this->uri->segment(3);
         if ($fornecedor_id != null) {
-            $this->fornecedor_model->delete_fornecedor(array('id_fornecedor' => $fornecedor_id));
+            //$this->fornecedor_model->delete_fornecedor(array('id_fornecedor' => $fornecedor_id));
+            $this->fornecedor_model->delete_logical_fornecedor(array('id_fornecedor' => $fornecedor_id));
         }
         redirect('fornecedor/listar', 'refresh');
     }
