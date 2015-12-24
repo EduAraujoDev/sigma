@@ -48,7 +48,8 @@ class Marca extends CI_Controller {
         if ($validacao_formulario->run() == TRUE) {
             // Monta um array com as informacoes da marca
             $dados = array(
-                'titulo' => $this->input->post('descricao')
+                'titulo' => $this->input->post('descricao'),
+                'deletado' => 0
             );
             $this->marca_model->set_marca($dados);
             redirect('marca/listar', 'refresh');
@@ -95,7 +96,8 @@ class Marca extends CI_Controller {
         // Carrega variavel com o id contido na url
         $marca_id = $this->uri->segment(3);
         if ($marca_id != NULL) {
-            $this->marca_model->delete_marca(array('id_marca' => $marca_id));
+            //$this->marca_model->delete_marca(array('id_marca' => $marca_id));
+            $this->marca_model->delete_logical_marca(array('id_marca' => $marca_id));
         }
         redirect('marca/listar', 'refresh');
     }

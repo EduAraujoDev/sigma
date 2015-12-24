@@ -41,4 +41,12 @@ class Marca_model extends CI_Model {
             $this->db->delete("produto_marca",$condicao);
         }
     }  	
+
+    public function delete_logical_marca($condicao=NULL)
+    {
+        if($condicao <> NULL)
+        {
+            $this->db->update('produto_marca', array('deletado' => 1), $condicao);
+        }
+    }    
 }
