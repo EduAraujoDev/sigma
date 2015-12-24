@@ -48,7 +48,8 @@ class Categoria extends CI_Controller {
         if ($validacao_formulario->run() == TRUE) {
             // Monta um array com as informacoes da categoria
             $dados = array(
-                'titulo' => $this->input->post('descricao')
+                'titulo' => $this->input->post('descricao'),
+                'deletado' => 0
             );
             $this->categoria_model->set_categoria($dados);
             redirect('categoria/listar', 'refresh');
@@ -93,7 +94,8 @@ class Categoria extends CI_Controller {
         $categoria_id = $this->uri->segment(3);
         if ($categoria_id != NULL) {
             // Deleta a categotia na base de dadps
-            $this->categoria_model->delete_categoria(array('id_Categoria' => $categoria_id));
+            //$this->categoria_model->delete_categoria(array('id_Categoria' => $categoria_id));
+            $this->categoria_model->delete_logical_categoria(array('id_Categoria' => $categoria_id));
         }
         redirect('categoria/listar', 'refresh');
     }

@@ -40,5 +40,13 @@ class Categoria_model extends CI_Model {
         {
             $this->db->delete("produto_categoria",$condicao);
         }
-    }  	
+    }
+
+    public function delete_logical_categoria($condicao=NULL)
+    {
+        if($condicao <> NULL)
+        {
+            $this->db->update('produto_categoria', array('deletado' => 1), $condicao);
+        }
+    }    
 }
