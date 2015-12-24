@@ -23,6 +23,7 @@ CREATE TABLE `fornecedor` (
   `cep` varchar(10)  NULL,
   `telefone_fixo` varchar(18) NOT NULL,
   `celular` varchar(18) NULL,
+  `email` varchar(30) NOT NULL,
   `observacoes` text,
   `deletado` TINYINT(1),
   PRIMARY KEY (`id_fornecedor`)
