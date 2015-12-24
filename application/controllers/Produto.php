@@ -59,7 +59,8 @@ class Produto extends CI_Controller {
                 'valor_custo' => $this->input->post('valorCusto'),
                 'valor_venda' => $this->input->post('valorVenda'),
                 'id_categoria' => $this->input->post('categoria'),
-                'id_marca' => $this->input->post('marca')
+                'id_marca' => $this->input->post('marca'),
+                'deletado' => 0
             );
 
             $this->produto_model->set_produto($dados);
@@ -117,7 +118,8 @@ class Produto extends CI_Controller {
         $produto_id = $this->uri->segment(3);
 
         if ($produto_id != NULL) {
-            $this->produto_model->delete_produto(array('id_produto' => $produto_id));
+            //$this->produto_model->delete_produto(array('id_produto' => $produto_id));
+            $this->produto_model->delete_logical_produto(array('id_produto' => $produto_id));
         }
         redirect('produto/listar', 'refresh');
     }

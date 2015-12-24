@@ -48,5 +48,13 @@ class Produto_model extends CI_Model {
         {
             $this->db->delete("produto",$condicao);
         }
-    }  	
+    }
+
+    public function delete_logical_produto($condicao=NULL)
+    {
+        if($condicao <> NULL)
+        {
+            $this->db->update('produto', array('deletado' => 1), $condicao);
+        }
+    }    
 }
