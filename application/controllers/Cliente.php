@@ -77,6 +77,7 @@ class Cliente extends CI_Controller {
                 'complemento' => $this->input->post('complemento'),
                 'telefone_residencial' => $this->input->post('telefone_residencial'),
                 'celular' => $this->input->post('celular'),
+                'deletado' => 0,
                 'observacoes' => $this->input->post('observacoes')
             );
 
@@ -141,7 +142,8 @@ class Cliente extends CI_Controller {
     public function deletar() {
         $id_cliente = $this->uri->segment(3);
         if ($id_cliente != null) {
-            $this->cliente_model->delete_cliente($id_cliente);
+            //$this->cliente_model->delete_cliente($id_cliente);
+            $this->cliente_model->delete_logical_cliente(array('id_cliente' => $id_cliente));
         }
         redirect('cliente/listar', 'refresh');
     }

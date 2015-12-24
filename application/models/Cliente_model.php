@@ -32,4 +32,11 @@ class Cliente_model extends CI_Model {
         $this->db->delete('cliente', array('id_cliente' => $id_cliente));
     }
 
+    public function delete_logical_cliente($condicao=NULL)
+    {
+        if($condicao <> NULL)
+        {
+            $this->db->update('cliente', array('deletado' => 1), $condicao);
+        }
+    }
 }
