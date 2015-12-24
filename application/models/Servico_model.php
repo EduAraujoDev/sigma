@@ -35,4 +35,11 @@ class Servico_model extends CI_Model {
         }
     }
 
+    public function delete_logical_servico($condicao=NULL)
+    {
+        if($condicao <> NULL)
+        {
+            $this->db->update('servico', array('deletado' => 1), $condicao);
+        }
+    }    
 }
