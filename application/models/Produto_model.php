@@ -11,6 +11,17 @@ class Produto_model extends CI_Model {
         return $this->db->get();
     }
 
+    public function get_produto_notDeleted()
+    {
+        $this->db->select(' * ');
+        $this->db->from('produto');
+        $this->db->join('produto_marca', 'produto_marca.id_marca = produto.id_marca');
+        $this->db->join('produto_categoria', 'produto_categoria.id_categoria = produto.id_categoria');
+        $this->db->where('produto.deletado',0);
+
+        return $this->db->get();
+    }
+
     public function get_produto_byid($id=NULL)
     {
         if($id <> NULL)

@@ -33,7 +33,9 @@ class Produto extends CI_Controller {
     // Pagina que lista os produos
     public function listar() {
         $data = ['base_url' => $this->config->base_url(),
-            'produtos' => $this->produto_model->get_produto_all()->result()];
+            //'produtos' => $this->produto_model->get_produto_all()->result()
+            'produtos' => $this->produto_model->get_produto_notDeleted()->result()
+            ];
 
         $this->twig->display('produto/listar', $data);
     }
