@@ -6,6 +6,13 @@ class Categoria_model extends CI_Model {
         return $this->db->get('produto_categoria');
     }
 
+
+    public function get_categoria_notDeleted()
+    {
+        $this->db->where('deletado',0);
+        return $this->db->get('produto_categoria');
+    }
+
     public function get_categoria_byid($id=NULL)
     {
         if($id <> NULL)

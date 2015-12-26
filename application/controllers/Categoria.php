@@ -31,7 +31,9 @@ class Categoria extends CI_Controller {
     // Pagina que lista as categorias
     public function listar() {
         $data = ['base_url' => $this->config->base_url(),
-            'categorias' => $this->categoria_model->get_categoria_all()->result()];
+            //'categorias' => $this->categoria_model->get_categoria_all()->result()
+            'categorias' => $this->categoria_model->get_categoria_notDeleted()->result()
+            ];
         $this->twig->display('categoria/listar', $data);
     }
 
