@@ -6,6 +6,12 @@ class Marca_model extends CI_Model {
         return $this->db->get('produto_marca');
     }
 
+    public function get_marca_notDeleted()
+    {
+        $this->db->where('deletado',0);
+        return $this->db->get('produto_marca');
+    }
+
     public function get_marca_byid($id=NULL)
     {
         if($id <> NULL)

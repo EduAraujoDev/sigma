@@ -31,7 +31,9 @@ class Marca extends CI_Controller {
     // Pagina que lista as marcas
     public function listar() {
         $data = ['base_url' => $this->config->base_url(),
-            'marcas' => $this->marca_model->get_marca_all()->result()];
+            //'marcas' => $this->marca_model->get_marca_all()->result()
+            'marcas' => $this->marca_model->get_marca_notDeleted()->result()
+            ];
         $this->twig->display('marca/listar', $data);
     }
 
