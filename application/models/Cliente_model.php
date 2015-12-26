@@ -9,6 +9,11 @@ class Cliente_model extends CI_Model {
         return $this->db->get('cliente');
     }
 
+    public function get_cliente_notDeleted() {
+        $this->db->where('deletado',0);
+        return $this->db->get('cliente');
+    }
+
     public function get_cliente_by_id($id_cliente) {
         $this->db->where('id_cliente', $id_cliente);
         $this->db->limit(1);
