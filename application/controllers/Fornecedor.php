@@ -32,7 +32,9 @@ class Fornecedor extends CI_Controller {
     // Pagina que lista os fornecedores
     public function listar() {
         $data = ['base_url' => $this->config->base_url(),
-            'fornecedores' => $this->fornecedor_model->get_fornecedor_all()->result()];
+            //'fornecedores' => $this->fornecedor_model->get_fornecedor_all()->result()
+            'fornecedores' => $this->fornecedor_model->get_fornecedor_notDeleted()->result()
+            ];
 
         $this->twig->display('fornecedor/listar', $data);
     }

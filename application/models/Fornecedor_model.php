@@ -2,7 +2,14 @@
 
 class Fornecedor_model extends CI_Model {
 	public function get_fornecedor_all()
+    {        
+        return $this->db->get('fornecedor');
+    }
+
+
+    public function get_fornecedor_notDeleted()
     {
+        $this->db->where('deletado',0);
         return $this->db->get('fornecedor');
     }
 
