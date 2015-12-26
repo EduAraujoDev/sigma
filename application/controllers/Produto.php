@@ -43,8 +43,11 @@ class Produto extends CI_Controller {
     // Formulario que adiciona novo produto
     public function novo() {
         $data = ['base_url' => $this->config->base_url(),
-            'categorias' => $this->categoria_model->get_categoria_all()->result(),
-            'marcas' => $this->marca_model->get_marca_all()->result()];
+            //'categorias' => $this->categoria_model->get_categoria_all()->result(),
+            'categorias' => $this->categoria_model->get_categoria_notDeleted()->result(),
+            //'marcas' => $this->marca_model->get_marca_all()->result()
+            'marcas' => $this->marca_model->get_marca_notDeleted()->result()
+            ];
         $this->twig->display('produto/novo', $data);
     }
 
