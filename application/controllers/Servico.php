@@ -31,7 +31,9 @@ class Servico extends CI_Controller {
     // Pagina que lista os servicos
     public function listar() {
         $data = ['base_url' => $this->config->base_url(),
-            'servicos' => $this->servico_model->get_servico_all()->result()];
+            //'servicos' => $this->servico_model->get_servico_all()->result()
+            'servicos' => $this->servico_model->get_servico_notDeleted()->result()
+            ];
         $this->twig->display('servico/listar', $data);
     }
 

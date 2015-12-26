@@ -6,6 +6,11 @@ class Servico_model extends CI_Model {
         return $this->db->get('servico');
     }
 
+    public function get_servico_notDeleted() {
+        $this->db->where('deletado',0);
+        return $this->db->get('servico');
+    }
+
     public function get_servico_byid($id = NULL) {
         if ($id <> NULL) {
             $this->db->where('id_servico', $id);
