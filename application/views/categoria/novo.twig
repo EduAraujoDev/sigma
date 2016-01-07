@@ -1,6 +1,5 @@
 {% extends "base_layout.twig" %}
 {% block title %}Novo Categoria{% endblock %}
-
 {% block content_header %}
     <section class="content-header">
         <h1>
@@ -21,12 +20,16 @@
                     <h3 class="box-title">Dados do Categoria</h3>
                 </div>
                 <form role="form" action="{{base_url}}categoria/adicionar" method="post">
+                    
                     <div class="box-body">
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="descricao">Descrição</label>
                             <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a categoria">
                         </div>                      
+                        
                     </div>
+                    
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>

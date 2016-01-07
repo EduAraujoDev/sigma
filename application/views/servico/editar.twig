@@ -20,24 +20,32 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Serviço</h3>
                 </div>
-                <form role="form" action="{{base_url}}servico/atualizar/{{servico.id_servico}}" method="post">
+                <form role="form" action="{{base_url}}servico/atualizar/{{servico.id_servico}}" method="post" class="form-incline">
                     <div class="box-body">
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="titulo">Titulo</label>
-                            <input type="text" class="form-control" id="descricao" value="{{servico.titulo}}" name="titulo" placeholder="">
+                            <input type="text" class="form-control" id="descricao" 
+                                   value="{{servico.titulo}}" name="titulo" placeholder="" maxlength="40">
                         </div>                      
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="descricao">Descrição</label>
-                            <input type="text" class="form-control" id="descricao" value="{{servico.descricao}}" name="descricao" placeholder="">
-                        </div>                      
-                        <div class="form-group">
+                            <input type="text" class="form-control" id="descricao" 
+                                   value="{{servico.descricao}}" name="descricao" placeholder="" maxlength="80">
+                        </div>  
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="valor">Valor</label>
-                            <input type="text" class="form-control" id="descricao" value="{{servico.valor}}" name="valor" placeholder="">
-                        </div>     
-                        <div class="form-group">
+                            <input type="text" class="form-control" id="descricao" 
+                                   value="{{servico.valor}}" name="valor" placeholder="" maxlength="6">
+                        </div> 
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <label>Observações</label>
                             <textarea class="form-control" name="observacoes" rows="3" placeholder="">{{servico.observacoes}}</textarea>
                         </div>
+                        
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Editar</button>

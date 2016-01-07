@@ -22,10 +22,12 @@
                 </div>
                 <form role="form" action="{{base_url}}categoria/atualizar/{{ categoria.id_categoria }}" method="post">
                     <div class="box-body">
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="descricao">Descrição</label>
                             <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a categoria" value="{{ categoria.titulo }}">
                         </div>                       
+                        
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Alterar</button>

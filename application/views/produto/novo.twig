@@ -20,29 +20,40 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Produto</h3>
                 </div>
-                <form role="form" action="{{base_url}}produto/adicionar" method="post">
+                <form role="form" action="{{base_url}}produto/adicionar" method="post" class="form-incline">
                     <div class="box-body">
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="nome">Descrição</label>
-                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite a descrição do produto">
+                            <input type="text" class="form-control" id="nome" name="nome" 
+                                   placeholder="Digite a descrição do produto" maxlength="40">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="quantEstoque">Quantidade em estoque</label>
-                            <input type="number" class="form-control" id="quantEstoque" name="quantEstoque" min="0" value=0>
+                            <input type="number" class="form-control" id="quantEstoque" name="quantEstoque" 
+                                   min="0" value=0 max="99999999999">
                         </div>                        
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="quantReservada">Quantidade reservada</label>
-                            <input type="number" class="form-control" id="quantReservada" name="quantReservada" min="0" value=0>
+                            <input type="number" class="form-control" id="quantReservada" name="quantReservada" 
+                                   min="0" value=0 max="99999999999">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="valorCusto">Valor Custo</label>
-                            <input type="number" class="form-control" id="valorCusto" name="valorCusto" min="0" value=0>
+                            <input type="number" class="form-control" id="valorCusto" name="valorCusto" max="99999999.99"
+                                   min="0" value=0>
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="valorVenda">Valor Venda</label>
-                            <input type="number" class="form-control" id="valorVenda" name="valorVenda" min="0" value=0>
+                            <input type="number" class="form-control" id="valorVenda" name="valorVenda" min="0" 
+                                   value=0 max="99999999.99">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="exampleInputEmail1">Marca</label>
                             <select class="form-control" name="marca">
                                 {% for marca in marcas %}
@@ -50,7 +61,8 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="form-group">
+                            
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="exampleInputEmail1">Categoria</label>
                             <select class="form-control" name="categoria">
                                 {% for categoria in categorias %}
@@ -58,7 +70,9 @@
                                 {% endfor %}
                             </select>
                         </div>
+                            
                     </div>
+                            
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>

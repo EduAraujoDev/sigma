@@ -22,48 +22,81 @@
                 </div>
                 <form role="form" action="{{base_url}}fornecedor/atualizar/{{ fornecedor.id_fornecedor }}" method="post">
                     <div class="box-body">
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="nome">Nome</label>
-                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome" value="{{ fornecedor.nome }}">
+                            <input type="text" class="form-control" id="nome" name="nome" 
+                                   placeholder="Digite o nome" value="{{ fornecedor.nome }}" maxlength="80">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="nomeFantasia">Nome fantasia</label>
-                            <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" placeholder="Digite o Nome fantasia" value="{{ fornecedor.nome_fantasia }}" >
+                            <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" 
+                                   placeholder="Digite o Nome fantasia" value="{{ fornecedor.nome_fantasia }}" maxlength="80">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="cnpj">Cnpj</label>
-                            <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite o cnpj" value="{{ fornecedor.cpf_cnpj }}">
+                            <input type="text" class="form-control" id="cnpj" name="cnpj" 
+                                   placeholder="Digite o cnpj" value="{{ fornecedor.cpf_cnpj }}" maxlength="18">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="ie">Inscrição estadual</label>
-                            <input type="text" class="form-control" id="ie" name="ie" placeholder="Digite a Inscrição estadual" value="{{ fornecedor.ierg }}">
+                            <input type="text" class="form-control" id="ie" name="ie" 
+                                   placeholder="Digite a Inscrição estadual" value="{{ fornecedor.ierg }}" maxlength="18">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="dataFundacao">Data de fundação</label>
-                            <input type="text" class="form-control" id="dataFundacao" name="dataFundacao" placeholder="Digite a data de fundação" value="{{ fornecedor.data_fundacao }}">
+                            <input type="date" class="form-control" id="dataFundacao" name="dataFundacao" 
+                                   placeholder="Digite a data de fundação" value="{{ fornecedor.data_fundacao }}">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <label for="cep">CEP</label>
+                            <input type="text" class="form-control" id="cep" name="cep" 
+                                   placeholder="Digite o CEP" maxlength="10">
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-9 col-md-9">
                             <label for="logradouro">Logradouro</label>
-                            <input type="text" class="form-control" id="logradouro" name="logradouro" placeholder="Digite o Logradouro" value="{{ fornecedor.logradouro }}">
+                            <input type="text" class="form-control" id="logradouro" name="logradouro" 
+                                   placeholder="Digite o Logradouro" value="{{ fornecedor.logradouro }}" maxlength="100">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="numero">Numero</label>
-                            <input type="text" class="form-control" id="numero" name="numero" placeholder="Digite o número" value="{{ fornecedor.numero }}">
+                            <input type="text" class="form-control" id="numero" name="numero" 
+                                   placeholder="Digite o número" value="{{ fornecedor.numero }}" maxlength="11">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="complemento">Complemento</label>
-                            <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Digite o complemento" value="{{ fornecedor.complemento }}">
+                            <input type="text" class="form-control" id="complemento" name="complemento" 
+                                   placeholder="Digite o complemento" value="{{ fornecedor.complemento }}" maxlength="100">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   placeholder="Digite o email" value="{{ fornecedor.email }}" maxlength="30">
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="bairro">Bairro</label>
-                            <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Digite o bairro" value="{{ fornecedor.bairro }}">
+                            <input type="text" class="form-control" id="bairro" name="bairro" 
+                                   placeholder="Digite o bairro" value="{{ fornecedor.bairro }}" maxlength="40">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="cidade">Cidade</label>
-                            <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Digite a cidade" value="{{ fornecedor.cidade }}">
+                            <input type="text" class="form-control" id="cidade" name="cidade" 
+                                   placeholder="Digite a cidade" value="{{ fornecedor.cidade }}" maxlength="50">
                         </div>
-                        <div class="form-group">
-                            <label for="uf">Uf</label>
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <label for="uf">UF</label>
                             <select class="form-control" name="uf">
                                 {% for UF in UFS %}
                                     {% if UF == fornecedor.uf %}
@@ -74,23 +107,20 @@
                                 {% endfor %}
                             </select>                        
                         </div>
-                        <div class="form-group">
-                            <label for="cep">CEP</label>
-                            <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite o CEP" value="{{ fornecedor.cep }}">
-                        </div>
-                        <div class="form-group">
+                            
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="telFixo">Telefone Fixo</label>
-                            <input type="text" class="form-control" id="telFixo" name="telFixo" placeholder="Digite o telefone fixo" value="{{ fornecedor.telefone_fixo }}">
+                            <input type="text" class="form-control" id="telFixo" name="telFixo" 
+                                   placeholder="Digite o telefone fixo" value="{{ fornecedor.telefone_fixo }}" maxlength="18">
                         </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="telCel">Celular</label>
-                            <input type="text" class="form-control" id="telCel" name="telCel" placeholder="Digite o celular" value="{{ fornecedor.celular }}" >
+                            <input type="text" class="form-control" id="telCel" name="telCel" 
+                                   placeholder="Digite o celular" value="{{ fornecedor.celular }}" maxlength="18">
                         </div>
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite o email" value="{{ fornecedor.email }}">
-                        </div>
-                        <div class="form-group">
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="obs">Observações</label>
                             <textarea class="form-control" id="obs" name="obs" placeholder="Observações">{{ fornecedor.observacoes }}</textarea>                            
                         </div>                        

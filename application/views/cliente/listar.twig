@@ -21,7 +21,10 @@
                     <form role="form" action="{{base_url}}cliente/buscar" method="GET">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                            <input type="text" name="busca" class="form-control" placeholder="CPF ou CNPJ">
+                            
+                            <input type="text" name="busca" class="form-control" 
+                                   placeholder="CPF ou CNPJ" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
+                            
                             <span class="input-group-addon"><input type="submit"  value="buscar"></span>
                         </div>
                     </form>
