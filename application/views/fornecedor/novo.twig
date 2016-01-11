@@ -131,3 +131,16 @@
         </div>
     </section>
 {% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $("#cep").mask("99999-999");
+            $("#cnpj").mask("99.999.999/9999-99");
+            $("#dataFundacao").mask('99/99/9999');
+            $("#telFixo").mask("(999) 9999-9999");
+            $("#telCel").mask("(999) 99999-9999");
+        });
+    </script>
+{% endblock %}
