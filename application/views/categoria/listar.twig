@@ -18,6 +18,17 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
+                    <form role="form" action="{{base_url}}categoria/buscar" method="GET">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+
+                            <input type="text" name="busca" class="form-control" 
+                                   placeholder="Nome da categoria" >
+
+                            <span class="input-group-addon"><input type="submit"  value="buscar"></span>
+                        </div>
+                    </form>
+                    <br>
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">

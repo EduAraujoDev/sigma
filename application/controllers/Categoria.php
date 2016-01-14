@@ -28,12 +28,21 @@ class Categoria extends CI_Controller {
         redirect('/admin', 'refresh');
     }
 
+    public function buscar() {
+        $nome = (String) $this->input->get('busca');
+        $categorias = $this->categoria_model->get_categoria_by_nome($nome)->result();
+        $data = ['base_url' => $this->config->base_url(),
+            'categorias' => $categorias
+        ];
+        $this->twig->display('categoria/listar', $data);
+    }
+
     // Pagina que lista as categorias
     public function listar() {
         $data = ['base_url' => $this->config->base_url(),
             //'categorias' => $this->categoria_model->get_categoria_all()->result()
             'categorias' => $this->categoria_model->get_categoria_notDeleted()->result()
-            ];
+        ];
         $this->twig->display('categoria/listar', $data);
     }
 
