@@ -1,7 +1,6 @@
 <?php
 
 if (!defined('BASEPATH'))
-    
     exit('No direct script access allowed');
 
 /**
@@ -29,12 +28,35 @@ class Fornecedor extends CI_Controller {
         reduirect('/admin', 'refresh');
     }
 
+    public function buscar() {
+        $busca = (String) $this->input->get('busca');
+        $tipo_busca = (String) $this->input->get('tipo_busca');
+        $fornecedores = $this->fornecedor_model->get_fornecedor_notDeleted()->result();
+
+        if ($tipo_busca == "nome") {
+            $clientes = $this->fornecedor_model->get_fornecedor_by_nome($busca)->result();
+        }
+
+        if ($tipo_busca == "nome_fantasia") {
+            $clientes = $this->fornecedor_model->get_fornecedor_by_nome_fantasia($busca)->result();
+        }
+        if ($tipo_busca == "cpf") {
+            $clientes = $this->fornecedor_model->get_fornecedor_by_cpf_cnpj($busca)->result();
+        }
+
+        $data = array(
+            'base_url' => $this->config->base_url(),
+            'fornecedores' => $fornecedores,
+        );
+        $this->twig->display('fornecedor/listar', $data);
+    }
+
     // Pagina que lista os fornecedores
     public function listar() {
         $data = ['base_url' => $this->config->base_url(),
             //'fornecedores' => $this->fornecedor_model->get_fornecedor_all()->result()
             'fornecedores' => $this->fornecedor_model->get_fornecedor_notDeleted()->result()
-            ];
+        ];
 
         $this->twig->display('fornecedor/listar', $data);
     }
