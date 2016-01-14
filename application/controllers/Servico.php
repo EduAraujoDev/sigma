@@ -28,12 +28,22 @@ class Servico extends CI_Controller {
         redirect('/admin', 'refresh');
     }
 
+    public function buscar() {
+        $nome = (String) $this->input->get('busca');
+        $servicos = $this->servico_model->get_servico_by_nome($nome)->result();
+         $data = ['base_url' => $this->config->base_url(),
+            //'servicos' => $this->servico_model->get_servico_all()->result()
+            'servicos' => $servicos
+        ];
+        $this->twig->display('servico/listar', $data);;
+    }
+
     // Pagina que lista os servicos
     public function listar() {
         $data = ['base_url' => $this->config->base_url(),
             //'servicos' => $this->servico_model->get_servico_all()->result()
             'servicos' => $this->servico_model->get_servico_notDeleted()->result()
-            ];
+        ];
         $this->twig->display('servico/listar', $data);
     }
 
