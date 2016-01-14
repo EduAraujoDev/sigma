@@ -29,8 +29,16 @@ class Cliente extends CI_Controller {
     }
 
     public function buscar() {
-        $cpf_cnpj = (String) $this->input->get('busca');
-        $clientes = $this->cliente_model->get_cliente_by_cpf_cnpj($cpf_cnpj)->result();
+        $busca = (String) $this->input->get('busca');
+        $tipo_busca = (String) $this->input->get('tipo_busca');
+        $clientes = $this->cliente_model->get_cliente_notDeleted()->result();
+        if ($tipo_busca == "nome") {
+            $clientes = $this->cliente_model->get_cliente_by_nome($busca)->result();
+        }
+        if ($tipo_busca == "cpf") {
+            $clientes = $this->cliente_model->get_cliente_by_cpf_cnpj($busca)->result();
+        }
+
         $data = array(
             'base_url' => $this->config->base_url(),
             'clientes' => $clientes,
@@ -40,7 +48,6 @@ class Cliente extends CI_Controller {
 
     // Pagina que lista os clientes
     public function listar() {
-        //$clientes = $this->cliente_model->get_cliente_all()->result();
         $clientes = $this->cliente_model->get_cliente_notDeleted()->result();
         $data = array(
             'base_url' => $this->config->base_url(),

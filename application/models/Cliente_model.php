@@ -10,13 +10,18 @@ class Cliente_model extends CI_Model {
     }
 
     public function get_cliente_notDeleted() {
-        $this->db->where('deletado',0);
+        $this->db->where('deletado', 0);
         return $this->db->get('cliente');
     }
 
     public function get_cliente_by_id($id_cliente) {
         $this->db->where('id_cliente', $id_cliente);
         $this->db->limit(1);
+        return $this->db->get('cliente');
+    }
+
+    public function get_cliente_by_nome($nome) {
+        $this->db->like('nome', $nome);
         return $this->db->get('cliente');
     }
 
@@ -37,11 +42,10 @@ class Cliente_model extends CI_Model {
         $this->db->delete('cliente', array('id_cliente' => $id_cliente));
     }
 
-    public function delete_logical_cliente($condicao=NULL)
-    {
-        if($condicao <> NULL)
-        {
+    public function delete_logical_cliente($condicao = NULL) {
+        if ($condicao <> NULL) {
             $this->db->update('cliente', array('deletado' => 1), $condicao);
         }
     }
+
 }
