@@ -28,12 +28,22 @@ class Marca extends CI_Controller {
         redirect('/admin', 'refresh');
     }
 
+    public function buscar() {
+        $nome = (String) $this->input->get('busca');
+        $marcas = $this->marca_model->get_marca_by_nome($nome)->result();
+        $data = array(
+            'base_url' => $this->config->base_url(),
+            'marcas' => $marcas,
+        );
+        $this->twig->display('marca/listar', $data);
+    }
+
     // Pagina que lista as marcas
     public function listar() {
         $data = ['base_url' => $this->config->base_url(),
             //'marcas' => $this->marca_model->get_marca_all()->result()
             'marcas' => $this->marca_model->get_marca_notDeleted()->result()
-            ];
+        ];
         $this->twig->display('marca/listar', $data);
     }
 
