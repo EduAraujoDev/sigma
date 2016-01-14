@@ -39,8 +39,9 @@ class Categoria extends CI_Controller {
 
     // Pagina que lista as categorias
     public function listar() {
+        $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
-            //'categorias' => $this->categoria_model->get_categoria_all()->result()
+            'message_success' => $message_success,
             'categorias' => $this->categoria_model->get_categoria_notDeleted()->result()
         ];
         $this->twig->display('categoria/listar', $data);
@@ -63,6 +64,7 @@ class Categoria extends CI_Controller {
                 'deletado' => 0
             );
             $this->categoria_model->set_categoria($dados);
+            $this->session->set_flashdata('message_success', 'Categoria adicionada com sucesso!');
             redirect('categoria/listar', 'refresh');
         } else {
             redirect('categoria/novo', 'refresh');
@@ -97,7 +99,8 @@ class Categoria extends CI_Controller {
                 $this->categoria_model->update_categoria($dados, array('id_categoria' => $categoria_id));
             }
         }
-        $this->editar($categoria_id);
+        $this->session->set_flashdata('message_success', 'Categoria editada com sucesso!');
+        redirect('categoria/listar', 'refresh');
     }
 
     // Deleta a categoria selecionada na base de dados
@@ -107,6 +110,7 @@ class Categoria extends CI_Controller {
             // Deleta a categotia na base de dadps
             //$this->categoria_model->delete_categoria(array('id_Categoria' => $categoria_id));
             $this->categoria_model->delete_logical_categoria(array('id_Categoria' => $categoria_id));
+             $this->session->set_flashdata('message_success', 'Categoria deletada com sucesso!');
         }
         redirect('categoria/listar', 'refresh');
     }
