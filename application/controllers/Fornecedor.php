@@ -53,8 +53,9 @@ class Fornecedor extends CI_Controller {
 
     // Pagina que lista os fornecedores
     public function listar() {
+        $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
-            //'fornecedores' => $this->fornecedor_model->get_fornecedor_all()->result()
+            'message_success' => $message_success,
             'fornecedores' => $this->fornecedor_model->get_fornecedor_notDeleted()->result()
         ];
 
@@ -96,6 +97,7 @@ class Fornecedor extends CI_Controller {
             );
 
             $this->fornecedor_model->set_fornecedor($dados);
+            $this->session->set_flashdata('message_success', 'Fornecedor adicionado com sucesso!');
             redirect('fornecedor/listar', 'refresh');
         } else {
             redirect('fornecedor/novo', 'refresh');
@@ -149,7 +151,8 @@ class Fornecedor extends CI_Controller {
                 $this->fornecedor_model->update_fornecedor($dados, array('id_fornecedor' => $fornecedor_id));
             }
         }
-        $this->editar($fornecedor_id);
+        $this->session->set_flashdata('message_success', 'Fornecedor atulizado com sucesso!');
+        redirect('fornecedor/listar', 'refresh');
     }
 
     // Deleta o fornecedor selecionado na base de dados
@@ -159,6 +162,7 @@ class Fornecedor extends CI_Controller {
             //$this->fornecedor_model->delete_fornecedor(array('id_fornecedor' => $fornecedor_id));
             $this->fornecedor_model->delete_logical_fornecedor(array('id_fornecedor' => $fornecedor_id));
         }
+        $this->session->set_flashdata('message_success', 'Fornecedor removido com sucesso!');
         redirect('fornecedor/listar', 'refresh');
     }
 
