@@ -31,17 +31,19 @@ class Servico extends CI_Controller {
     public function buscar() {
         $nome = (String) $this->input->get('busca');
         $servicos = $this->servico_model->get_servico_by_nome($nome)->result();
-         $data = ['base_url' => $this->config->base_url(),
+        $data = ['base_url' => $this->config->base_url(),
             //'servicos' => $this->servico_model->get_servico_all()->result()
             'servicos' => $servicos
         ];
-        $this->twig->display('servico/listar', $data);;
+        $this->twig->display('servico/listar', $data);
+        ;
     }
 
     // Pagina que lista os servicos
     public function listar() {
+        $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
-            //'servicos' => $this->servico_model->get_servico_all()->result()
+            'message_success' => $message_success,
             'servicos' => $this->servico_model->get_servico_notDeleted()->result()
         ];
         $this->twig->display('servico/listar', $data);
@@ -67,6 +69,7 @@ class Servico extends CI_Controller {
                 'deletado' => 0
             );
             $this->servico_model->set_servico($dados);
+            $this->session->set_flashdata('message_success', 'Servico adicionado com sucesso!');
             redirect('servico/listar', 'refresh');
         } else {
             redirect('servico/novo', 'refresh');
@@ -104,7 +107,8 @@ class Servico extends CI_Controller {
                 $this->servico_model->update_servico($dados, array('id_servico' => $servico_id));
             }
         }
-        $this->editar($servico_id);
+        $this->session->set_flashdata('message_success', 'Servico atualizado com sucesso!');
+        redirect('servico/listar', 'refresh');
     }
 
     // Deleta a categoria selecionada na base de dados
@@ -115,6 +119,7 @@ class Servico extends CI_Controller {
             //$this->servico_model->delete_servico(array('id_servico' => $servico_id));
             $this->servico_model->delete_logical_servico(array('id_servico' => $servico_id));
         }
+        $this->session->set_flashdata('message_success', 'Servico removido com sucesso!');
         redirect('servico/listar', 'refresh');
     }
 
