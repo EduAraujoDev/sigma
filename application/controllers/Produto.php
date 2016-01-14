@@ -32,10 +32,11 @@ class Produto extends CI_Controller {
 
     // Pagina que lista os produos
     public function listar() {
+        $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
-            //'produtos' => $this->produto_model->get_produto_all()->result()
+            'message_success' => $message_success,
             'produtos' => $this->produto_model->get_produto_notDeleted()->result()
-            ];
+        ];
 
         $this->twig->display('produto/listar', $data);
     }
@@ -47,7 +48,7 @@ class Produto extends CI_Controller {
             'categorias' => $this->categoria_model->get_categoria_notDeleted()->result(),
             //'marcas' => $this->marca_model->get_marca_all()->result()
             'marcas' => $this->marca_model->get_marca_notDeleted()->result()
-            ];
+        ];
         $this->twig->display('produto/novo', $data);
     }
 
@@ -69,6 +70,7 @@ class Produto extends CI_Controller {
             );
 
             $this->produto_model->set_produto($dados);
+            $this->session->set_flashdata('message_success', 'Produto adicionado com sucesso!');
             redirect('produto/listar', 'refresh');
         } else {
             redirect('produto/novo', 'refresh');
@@ -90,7 +92,7 @@ class Produto extends CI_Controller {
                 'produto' => $this->produto_model->get_produto_byid($produto_id)->row()];
             $this->twig->display('produto/editar', $data);
         } else {
-            redirect('admin/listarProduto', 'refresh');
+            redirect('produto/listar', 'refresh');
         }
     }
 
@@ -114,7 +116,8 @@ class Produto extends CI_Controller {
                 $this->produto_model->update_produto($dados, array('id_produto' => $produto_id));
             }
         }
-        $this->editar($produto_id);
+        $this->session->set_flashdata('message_success', 'Produto editado com sucesso!');
+        redirect('produto/listar', 'refresh');
     }
 
     // Deleta o produto selecionado na base de dados
@@ -126,6 +129,7 @@ class Produto extends CI_Controller {
             //$this->produto_model->delete_produto(array('id_produto' => $produto_id));
             $this->produto_model->delete_logical_produto(array('id_produto' => $produto_id));
         }
+        $this->session->set_flashdata('message_success', 'Produto removido com sucesso!');
         redirect('produto/listar', 'refresh');
     }
 
