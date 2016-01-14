@@ -40,8 +40,9 @@ class Marca extends CI_Controller {
 
     // Pagina que lista as marcas
     public function listar() {
+        $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
-            //'marcas' => $this->marca_model->get_marca_all()->result()
+            'message_success' => $message_success,
             'marcas' => $this->marca_model->get_marca_notDeleted()->result()
         ];
         $this->twig->display('marca/listar', $data);
@@ -64,6 +65,7 @@ class Marca extends CI_Controller {
                 'deletado' => 0
             );
             $this->marca_model->set_marca($dados);
+            $this->session->set_flashdata('message_success', 'Marca adicionada com sucesso!');
             redirect('marca/listar', 'refresh');
         } else {
             redirect('marca/novo', 'refresh');
@@ -100,7 +102,8 @@ class Marca extends CI_Controller {
                 $this->marca_model->update_marca($dados, array('id_marca' => $marca_id));
             }
         }
-        $this->editar($marca_id);
+        $this->session->set_flashdata('message_success', 'Categoria atualizada com sucesso!');
+        redirect('marca/listar', 'refresh');
     }
 
     // Deleta a marca selecionado na base de dados
@@ -111,6 +114,7 @@ class Marca extends CI_Controller {
             //$this->marca_model->delete_marca(array('id_marca' => $marca_id));
             $this->marca_model->delete_logical_marca(array('id_marca' => $marca_id));
         }
+        $this->session->set_flashdata('message_success', 'Categoria deletada com sucesso!');
         redirect('marca/listar', 'refresh');
     }
 
