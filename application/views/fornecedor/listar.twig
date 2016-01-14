@@ -16,6 +16,9 @@
 {% block content %}
     <section class="content">
         <div class="col-xs-12">
+            {% if message_success is not empty %}
+                <div class="alert alert-success">{{message_success}}</div>
+            {% endif %}
             <div class="box">
                 <form role="form" action="{{base_url}}fornecedor/buscar" method="GET">
                     <div class="input-group">

@@ -18,10 +18,13 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
+                    {% if message_success is not empty %}
+                        <div class="alert alert-success">{{message_success}}</div>
+                    {% endif %}
                     <form role="form" action="{{base_url}}cliente/buscar" method="GET">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                            
+
                             <input type="text" name="busca" class="form-control" 
                                    placeholder="Selecione uma opção de busca" >
                             <span class="input-group-addon"><input type="submit"  value="buscar"></span>
