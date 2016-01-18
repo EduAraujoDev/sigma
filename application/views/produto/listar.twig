@@ -21,6 +21,17 @@
                     {% if message_success is not empty %}
                         <div class="alert alert-success">{{message_success}}</div>
                     {% endif %}
+                    <form role="form" action="{{base_url}}produto/buscar" method="GET">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+
+                            <input type="text" name="busca" class="form-control" 
+                                   placeholder="Nome da marca" >
+
+                            <span class="input-group-addon"><input type="submit"  value="buscar"></span>
+                        </div>
+                    </form>
+                    <br>
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">

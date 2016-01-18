@@ -30,6 +30,16 @@ class Produto extends CI_Controller {
         redirect('/admin', 'refresh');
     }
 
+    public function buscar() {
+        $nome = (String) $this->input->get('busca');
+        $produtos = $this->produto_model->get_produto_by_nome($nome)->result();
+        $data = array(
+            'base_url' => $this->config->base_url(),
+            'produtos' => $produtos,
+        );
+        $this->twig->display('produto/listar', $data);
+    }
+
     // Pagina que lista os produos
     public function listar() {
         $message_success = $this->session->flashdata('message_success');
