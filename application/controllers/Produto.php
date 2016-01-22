@@ -76,6 +76,7 @@ class Produto extends CI_Controller {
                 'valor_venda' => $this->input->post('valorVenda'),
                 'id_categoria' => $this->input->post('categoria'),
                 'id_marca' => $this->input->post('marca'),
+                'codigo_fabricante' => $this->input->post('codFornecedor'),
                 'deletado' => 0
             );
 
@@ -120,7 +121,8 @@ class Produto extends CI_Controller {
                     'valor_custo' => $this->input->post('valorCusto'),
                     'valor_venda' => $this->input->post('valorVenda'),
                     'id_categoria' => $this->input->post('categoria'),
-                    'id_marca' => $this->input->post('marca')
+                    'id_marca' => $this->input->post('marca'),
+                    'codigo_fabricante' => $this->input->post('codFornecedor'),
                 );
 
                 $this->produto_model->update_produto($dados, array('id_produto' => $produto_id));

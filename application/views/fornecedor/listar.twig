@@ -40,26 +40,19 @@
                                 <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Id</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome Fantasia</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Email</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Bairro</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Cidade</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">UF</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">CPF/CNPJ</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for fornecedor in fornecedores %}
                                             <tr>
-                                                <td>{{ fornecedor.id_fornecedor }}</td>
                                                 <td>{{ fornecedor.nome }}</td>
                                                 <td>{{ fornecedor.nome_fantasia }}</td>
-                                                <td>{{ fornecedor.email }}</td>
-                                                <td>{{ fornecedor.bairro }}</td>
-                                                <td>{{ fornecedor.cidade }}</td>
-                                                <td>{{ fornecedor.uf }}</td>
+                                                <td>{{ fornecedor.cpf_cnpj }}</td>
+                                                <!-- CPF/CNPJ FORNECEDOR -->
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}fornecedor/editar/{{ fornecedor.id_fornecedor }}">Alterar</a>
                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}fornecedor/deletar/{{ fornecedor.id_fornecedor }}">Excluir</a>

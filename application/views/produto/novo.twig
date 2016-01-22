@@ -23,6 +23,12 @@
                 <form role="form" action="{{base_url}}produto/adicionar" method="post" class="form-incline">
                     <div class="box-body">
                         
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="nome">Código Fornecedor</label>
+                            <input type="text" class="form-control" id="codFornecedor" name="codFornecedor" 
+                                   placeholder="Digite o código do fornecedor" maxlength="40">
+                        </div>
+                        
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="nome">Descrição</label>
                             <input type="text" class="form-control" id="nome" name="nome" 
@@ -34,12 +40,6 @@
                             <input type="number" class="form-control" id="quantEstoque" name="quantEstoque" 
                                    min="0" value=0 max="99999999999">
                         </div>                        
-                        
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <label for="quantReservada">Quantidade reservada</label>
-                            <input type="number" class="form-control" id="quantReservada" name="quantReservada" 
-                                   min="0" value=0 max="99999999999">
-                        </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="valorCusto">Valor Custo</label>

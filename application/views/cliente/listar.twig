@@ -41,8 +41,6 @@
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Nome</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">CPF / CNPJ</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Email</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Celular</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Ações</th>
                                         </tr>
                                     </thead>
@@ -51,8 +49,6 @@
                                             <tr>
                                                 <td>{{ cliente.nome }}</td>
                                                 <td>{{ cliente.cpf_cnpj }}</td>
-                                                <td>{{ cliente.email }}</td>
-                                                <td>{{ cliente.celular }}</td>
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}cliente/editar/{{ cliente.id_cliente }}">Alterar</a>
                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}cliente/deletar/{{ cliente.id_cliente }}">Excluir</a>

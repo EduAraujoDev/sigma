@@ -38,11 +38,8 @@
                                 <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Id</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Descrição</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Quant. estoque</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Quant. reserva</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Valor custo</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Código Fabricante</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Valor venda</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Ação</th>
                                         </tr>
@@ -50,11 +47,8 @@
                                     <tbody>
                                         {% for produto in produtos %}
                                             <tr>
-                                                <td>{{ produto.id_produto }}</td>
                                                 <td>{{ produto.nome }}</td>
-                                                <td>{{ produto.quantidade_estoque }}</td>
-                                                <td>{{ produto.quantidade_reservada }}</td>
-                                                <td>{{ produto.valor_custo }}</td>
+                                                <td>{{ produto.codigo_fabricante }}</td>
                                                 <td>{{ produto.valor_venda }}</td>
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}produto/editar/{{ produto.id_produto }}">Alterar</a>
