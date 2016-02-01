@@ -52,7 +52,7 @@
                         <div class="hidden-xs col-sm-4 col-md-4">
                             <label for="cep">CEP</label>
                             <input type="text" class="form-control" id="cep"  name="cep" 
-                                   placeholder="Digite o cep" maxlength="10">
+                                   placeholder="Digite o cep" maxlength="10" onkeyup="getEndereco(event);">
                         </div>   
 
                         <div class="hidden-xs col-sm-10 col-md-10">
@@ -100,7 +100,7 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="celular">Celular</label>
                             <input  id="celular"type="text" class="form-control"  name="celular" 
-                                   placeholder="Digite o celular" maxlength="18">
+                                    placeholder="Digite o celular" maxlength="18">
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -129,5 +129,19 @@
             $("#telefone").mask("(999) 9999-9999");
             $("#celular").mask("(999) 99999-9999");
         });
+
+
+        function getEndereco(event) {
+            var cep = $("#cep").val();
+            var x = event.which || event.keyCode;
+            if (cep.match(/\d{5}-\d{3}/) && ((x >= 48 && x <= 57) || (x >= 96 && x <= 105))) {
+                $.getJSON("http://api.postmon.com.br/v1/cep/"+cep+"?format=json", function (retorno) {
+                    $('input[name=logradouro]').val(retorno.logradouro);
+                    $('input[name=bairro]').val(retorno.bairro);
+                    $('input[name=cidade]').val(retorno.cidade);
+                    $('input[name=uf]').val(retorno.estado);
+                });
+            }
+        }
     </script>
 {% endblock %}
