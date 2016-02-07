@@ -6,7 +6,7 @@ USE `sigma`;
 -- Table structure for table `fornecedor`
 --
 
-DROP TABLE IF EXISTS `fornecedor`;
+DROP TABLE IF EXISTS `fornecedor`;
 CREATE TABLE `fornecedor` (
   `id_fornecedor` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) NOT NULL,
@@ -54,9 +54,11 @@ CREATE TABLE `pedido_compra_cabecalho` (
   `numero_nf` varchar(20) NOT NULL,
   `serie_nf` varchar(20) NOT NULL,
   `data_emissao` datetime NOT NULL,
-  `data_recebimento` date  NULL,
+  `data_recebimento` date  NULL,  
+  `data_prevista_entrega` date  NULL,  
   `total` decimal(10,2) NOT NULL,
-  `observacoes` text,
+  `observacoes` text,  
+  `finalizado` TINYINT(1),
   `deletado` TINYINT(1),
   PRIMARY KEY (`id_pedido_compra`),
   KEY `FK_PedidosCompraID_Status` (`id_status`),
@@ -105,6 +107,7 @@ CREATE TABLE `despesa_pedido` (
   `data_pagamento` datetime,
   `total` decimal(10,2) NOT NULL,
   `observacoes` text NULL,
+  `finalizado` TINYINT(1),
   `deletado` TINYINT(1),
   PRIMARY KEY (`id_despesa_pedido`),
   KEY `FK_DespesaPedidos_PedidoCompra` (`id_pedido_compra`),
@@ -129,6 +132,7 @@ CREATE TABLE `despesa` (
   `data_pagamento` datetime,
   `total` decimal(10,2) NOT NULL,
   `observacoes` text NULL,
+  `finalizado` TINYINT(1),
   `deletado` TINYINT(1),
   PRIMARY KEY (`id_despesa`),
   KEY `FK_Despesas_Categoria` (`id_categoria`),
@@ -204,6 +208,8 @@ CREATE TABLE `orcamento_cabecalho` (
   `desconto_total` decimal(10,2)  NULL,
   `total_bruto` decimal(10,2) NOT NULL,
   `total_liquido` decimal(10,2) NOT NULL,
+  `data_prevista_finalizacao` datetime NOT NULL,
+  `finalizado` TINYINT(1),
   `deletado` TINYINT(1),
   PRIMARY KEY (`id_orcamento`),
   KEY `FK_OrcamentoCabecalho_status` (`id_status`),
@@ -311,6 +317,8 @@ CREATE TABLE `ordem_servico_cabecalho` (
   `desconto_total` decimal(10,2)  NULL,
   `total_bruto` decimal(10,2) NOT NULL,
   `total_liquido` decimal(10,2) NOT NULL,
+  `data_prevista_finalizacao` datetime NOT NULL,
+  `finalizado` TINYINT(1),
   `deletado` TINYINT(1),
   PRIMARY KEY (`id_ordem_servico`),
   KEY `FK_OrdemServicoCabecalho_Status` (`id_status`),
