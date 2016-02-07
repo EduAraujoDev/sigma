@@ -91,7 +91,7 @@ class Cliente extends CI_Controller {
 
             // Adicionar as informacoes do usuario
             $this->cliente_model->insert_cliente($cliente);
-
+            $this->session->set_flashdata('message_success', 'Cliente adicionado com sucesso!');
             redirect('cliente/listar', 'refresh');
         } else {
             redirect('cliente/novo', 'refresh');
@@ -143,6 +143,7 @@ class Cliente extends CI_Controller {
                 $this->cliente_model->update_cliente($cliente, $id_cliente);
             }
         }
+        $this->session->set_flashdata('message_success', 'Cliente editado com sucesso!');
         $this->editar($id_cliente);
     }
 
@@ -152,6 +153,7 @@ class Cliente extends CI_Controller {
         if ($id_cliente != null) {
             //$this->cliente_model->delete_cliente($id_cliente);
             $this->cliente_model->delete_logical_cliente(array('id_cliente' => $id_cliente));
+            $this->session->set_flashdata('message_success', 'Cliente removido com sucesso!');
         }
         redirect('cliente/listar', 'refresh');
     }
