@@ -50,6 +50,7 @@
                                                 <td>{{ cliente.nome }}</td>
                                                 <td>{{ cliente.cpf_cnpj }}</td>
                                                 <td>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}cliente/visualizar/{{ cliente.id_cliente }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}cliente/editar/{{ cliente.id_cliente }}">Alterar</a>
                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}cliente/deletar/{{ cliente.id_cliente }}">Excluir</a>
                                                 </td>

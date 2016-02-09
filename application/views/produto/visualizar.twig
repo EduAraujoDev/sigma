@@ -32,13 +32,13 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="nome">Código Fabricante</label>
                             <input type="text" class="form-control" id="codFornecedor" name="codFornecedor" 
-                                   placeholder="Digite o código do fabricante" maxlength="40">
+                                   placeholder="Digite o código da embalagem" maxlength="40" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="nome">Descrição</label>
                             <input type="text" class="form-control" id="nome" name="nome" 
-                                   placeholder="Digite a descrição do produto" value="{{ produto.nome }}" maxlength="40">
+                                   placeholder="Digite a descrição do produto" value="{{ produto.nome }}" maxlength="40" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -57,18 +57,18 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="valorCusto">Valor Custo</label>
                             <input type="number" class="form-control" id="valorCusto" 
-                                   name="valorCusto" min="0" value="{{ produto.valor_custo }}" max="99999999.99">
+                                   name="valorCusto" min="0" value="{{ produto.valor_custo }}" max="99999999.99" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="valorVenda">Valor Venda</label>
                             <input type="number" class="form-control" id="valorVenda" 
-                                   name="valorVenda" min="0" value="{{ produto.valor_venda }}" max="99999999.99">
+                                   name="valorVenda" min="0" value="{{ produto.valor_venda }}" max="99999999.99" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="exampleInputEmail1">Marca</label>
-                            <select class="form-control" name="marca">
+                            <select class="form-control" name="marca" disabled>
                                 {% for marca in marcas %}
                                     {% if marca.id_marca == produto.id_marca %}
                                         <option selected="selected" value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
@@ -81,7 +81,7 @@
                             
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="exampleInputEmail1">Categoria</label>
-                            <select class="form-control" name="categoria">
+                            <select class="form-control" name="categoria" disabled>
                                 {% for categoria in categorias %}
                                     {% if categoria.id_categoria == produto.id_categoria %}
                                         <option selected="selected" value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
@@ -94,7 +94,9 @@
                             
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Alterar</button>
+                        <!--<button type="submit" class="btn btn-primary">Alterar</button>-->
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}produto/editar/{{ produto.id_produto }}">Alterar</a>
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}produto/listar/{{ produto.id_produto }}">Voltar</a>
                     </div>
                 </form>
             </div>

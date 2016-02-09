@@ -97,6 +97,23 @@ class Cliente extends CI_Controller {
             redirect('cliente/novo', 'refresh');
         }
     }
+   
+    public function visualizar($cliente_id) {
+        if ($cliente_id != NULL) {
+            $id_cliente = $cliente_id;
+        } else {
+            $id_cliente = $this->uri->segment(3);
+        }
+        if ($id_cliente != null) {
+            $cliente = $this->cliente_model->get_cliente_by_id($id_cliente)->row();
+            $data = ['base_url' => $this->config->base_url(),
+                'cliente' => $cliente];
+
+            $this->twig->display('cliente/visualizar', $data);
+        } else {
+            redirect('cliente/listar', 'refresh');
+        }
+    }
 
     public function editar($cliente_id) {
         if ($cliente_id != NULL) {

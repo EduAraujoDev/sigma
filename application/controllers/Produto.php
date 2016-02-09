@@ -88,6 +88,24 @@ class Produto extends CI_Controller {
         }
     }
 
+    public function visualizar($produto_id) {
+        if ($produto_id != NULL) {
+            $produto_id = $produto_id;
+        } else {
+            $produto_id = $this->uri->segment(3);
+        }
+
+        if ($produto_id != NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'categorias' => $this->categoria_model->get_categoria_all()->result(),
+                'marcas' => $this->marca_model->get_marca_all()->result(),
+                'produto' => $this->produto_model->get_produto_byid($produto_id)->row()];
+            $this->twig->display('produto/visualizar', $data);
+        } else {
+            redirect('produto/listar', 'refresh');
+        }
+    }
+    
     // Pagina com o formulario para alterar o produto selecionado
     public function editar($produto_id) {
         if ($produto_id != NULL) {

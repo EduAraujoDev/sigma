@@ -22,7 +22,7 @@
                 </div>
                 <form role="form" action="{{base_url}}fornecedor/atualizar/{{ fornecedor.id_fornecedor }}" method="post">
                     <div class="box-body">
-                        
+
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="id">Código Fornecedor</label>
                             <input type="text" class="form-control" id="nome" name="nome"
@@ -32,78 +32,82 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="nome">Nome</label>
                             <input type="text" class="form-control" id="nome" name="nome" 
-                                   placeholder="Digite o nome" value="{{ fornecedor.nome }}" maxlength="80">
+                                   placeholder="Digite o nome" value="{{ fornecedor.nome }}" maxlength="80" disabled>
                         </div>
                         
                         <div class="hidden-xs col-sm-6 col-md-6">
                             <label for="nomeFantasia">Nome fantasia</label>
                             <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" 
-                                   placeholder="Digite o Nome fantasia" value="{{ fornecedor.nome_fantasia }}" maxlength="80">
+                                   placeholder="Digite o Nome fantasia" value="{{ fornecedor.nome_fantasia }}" 
+                                   maxlength="80" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="cnpj">CPF/CNPJ</label>
                             <input type="text" class="form-control" id="cnpj" name="cnpj" 
-                                   placeholder="Digite o cnpj" value="{{ fornecedor.cpf_cnpj }}" maxlength="18">
+                                   placeholder="Digite o cnpj" value="{{ fornecedor.cpf_cnpj }}" maxlength="18" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="ie">Inscrição estadual</label>
                             <input type="text" class="form-control" id="ie" name="ie" 
-                                   placeholder="Digite a Inscrição estadual" value="{{ fornecedor.ierg }}" maxlength="18">
+                                   placeholder="Digite a Inscrição estadual" value="{{ fornecedor.ierg }}" 
+                                   maxlength="18" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="dataFundacao">Data de fundação</label>
                             <input type="date" class="form-control" id="dataFundacao" name="dataFundacao" 
-                                   placeholder="Digite a data de fundação" value="{{ fornecedor.data_fundacao }}">
+                                   placeholder="Digite a data de fundação" value="{{ fornecedor.data_fundacao }}" disabled>
                         </div>
                         
                         <div class="hidden-xs col-sm-3 col-md-3">
                             <label for="cep">CEP</label>
                             <input type="text" class="form-control" id="cep" name="cep" 
-                                   placeholder="Digite o CEP" maxlength="10">
+                                   placeholder="Digite o CEP" maxlength="10" disabled>
                         </div>
                         
                         <div class="hidden-xs col-sm-9 col-md-9">
                             <label for="logradouro">Logradouro</label>
                             <input type="text" class="form-control" id="logradouro" name="logradouro" 
-                                   placeholder="Digite o Logradouro" value="{{ fornecedor.logradouro }}" maxlength="100">
+                                   placeholder="Digite o Logradouro" value="{{ fornecedor.logradouro }}" 
+                                   maxlength="100" disabled>
                         </div>
                         
                         <div class="hidden-xs col-sm-3 col-md-3">
                             <label for="numero">Numero</label>
                             <input type="text" class="form-control" id="numero" name="numero" 
-                                   placeholder="Digite o número" value="{{ fornecedor.numero }}" maxlength="11">
+                                   placeholder="Digite o número" value="{{ fornecedor.numero }}" maxlength="11" disabled>
                         </div>
                         
                         <div class="hidden-xs col-sm-6 col-md-6">
                             <label for="complemento">Complemento</label>
                             <input type="text" class="form-control" id="complemento" name="complemento" 
-                                   placeholder="Digite o complemento" value="{{ fornecedor.complemento }}" maxlength="100">
+                                   placeholder="Digite o complemento" value="{{ fornecedor.complemento }}" 
+                                   maxlength="100" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="email">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" 
-                                   placeholder="Digite o email" value="{{ fornecedor.email }}" maxlength="30">
+                                   placeholder="Digite o email" value="{{ fornecedor.email }}" maxlength="30" disabled>
                         </div>
                         
                         <div class="hidden-xs col-sm-3 col-md-3">
                             <label for="bairro">Bairro</label>
                             <input type="text" class="form-control" id="bairro" name="bairro" 
-                                   placeholder="Digite o bairro" value="{{ fornecedor.bairro }}" maxlength="40">
+                                   placeholder="Digite o bairro" value="{{ fornecedor.bairro }}" maxlength="40" disabled>
                         </div>
                         
                         <div class="hidden-xs col-sm-3 col-md-3">
                             <label for="cidade">Cidade</label>
                             <input type="text" class="form-control" id="cidade" name="cidade" 
-                                   placeholder="Digite a cidade" value="{{ fornecedor.cidade }}" maxlength="50">
+                                   placeholder="Digite a cidade" value="{{ fornecedor.cidade }}" maxlength="50" disabled>
                         </div>
                         
                         <div class="hidden-xs col-sm-3 col-md-3">
                             <label for="uf">UF</label>
-                            <select class="form-control" name="uf">
+                            <select class="form-control" name="uf" disabled>
                                 {% for UF in UFS %}
                                     {% if UF == fornecedor.uf %}
                                         <option selected="selected" value="{{ UF }}">{{ UF }}</option>
@@ -117,22 +121,26 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="telFixo">Telefone Fixo</label>
                             <input type="text" class="form-control" id="telFixo" name="telFixo" 
-                                   placeholder="Digite o telefone fixo" value="{{ fornecedor.telefone_fixo }}" maxlength="18">
+                                   placeholder="Digite o telefone fixo" value="{{ fornecedor.telefone_fixo }}" 
+                                   maxlength="18" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="telCel">Celular</label>
                             <input type="text" class="form-control" id="telCel" name="telCel" 
-                                   placeholder="Digite o celular" value="{{ fornecedor.celular }}" maxlength="18">
+                                   placeholder="Digite o celular" value="{{ fornecedor.celular }}" 
+                                   maxlength="18" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="obs">Observações</label>
-                            <textarea class="form-control" id="obs" name="obs" placeholder="Observações">{{ fornecedor.observacoes }}</textarea>                            
+                            <textarea class="form-control" id="obs" name="obs" placeholder="Observações" disabled>{{ fornecedor.observacoes }}</textarea>                            
                         </div>                        
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Alterar</button>
+                        <!--<button type="submit" class="btn btn-primary">Alterar</button>-->
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}fornecedor/editar/{{ fornecedor.id_fornecedor }}">Alterar</a>
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}fornecedor/listar/{{ fornecedor.id_fornecedor }}">Voltar</a>
                     </div>
                 </form>
             </div>

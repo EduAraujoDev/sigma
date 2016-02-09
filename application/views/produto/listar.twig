@@ -51,6 +51,7 @@
                                                 <td>{{ produto.codigo_fabricante }}</td>
                                                 <td>{{ produto.valor_venda }}</td>
                                                 <td>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}produto/visualizar/{{ produto.id_produto }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}produto/editar/{{ produto.id_produto }}">Alterar</a>
                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}produto/deletar/{{ produto.id_produto }}">Excluir</a>
                                                 </td>

@@ -71,6 +71,21 @@ class Categoria extends CI_Controller {
         }
     }
 
+    public function visualizar($categoria_id) {
+        if ($categoria_id != NULL) {
+            $categoria_id = $categoria_id;
+        } else {
+            $categoria_id = $this->uri->segment(3);
+        }
+        if ($categoria_id != NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'categoria' => $this->categoria_model->get_categoria_byid($categoria_id)->row()];
+            $this->twig->display('categoria/visualizar', $data);
+        } else {
+            redirect('categoria/listar', 'refresh');
+        }
+    }
+    
     // Pagina com o formulario para alterar a categoria selecionado
     public function editar($categoria_id) {
         if ($categoria_id != NULL) {

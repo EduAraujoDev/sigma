@@ -104,6 +104,24 @@ class Fornecedor extends CI_Controller {
         }
     }
 
+    public function visualizar($fornecedor_id) {
+        if ($fornecedor_id != NULL) {
+            $fornecedor_id = $fornecedor_id;
+        } else {
+            $fornecedor_id = $this->uri->segment(3);
+        }
+
+        if ($fornecedor_id != null) {
+            $data = ['base_url' => $this->config->base_url(),
+                'UFS' => array('SP', 'RJ'),
+                'fornecedor' => $this->fornecedor_model->get_fornecedor_byid($fornecedor_id)->row()];
+            $this->twig->display('fornecedor/visualizar', $data);
+        } else {
+            redirect('fornecedor/listar', 'refresh');
+        }
+    }
+
+
     // Pagina com o formulario para alterar o fornecedor selecionado
     public function editar($fornecedor_id) {
         if ($fornecedor_id != NULL) {

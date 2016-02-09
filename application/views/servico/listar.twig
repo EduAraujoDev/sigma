@@ -49,6 +49,7 @@
                                                 <td>{{ servico.id_servico }}</td>
                                                 <td>{{ servico.titulo }}</td>
                                                 <td>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}servico/visualizar/{{ servico.id_servico }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}servico/editar/{{ servico.id_servico }}">Alterar</a>
                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}servico/deletar/{{ servico.id_servico }}">Excluir</a>
                                                 </td>

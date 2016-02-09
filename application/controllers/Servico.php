@@ -76,6 +76,21 @@ class Servico extends CI_Controller {
         }
     }
 
+    public function visualizar($servico_id) {
+        if ($servico_id != NULL) {
+            $servico_id = $servico_id;
+        } else {
+            $servico_id = $this->uri->segment(3);
+        }
+        if ($servico_id != NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'servico' => $this->servico_model->get_servico_byid($servico_id)->row()];
+            $this->twig->display('servico/visualizar', $data);
+        } else {
+            redirect('servico/listar', 'refresh');
+        }
+    }
+    
     // Pagina com o formulario para alterar o servico selecionado
     public function editar($servico_id) {
         if ($servico_id != NULL) {
