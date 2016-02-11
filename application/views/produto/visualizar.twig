@@ -56,14 +56,15 @@
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="valorCusto">Valor Custo</label>
-                            <input type="number" class="form-control" id="valorCusto" 
-                                   name="valorCusto" min="0" value="{{ produto.valor_custo }}" max="99999999.99" disabled>
+                            <input type="text" class="form-control" id="valorCusto" 
+                                   name="valorCusto" value="{{ produto.valor_custo }}" maxlength="11" disabled>
+                            
                         </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="valorVenda">Valor Venda</label>
-                            <input type="number" class="form-control" id="valorVenda" 
-                                   name="valorVenda" min="0" value="{{ produto.valor_venda }}" max="99999999.99" disabled>
+                            <input type="text" class="form-control" id="valorVenda" 
+                                   name="valorVenda" value="{{ produto.valor_venda }}" maxlength="11" disabled>
                         </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -102,4 +103,14 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $("#valorCusto").mask("99999999.99");
+            $("#valorVenda").mask("99999999.99");
+        });
+    </script>
 {% endblock %}
