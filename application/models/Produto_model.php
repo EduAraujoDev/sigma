@@ -29,6 +29,11 @@ class Produto_model extends CI_Model {
         return $this->db->get('produto');
     }
 
+    public function get_produto_by_codigo($codigo) {
+        $this->db->like('codigo_fabricante', $codigo);
+        return $this->db->get('produto');
+    }
+
     public function get_produto_byid($id = NULL) {
         if ($id <> NULL) {
             $this->db->select(' * ');

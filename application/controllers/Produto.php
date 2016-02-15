@@ -31,8 +31,17 @@ class Produto extends CI_Controller {
     }
 
     public function buscar() {
-        $nome = (String) $this->input->get('busca');
-        $produtos = $this->produto_model->get_produto_by_nome($nome)->result();
+        $busca = (String) $this->input->get('busca');
+        $tipo_busca = (String) $this->input->get('tipo_busca');
+        $produtos = $this->produto_model->get_produto_notDeleted()->result();
+
+        if ($tipo_busca == "nome") {
+            $produtos = $this->produto_model->get_produto_by_nome($busca)->result();
+        }
+        if ($tipo_busca == "codigo") {
+            $produtos = $this->produto_model->get_produto_by_codigo($busca)->result();
+        }
+
         $data = array(
             'base_url' => $this->config->base_url(),
             'produtos' => $produtos,
@@ -105,7 +114,7 @@ class Produto extends CI_Controller {
             redirect('produto/listar', 'refresh');
         }
     }
-    
+
     // Pagina com o formulario para alterar o produto selecionado
     public function editar($produto_id) {
         if ($produto_id != NULL) {
