@@ -50,6 +50,7 @@
                                                 <td>{{ categoria.id_categoria }}</td>
                                                 <td>{{ categoria.titulo }}</td>
                                                 <td>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}categoria/visualizar/{{ categoria.id_categoria }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}categoria/editar/{{ categoria.id_categoria }}">Alterar</a>
                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}categoria/deletar/{{ categoria.id_categoria }}">Excluir</a>
                                                 </td>

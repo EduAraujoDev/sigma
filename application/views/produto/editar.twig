@@ -24,9 +24,15 @@
                     <div class="box-body">
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                            <label for="nome">Código Fornecedor</label>
+                            <label for="id">Código Produto</label>
+                            <input type="text" class="form-control" id="id" name="id"
+                                  value="{{ produto.id_produto }}" disabled>
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="nome">Código Fabricante</label>
                             <input type="text" class="form-control" id="codFornecedor" name="codFornecedor" 
-                                   placeholder="Digite o código do fornecedor" maxlength="40">
+                                   placeholder="Digite o código do fabricante" maxlength="40">
                         </div>
                         
                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -38,7 +44,7 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="quantEstoque">Quantidade em estoque</label>
                             <input type="number" class="form-control" id="quantEstoque" 
-                                   name="quantEstoque" min="0" value="{{ produto.quantidade_estoque }}" max="99999999999">
+                                   name="quantEstoque" min="0" value="{{ produto.quantidade_estoque }}" max="99999999999" disabled>
                         </div>                        
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -50,14 +56,15 @@
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="valorCusto">Valor Custo</label>
-                            <input type="number" class="form-control" id="valorCusto" 
-                                   name="valorCusto" min="0" value="{{ produto.valor_custo }}" max="99999999.99">
+                            <input type="text" class="form-control" id="valorCusto" 
+                                   name="valorCusto" value="{{ produto.valor_custo }}" placeholder="" maxlength="11">
+                            
                         </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="valorVenda">Valor Venda</label>
-                            <input type="number" class="form-control" id="valorVenda" 
-                                   name="valorVenda" min="0" value="{{ produto.valor_venda }}" max="99999999.99">
+                            <input type="text" class="form-control" id="valorVenda" 
+                                   name="valorVenda" value="{{ produto.valor_venda }}" placeholder="" maxlength="11">
                         </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -94,4 +101,14 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $("#valorCusto").mask("99999999.99");
+            $("#valorVenda").mask("99999999.99");
+        });
+    </script>
 {% endblock %}

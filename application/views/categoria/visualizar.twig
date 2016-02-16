@@ -32,12 +32,14 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="descricao">Descrição</label>
                             <input type="text" class="form-control" id="descricao" name="descricao" 
-                                   placeholder="Digite a categoria" value="{{ categoria.titulo }}">
+                                   placeholder="Digite a categoria" value="{{ categoria.titulo }}" disabled>
                         </div>                       
                         
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Alterar</button>
+                        <!--<button type="submit" class="btn btn-primary">Alterar</button>-->
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}categoria/editar/{{ categoria.id_categoria }}">Alterar</a>
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}categoria/listar/{{ categoria.id_categoria }}">Voltar</a>
                     </div>
                 </form>
             </div>

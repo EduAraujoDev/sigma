@@ -30,6 +30,8 @@
 
                             <span class="input-group-addon"><input type="submit"  value="buscar"></span>
                         </div>
+                        <input type="radio" name="tipo_busca" value="nome"> Nome
+                        <input type="radio" name="tipo_busca" value="codigo"> Código de Fabricante
                     </form>
                     <br>
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
@@ -51,6 +53,7 @@
                                                 <td>{{ produto.codigo_fabricante }}</td>
                                                 <td>{{ produto.valor_venda }}</td>
                                                 <td>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}produto/visualizar/{{ produto.id_produto }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}produto/editar/{{ produto.id_produto }}">Alterar</a>
                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}produto/deletar/{{ produto.id_produto }}">Excluir</a>
                                                 </td>

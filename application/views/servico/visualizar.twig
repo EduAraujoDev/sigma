@@ -5,15 +5,14 @@
     <section class="content-header">
         <h1>
             Área Administrador
-            <small>Novo Serviço</small>
+            <small>Editar Serviço</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Novo Serviço</li>
+            <li class="active">Editar Serviço</li>
         </ol>
     </section>
 {% endblock %}
-
 {% block content %}
     <section class="content">
         <div class="col-md-12">
@@ -21,32 +20,43 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Serviço</h3>
                 </div>
-                <form role="form" action="{{base_url}}servico/adicionar" method="post" class="form-incline">
+                <form role="form" action="{{base_url}}servico/atualizar/{{servico.id_servico}}" method="post" class="form-incline">
                     <div class="box-body">
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="id">Código Serviço</label>
+                            <input type="text" class="form-control" id="id" 
+                                   value="{{servico.id_servico}}" name="id" disabled>
+                        </div>
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="titulo">Titulo</label>
                             <input type="text" class="form-control" id="titulo" 
-                                   name="titulo" placeholder="" maxlength="40" >
-                        </div>   
+                                   value="{{servico.titulo}}" name="titulo" placeholder="" maxlength="40" disabled>
+                        </div>                      
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="descricao">Descrição</label>
                             <input type="text" class="form-control" id="descricao" 
-                                   name="descricao" placeholder="" maxlength="80">
-                        </div>                      
+                                   value="{{servico.descricao}}" name="descricao" placeholder="" maxlength="80" disabled>
+                        </div>  
+                        
                         <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="valor">Valor</label>
                             <input type="text" class="form-control" id="valor" 
-                                   name="valor" placeholder="" maxlength="6">
-                        </div>     
+                                   value="{{servico.valor}}" name="valor" placeholder="" maxlength="6" disabled>
+                        </div> 
+                        
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <label>Observações</label>
-                            <textarea class="form-control" name="observacoes" rows="3" placeholder=""></textarea>
+                            <textarea class="form-control" name="observacoes" rows="3" placeholder="" disabled>{{servico.observacoes}}</textarea>
                         </div>
+                        
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <!--<button type="submit" class="btn btn-primary">Editar</button>-->
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}servico/editar/{{ servico.id_servico }}">Alterar</a>
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}servico/listar/{{ servico.id_servico }}">Voltar</a>
                     </div>
                 </form>
             </div>

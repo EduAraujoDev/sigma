@@ -39,7 +39,7 @@
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Id</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Descrição</th>                                            
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>                                            
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Ação</th>
                                         </tr>
                                     </thead>
@@ -49,6 +49,7 @@
                                                 <td>{{ marca.id_marca }}</td>
                                                 <td>{{ marca.titulo }}</td>
                                                 <td>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}marca/visualizar/{{ marca.id_marca }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}marca/editar/{{ marca.id_marca }}">Alterar</a>
                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}marca/deletar/{{ marca.id_marca }}">Excluir</a>
                                                 </td>

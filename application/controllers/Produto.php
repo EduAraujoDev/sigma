@@ -31,8 +31,17 @@ class Produto extends CI_Controller {
     }
 
     public function buscar() {
-        $nome = (String) $this->input->get('busca');
-        $produtos = $this->produto_model->get_produto_by_nome($nome)->result();
+        $busca = (String) $this->input->get('busca');
+        $tipo_busca = (String) $this->input->get('tipo_busca');
+        $produtos = $this->produto_model->get_produto_notDeleted()->result();
+
+        if ($tipo_busca == "nome") {
+            $produtos = $this->produto_model->get_produto_by_nome($busca)->result();
+        }
+        if ($tipo_busca == "codigo") {
+            $produtos = $this->produto_model->get_produto_by_codigo($busca)->result();
+        }
+
         $data = array(
             'base_url' => $this->config->base_url(),
             'produtos' => $produtos,
@@ -85,6 +94,24 @@ class Produto extends CI_Controller {
             redirect('produto/listar', 'refresh');
         } else {
             redirect('produto/novo', 'refresh');
+        }
+    }
+
+    public function visualizar($produto_id) {
+        if ($produto_id != NULL) {
+            $produto_id = $produto_id;
+        } else {
+            $produto_id = $this->uri->segment(3);
+        }
+
+        if ($produto_id != NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'categorias' => $this->categoria_model->get_categoria_all()->result(),
+                'marcas' => $this->marca_model->get_marca_all()->result(),
+                'produto' => $this->produto_model->get_produto_byid($produto_id)->row()];
+            $this->twig->display('produto/visualizar', $data);
+        } else {
+            redirect('produto/listar', 'refresh');
         }
     }
 

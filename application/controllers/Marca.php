@@ -72,6 +72,22 @@ class Marca extends CI_Controller {
         }
     }
 
+    public function visualizar($marca_id) {
+        if ($marca_id != NULL) {
+            $marca_id = $marca_id;
+        } else {
+            $marca_id = $this->uri->segment(3);
+        }
+
+        if ($marca_id != NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'marca' => $this->marca_model->get_marca_byid($marca_id)->row()];
+            $this->twig->display('marca/visualizar', $data);
+        } else {
+            redirect('marca/listar', 'refresh');
+        }
+    }
+    
     // Pagina com o formulario para alterar a marca selecionada
     public function editar($marca_id) {
         if ($marca_id != NULL) {

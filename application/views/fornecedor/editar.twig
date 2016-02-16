@@ -24,6 +24,12 @@
                     <div class="box-body">
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="id">Código Fornecedor</label>
+                            <input type="text" class="form-control" id="nome" name="nome"
+                                   value="{{ fornecedor.id_fornecedor }}" disabled>
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="nome">Nome</label>
                             <input type="text" class="form-control" id="nome" name="nome" 
                                    placeholder="Digite o nome" value="{{ fornecedor.nome }}" maxlength="80">
@@ -36,7 +42,7 @@
                         </div>
                         
                         <div class="col-xs-12 col-sm-3 col-md-3">
-                            <label for="cnpj">Cnpj</label>
+                            <label for="cnpj">CPF/CNPJ</label>
                             <input type="text" class="form-control" id="cnpj" name="cnpj" 
                                    placeholder="Digite o cnpj" value="{{ fornecedor.cpf_cnpj }}" maxlength="18">
                         </div>
