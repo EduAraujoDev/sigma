@@ -27,8 +27,8 @@
 
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="login">Nome</label>
-                            <input type="text" class="form-control" name="nome" 
-                                   placeholder="Digite o nome" maxlength="80">
+                            <input type="text" class="form-control" name="nome" id="nome"
+                                   placeholder="Digite o nome" maxlength="80" onBlur="verificarNome(event);">
                         </div>
 
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -99,8 +99,8 @@
 
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="celular">Celular</label>
-                            <input  id="celular"type="text" class="form-control"  name="celular" 
-                                    placeholder="Digite o celular" maxlength="18">
+                            <input  id="celular"type="text" class="form-control" id="celular" name="celular" 
+                                    placeholder="Digite o celular" maxlength="18" onBlur="verificarCelular(event);">
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -129,31 +129,45 @@
             $("#telefone").mask("(999) 9999-9999");
             $("#celular").mask("(999) 99999-9999");
         });
-
-        function verificarCPF(event) {
-            var cpf = $("#cpf").val().replace(/[^\d]+/g, '');
-            if (TestaCPF(cpf) == false) {
-                alert("CPF INVALIDO!");
+        
+        function verificarNome(event) {
+            var nome = $("#nome").val();
+            if(nome.length === 0) {
+                $("#nome").focus;
+                alert("Informe um nome");
             }
         }
-        ;
+
+        function verificarCelular(event) {
+            var celular = $("#celular").val().replace(/[^\d]+/g, '');
+            if(celular.length !== 12) {
+                alert("Informe um celular");
+            }
+        }
+        
+        function verificarCPF(event) {
+            var cpf = $("#cpf").val().replace(/[^\d]+/g, '');
+            if (TestaCPF(cpf) === false) {
+                alert("CPF INVALIDO!");
+            }
+        };
 
         function TestaCPF(strCPF) {
             var Soma;
             var Resto;
             Soma = 0;
-            if (strCPF.length != 11 || strCPF == "00000000000" || strCPF == "11111111111" || strCPF == "22222222222" ||
-                    strCPF == "33333333333" || strCPF == "44444444444" || strCPF == "55555555555" || strCPF == "66666666666" ||
-                    strCPF == "77777777777" || strCPF == "88888888888" || strCPF == "99999999999")
+            if (strCPF.length !== 11 || strCPF === "00000000000" || strCPF === "11111111111" || strCPF === "22222222222" ||
+                    strCPF === "33333333333" || strCPF === "44444444444" || strCPF === "55555555555" || strCPF === "66666666666" ||
+                    strCPF === "77777777777" || strCPF === "88888888888" || strCPF === "99999999999")
                 return false;
 
             for (i = 1; i <= 9; i++)
                 Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
             Resto = (Soma * 10) % 11;
 
-            if ((Resto == 10) || (Resto == 11))
+            if ((Resto === 10) || (Resto === 11))
                 Resto = 0;
-            if (Resto != parseInt(strCPF.substring(9, 10)))
+            if (Resto !== parseInt(strCPF.substring(9, 10)))
                 return false;
 
             Soma = 0;
@@ -161,9 +175,9 @@
                 Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
             Resto = (Soma * 10) % 11;
 
-            if ((Resto == 10) || (Resto == 11))
+            if ((Resto === 10) || (Resto === 11))
                 Resto = 0;
-            if (Resto != parseInt(strCPF.substring(10, 11)))
+            if (Resto !== parseInt(strCPF.substring(10, 11)))
                 return false;
             return true;
         }

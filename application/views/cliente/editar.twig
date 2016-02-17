@@ -134,5 +134,72 @@
             $("#telefone").mask("(999) 9999-9999");
             $("#celular").mask("(999) 99999-9999");
         });
+        
+        function verificarNome(event) {
+            var nome = $("#nome").val();
+            if(nome.length === 0) {
+                $("#nome").focus;
+                alert("Informe um nome");
+            }
+        }
+
+        function verificarCelular(event) {
+            var celular = $("#celular").val().replace(/[^\d]+/g, '');
+            if(celular.length !== 12) {
+                alert("Informe um celular");
+            }
+        }
+        
+        function verificarCPF(event) {
+            var cpf = $("#cpf").val().replace(/[^\d]+/g, '');
+            if (TestaCPF(cpf) === false) {
+                alert("CPF INVALIDO!");
+            }
+        };
+
+        function TestaCPF(strCPF) {
+            var Soma;
+            var Resto;
+            Soma = 0;
+            if (strCPF.length !== 11 || strCPF === "00000000000" || strCPF === "11111111111" || strCPF === "22222222222" ||
+                    strCPF === "33333333333" || strCPF === "44444444444" || strCPF === "55555555555" || strCPF === "66666666666" ||
+                    strCPF === "77777777777" || strCPF === "88888888888" || strCPF === "99999999999")
+                return false;
+
+            for (i = 1; i <= 9; i++)
+                Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+            Resto = (Soma * 10) % 11;
+
+            if ((Resto === 10) || (Resto === 11))
+                Resto = 0;
+            if (Resto !== parseInt(strCPF.substring(9, 10)))
+                return false;
+
+            Soma = 0;
+            for (i = 1; i <= 10; i++)
+                Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+            Resto = (Soma * 10) % 11;
+
+            if ((Resto === 10) || (Resto === 11))
+                Resto = 0;
+            if (Resto !== parseInt(strCPF.substring(10, 11)))
+                return false;
+            return true;
+        }
+
+
+        function getEndereco(event) {
+            var cep = $("#cep").val();
+            var x = event.which || event.keyCode;
+            if (cep.match(/\d{5}-\d{3}/) && ((x >= 48 && x <= 57) || (x >= 96 && x <= 105))) {
+                $.getJSON("http://api.postmon.com.br/v1/cep/" + cep + "?format=json", function (retorno) {
+                    $('input[name=logradouro]').val(retorno.logradouro);
+                    $('input[name=bairro]').val(retorno.bairro);
+                    $('input[name=cidade]').val(retorno.cidade);
+                    $('input[name=uf]').val(retorno.estado);
+                });
+            }
+        }
+
     </script>
 {% endblock %}
