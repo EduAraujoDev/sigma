@@ -75,7 +75,7 @@
                     </div>
                             
                     <div class="box-footer">                        
-                        <input type="submit" class="btn btn-primary" onclick="return btnCadastrar();" value="Cadastrar">
+                        <input type="button" class="btn btn-primary" onclick="btnCadastrar();" value="Cadastrar">
                     </div>
                 </form>
             </div>
@@ -93,7 +93,7 @@
         });
 
         function btnCadastrar(){
-            if(document.querySelector("#nome").value == ""){            
+            if(document.querySelector("#nome").value == ""){
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12 has-error has-feedback');
                 document.querySelector("#nome").focus();
                 
@@ -101,7 +101,6 @@
             } else {
                 return true;
             }
-            
         }
     </script>
 {% endblock %}
