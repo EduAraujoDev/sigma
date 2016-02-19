@@ -28,9 +28,15 @@
                                placeholder="Selecione uma opção de busca" >
                         <span class="input-group-addon"><input type="submit"  value="buscar"></span>
                     </div>
-                    <input type="radio" name="tipo_busca" value="nome"> Nome
-                    <input type="radio" name="tipo_busca" value="cpf"> CPF/CNPJ
-                    <input type="radio" name="tipo_busca" value="nome_fantasia"> Nome Fantasia
+                    <br/>
+                        <div class="input-group col-sm-2">
+                         <select class="form-control" name="tipo_busca">
+                            <option disabled selected>Selecione</option>
+                                <option value="nome">Nome</option>
+                                <option value="cpf">CPF/CNPJ</option>
+                                <option value="nome_fantasia">Nome Fantasia</option>
+                         </select>
+                         </div> 
                 </form>
                 <br>
                 <div class="box-body">
@@ -54,7 +60,6 @@
                                                 <td>{{ fornecedor.cpf_cnpj }}</td>
                                                 <!-- CPF/CNPJ FORNECEDOR -->
                                                 <td>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}fornecedor/visualizar/{{ fornecedor.id_fornecedor }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}fornecedor/editar/{{ fornecedor.id_fornecedor }}">Alterar</a>
                                                     <a class="btn btn-danger btn-xs" href="{{base_url}}fornecedor/deletar/{{ fornecedor.id_fornecedor }}">Excluir</a>
                                                 </td>
