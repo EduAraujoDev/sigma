@@ -33,7 +33,7 @@
                 <form action="{{base_url}}login/validarUsuario" method="post">
                     <div class="form-group has-feedback">
                         <!-- <input type="email" name="usuario" class="form-control" placeholder="Email"> -->
-                        <input type="text" name="usuario" class="form-control" placeholder="Login">
+                        <input type="text" name="usuario" class="form-control" placeholder="Login" id="usuario">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
@@ -65,7 +65,9 @@
                     checkboxClass: 'icheckbox_square-blue',
                     radioClass: 'iradio_square-blue',
                     increaseArea: '20%' // optional
-                });                
+                });
+
+                document.querySelector("#usuario").focus();
             });
 
             $("#alerta").fadeTo(2000, 500).slideUp(500, function(){
