@@ -20,7 +20,9 @@ class Login extends CI_Controller {
 
     // Pagina inicial da aplicacao
     public function index() {
-        $data = ['base_url' => $this->config->base_url()];
+        $message_success = $this->session->flashdata('message_success');
+        $data = ['base_url' => $this->config->base_url(),
+            'message_success' => $message_success];
         $this->twig->display('login', $data);
     }
 
@@ -61,11 +63,11 @@ class Login extends CI_Controller {
                     redirect('/usuario', 'refresh');
                 }
             } else {
-                $this->session->set_flashdata('usuarioInvalido', 'Login ou senha invalido');
+                $this->session->set_flashdata('message_success', 'Login ou senha invalido');
                 redirect('/', 'refresh');
             }
         } else {
-            $this->session->set_flashdata('usuarioInvalido', 'Login ou senha invalido');
+            $this->session->set_flashdata('message_success', 'Login ou senha invalido');
             redirect('/', 'refresh');
         }
     }
