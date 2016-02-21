@@ -20,7 +20,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Produto</h3>
                 </div>
-                <form role="form" action="{{base_url}}produto/adicionar" method="post" class="form-incline">
+                <form role="form" action="{{base_url}}produto/adicionar" method="post" class="form-incline" onSubmit="return validaCadastro();">
                     <div class="box-body">
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -75,7 +75,7 @@
                     </div>
                             
                     <div class="box-footer">                        
-                        <input type="button" class="btn btn-primary" onclick="btnCadastrar();" value="Cadastrar">
+                        <input type="submit" class="btn btn-primary" value="Cadastrar">
                     </div>
                 </form>
             </div>
@@ -92,7 +92,7 @@
             $("#valorVenda").maskMoney();
         });
 
-        function btnCadastrar(){
+        function validaCadastro(){
             if(document.querySelector("#nome").value == ""){
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12 has-error has-feedback');
                 document.querySelector("#nome").focus();
