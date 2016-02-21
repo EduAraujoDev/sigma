@@ -25,10 +25,10 @@
                 <form name="frmCliente" role="form" action="{{base_url}}cliente/adicionar" method="post" class="form-incline">
                     <div class="box-body">        
 
-                        <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="col-xs-12 col-sm-6 col-md-6" id="divNome">
                             <label for="login">Nome</label>
                             <input type="text" class="form-control" name="nome" id="nome"
-                                   placeholder="Digite o nome" maxlength="80" onBlur="verificarNome(event);">
+                                   placeholder="Digite o nome" maxlength="80" onBlur="verificarNome();">
                         </div>
 
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -37,10 +37,10 @@
                                    placeholder="Digite o email" maxlength="80">
                         </div>
 
-                        <div class="hidden-xs col-sm-4 col-md-4">
+                        <div class="hidden-xs col-sm-4 col-md-4" id="divCpf">
                             <label for="cpf_cnpj">CPF/CNPJ</label>
                             <input type="text" class="form-control" id="cpf" name="cpf_cnpj" 
-                                   placeholder="Digite o cpf ou cnpj" maxlength="14" onBlur="verificarCPF(event);">
+                                   placeholder="Digite o cpf ou cnpj" maxlength="14" onBlur="verificarCPF();">
                         </div>
 
                         <div class="hidden-xs col-sm-4 col-md-4">
@@ -97,10 +97,10 @@
                                    placeholder="Digite o telefone residencial" maxlength="18">
                         </div>
 
-                        <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="col-xs-12 col-sm-6 col-md-6" id="divCelular">
                             <label for="celular">Celular</label>
                             <input  id="celular"type="text" class="form-control" id="celular" name="celular" 
-                                    placeholder="Digite o celular" maxlength="18" onBlur="verificarCelular(event);">
+                                    placeholder="Digite o celular" maxlength="18" onBlur="verificarCelular();">
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -111,7 +111,8 @@
                     </div>
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Gravar</button>
+                        <input type="button" class="btn btn-primary" onclick="btnCadastrar();" value="Cadastrar">
+                        <!--<button type="submit" class="btn btn-primary">Gravar</button>-->
                     </div>    
                 </form>
             </div>
@@ -130,25 +131,33 @@
             $("#celular").mask("(999) 99999-9999");
         });
         
-        function verificarNome(event) {
+        function btnCadastrar(){
+            verificarNome();
+            verificarCelular();
+            verificarCPF();
+        }
+        
+        function verificarNome() {
             var nome = $("#nome").val();
             if(nome.length === 0) {
-                $("#nome").focus;
-                alert("Informe um nome");
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
+                document.querySelector("#nome").focus();
             }
         }
 
-        function verificarCelular(event) {
+        function verificarCelular() {
             var celular = $("#celular").val().replace(/[^\d]+/g, '');
             if(celular.length !== 12) {
-                alert("Informe um celular");
+                document.querySelector("#divCelular").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
+                document.querySelector("#celular").focus();
             }
         }
         
-        function verificarCPF(event) {
+        function verificarCPF() {
             var cpf = $("#cpf").val().replace(/[^\d]+/g, '');
             if (TestaCPF(cpf) === false) {
-                alert("CPF INVALIDO!");
+                document.querySelector("#divCpf").setAttribute('class', 'hidden-xs col-sm-4 col-md-4 has-error has-feedback');
+                document.querySelector("#cpf").focus();
             }
         };
 
