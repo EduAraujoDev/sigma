@@ -132,17 +132,20 @@
         });
         
         function btnCadastrar(){
-            verificarNome();
-            verificarCelular();
-            verificarCPF();
-        }
+                verificarNome();
+                verificarCelular();
+                verificarCPF();
+            }
         
         function verificarNome() {
             var nome = $("#nome").val();
             if(nome.length === 0) {
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
                 document.querySelector("#nome").focus();
+            } else {
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
             }
+            
         }
 
         function verificarCelular() {
@@ -150,6 +153,8 @@
             if(celular.length !== 12) {
                 document.querySelector("#divCelular").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
                 document.querySelector("#celular").focus();
+            } else {
+                document.querySelector("#divCelular").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
             }
         }
         
@@ -158,6 +163,8 @@
             if (TestaCPF(cpf) === false) {
                 document.querySelector("#divCpf").setAttribute('class', 'hidden-xs col-sm-4 col-md-4 has-error has-feedback');
                 document.querySelector("#cpf").focus();
+            } else {
+                document.querySelector("#divCpf").setAttribute('class', 'hidden-xs col-sm-4 col-md-4');
             }
         };
 
