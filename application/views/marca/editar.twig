@@ -29,18 +29,41 @@
                                    value="{{ marca.id_marca }}" disabled>
                         </div> 
                         
-                        <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
                             <label for="descricao">Nome</label>
                             <input type="text" class="form-control" id="descricao" name="descricao" 
-                                   placeholder="Digite a marca" value="{{ marca.titulo }}">
+                                   placeholder="Digite a marca" value="{{ marca.titulo }}" onBlur="verificarNome();">
                         </div>                       
                         
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Alterar</button>
+                        <!--<button type="submit" class="btn btn-primary">Alterar</button>-->
+                        <input type="button" class="btn btn-primary" onclick="btnCadastrar();" value="Cadastrar">
                     </div>
                 </form>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        
+        function btnCadastrar(){
+           verificarNome();
+        }
+        
+        function verificarNome() {
+            var nome = $("#descricao").val();
+            if(nome.length === 0) {
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12 has-error has-feedback');
+                document.querySelector("#descricao").focus();
+            } else {
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12');
+            }
+            
+        }
+        
+    </script>
 {% endblock %}

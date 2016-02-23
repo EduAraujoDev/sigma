@@ -29,10 +29,10 @@
                                    value="{{servico.id_servico}}" name="id" disabled>
                         </div> 
                         
-                        <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="col-xs-12 col-sm-6 col-md-6" id="divTitulo">
                             <label for="titulo">Titulo</label>
                             <input type="text" class="form-control" id="titulo" 
-                                   value="{{servico.titulo}}" name="titulo" placeholder="" maxlength="40">
+                                   value="{{servico.titulo}}" name="titulo" placeholder="" maxlength="40" onBlur="verificarNome();">
                         </div>                      
                         
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -54,7 +54,8 @@
                         
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Editar</button>
+                        <!--<button type="submit" class="btn btn-primary">Editar</button>-->
+                        <input type="button" class="btn btn-primary" onclick="btnCadastrar();" value="Cadastrar">
                     </div>
                 </form>
             </div>
@@ -68,5 +69,21 @@
         jQuery(function ($) {
             $("#valor").mask("9999.99");
         });
+        
+         function btnCadastrar(){
+           verificarNome();
+        }
+        
+        function verificarNome() {
+            var nome = $("#titulo").val();
+            if(nome.length === 0) {
+                document.querySelector("#divTitulo").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
+                document.querySelector("#titulo").focus();
+            } else {
+                document.querySelector("#divTitulo").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
+            }
+            
+        }
+        
     </script>
 {% endblock %}
