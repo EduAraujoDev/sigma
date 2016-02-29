@@ -17,54 +17,71 @@
     <section class="content">
         <div class="col-xs-12">
             <div class="box">
-                {% if message_success is not empty %}
-                    <div class="alert alert-success">{{message_success}}</div>
-                {% endif %}
-                <form role="form" action="{{base_url}}marca/buscar" method="GET">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
-
-                        <input type="text" name="busca" class="form-control" 
-                               placeholder="Nome da marca" >
-
-                        <span class="input-group-addon"><input type="submit"  value="buscar"></span>
-                    </div>
-                </form>
-                <br>
                 <div class="box-body">
-                    <div class="dataTables_wrapper form-inline dt-bootstrap">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Id</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>                                            
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for marca in marcas %}
-                                            <tr>
-                                                <td>{{ marca.id_marca }}</td>
-                                                <td>{{ marca.titulo }}</td>
-                                                <td>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}marca/visualizar/{{ marca.id_marca }}">Visualizar</a>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}marca/editar/{{ marca.id_marca }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}marca/deletar/{{ marca.id_marca }}">Excluir</a>
-                                                </td>
+                    {% if message_success is not empty %}
+                        <div class="alert alert-success alert-dismissible fade in" role="alert" id="alerta">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Atenção!</strong>
+                            {{message_success}}
+                        </div>
+                    {% endif %}
+                    <form role="form" action="{{base_url}}marca/buscar" method="GET">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+
+                            <input type="text" name="busca" class="form-control" 
+                                   placeholder="Nome da marca" >
+
+                            <span class="input-group-addon"><input type="submit"  value="buscar"></span>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="box-body">
+                        <div class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Id</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>                                            
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Ação</th>
                                             </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            {% for marca in marcas %}
+                                                <tr>
+                                                    <td>{{ marca.id_marca }}</td>
+                                                    <td>{{ marca.titulo }}</td>
+                                                    <td>
+                                                        <a class="btn btn-primary btn-xs" href="{{base_url}}marca/visualizar/{{ marca.id_marca }}">Visualizar</a>
+                                                        <a class="btn btn-primary btn-xs" href="{{base_url}}marca/editar/{{ marca.id_marca }}">Alterar</a>
+                                                        <a class="btn btn-danger btn-xs" href="{{base_url}}marca/deletar/{{ marca.id_marca }}">Excluir</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="box-footer">
-                    <a class="btn btn-primary btn-lg" href="{{base_url}}marca/novo">Incluir</a>
+                    <div class="box-footer">
+                        <a class="btn btn-primary btn-lg" href="{{base_url}}marca/novo">Incluir</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 {% endblock %}  
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $("#alerta").fadeTo(2000, 500).slideUp(500, function(){
+            $("#alerta").alert('close');
+        });
+    </script>
+{% endblock %}
