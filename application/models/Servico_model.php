@@ -30,6 +30,14 @@ class Servico_model extends CI_Model {
         }
     }
 
+    public function get_servico_count_notDeleted(){
+        $this->db->where('deletado', 0);
+
+        $db_result = $this->db->get('servico');
+
+        return $db_result->num_rows();
+    }
+
     public function set_servico($dados = NULL) {
         if ($dados <> NULL) {
             $this->db->insert('servico', $dados);

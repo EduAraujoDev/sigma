@@ -19,6 +19,10 @@ class Admin extends CI_Controller {
         $this->load->model('perfil_model', 'perfil_model');
         $this->load->model('categoria_model', 'categoria_model');
         $this->load->model('marca_model', 'marca_model');
+        $this->load->model('cliente_model', 'cliente_model');
+        $this->load->model('servico_model', 'servico_model');
+        $this->load->model('produto_model', 'produto_model');
+        $this->load->model('fornecedor_model', 'fornecedor_model');
 
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
@@ -34,6 +38,10 @@ class Admin extends CI_Controller {
         $user = $_SESSION['userLogin']["usuario"];
         $data = array(
             'base_url' => $this->config->base_url(),
+            'qntCliente' => $this->cliente_model->get_cliente_count_notDeleted(),
+            'qntServico' => $this->servico_model->get_servico_count_notDeleted(),
+            'qntProduto' => $this->produto_model->get_produto_count_notDeleted(),
+            'qntFornecedor' => $this->fornecedor_model->get_fornecedor_count_notDeleted(),
             'nome' => $user,
         );
         $this->twig->display('admin/dashboard_admin', $data);

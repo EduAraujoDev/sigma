@@ -30,6 +30,14 @@ class Cliente_model extends CI_Model {
         return $this->db->get('cliente');
     }
 
+    public function get_cliente_count_notDeleted(){
+        $this->db->where('deletado', 0);
+
+        $db_result = $this->db->get('cliente');
+
+        return $db_result->num_rows();
+    }
+
     public function insert_cliente($cliente) {
         $this->db->insert('cliente', $cliente);
     }
