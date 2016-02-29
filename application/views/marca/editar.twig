@@ -20,7 +20,8 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Marca</h3>
                 </div>
-                <form role="form" action="{{base_url}}marca/atualizar/{{ marca.id_marca }}" method="post" method="post">
+                <form role="form" action="{{base_url}}marca/atualizar/{{ marca.id_marca }}" method="post" 
+                      method="post" onSubmit="return btnCadastrar();">
                     <div class="box-body">
                         
                         <div class="col-xs-12 col-sm-12 col-md-5">
@@ -37,8 +38,7 @@
                         
                     </div>
                     <div class="box-footer">
-                        <!--<button type="submit" class="btn btn-primary">Alterar</button>-->
-                        <input type="button" class="btn btn-primary" onclick="btnCadastrar();" value="Cadastrar">
+                        <button type="submit" class="btn btn-primary">Alterar</button>
                     </div>
                 </form>
             </div>
@@ -51,7 +51,7 @@
     <script type="text/javascript">
         
         function btnCadastrar(){
-           verificarNome();
+           return verificarNome();
         }
         
         function verificarNome() {
@@ -59,8 +59,10 @@
             if(nome.length === 0) {
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12 has-error has-feedback');
                 document.querySelector("#descricao").focus();
+                return false;
             } else {
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12');
+                return true;
             }
             
         }

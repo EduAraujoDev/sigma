@@ -19,7 +19,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Categoria</h3>
                 </div>
-                <form role="form" action="{{base_url}}categoria/adicionar" method="post">
+                <form role="form" action="{{base_url}}categoria/adicionar" method="post" onSubmit="return btnCadastrar();">
                     
                     <div class="box-body">
                         
@@ -32,8 +32,7 @@
                     </div>
                     
                     <div class="box-footer">
-                        <!--<button type="submit" class="btn btn-primary">Cadastrar</button>-->
-                        <input type="button" class="btn btn-primary" onclick="btnCadastrar();" value="Cadastrar">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>
                 </form>
             </div>
@@ -46,7 +45,7 @@
     <script type="text/javascript">
         
         function btnCadastrar(){
-           verificarNome();
+           return verificarNome();
         }
         
         function verificarNome() {
@@ -54,8 +53,10 @@
             if(nome.length === 0) {
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12 has-error has-feedback');
                 document.querySelector("#descricao").focus();
+                return false;
             } else {
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12');
+                return true;
             }
             
         }

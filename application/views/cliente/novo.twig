@@ -22,7 +22,8 @@
                     <h3 class="box-title">Dados do usuário</h3>
                 </div>
 
-                <form name="frmCliente" role="form" action="{{base_url}}cliente/adicionar" method="post" class="form-incline">
+                <form name="frmCliente" role="form" action="{{base_url}}cliente/adicionar" method="post" 
+                      class="form-incline" onSubmit="return btnCadastrar();">
                     <div class="box-body">        
 
                         <div class="col-xs-12 col-sm-6 col-md-6" id="divNome">
@@ -111,8 +112,7 @@
                     </div>
 
                     <div class="box-footer">
-                        <input type="button" class="btn btn-primary" onclick="btnCadastrar();" value="Cadastrar">
-                        <!--<button type="submit" class="btn btn-primary">Gravar</button>-->
+                        <button type="submit" class="btn btn-primary">Gravar</button>
                     </div>    
                 </form>
             </div>
@@ -132,9 +132,11 @@
         });
         
         function btnCadastrar(){
-           verificarNome();
-           verificarCelular();
-           verificarCPF();
+           if (verificarNome() & verificarCelular() & verificarCPF()) {
+             return true;   
+           } else {
+             return false;
+           }
         }
         
         function verificarNome() {
@@ -142,8 +144,10 @@
             if(nome.length === 0) {
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
                 document.querySelector("#nome").focus();
+                return false;
             } else {
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
+                return true;
             }
             
         }
@@ -153,8 +157,10 @@
             if(celular.length !== 12) {
                 document.querySelector("#divCelular").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
                 document.querySelector("#celular").focus();
+                return false;
             } else {
                 document.querySelector("#divCelular").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
+                return true;
             }
         }
         
@@ -163,8 +169,10 @@
             if (TestaCPF(cpf) === false) {
                 document.querySelector("#divCpf").setAttribute('class', 'hidden-xs col-sm-4 col-md-4 has-error has-feedback');
                 document.querySelector("#cpf").focus();
+                return false;
             } else {
                 document.querySelector("#divCpf").setAttribute('class', 'hidden-xs col-sm-4 col-md-4');
+                return true;
             }
         };
 

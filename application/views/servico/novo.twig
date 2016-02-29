@@ -21,7 +21,8 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Serviço</h3>
                 </div>
-                <form role="form" action="{{base_url}}servico/adicionar" method="post" class="form-incline">
+                <form role="form" action="{{base_url}}servico/adicionar" method="post" class="form-incline"
+                      onSubmit="return btnCadastrar();">
                     <div class="box-body">
                         
                         <div class="col-xs-12 col-sm-6 col-md-6" id="divTitulo">
@@ -34,20 +35,21 @@
                             <label for="descricao">Descrição</label>
                             <input type="text" class="form-control" id="descricao" 
                                    name="descricao" placeholder="" maxlength="80">
-                        </div>                      
-                        <div class="col-xs-12 col-sm-3 col-md-3">
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3" id="divValor">
                             <label for="valor">Valor</label>
-                            <input type="text" class="form-control" id="valor" 
-                                   name="valor" placeholder="" maxlength="6">
-                        </div>     
+                            <input type="text" class="form-control" id="valor" value="0.00"
+                                   name="valor" placeholder="0.00" maxlength="7" onBlur="verificarValor();">
+                        </div>
+                        
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <label>Observações</label>
                             <textarea class="form-control" name="observacoes" rows="3" placeholder=""></textarea>
                         </div>
                     </div>
                     <div class="box-footer">
-                        <!--<button type="submit" class="btn btn-primary">Cadastrar</button>-->
-                        <input type="button" class="btn btn-primary" onclick="btnCadastrar();" value="Cadastrar">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>
                 </form>
             </div>
@@ -59,20 +61,41 @@
     {{ parent() }}
     <script type="text/javascript">
         jQuery(function ($) {
-            $("#valor").mask("9999.99");
+            $("#valor").maskMoney();
         });
         
         function btnCadastrar(){
-           verificarNome();
+           if (verificarNome() & verificarValor()) {
+             return true;   
+           } else {
+             return false;
+           }
         }
         
         function verificarNome() {
             var nome = $("#titulo").val();
+            
             if(nome.length === 0) {
                 document.querySelector("#divTitulo").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
                 document.querySelector("#titulo").focus();
+                return false;
             } else {
                 document.querySelector("#divTitulo").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
+                return true;
+            }
+            
+        }
+        
+        function verificarValor() {
+            var valor = $("#valor").maskMoney('unmasked')[0];
+            
+            if(valor <= 0) {
+                document.querySelector("#divValor").setAttribute('class', 'col-xs-12 col-sm-3 col-md-3 has-error has-feedback');
+                document.querySelector("#valor").focus();
+                return false;
+            } else {
+                document.querySelector("#divValor").setAttribute('class', 'col-xs-12 col-sm-3 col-md-3');
+                return true;
             }
             
         }
