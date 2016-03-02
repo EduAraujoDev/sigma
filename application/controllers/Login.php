@@ -20,10 +20,18 @@ class Login extends CI_Controller {
 
     // Pagina inicial da aplicacao
     public function index() {
-        $message_success = $this->session->flashdata('message_success');
-        $data = ['base_url' => $this->config->base_url(),
-            'message_success' => $message_success];
-        $this->twig->display('login', $data);
+        if (isset($_SESSION['userLogin'])) {
+            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'ADMIN') {
+                redirect('/admin', 'refresh');
+            } else {
+                redirect('/usuario', 'refresh');
+            }
+        } else {
+            $message_success = $this->session->flashdata('message_success');
+            $data = ['base_url' => $this->config->base_url(),
+                'message_success' => $message_success];
+            $this->twig->display('login', $data);
+        }
     }
 
     // Valida o usuario informado na index
@@ -79,5 +87,4 @@ class Login extends CI_Controller {
             redirect('/', 'refresh');
         }
     }
-
 }
