@@ -19,7 +19,13 @@
             <div class="box">
                 <div class="box-body">
                     {% if message_success is not empty %}
-                        <div class="alert alert-success">{{message_success}}</div>
+                        <div class="alert alert-success alert-dismissible fade in" role="alert" id="alerta">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Atenção!</strong>
+                            {{message_success}}
+                        </div>
                     {% endif %}
                     <form role="form" action="{{base_url}}servico/buscar" method="GET">
                         <div class="input-group">
