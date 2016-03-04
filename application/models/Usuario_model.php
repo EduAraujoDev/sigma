@@ -15,6 +15,11 @@ class Usuario_model extends CI_Model {
         }
     }
 
+    public function get_usuario_notDeleted() {
+        $this->db->where('deletado', 0);
+        return $this->db->get('usuario');
+    }
+
     public function get_usuario_byid($id=NULL)
     {
         if($id <> NULL)

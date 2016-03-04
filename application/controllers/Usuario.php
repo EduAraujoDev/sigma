@@ -6,13 +6,15 @@ class Usuario extends CI_Controller {
 	{
 		parent::__construct();
 
-		if(isset($_SESSION['userLogin'])){
-            if(strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'ADMIN'){
-                redirect('/admin', 'refresh');
+		$this->load->model('usuario_model', 'usuario_model');
+
+        if (isset($_SESSION['userLogin'])) {
+            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
+                redirect('/usuario', 'refresh');
             }
-		} else {
-			redirect('/','refresh');
-		}		
+        } else {
+            redirect('/', 'refresh');
+        }	
 	}
 
 	public function index()
@@ -20,4 +22,13 @@ class Usuario extends CI_Controller {
 		$data = ['base_url' => $this->config->base_url()];
         $this->twig->display('usuario/dashboard_usuario', $data);		
 	}
+
+    public function listar() {
+        $message_success = $this->session->flashdata('message_success');
+        $data = ['base_url' => $this->config->base_url(),
+            'message_success' => $message_success,
+            'usuarios' => $this->usuario_model->get_usuario_notDeleted()->result()
+        ];
+        $this->twig->display('usuario/listar', $data);
+    }	
 }
