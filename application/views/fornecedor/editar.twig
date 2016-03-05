@@ -20,10 +20,28 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Fornecedor</h3>
                 </div>
-                <form role="form" action="{{base_url}}fornecedor/atualizar/{{ fornecedor.id_fornecedor }}" method="post">
+                <form role="form" action="{{base_url}}fornecedor/atualizar/{{ fornecedor.id_fornecedor }}" method="post"
+                      onSubmit="return btnCadastrar();">
+                    
                     <div class="box-body">
                         
-                        <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <label>
+                                Tipo de Pessoa: &nbsp;
+                            </label>
+                            
+                            <label class="radio-inline">
+                                <input type="radio" name="optionRadios" id="fisico" value="F" onclick="verificarCPFCNPJ()" checked/>
+                                Pessoa Fisica
+                            </label>    
+                        
+                            <label class="radio-inline">
+                                <input type="radio" name="optionRadios" id="juridico" value="J" onclick="verificarCPFCNPJ()"/>
+                                Pessoa Juridica
+                            </label>
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="id">Código Fornecedor</label>
                             <input type="text" class="form-control" id="nome" name="nome"
                                    value="{{ fornecedor.id_fornecedor }}" disabled>
@@ -39,13 +57,15 @@
                         <div class="hidden-xs col-sm-6 col-md-6">
                             <label for="nomeFantasia">Nome fantasia</label>
                             <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" 
-                                   placeholder="Digite o Nome fantasia" value="{{ fornecedor.nome_fantasia }}" maxlength="80">
+                                   placeholder="Digite o Nome fantasia" value="{{ fornecedor.nome_fantasia }}" 
+                                   maxlength="80">
                         </div>
                         
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <label for="cnpj">CPF/CNPJ</label>
+                        <div class="col-xs-12 col-sm-3 col-md-3" id="divCnpj">
+                            <label for="cnpj" id="cpfcnpj">CPF</label>
                             <input type="text" class="form-control" id="cnpj" name="cnpj" 
-                                   placeholder="Digite o cnpj" value="{{ fornecedor.cpf_cnpj }}" maxlength="18">
+                                   placeholder="Digite o cpf/cnpj" value="{{ fornecedor.cpf_cnpj }}" 
+                                   maxlength="18" onBlur="verificarCPFCNPJ();">
                         </div>
                         
                         <div class="col-xs-12 col-sm-3 col-md-3">
@@ -62,7 +82,7 @@
                         
                         <div class="hidden-xs col-sm-3 col-md-3">
                             <label for="cep">CEP</label>
-                            <input type="text" class="form-control" id="cep" name="cep" 
+                            <input type="text" class="form-control" id="cep" onkeyup="getEndereco(event);" name="cep" 
                                    placeholder="Digite o CEP" maxlength="10">
                         </div>
                         
@@ -173,18 +193,95 @@
             }
         }
         
-        function verificarCPF() {
-            var cpf = $("#cpf").val().replace(/[^\d]+/g, '');
-            if (TestaCPF(cpf) === false) {
-                document.querySelector("#divCpf").setAttribute('class', 'hidden-xs col-sm-4 col-md-4 has-error has-feedback');
-                document.querySelector("#cpf").focus();
+        function verificarCPFCNPJ() {
+            var cpfcnpj = $("#cnpj").val().replace(/[^\d]+/g, '');
+            var tipoPessoa = document.getElementById('juridico').checked;
+            
+            if (tipoPessoa) {
+                document.getElementById("cpfcnpj").textContent = "CNPJ";
+                $("#cnpj").mask("99.999.999/9999-99");
+                cnpj(cpfcnpj);
+            } else {
+                document.getElementById("cpfcnpj").textContent = "CPF";
+                $("#cnpj").mask("999.999.999-99");
+                cpf(cpfcnpj);
+            }
+            
+        };
+        
+        function cpf(cpf) {
+            if (validarCPF(cpf) === false) {
+                document.querySelector("#divCnpj").setAttribute('class', 'col-xs-12 col-sm-3 col-md-3 has-error has-feedback');
+                document.querySelector("#cnpj").focus();
                 return false;
             } else {
-                document.querySelector("#divCpf").setAttribute('class', 'hidden-xs col-sm-4 col-md-4');
+                document.querySelector("#divCnpj").setAttribute('class', 'col-xs-12 col-sm-3 col-md-3');
                 return true;
             }
-        };
+        }
+        
+        function cnpj(cnpj) {
+            if(validarCNPJ(cnpj) === false) {
+                document.querySelector("#divCnpj").setAttribute('class', 'col-xs-12 col-sm-3 col-md-3 has-error has-feedback');
+                document.querySelector("#cnpj").focus();
+                return false;
+            } else {
+                document.querySelector("#divCnpj").setAttribute('class', 'col-xs-12 col-sm-3 col-md-3');
+                return true;
+            }
+        }
+        
+        function validarCNPJ(cnpj) {
 
+            cnpj = cnpj.replace(/[^\d]+/g,'');
+
+            if(cnpj === '') return false;
+
+            if (cnpj.length !== 14)
+            return false;
+
+            if (cnpj === "00000000000000" || 
+                cnpj === "11111111111111" || 
+                cnpj === "22222222222222" || 
+                cnpj === "33333333333333" || 
+                cnpj === "44444444444444" || 
+                cnpj === "55555555555555" || 
+                cnpj === "66666666666666" || 
+                cnpj === "77777777777777" || 
+                cnpj === "88888888888888" || 
+                cnpj === "99999999999999")
+            return false; 
+
+            tamanho = cnpj.length - 2
+            numeros = cnpj.substring(0,tamanho);
+            digitos = cnpj.substring(tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+            for (i = tamanho; i >= 1; i--) {
+                    soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2)
+                    pos = 9;
+            }
+            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado !== digitos.charAt(0))
+            return false;
+
+            tamanho = tamanho + 1;
+            numeros = cnpj.substring(0,tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+            for (i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2)
+                    pos = 9;
+            }
+            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado !== digitos.charAt(1))
+            return false;
+
+            return true;
+        }
+ 
         function verificarTelefone() {
             var telefone = $("#telFixo").val().replace(/[^\d]+/g, '');
             if(telefone.length !== 12) {
@@ -197,7 +294,7 @@
             }
         }
 
-        function TestaCPF(strCPF) {
+        function validarCPF(strCPF) {
             var Soma;
             var Resto;
             Soma = 0;

@@ -166,7 +166,7 @@
         
         function verificarCPF() {
             var cpf = $("#cpf").val().replace(/[^\d]+/g, '');
-            if (TestaCPF(cpf) === false) {
+            if (testaCPF(cpf) === false) {
                 document.querySelector("#divCpf").setAttribute('class', 'hidden-xs col-sm-4 col-md-4 has-error has-feedback');
                 document.querySelector("#cpf").focus();
                 return false;
@@ -176,7 +176,7 @@
             }
         };
 
-        function TestaCPF(strCPF) {
+        function testaCPF(strCPF) {
             var Soma;
             var Resto;
             Soma = 0;

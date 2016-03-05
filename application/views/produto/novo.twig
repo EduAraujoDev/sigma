@@ -91,15 +91,17 @@
     {{ parent() }}
     <script type="text/javascript">
         jQuery(function ($) {
-            $("#valorVenda").maskMoney();
-            $("#valorCusto").maskMoney();
+            $("#valorVenda").maskMoney({thousands:'.', decimal:','});
+            $("#valorCusto").maskMoney({thousands:'.', decimal:','});
         });
 
         function btnCadastrar(){
            if (verificarNome() & verificarValorVenda() & verificarValorCusto()) {
-             return true;   
+                $("#valorVenda").val() =  $("#valorVenda").maskMoney('unmask')[0];
+                $("#valorCusto").val() =  $("#valorCusto").maskMoney('unmask')[0];
+                return true;   
            } else {
-             return false;
+                return false;
            }
        }
 
