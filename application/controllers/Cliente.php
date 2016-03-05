@@ -184,4 +184,21 @@ class Cliente extends CI_Controller {
         return $this->form_validation;
     }
 
+    public function ajax_cliente(){
+        $clientes = $this->cliente_model->get_cliente_notDeleted()->result();
+
+        foreach ($clientes as $cliente) {
+            $linha = array();
+            $linha[] = $cliente->id_cliente;
+            $linha[] = $cliente->nome;
+            $linha[] = $cliente->cpf_cnpj;
+            $linha[] = $cliente->email;
+         
+            $data[] = $linha;
+        }
+ 
+        $saida = array("data" => $data,);
+
+        echo json_encode($saida);
+    }
 }

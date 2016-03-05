@@ -29,7 +29,7 @@ class Orcamento extends CI_Controller {
         $this->twig->display('orcamento/novo', $data);
     }
 
-    public function ajax_cliente(){
+    public function ajax_produto(){
         $clientes = $this->cliente_model->get_cliente_notDeleted()->result();
 
         foreach ($clientes as $cliente) {
