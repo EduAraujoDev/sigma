@@ -19,50 +19,55 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Oçamento</h3>
                 </div>
-                <form role="form" action="{{base_url}}orcamento/adicionar" method="post" method="post">
-
+                <form class="form-horizontal" role="form" action="{{base_url}}orcamento/adicionar" method="post" method="post">
                     <div class="box-body">
-                        <div class="col-xs-12 col-sm-3 col-md-3" >
-                            <label for="login">Código</label>
-                            <input type="text" class="form-control" name="codOrcamento" id="codOrcamento" placeholder="Digite o Código" maxlength="80">
-                        </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <label for="exampleInputEmail1">Status</label>
-                            <select class="form-control" name="Status">
-                                <option value="1">Aberto</option>
-                                <option value="2">Reprovado</option>
-                                <option value="3">Reprovado e Pendente Pagamento</option>
-                                <option value="4">Reprovado e Pago</option>
-                                <option value="5">Reprovado e Não Pago</option>
-                                <option value="6">Aprovado</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3" >
-                            <label for="login">Data Criação</label>
-                            <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" disabled>
-                        </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3" >
-                            <label for="login">Data de finalização</label>
-                            <input type="text" class="form-control" name="dataFinalizacao" id="dataFinalizacao" placeholder="  /  /    " >
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-2">
-                            <label for="complemento">Código do Cliente</label>                            
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="codCliente" id="codCliente" placeholder="Código do Cliente" disabled>
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-info btn-flat" onclick="buscaCliente();"><i class="fa fa-search"></i></button>
-                                </span>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-3" >
+                                <label for="login">Código</label>
+                                <input type="text" class="form-control" name="codOrcamento" id="codOrcamento" placeholder="Digite o Código" maxlength="80">
                             </div>
-                        </div>  
-                        <div class="col-xs-12 col-sm-12 col-md-10">
-                            <label for="complemento">Nome do Cliente</label>
-                            <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome do Cliente" disabled>
-                        </div>  
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <label for="complemento">Obervações</label>
-                            <br>
-                            <textarea class="form-control" name="observacoes" rows="3" placeholder=""></textarea>
-                        </div>  
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <label for="exampleInputEmail1">Status</label>
+                                <select class="form-control" name="Status">
+                                    <option value="1">Aberto</option>
+                                    <option value="2">Reprovado</option>
+                                    <option value="3">Reprovado e Pendente Pagamento</option>
+                                    <option value="4">Reprovado e Pago</option>
+                                    <option value="5">Reprovado e Não Pago</option>
+                                    <option value="6">Aprovado</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-3" >
+                                <label for="login">Data Criação</label>
+                                <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" disabled>
+                            </div>                          
+                            <div class="col-xs-12 col-sm-3 col-md-3" >
+                                <label for="login">Data de finalização</label>
+                                <input type="text" class="form-control" name="dataFinalizacao" id="dataFinalizacao" placeholder="  /  /    " >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-2">
+                                <label for="complemento">Código do Cliente</label>                            
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="codCliente" id="codCliente" placeholder="Código do Cliente" disabled>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-info btn-flat" onclick="buscaCliente();"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-10">
+                                <label for="complemento">Nome do Cliente</label>
+                                <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome do Cliente" disabled>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="complemento">Obervações</label>
+                                <br>
+                                <textarea class="form-control" name="observacoes" rows="3" placeholder=""></textarea>
+                            </div>  
+                        </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <label for="complemento">Serviços</label>
                             <br>
