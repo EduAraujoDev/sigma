@@ -185,7 +185,7 @@
                 },
             });
 
-            $('#modal_cliente').modal('show');
+            $('#modal_cliente').modal('show');            
         }
 
         $('#tabelaCliente tbody').on( 'click', 'tr', function () {
@@ -195,6 +195,7 @@
             document.querySelector("#nomeCliente").value = dadosLinha[1];
 
             $('#modal_cliente').modal('hide');
+            tableCliente.destroy();
         });
 
         function buscaServico(){            
@@ -220,13 +221,14 @@
             novaLinha += '  <td>'+linha+'</td>';
             novaLinha += '  <td>'+dadosLinha[1]+'</td>';            
             novaLinha += '  <td>'+dadosLinha[2]+'</td>';            
-            novaLinha += '  <td>'+dadosLinha[3]+'</td>';                       
+            novaLinha += '  <td class="text-right">'+dadosLinha[3]+'</td>';                       
             novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat" onclick="buscaServico();"><i class="fa fa-remove"></i></button></td>';
             novaLinha += '</tr>';
 
             tabelaServico.innerHTML += novaLinha;
 
             $('#modal_servico').modal('hide');
+            tableServico.destroy();
         });
     </script>
 {% endblock %}
