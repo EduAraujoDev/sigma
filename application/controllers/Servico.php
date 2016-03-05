@@ -146,4 +146,21 @@ class Servico extends CI_Controller {
         return $this->form_validation;
     }
 
+    public function ajax_servico(){
+        $servicos = $this->servico_model->get_servico_notDeleted()->result();
+
+        foreach ($servicos as $servico) {
+            $linha = array();
+            $linha[] = $servico->id_servico;
+            $linha[] = $servico->titulo;
+            $linha[] = $servico->descricao;
+            $linha[] = $servico->valor;
+         
+            $data[] = $linha;
+        }
+ 
+        $saida = array("data" => $data);
+
+        echo json_encode($saida);
+    }
 }

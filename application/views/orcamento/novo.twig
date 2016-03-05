@@ -68,59 +68,27 @@
                                 <textarea class="form-control" name="observacoes" rows="3" placeholder=""></textarea>
                             </div>  
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <label for="complemento">Serviços</label>
-                            <br>
-                            <table class="table table-bordered table-hover" id="tab_logic">
-                                <thead>
-                                    <tr >
-                                        <th class="text-center">
-                                            #
-                                        </th>
-                                        <th class="text-center">
-                                            Código
-                                        </th>
-                                        <th class="text-center">
-                                            Descrição
-                                        </th>
-                                        <th class="text-center">
-                                            Preço venda
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id='addr0'>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <select name="codigo_servico[0]" onchange="getval(this);" class="0" id="produto">
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="text" name='mail[0]' placeholder='Email' class="form-control"/>
-                                        </td>
-                                        <td>
-                                            <input type="text" name='mobile[0]' placeholder='Telefone' class="form-control"/>
-                                        </td>
-                                    </tr>
-                                    <tr id='addr1'></tr>
-                                </tbody>
-                            </table>
-                            <div class="hidden-xs col-sm-12 col-md-12" style="margin-top: 3%;">
-                                <div class="hidden-xs col-sm-8 col-md-8">
-                                    <label for="complemento">Total Serviços</label>
-                                </div>  
-                                <div class="hidden-xs col-sm-4 col-md-4">
-                                    <input type="text" class="form-control"  name="complemento" 
-                                           placeholder="" maxlength="100">
-                                    <br>
-                                    <a id="add_row" class="btn btn-default pull-left">Adicionar novo</a><a id='delete_row' class="pull-right btn btn-default">Remover o ultimo</a>
-                                </div> 
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="complemento">Serviços</label>
+                                <table id="servicos" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th class="text-center">Código</th>
+                                            <th class="text-center">Descrição</th>
+                                            <th class="text-center">Preço venda</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-9 col-md-offset-9">
+                                    <button type="button" class="btn btn-info btn-flat" onclick="buscaServico();">Incluir Serviços</button>
+                                </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
 
 
@@ -140,7 +108,7 @@
                     <p>Clique duas vezes para escolher o cliente</p>
                 </div>
                 <div class="modal-body form">
-                    <table id="tabelaCliente" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <table id="tabelaCliente" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -150,8 +118,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        </tbody>
-            
+                        </tbody>            
                     </table>                    
                 </div>
                 <div class="modal-footer">
@@ -159,7 +126,34 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <div class="modal fade" id="modal_servico" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Escolha o Serviço</h3>
+                    <p>Clique duas vezes para escolher o Serviço</p>
+                </div>
+                <div class="modal-body form">
+                    <table id="tabelaServico" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Titulo</th>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>            
+                    </table>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>      
 {% endblock %}
 
 {% block js %}
@@ -182,11 +176,11 @@
         };
 
         function buscaCliente(){            
-            table = $('#tabelaCliente').DataTable({
+            tableCliente = $('#tabelaCliente').DataTable({
                 "order": [],
          
                 "ajax": {
-                    "url": "ajax_cliente",
+                    "url": "{{base_url}}cliente/ajax_cliente",
                     "type": "POST"
                 },
             });
@@ -195,12 +189,44 @@
         }
 
         $('#tabelaCliente tbody').on( 'click', 'tr', function () {
-            var dadosLinha = table.row(this).data();
+            var dadosLinha = tableCliente.row(this).data();
 
             document.querySelector("#codCliente").value = dadosLinha[0];
             document.querySelector("#nomeCliente").value = dadosLinha[1];
 
             $('#modal_cliente').modal('hide');
+        });
+
+        function buscaServico(){            
+            tableServico = $('#tabelaServico').DataTable({
+                "order": [],
+         
+                "ajax": {
+                    "url": "{{base_url}}servico/ajax_servico",
+                    "type": "POST"
+                },
+            });
+
+            $('#modal_servico').modal('show');          
+        }
+
+        $('#tabelaServico tbody').on( 'click', 'tr', function () {
+            var dadosLinha = tableServico.row(this).data();
+            var novaLinha = "";
+            var tabelaServico = document.querySelector("#servicos");
+            var linha = tabelaServico.rows.length;
+
+            novaLinha += '<tr>';
+            novaLinha += '  <td>'+linha+'</td>';
+            novaLinha += '  <td>'+dadosLinha[1]+'</td>';            
+            novaLinha += '  <td>'+dadosLinha[2]+'</td>';            
+            novaLinha += '  <td>'+dadosLinha[3]+'</td>';                       
+            novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat" onclick="buscaServico();"><i class="fa fa-remove"></i></button></td>';
+            novaLinha += '</tr>';
+
+            tabelaServico.innerHTML += novaLinha;
+
+            $('#modal_servico').modal('hide');
         });
     </script>
 {% endblock %}
