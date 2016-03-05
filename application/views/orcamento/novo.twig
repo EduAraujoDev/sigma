@@ -28,15 +28,15 @@
                         </div>
                         <div class="col-xs-12 col-sm-3 col-md-3">
                             <label for="login">Status</label>
-                            <input type="text" class="form-control" name="status" id="status" placeholder="Digite o nome" maxlength="80">
+                            <input type="text" class="form-control" name="status" id="status" placeholder="Digite o nome">
                         </div>
                         <div class="col-xs-12 col-sm-3 col-md-3" >
                             <label for="login">Data Criação</label>
-                            <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" placeholder="Digite o nome" maxlength="80">
+                            <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" disabled>
                         </div>
                         <div class="col-xs-12 col-sm-3 col-md-3" >
                             <label for="login">Data de finalização</label>
-                            <input type="text" class="form-control" name="dataFinalizacao" id="dataFinalizacao" placeholder="Digite o nome" maxlength="80">
+                            <input type="text" class="form-control" name="dataFinalizacao" id="dataFinalizacao" placeholder="  /  /    " >
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-2">
                             <label for="complemento">Código do Cliente</label>                            
@@ -153,7 +153,23 @@
 {% block js %}
     {{ parent() }}
     <script type="text/javascript">
-        function buscaCliente(){
+        window.onload=function(){
+            var dataAtual = new Date();
+            var dia = dataAtual.getDate();
+            var mes = dataAtual.getMonth()+1;
+            var ano = dataAtual.getFullYear();
+
+            dia = dia.toString().length == 1?"0"+dia:dia;                    
+            mes = mes.toString().length == 1?"0"+mes:mes;
+
+            $("#dataCriacao").datepicker({dateFormat: 'dd/mm/yy', language: 'pt-BR'});
+            $("#dataCriacao").val([dia, mes, ano ].join("/"));
+
+            $("#dataFinalizacao").datepicker({dateFormat: 'dd/mm/yy', language: 'pt-BR'});
+            $("#dataFinalizacao").val([dia, mes, ano ].join("/"));
+        };
+
+        function buscaCliente(){            
             table = $('#tabelaCliente').DataTable({
                 "order": [],
          
