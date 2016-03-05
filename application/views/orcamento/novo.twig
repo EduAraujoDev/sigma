@@ -1,0 +1,147 @@
+{% extends "base_layout.twig" %}
+{% block title %}Novo Marca{% endblock %}
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Novo Orçamento</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Novo Orçamento</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Dados do Marca</h3>
+                </div>
+                <form role="form" action="{{base_url}}orcamento/adicionar" method="post" method="post">
+
+                    <div class="box-body">
+                        <div class="col-xs-12 col-sm-3 col-md-3" >
+                            <label for="login">Código</label>
+                            <input type="text" class="form-control" name="nome" id="nome"
+                                   placeholder="Digite o nome" maxlength="80" onBlur="verificarNome();">
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <label for="login">Status</label>
+                            <input type="text" class="form-control" name="nome" id="nome"
+                                   placeholder="Digite o nome" maxlength="80" onBlur="verificarNome();">
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3" >
+                            <label for="login">Data Criação</label>
+                            <input type="text" class="form-control" name="nome" id="nome"
+                                   placeholder="Digite o nome" maxlength="80" onBlur="verificarNome();">
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3" >
+                            <label for="login">Data de finalização</label>
+                            <input type="text" class="form-control" name="nome" id="nome"
+                                   placeholder="Digite o nome" maxlength="80" onBlur="verificarNome();">
+                        </div>
+
+                        <div class="hidden-xs col-sm-12 col-md-12">
+                            <label for="complemento">Cliente</label>
+                            <input type="text" class="form-control"  name="complemento" 
+                                   placeholder="Digite o complemento" maxlength="100">
+                        </div>  
+                        <div class="hidden-xs col-sm-12 col-md-12">
+                            <label for="complemento">Obervações</label>
+                            <br>
+                            <textarea style="width: 100%;"></textarea>
+                        </div>  
+                        <div class="hidden-xs col-sm-12 col-md-12">
+                            <label for="complemento">Serviços</label>
+                            <br>
+                            <table class="table table-bordered table-hover" id="tab_logic">
+                                <thead>
+                                    <tr >
+                                        <th class="text-center">
+                                            #
+                                        </th>
+                                        <th class="text-center">
+                                            Código
+                                        </th>
+                                        <th class="text-center">
+                                            Descrição
+                                        </th>
+                                        <th class="text-center">
+                                            Preço venda
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id='addr0'>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            <select name="codigo_servico[0]" onchange="getval(this);" class="0" id="produto">
+                                                <option value="01">01</option>
+                                                <option value="02">02</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" name='mail[0]' placeholder='Email' class="form-control"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" name='mobile[0]' placeholder='Telefone' class="form-control"/>
+                                        </td>
+                                    </tr>
+                                    <tr id='addr1'></tr>
+                                </tbody>
+                            </table>
+                            <div class="hidden-xs col-sm-12 col-md-12" style="margin-top: 3%;">
+                                <div class="hidden-xs col-sm-8 col-md-8">
+                                    <label for="complemento">Total Serviços</label>
+                                </div>  
+                                <div class="hidden-xs col-sm-4 col-md-4">
+                                    <input type="text" class="form-control"  name="complemento" 
+                                           placeholder="" maxlength="100">
+                                    <br>
+                                    <a id="add_row" class="btn btn-default pull-left">Adicionar novo</a><a id='delete_row' class="pull-right btn btn-default">Remover o ultimo</a>
+                                </div> 
+                            </div>
+                        </div> 
+                    </div>
+
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        function getval(sel) {
+            var a = $("option:selected",sel).attr("class");
+            alert(a);
+            alert(sel.value);
+        }
+
+        $(document).ready(function () {
+            var i = 1;
+            $("#add_row").click(function () {
+                $('#addr' + i).html("<td>" + (i + 1) + "</td><td><select name='codigo_servico[" + i + "]' onchange='getval(this);'   class='mai" + i + "]' id='produto'><option value='01'>01</option><option value='02'>02</option></select><td><input  name='mail[" + i + "]' type='text' placeholder='Email'  class='form-control input-md'></td><td><input  name='mobile[" + i + "]' type='text' placeholder='Telefone'  class='form-control input-md'></td>");
+                $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+                i++;
+            });
+            $("#delete_row").click(function () {
+                if (i > 1) {
+                    $("#addr" + (i - 1)).html('');
+                    i--;
+                }
+            });
+
+        });
+
+    </script>
+{% endblock %}

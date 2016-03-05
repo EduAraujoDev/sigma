@@ -48,6 +48,14 @@ class Produto_model extends CI_Model {
         }
     }
 
+    public function get_produto_count_notDeleted(){
+        $this->db->where('deletado', 0);
+
+        $db_result = $this->db->get('produto');
+
+        return $db_result->num_rows();
+    }
+
     public function set_produto($dados = NULL) {
         if ($dados <> NULL) {
             $this->db->insert('produto', $dados);

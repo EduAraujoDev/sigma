@@ -10,18 +10,11 @@
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="{{base_url}}public/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="{{base_url}}public/plugins/iCheck/square/blue.css">
-        <style>
-            #alerta{
-                background-color: #f2dede;
-                color: #a94442;
-                border-color: #ebccd1;
-            }
-        </style>
     </head>
     <body class="hold-transition login-page">
         <div class="login-box">
             {% if message_success is not empty %}
-                <div class="alert alert-dismissible fade in" role="alert" id="alerta">
+                <div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>

@@ -40,6 +40,14 @@ class Fornecedor_model extends CI_Model {
         }
     }
 
+    public function get_fornecedor_count_notDeleted(){
+        $this->db->where('deletado', 0);
+
+        $db_result = $this->db->get('fornecedor');
+
+        return $db_result->num_rows();
+    }
+
     public function set_fornecedor($dados = NULL) {
         if ($dados <> NULL) {
             $this->db->insert('fornecedor', $dados);

@@ -1,0 +1,23 @@
+{% extends "base_layout.twig" %}
+{% block title %}Listar Clientes{% endblock %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Listar Clientes</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Listar Clientes</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    {% for cliente in clientes %}
+        <tr>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.cpf_cnpj }}</td>
+         </tr>
+    {% endfor %}
+{% endblock %}
