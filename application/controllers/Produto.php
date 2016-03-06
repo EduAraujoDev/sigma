@@ -182,4 +182,21 @@ class Produto extends CI_Controller {
         return $this->form_validation;
     }
 
+    public function ajax_produto(){
+        $produtos = $this->produto_model->get_produto_notDeleted()->result();
+
+        foreach ($produtos as $produto) {
+            $linha = array();
+            $linha[] = $produto->id_produto;
+            $linha[] = $produto->nome;
+            $linha[] = $produto->quantidade_estoque;
+            $linha[] = $produto->valor_venda;
+         
+            $data[] = $linha;
+        }
+ 
+        $saida = array("data" => $data,);
+
+        echo json_encode($saida);
+    }
 }
