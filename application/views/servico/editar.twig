@@ -18,7 +18,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Dados do Serviço</h3>
+                    <h1 class="box-title">Dados do Serviço<br><small>*Campos obrigatorios</small></h1>
                 </div>
                 <form class="form-horizontal" role="form" action="{{base_url}}servico/atualizar/{{servico.id_servico}}" method="post" class="form-incline" onSubmit="return btnCadastrar();">
                     <div class="box-body">
@@ -28,7 +28,7 @@
                                 <input type="text" class="form-control" id="id" value="{{servico.id_servico}}" name="id" disabled>
                             </div>                         
                             <div class="col-xs-12 col-sm-6 col-md-6" id="divTitulo">
-                                <label for="titulo">Titulo</label>
+                                <label for="titulo">Titulo*</label>
                                 <input type="text" class="form-control" id="titulo" value="{{servico.titulo}}" name="titulo" placeholder="" maxlength="40" onBlur="verificarNome();">
                             </div> 
                         </div>
@@ -38,7 +38,7 @@
                                 <input type="text" class="form-control" id="descricao" value="{{servico.descricao}}" name="descricao" placeholder="" maxlength="80">
                             </div>                          
                             <div class="col-xs-12 col-sm-3 col-md-3" id="divValor">
-                                <label for="valor">Valor</label>
+                                <label for="valor">Valor*</label>
                                 <input type="text" class="form-control" id="valor" value="{{servico.valor}}" name="valor" placeholder="0.00" maxlength="7" onBlur="verificarNome();">
                             </div>
                         </div>
