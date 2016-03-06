@@ -22,42 +22,31 @@
                 </div>
                 <form role="form" action="{{base_url}}servico/atualizar/{{servico.id_servico}}" method="post" 
                       class="form-incline" onSubmit="return btnCadastrar();">
-                    <div class="box-body">
-                        
+                    <div class="box-body">                        
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="id">Código Serviço</label>
-                            <input type="text" class="form-control" id="id" 
-                                   value="{{servico.id_servico}}" name="id" disabled>
-                        </div> 
-                        
+                            <input type="text" class="form-control" id="id" value="{{servico.id_servico}}" name="id" disabled>
+                        </div>                         
                         <div class="col-xs-12 col-sm-6 col-md-6" id="divTitulo">
                             <label for="titulo">Titulo</label>
-                            <input type="text" class="form-control" id="titulo" 
-                                   value="{{servico.titulo}}" name="titulo" placeholder="" maxlength="40" 
-                                   onBlur="verificarNome();">
-                        </div>                      
-                        
+                            <input type="text" class="form-control" id="titulo" value="{{servico.titulo}}" name="titulo" placeholder="" maxlength="40" onBlur="verificarNome();">
+                        </div>                                              
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <label for="descricao">Descrição</label>
-                            <input type="text" class="form-control" id="descricao" 
-                                   value="{{servico.descricao}}" name="descricao" placeholder="" maxlength="80">
-                        </div>  
-                        
+                            <input type="text" class="form-control" id="descricao" value="{{servico.descricao}}" name="descricao" placeholder="" maxlength="80">
+                        </div>                          
                         <div class="col-xs-12 col-sm-3 col-md-3" id="divValor">
                             <label for="valor">Valor</label>
-                            <input type="text" class="form-control" id="valor" 
-                                   value="{{servico.valor}}" name="valor" placeholder="0.00" 
-                                   maxlength="7" onBlur="verificarNome();">
-                        </div> 
-                        
+                            <input type="text" class="form-control" id="valor" value="{{servico.valor}}" name="valor" placeholder="0.00" maxlength="7" onBlur="verificarNome();">
+                        </div>                         
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <label>Observações</label>
                             <textarea class="form-control" name="observacoes" rows="3" placeholder="">{{servico.observacoes}}</textarea>
-                        </div>
-                        
+                        </div>                          
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Editar</button>
+                        <button type="submit" class="btn btn-success">Editar</button>
+                        <a href="{{base_url}}servico/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>
