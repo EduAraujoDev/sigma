@@ -30,10 +30,7 @@
                     <form role="form" action="{{base_url}}servico/buscar" method="GET">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
-
-                            <input type="text" name="busca" class="form-control" 
-                                   placeholder="Nome do servico" >
-
+                            <input type="text" name="busca" class="form-control" placeholder="Nome do servico" >
                             <span class="input-group-addon"><input type="submit"  value="buscar"></span>
                         </div>
                     </form>
@@ -73,4 +70,12 @@
             </div>
         </div>
     </section>
-{% endblock %}  
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $("#alerta").fadeTo(2000, 500).slideUp(500, function(){
+            $("#alerta").alert('close');
+        });
+    </script>
+{% endblock %}

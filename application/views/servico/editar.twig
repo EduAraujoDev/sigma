@@ -64,12 +64,11 @@
         </div>
     </section>
 {% endblock %}
-
 {% block js %}
     {{ parent() }}
     <script type="text/javascript">
         jQuery(function ($) {
-            $("#valor").maskMoney();
+            $("#valor").maskMoney({thousands:'.', decimal:','});
         });
         
         function btnCadastrar(){
@@ -89,8 +88,7 @@
             } else {
                 document.querySelector("#divTitulo").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
                 return true;
-            }
-            
+            }            
         }
         
         function verificarValor() {
@@ -103,9 +101,7 @@
             } else {
                 document.querySelector("#divValor").setAttribute('class', 'col-xs-12 col-sm-3 col-md-3');
                 return true;
-            }
-            
-        }
-        
+            }            
+        }        
     </script>
 {% endblock %}

@@ -56,15 +56,18 @@ class Servico extends CI_Controller {
     }
 
     //Adicona novo servico
-    public function adicionar() {
-        // Validacoes de campo do formulario
+    public function adicionar() {        
+        // Validacoes de campo do formulario        
         $validacao_formulario = $this->validarformularioServico();
-        if ($validacao_formulario->run() == TRUE) {
+        if ($validacao_formulario->run() == TRUE) {            
+            $valor = str_replace('.', '', $this->input->post('valor'));
+            $valor = str_replace(',', '.', $valor);
+
             // Monta um array com as informacoes da categoria
             $dados = array(
                 'titulo' => $this->input->post('titulo'),
                 'descricao' => $this->input->post('descricao'),
-                'valor' => $this->input->post('valor'),
+                'valor' => $valor,
                 'observacoes' => $this->input->post('observacoes'),
                 'deletado' => 0
             );
@@ -113,10 +116,13 @@ class Servico extends CI_Controller {
         if ($servico_id != NULL) {
             $validacao_formulario = $this->validarformularioServico();
             if ($validacao_formulario->run() == TRUE) {
+                $valor = str_replace('.', '', $this->input->post('valor'));
+                $valor = str_replace(',', '.', $valor);
+                            
                 $dados = array(
                     'titulo' => $this->input->post('titulo'),
                     'descricao' => $this->input->post('descricao'),
-                    'valor' => $this->input->post('valor'),
+                    'valor' => $valor,
                     'observacoes' => $this->input->post('observacoes')
                 );
                 $this->servico_model->update_servico($dados, array('id_servico' => $servico_id));
