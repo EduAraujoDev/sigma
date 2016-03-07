@@ -42,4 +42,33 @@ class Usuario extends CI_Controller {
         $this->twig->display('usuario/novo', $data);
     }
 
+    //Adicona novo usuario
+    public function adicionar() {
+        $validacao_formulario = $this->validarformularioUsuario();
+        if ($validacao_formulario->run() == TRUE) {
+            // Monta um array com as informacoes do usuario
+            $dados = array(
+                'nome' => $this->input->post('nome'),
+                'login' => $this->input->post('login'),
+                'email' => $this->input->post('email'),
+                'id_tipo_perfil' => $this->input->post('id_tipo_perfil'),
+                'senha' => md5($this->input->post('senha'))
+            );
+            $this->usuario_model->set_usuario($dados);
+            $this->session->set_flashdata('message_success', 'Úsuario adicionado com sucesso!');
+            redirect('usuario/listar', 'refresh');
+        } else {
+            redirect('usuario/novo', 'refresh');
+        }
+    }
+
+    // Validacoes de campo do formulario
+    public function validarformularioUsuario() {
+        $this->form_validation->set_rules('nome', 'nome', 'required');
+        $this->form_validation->set_rules('login', 'login', 'required');
+        $this->form_validation->set_rules('senha', 'senha', 'required');
+        $this->form_validation->set_rules('id_tipo_perfil', 'id_tipo_perfil', 'required');
+        return $this->form_validation;
+    }
+
 }
