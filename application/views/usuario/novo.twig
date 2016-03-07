@@ -1,0 +1,80 @@
+{% extends "base_layout.twig" %}
+{% block title %}Novo Usuario{% endblock %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Novo Usuario</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Novo Usuario</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Cadastro de  Usuario</h3>
+                </div>
+                <form role="form" action="{{base_url}}usuario/adicionar" method="post" class="form-incline">
+                    <div>
+                        <div class="box-body" >
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="nome">Nome</label>
+                                <input type="text" class="form-control" id="nome" name="nome" 
+                                       placeholder="">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="login">Login</label>
+                                <input type="text" class="form-control" id="login" name="login">
+                            </div>                        
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" 
+                                       name="email" placeholder="" >
+
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="id_tipo_perfil">Tipo de Úsuario</label>
+                                <select class="form-control" name="id_tipo_perfil">
+                                    {% for tipo_perfil in tipo_perfils %}
+                                        <option value="{{ tipo_perfil.id_tipo_perfil }}">{{ tipo_perfil.titulo }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="senha">Senha</label>
+                                <input type="password" class="form-control" id="senha" 
+                                       name="senha" placeholder="">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="senha2">Confirmação da Senha</label>
+                                <input type="password" class="form-control" id="senha" 
+                                       name="senha" placeholder="">
+                            </div>
+                        </div>
+                        <div class="box-footer">                        
+                            <input type="submit" class="btn btn-primary" value="Cadastrar">
+                        </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+    </script>
+{% endblock %}
