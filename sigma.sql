@@ -6,7 +6,7 @@ USE `sigma`;
 -- Table structure for table `fornecedor`
 --
 
-DROP TABLE IF EXISTS `fornecedor`;
+DROP TABLE IF EXISTS `fornecedor`;
 CREATE TABLE `fornecedor` (
   `id_fornecedor` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE `fornecedor` (
   `celular` varchar(18) NULL,
   `email` varchar(30) NOT NULL,
   `observacoes` text,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_fornecedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `pedido_compra_status`;
 CREATE TABLE `pedido_compra_status` (
   `id_status` tinyint(4) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(30) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -59,7 +59,7 @@ CREATE TABLE `pedido_compra_cabecalho` (
   `total` decimal(10,2) NOT NULL,
   `observacoes` text,  
   `finalizado` TINYINT(1),
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_pedido_compra`),
   KEY `FK_PedidosCompraID_Status` (`id_status`),
   KEY `FK_PedidosCompraCabecalho_Forncedor` (`id_fornecedor`),
@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS `despesa_categoria`;
 CREATE TABLE `despesa_categoria` (
   `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(30) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_categoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS `despesa_status`;
 CREATE TABLE `despesa_status` (
   `id_status` tinyint(4) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(30) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -108,7 +108,7 @@ CREATE TABLE `despesa_pedido` (
   `total` decimal(10,2) NOT NULL,
   `observacoes` text NULL,
   `finalizado` TINYINT(1),
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_despesa_pedido`),
   KEY `FK_DespesaPedidos_PedidoCompra` (`id_pedido_compra`),
   KEY `FK_DespesaPedidos_categoria` (`id_categoria`),
@@ -133,7 +133,7 @@ CREATE TABLE `despesa` (
   `total` decimal(10,2) NOT NULL,
   `observacoes` text NULL,
   `finalizado` TINYINT(1),
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_despesa`),
   KEY `FK_Despesas_Categoria` (`id_categoria`),
   KEY `FK_Despesas_Status` (`id_status`),
@@ -149,7 +149,7 @@ DROP TABLE IF EXISTS `orcamento_status`;
 CREATE TABLE `orcamento_status` (
   `id_status` tinyint(4) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(30) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -176,7 +176,7 @@ CREATE TABLE `cliente` (
   `email` varchar(80) NULL,
   `recebimento_notificacao` TINYINT(1),
   `observacoes` text NULl,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -188,7 +188,7 @@ DROP TABLE IF EXISTS `tipo_pagamento`;
 CREATE TABLE `tipo_pagamento` (
   `id_tipo_pagamento` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(40) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_tipo_pagamento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -210,7 +210,7 @@ CREATE TABLE `orcamento_cabecalho` (
   `total_liquido` decimal(10,2) NOT NULL,
   `data_prevista_finalizacao` datetime NOT NULL,
   `finalizado` TINYINT(1),
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_orcamento`),
   KEY `FK_OrcamentoCabecalho_status` (`id_status`),
   KEY `FK_OrcamentoCabecalho_cliente` (`id_cliente`),
@@ -228,7 +228,7 @@ DROP TABLE IF EXISTS `produto_categoria`;
 CREATE TABLE `produto_categoria` (
   `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(40) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_categoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -240,7 +240,7 @@ DROP TABLE IF EXISTS `produto_marca`;
 CREATE TABLE `produto_marca` (
   `id_marca` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(30) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_marca`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -260,7 +260,7 @@ CREATE TABLE `produto` (
   `quantidade_reservada` int(11)  NULL,
   `valor_custo` decimal(10,2) NOT NULL,
   `valor_venda` decimal(10,2) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_produto`),
   KEY `FK_Produtos_Categoria` (`id_categoria`),
   KEY `FK_Produtos_Marca` (`id_marca`),
@@ -280,7 +280,7 @@ CREATE TABLE `orcamento_produto` (
   `quantidade` int(11) NOT NULL,
   `desconto` decimal(10,2) NULL,
   `preco_venda` decimal(10,2) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   UNIQUE KEY `PK_OrcamentoProdutos` (`id_orcamento`,`id_produto`),
   KEY `Fk_Produto` (`id_produto`),
   CONSTRAINT `Fk_Orcamento` FOREIGN KEY (`id_orcamento`) REFERENCES `orcamento_cabecalho` (`id_orcamento`),
@@ -295,7 +295,7 @@ DROP TABLE IF EXISTS `ordem_servico_status`;
 CREATE TABLE `ordem_servico_status` (
   `id_status` tinyint(4) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(30) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -319,7 +319,7 @@ CREATE TABLE `ordem_servico_cabecalho` (
   `total_liquido` decimal(10,2) NOT NULL,
   `data_prevista_finalizacao` datetime NOT NULL,
   `finalizado` TINYINT(1),
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_ordem_servico`),
   KEY `FK_OrdemServicoCabecalho_Status` (`id_status`),
   KEY `FK_OrdemServicoCabecalho` (`id_cliente`),
@@ -342,7 +342,7 @@ CREATE TABLE `ordem_servico_produto` (
   `quantidade` int(11) NOT NULL,
   `desconto` decimal(10,2)  NULL,
   `preco_venda` decimal(10,2) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   KEY `Fk_OrdemServicoProdutos_Produto` (`id_produto`),
   KEY `FK_OrdemServicoProdutos_OSID` (`id_ordem_servico`),
   CONSTRAINT `Fk_OrdemServicoProdutos_Produto` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`),
@@ -360,7 +360,7 @@ CREATE TABLE `servico` (
   `descricao` varchar(80)  NULL,
   `valor` decimal(6,2) NOT NULL,
   `observacoes` text,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_servico`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -372,7 +372,7 @@ DROP TABLE IF EXISTS `orcamento_servico`;
 CREATE TABLE `orcamento_servico` (
   `id_servico` int(11) NOT NULL,
   `id_orcamento` int(11) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   UNIQUE KEY `PK_OrcamentoServicos` (`id_servico`,`id_orcamento`),
   KEY `FK_OrcamentoID` (`id_orcamento`),
   CONSTRAINT `FK_Servicos` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`),
@@ -387,7 +387,7 @@ DROP TABLE IF EXISTS `ordem_servico_servico`;
 CREATE TABLE `ordem_servico_servico` (
   `id_servico` int(11) NOT NULL,
   `id_ordem_servico` int(11) NOT NULL,
-  `deletado` TINYINT(1),
+   `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   UNIQUE KEY `PK_OrdemServicoServicos` (`id_servico`,`id_ordem_servico`),
   KEY `FK_OrdemServicoServicos_OSID` (`id_ordem_servico`),
   CONSTRAINT `FK_OrdemServicoServicos` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`),
@@ -405,7 +405,7 @@ CREATE TABLE `pedido_compra_produto` (
   `id_produto` int(11) NOT NULL,
   `quantidade` int(11) NOT NULL,
   `valor_unitario` decimal(10,2) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   UNIQUE KEY `PK_PedidoCompraProdutos` (`id_pedido_produto`,`id_produto`),
   KEY `FK_PedidoCompraProdutos_ProdutoID` (`id_produto`),
   CONSTRAINT `FK_PedidoCompraProdutos_Pedido` FOREIGN KEY (`id_pedido_produto`) REFERENCES `pedido_compra_cabecalho` (`id_pedido_compra`),
@@ -420,9 +420,20 @@ DROP TABLE IF EXISTS `tipo_perfil`;
 CREATE TABLE `tipo_perfil` (
   `id_tipo_perfil` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(30) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_tipo_perfil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ --
+ -- Dumping data for table `tipo_perfil`
+ --
+ 
+ LOCK TABLES `tipo_perfil` WRITE;
+ /*!40000 ALTER TABLE `tipo_perfil` DISABLE KEYS */;
+ INSERT INTO `tipo_perfil` VALUES (1,'Adminstrador',0),(2,'Úsuario',0);
+ /*!40000 ALTER TABLE `tipo_perfil` ENABLE KEYS */;
+ UNLOCK TABLES;
+
 
 --
 -- Table structure for table `usuario`
@@ -435,9 +446,19 @@ CREATE TABLE `usuario` (
   `login` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `senha` varchar(80) NOT NULL,
-  `deletado` TINYINT(1),
+  `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   `id_tipo_perfil` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `FK_Usuario` (`id_tipo_perfil`),
   CONSTRAINT `FK_Usuario` FOREIGN KEY (`id_tipo_perfil`) REFERENCES `tipo_perfil` (`id_tipo_perfil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ --
+ -- Dumping data for table `usuario`
+ --
+ 
+ LOCK TABLES `usuario` WRITE;
+ /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+ INSERT INTO `usuario` VALUES (1,'admin','admin','admin@gmail.com','21232f297a57a5a743894a0e4a801fc3',0,1);
+ /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+ UNLOCK TABLES;
