@@ -62,6 +62,16 @@ class Usuario extends CI_Controller {
         }
     }
 
+    // Deleta o usuario selecionado na base de dados
+    public function deletar() {
+        $usuario_id = $this->uri->segment(3);
+        if ($usuario_id != NULL) {
+            $this->usuario_model->delete_usuario(array('id_usuario' => $usuario_id));
+        }
+        $this->session->set_flashdata('message_success', 'Usuario deletado com sucesso!');
+        redirect('usuario/listar', 'refresh');
+    }
+
     // Validacoes de campo do formulario
     public function validarformularioUsuario() {
         $this->form_validation->set_rules('nome', 'nome', 'required');
