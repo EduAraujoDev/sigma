@@ -24,11 +24,13 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-6 col-md-6" id="divTitulo">
                                 <label for="titulo">Titulo*</label>
-                                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="" maxlength="40" onBlur="verificarNome();">
+                                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="" 
+                                       maxlength="40" onBlur="verificarNome();">
                             </div>                           
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <label for="descricao">Descrição</label>
-                                <input type="text" class="form-control" id="descricao" name="descricao" placeholder="" maxlength="80">
+                                <input type="text" class="form-control" id="descricao" name="descricao" placeholder="" 
+                                       maxlength="80">
                             </div>
                         </div>
                         <div class="form-group">
@@ -46,7 +48,8 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-success">Cadastrar</button>
-                        <a href="{{base_url}}servico/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
+                        <a href="{{base_url}}servico/listar">
+                        <button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>

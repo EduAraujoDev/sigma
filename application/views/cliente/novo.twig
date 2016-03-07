@@ -1,6 +1,5 @@
 {% extends "base_layout.twig" %}
 {% block title %}Listar Clientes{% endblock %}
-
 {% block content_header %}
     <section class="content-header">
         <h1>
@@ -17,9 +16,8 @@
     <section class="content">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="box box-primary">
-
                 <div class="box-header with-border">
-                    <h3 class="box-title">Dados do usuário</h3>
+                    <h1 class="box-title">Dados do usuário<br><small>*Campos obrigatorios</small></h1>
                 </div>
 
                 <form name="frmCliente" role="form" action="{{base_url}}cliente/adicionar" method="post" 
@@ -27,7 +25,7 @@
                     <div class="box-body">        
 
                         <div class="col-xs-12 col-sm-6 col-md-6" id="divNome">
-                            <label for="login">Nome</label>
+                            <label for="login">Nome*</label>
                             <input type="text" class="form-control" name="nome" id="nome"
                                    placeholder="Digite o nome" maxlength="80" onBlur="verificarNome();">
                         </div>
@@ -39,7 +37,7 @@
                         </div>
 
                         <div class="hidden-xs col-sm-4 col-md-4" id="divCpf">
-                            <label for="cpf_cnpj">CPF/CNPJ</label>
+                            <label for="cpf_cnpj">CPF/CNPJ*</label>
                             <input type="text" class="form-control" id="cpf" name="cpf_cnpj" 
                                    placeholder="Digite o cpf ou cnpj" maxlength="14" onBlur="verificarCPF();">
                         </div>
@@ -99,7 +97,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-6 col-md-6" id="divCelular">
-                            <label for="celular">Celular</label>
+                            <label for="celular">Celular*</label>
                             <input  id="celular"type="text" class="form-control" id="celular" name="celular" 
                                     placeholder="Digite o celular" maxlength="18" onBlur="verificarCelular();">
                         </div>
@@ -112,7 +110,9 @@
                     </div>
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Gravar</button>
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                        <a href="{{base_url}}cliente/listar">
+                        <button type="button" class="btn btn-danger">Cancelar</button></a>    
                     </div>    
                 </form>
             </div>
