@@ -79,6 +79,45 @@ class Usuario extends CI_Controller {
         }
     }
 
+    public function editar($usuario_id) {
+        if ($usuario_id != NULL) {
+            $usuario_id = $usuario_id;
+        } else {
+            $usuario_id = $this->uri->segment(3);
+        }
+
+        if ($usuario_id != NULL) {
+            $data = ['base_url' => $this->config->base_url(),
+                'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result(),
+                'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row()];
+            $this->twig->display('usuario/editar', $data);
+        } else {
+            redirect('produto/listar', 'refresh');
+        }
+    }
+
+    //Atualiza o usuario na base de dados
+    public function atualizar() {
+        $usuario_id = $this->uri->segment(3);
+        if ($usuario_id != NULL) {
+            // Validacoes de campo do formulario
+            $validacao_formulario = $this->validarformularioUsuario();
+            if ($validacao_formulario->run() == TRUE) {
+                $dados = array(
+                    'nome' => $this->input->post('nome'),
+                    'login' => $this->input->post('login'),
+                    'email' => $this->input->post('email'),
+                    'id_tipo_perfil' => $this->input->post('id_tipo_perfil'),
+                    'senha' => md5($this->input->post('senha'))
+                );
+
+                $this->usuario_model->update_usuario($dados, array('id_usuario' => $usuario_id));
+            }
+        }
+        $this->session->set_flashdata('message_success', 'Produto editado com sucesso!');
+        redirect('usuario/listar', 'refresh');
+    }
+
     // Deleta o usuario selecionado na base de dados
     public function deletar() {
         $usuario_id = $this->uri->segment(3);
