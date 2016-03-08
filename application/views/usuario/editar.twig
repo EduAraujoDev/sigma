@@ -5,11 +5,11 @@
     <section class="content-header">
         <h1>
             Área Administrador
-            <small>Novo Usuario</small>
+            <small>Editar Usuario</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Novo Usuario</li>
+            <li class="active">Editar Usuario</li>
         </ol>
     </section>
 {% endblock %}
@@ -20,33 +20,36 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Cadastro de  Usuario</h3>
                 </div>
-                <form role="form" action="{{base_url}}usuario/adicionar" method="post" class="form-incline">
+                <form role="form" action="{{base_url}}usuario/atualizar" method="post" class="form-incline">
                     <div>
                         <div class="box-body" >
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="nome">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="nome" 
+                                <input type="text" class="form-control" value="{{ usuario.nome }}"  id="nome" name="nome" 
                                        placeholder="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="login">Login</label>
-                                <input type="text" class="form-control" id="login" name="login">
+                                <input type="text" class="form-control"  value="{{ usuario.login }}"  id="login" name="login">
                             </div>                        
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" 
+                                <input type="email" class="form-control" value="{{ usuario.email}}"  id="email" 
                                        name="email" placeholder="" >
-
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="id_tipo_perfil">Tipo de Úsuario</label>
-                                <select class="form-control" name="id_tipo_perfil">
+                                <select class="form-control" name="id_tipo_perfil" >
                                     {% for tipo_perfil in tipo_perfils %}
-                                        <option value="{{ tipo_perfil.id_tipo_perfil }}">{{ tipo_perfil.titulo }}</option>
+                                        {% if usuario.id_tipo_perfil == tipo_perfil.id_tipo_perfil %}
+                                            <option value="{{ tipo_perfil.id_tipo_perfil }}" selected>{{ tipo_perfil.titulo }}</option>
+                                        {% else%}
+                                            <option value="{{ tipo_perfil.id_tipo_perfil }}">{{ tipo_perfil.titulo }}</option>
+                                        {%endif%}
                                     {% endfor %}
                                 </select>
                             </div>
@@ -64,7 +67,7 @@
                             </div>
                         </div>
                         <div class="box-footer">                        
-                            <input type="submit" class="btn btn-primary" value="Cadastrar">
+                            <input type="submit" class="btn btn-primary" value="Editar">
                         </div>
                 </form>
             </div>
