@@ -184,6 +184,7 @@ class Produto extends CI_Controller {
 
     public function ajax_produto(){
         $produtos = $this->produto_model->get_produto_notDeleted()->result();
+        $data = array();
 
         foreach ($produtos as $produto) {
             $linha = array();

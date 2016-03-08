@@ -186,6 +186,7 @@ class Cliente extends CI_Controller {
 
     public function ajax_cliente(){
         $clientes = $this->cliente_model->get_cliente_notDeleted()->result();
+        $data = array();
 
         foreach ($clientes as $cliente) {
             $linha = array();

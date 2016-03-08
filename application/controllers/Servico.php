@@ -154,6 +154,7 @@ class Servico extends CI_Controller {
 
     public function ajax_servico(){
         $servicos = $this->servico_model->get_servico_notDeleted()->result();
+        $data = array();
 
         foreach ($servicos as $servico) {
             $linha = array();
