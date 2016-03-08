@@ -26,7 +26,6 @@ class Usuario_model extends CI_Model {
         if ($id <> NULL) {
             $this->db->where('id_usuario', $id);
             $this->db->limit(1);
-
             return $this->db->get('usuario');
         } else {
             return NULL;

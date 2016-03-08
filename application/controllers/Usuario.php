@@ -100,9 +100,14 @@ class Usuario extends CI_Controller {
     public function atualizar() {
         $usuario_id = $this->uri->segment(3);
         if ($usuario_id != NULL) {
-            // Validacoes de campo do formulario
-            $validacao_formulario = $this->validarformularioUsuario();
-            if ($validacao_formulario->run() == TRUE) {
+            if ($this->input->post('senha') == "") {
+                $dados = array(
+                    'nome' => $this->input->post('nome'),
+                    'login' => $this->input->post('login'),
+                    'email' => $this->input->post('email'),
+                    'id_tipo_perfil' => $this->input->post('id_tipo_perfil')
+                );
+            } else {
                 $dados = array(
                     'nome' => $this->input->post('nome'),
                     'login' => $this->input->post('login'),
@@ -110,12 +115,11 @@ class Usuario extends CI_Controller {
                     'id_tipo_perfil' => $this->input->post('id_tipo_perfil'),
                     'senha' => md5($this->input->post('senha'))
                 );
-
-                $this->usuario_model->update_usuario($dados, array('id_usuario' => $usuario_id));
             }
+            $this->usuario_model->update_usuario($dados, array('id_usuario' => $usuario_id));
+            $this->session->set_flashdata('message_success', 'Produto editado com sucesso!');
+            redirect('usuario/listar', 'refresh');
         }
-        $this->session->set_flashdata('message_success', 'Produto editado com sucesso!');
-        redirect('usuario/listar', 'refresh');
     }
 
     // Deleta o usuario selecionado na base de dados
