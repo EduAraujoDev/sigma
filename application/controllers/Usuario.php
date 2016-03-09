@@ -27,9 +27,11 @@ class Usuario extends CI_Controller {
 
     public function listar() {
         $message_success = $this->session->flashdata('message_success');
+        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
-            'usuarios' => $this->usuario_model->get_usuario_notDeleted()->result()
+            'usuarios' => $this->usuario_model->get_usuario_notDeleted()->result(),
+            'user' => $user,
         ];
         $this->twig->display('usuario/listar', $data);
     }

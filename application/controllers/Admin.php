@@ -35,14 +35,14 @@ class Admin extends CI_Controller {
 
     // Pagina inicial para usuario administrador
     public function index() {
-        $user = $_SESSION['userLogin']["usuario"];
+        $user = $_SESSION['userLogin'];
         $data = array(
             'base_url' => $this->config->base_url(),
             'qntCliente' => $this->cliente_model->get_cliente_count_notDeleted(),
             'qntServico' => $this->servico_model->get_servico_count_notDeleted(),
             'qntProduto' => $this->produto_model->get_produto_count_notDeleted(),
             'qntFornecedor' => $this->fornecedor_model->get_fornecedor_count_notDeleted(),
-            'nome' => $user,
+            'user' => $user,
         );
         $this->twig->display('admin/dashboard_admin', $data);
     }

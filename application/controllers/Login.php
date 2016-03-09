@@ -59,6 +59,7 @@ class Login extends CI_Controller {
                 }
 
                 $data = array(
+                    'nome_usuario'=> $retorno->nome,
                     'usuario' => $retorno->login,
                     'tipoAcesso' => $tipoAcesso
                 );
