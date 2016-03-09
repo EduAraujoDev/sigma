@@ -19,17 +19,18 @@
                 <div class="box-header with-border">
                     <h1 class="box-title">Dados de Marca<br><small>*Campos obrigatorios</small></h1>
                 </div>
-                <form role="form" action="{{base_url}}marca/adicionar" method="post" method="post" onSubmit="return btnCadastrar();">
+                <form class="form-horizontal" role="form" action="{{base_url}}marca/adicionar" method="post" method="post" onSubmit="return btnCadastrar();">
                     
-                    <div class="box-body">
-                        
-                        <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
-                            <label for="descricao">Nome*</label>
-                            <input type="text" class="form-control" id="descricao" 
+                    <div class="form-group">
+                        <div class="box-body">
+                            <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
+                                <label for="descricao">Nome*</label>
+                                <input type="text" class="form-control" id="descricao" 
                                    name="descricao" placeholder="Digite a marca" onBlur="verificarNome();">
-                        </div>                      
-                        
-                    </div>
+                            </div>
+                        </div>
+                    </div>    
+                    
                     <div class="box-footer">
                         <button type="submit" class="btn btn-success">Cadastrar</button>
                         <a href="{{base_url}}marca/listar">
