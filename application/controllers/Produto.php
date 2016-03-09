@@ -31,6 +31,7 @@ class Produto extends CI_Controller {
     }
 
     public function buscar() {
+        $user = $_SESSION['userLogin'];
         $busca = (String) $this->input->get('busca');
         $tipo_busca = (String) $this->input->get('tipo_busca');
         $produtos = $this->produto_model->get_produto_notDeleted()->result();
@@ -45,16 +46,19 @@ class Produto extends CI_Controller {
         $data = array(
             'base_url' => $this->config->base_url(),
             'produtos' => $produtos,
+            'user' => $user,
         );
         $this->twig->display('produto/listar', $data);
     }
 
     // Pagina que lista os produos
     public function listar() {
+        $user = $_SESSION['userLogin'];
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
-            'produtos' => $this->produto_model->get_produto_notDeleted()->result()
+            'produtos' => $this->produto_model->get_produto_notDeleted()->result(),
+            'user' => $user,
         ];
 
         $this->twig->display('produto/listar', $data);
@@ -62,11 +66,13 @@ class Produto extends CI_Controller {
 
     // Formulario que adiciona novo produto
     public function novo() {
+        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
             //'categorias' => $this->categoria_model->get_categoria_all()->result(),
             'categorias' => $this->categoria_model->get_categoria_notDeleted()->result(),
             //'marcas' => $this->marca_model->get_marca_all()->result()
-            'marcas' => $this->marca_model->get_marca_notDeleted()->result()
+            'marcas' => $this->marca_model->get_marca_notDeleted()->result(),
+            'user' => $user,
         ];
         $this->twig->display('produto/novo', $data);
     }
@@ -105,10 +111,13 @@ class Produto extends CI_Controller {
         }
 
         if ($produto_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'categorias' => $this->categoria_model->get_categoria_all()->result(),
                 'marcas' => $this->marca_model->get_marca_all()->result(),
-                'produto' => $this->produto_model->get_produto_byid($produto_id)->row()];
+                'produto' => $this->produto_model->get_produto_byid($produto_id)->row(),
+                'user' => $user,
+                ];
             $this->twig->display('produto/visualizar', $data);
         } else {
             redirect('produto/listar', 'refresh');
@@ -124,10 +133,13 @@ class Produto extends CI_Controller {
         }
 
         if ($produto_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'categorias' => $this->categoria_model->get_categoria_all()->result(),
                 'marcas' => $this->marca_model->get_marca_all()->result(),
-                'produto' => $this->produto_model->get_produto_byid($produto_id)->row()];
+                'produto' => $this->produto_model->get_produto_byid($produto_id)->row(),
+                'user' => $user,
+                ];
             $this->twig->display('produto/editar', $data);
         } else {
             redirect('produto/listar', 'refresh');

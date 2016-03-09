@@ -29,11 +29,13 @@ class Servico extends CI_Controller {
     }
 
     public function buscar() {
+        $user = $_SESSION['userLogin'];
         $nome = (String) $this->input->get('busca');
         $servicos = $this->servico_model->get_servico_by_nome($nome)->result();
         $data = ['base_url' => $this->config->base_url(),
             //'servicos' => $this->servico_model->get_servico_all()->result()
-            'servicos' => $servicos
+            'servicos' => $servicos,
+            'user' => $user,
         ];
         $this->twig->display('servico/listar', $data);
         ;
@@ -41,17 +43,22 @@ class Servico extends CI_Controller {
 
     // Pagina que lista os servicos
     public function listar() {
+        $user = $_SESSION['userLogin'];
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
-            'servicos' => $this->servico_model->get_servico_notDeleted()->result()
+            'servicos' => $this->servico_model->get_servico_notDeleted()->result(),
+            'user' => $user,
         ];
         $this->twig->display('servico/listar', $data);
     }
 
     // Formulario que adiciona novo servico
     public function novo() {
-        $data = ['base_url' => $this->config->base_url()];
+        $user = $_SESSION['userLogin'];
+        $data = ['base_url' => $this->config->base_url(),
+            'user' => $user,
+            ];
         $this->twig->display('servico/novo', $data);
     }
 
@@ -86,8 +93,11 @@ class Servico extends CI_Controller {
             $servico_id = $this->uri->segment(3);
         }
         if ($servico_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
-                'servico' => $this->servico_model->get_servico_byid($servico_id)->row()];
+                'servico' => $this->servico_model->get_servico_byid($servico_id)->row(),
+                'user' => $user,
+                ];
             $this->twig->display('servico/visualizar', $data);
         } else {
             redirect('servico/listar', 'refresh');
@@ -102,8 +112,11 @@ class Servico extends CI_Controller {
             $servico_id = $this->uri->segment(3);
         }
         if ($servico_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
-                'servico' => $this->servico_model->get_servico_byid($servico_id)->row()];
+                'servico' => $this->servico_model->get_servico_byid($servico_id)->row(),
+                'user' => $user,
+                ];
             $this->twig->display('servico/editar', $data);
         } else {
             redirect('servico/listar', 'refresh');

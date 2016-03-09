@@ -29,6 +29,7 @@ class Cliente extends CI_Controller {
     }
 
     public function buscar() {
+        $user = $_SESSION['userLogin'];
         $busca = (String) $this->input->get('busca');
         $tipo_busca = (String) $this->input->get('tipo_busca');
         $clientes = $this->cliente_model->get_cliente_notDeleted()->result();
@@ -42,26 +43,31 @@ class Cliente extends CI_Controller {
         $data = array(
             'base_url' => $this->config->base_url(),
             'clientes' => $clientes,
+            'user' => $user,
         );
         $this->twig->display('cliente/listar', $data);
     }
 
     // Pagina que lista os clientes
     public function listar() {
+        $user = $_SESSION['userLogin'];
         $message_success    = $this->session->flashdata('message_success');
         $clientes           = $this->cliente_model->get_cliente_notDeleted()->result();
         $data = array(
             'base_url' => $this->config->base_url(),
             'message_success' => $message_success,
             'clientes' => $clientes,
+            'user' => $user,
         );
         $this->twig->display('cliente/listar', $data);
     }
 
     // Formulario que adiciona novo cliente
     public function novo() {
+        $user = $_SESSION['userLogin'];
         $data = array(
             'base_url' => $this->config->base_url(),
+            'user' => $user,
         );
         $this->twig->display('cliente/novo', $data);
     }
@@ -101,6 +107,7 @@ class Cliente extends CI_Controller {
     }
    
     public function visualizar($cliente_id) {
+        $user = $_SESSION['userLogin'];
         if ($cliente_id != NULL) {
             $id_cliente = $cliente_id;
         } else {
@@ -109,6 +116,7 @@ class Cliente extends CI_Controller {
         if ($id_cliente != null) {
             $cliente = $this->cliente_model->get_cliente_by_id($id_cliente)->row();
             $data = ['base_url' => $this->config->base_url(),
+                'user' => $user,
                 'cliente' => $cliente];
 
             $this->twig->display('cliente/visualizar', $data);
@@ -124,8 +132,10 @@ class Cliente extends CI_Controller {
             $id_cliente = $this->uri->segment(3);
         }
         if ($id_cliente != null) {
+            $user = $_SESSION['userLogin'];
             $cliente = $this->cliente_model->get_cliente_by_id($id_cliente)->row();
             $data = ['base_url' => $this->config->base_url(),
+                'user' => $user,
                 'cliente' => $cliente];
 
             $this->twig->display('cliente/editar', $data);

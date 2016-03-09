@@ -21,7 +21,10 @@ class Usuario extends CI_Controller {
     }
 
     public function index() {
-        $data = ['base_url' => $this->config->base_url()];
+        $user = $_SESSION['userLogin'];
+        $data = ['base_url' => $this->config->base_url(),
+            'user' => $user,
+            ];  
         $this->twig->display('usuario/dashboard_usuario', $data);
     }
 
@@ -38,14 +41,17 @@ class Usuario extends CI_Controller {
 
     // Formulario que adiciona novo usuario
     public function novo() {
+        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
-            'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result()
+            'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result(),
+            'user' => $user,
         ];
         $this->twig->display('usuario/novo', $data);
     }
 
     //Adicona novo usuario
     public function adicionar() {
+        $user = $_SESSION['userLogin'];
         $validacao_formulario = $this->validarformularioUsuario();
         if ($validacao_formulario->run() == TRUE) {
             // Monta um array com as informacoes do usuario
@@ -54,7 +60,8 @@ class Usuario extends CI_Controller {
                 'login' => $this->input->post('login'),
                 'email' => $this->input->post('email'),
                 'id_tipo_perfil' => $this->input->post('id_tipo_perfil'),
-                'senha' => md5($this->input->post('senha'))
+                'senha' => md5($this->input->post('senha')),
+                'user' => $user,
             );
             $this->usuario_model->set_usuario($dados);
             $this->session->set_flashdata('message_success', 'Úsuario adicionado com sucesso!');
@@ -65,6 +72,7 @@ class Usuario extends CI_Controller {
     }
 
     public function visualizar($usuario_id) {
+        $user = $_SESSION['userLogin'];
         if ($usuario_id != NULL) {
             $usuario_id = $usuario_id;
         } else {
@@ -74,7 +82,9 @@ class Usuario extends CI_Controller {
         if ($usuario_id != NULL) {
             $data = ['base_url' => $this->config->base_url(),
                 'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result(),
-                'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row()];
+                'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row(),
+                'user' => $user,
+                ];
             $this->twig->display('usuario/visualizar', $data);
         } else {
             redirect('usuario/listar', 'refresh');
@@ -82,6 +92,7 @@ class Usuario extends CI_Controller {
     }
 
     public function editar($usuario_id) {
+        $user = $_SESSION['userLogin'];
         if ($usuario_id != NULL) {
             $usuario_id = $usuario_id;
         } else {
@@ -91,7 +102,9 @@ class Usuario extends CI_Controller {
         if ($usuario_id != NULL) {
             $data = ['base_url' => $this->config->base_url(),
                 'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result(),
-                'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row()];
+                'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row(),
+                'user' => $user,
+                ];
             $this->twig->display('usuario/editar', $data);
         } else {
             redirect('produto/listar', 'refresh');

@@ -41,22 +41,26 @@ class Fornecedor extends CI_Controller {
             $clientes = $this->fornecedor_model->get_fornecedor_by_nome_fantasia($busca)->result();
         }
         if ($tipo_busca == "cpf") {
+            $user = $_SESSION['userLogin'];
             $clientes = $this->fornecedor_model->get_fornecedor_by_cpf_cnpj($busca)->result();
         }
 
         $data = array(
             'base_url' => $this->config->base_url(),
             'fornecedores' => $fornecedores,
+            'user' => $user,
         );
         $this->twig->display('fornecedor/listar', $data);
     }
 
     // Pagina que lista os fornecedores
     public function listar() {
+        $user = $_SESSION['userLogin'];
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
-            'fornecedores' => $this->fornecedor_model->get_fornecedor_notDeleted()->result()
+            'fornecedores' => $this->fornecedor_model->get_fornecedor_notDeleted()->result(),
+            'user' => $user,
         ];
 
         $this->twig->display('fornecedor/listar', $data);
@@ -64,8 +68,11 @@ class Fornecedor extends CI_Controller {
 
     // Pagina com o formulario para inclusao de novo fornecedor
     public function novo() {
+        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
-            'UFS' => array('SP', 'RJ')];
+            'UFS' => array('SP', 'RJ'),
+            'user' => $user,
+            ];
 
         $this->twig->display('fornecedor/novo', $data);
     }
@@ -112,9 +119,12 @@ class Fornecedor extends CI_Controller {
         }
 
         if ($fornecedor_id != null) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'UFS' => array('SP', 'RJ'),
-                'fornecedor' => $this->fornecedor_model->get_fornecedor_byid($fornecedor_id)->row()];
+                'fornecedor' => $this->fornecedor_model->get_fornecedor_byid($fornecedor_id)->row(),
+                'user' => $user,
+                ];
             $this->twig->display('fornecedor/visualizar', $data);
         } else {
             redirect('fornecedor/listar', 'refresh');
@@ -131,9 +141,12 @@ class Fornecedor extends CI_Controller {
         }
 
         if ($fornecedor_id != null) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'UFS' => array('SP', 'RJ'),
-                'fornecedor' => $this->fornecedor_model->get_fornecedor_byid($fornecedor_id)->row()];
+                'fornecedor' => $this->fornecedor_model->get_fornecedor_byid($fornecedor_id)->row(),
+                'user' => $user,
+                ];
             $this->twig->display('fornecedor/editar', $data);
         } else {
             redirect('fornecedor/listar', 'refresh');
