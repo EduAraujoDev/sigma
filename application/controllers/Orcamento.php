@@ -23,10 +23,7 @@ class Orcamento extends CI_Controller {
 
     // Formulario que adiciona nova orcamento
     public function novo() {
-        $user = $_SESSION['userLogin'];
-        $data = ['base_url' => $this->config->base_url(),
-            'user' => $user,
-            ];
+        $data = ['base_url' => $this->config->base_url()];
         $this->twig->display('orcamento/novo', $data);
     }
 

@@ -20,24 +20,20 @@
                 <div class="box-header with-border">
                     <h1 class="box-title">Dados de Categoria<br><small>*Campos obrigatorios</small></h1>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}categoria/atualizar/{{ categoria.id_categoria }}" method="post" onSubmit="return btnCadastrar();">
+                <form role="form" action="{{base_url}}categoria/atualizar/{{ categoria.id_categoria }}" method="post" onSubmit="return btnCadastrar();">
                     <div class="box-body">
                         
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-12 col-md-5">
-                                <label for="id">Código Categoria</label>
-                                <input type="text" class="form-control" id="codigo" name="codigo" 
+                        <div class="col-xs-12 col-sm-12 col-md-5">
+                            <label for="id">Código Categoria</label>
+                            <input type="text" class="form-control" id="codigo" name="codigo" 
                                    placeholder="Digite a categoria" value="{{ categoria.id_categoria }}" disabled>
-                            </div>
-                        </div>    
+                        </div>
                         
-                        <div class="form-group">    
-                            <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
-                                <label for="descricao">Descrição*</label>
-                                <input type="text" class="form-control" id="descricao" name="descricao" 
+                        <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
+                            <label for="descricao">Descrição*</label>
+                            <input type="text" class="form-control" id="descricao" name="descricao" 
                                    placeholder="Digite a categoria" value="{{ categoria.titulo }}" onBlur="verificarNome();">
-                            </div>                       
-                        </div>    
+                        </div>                       
                         
                     </div>
                     <div class="box-footer">

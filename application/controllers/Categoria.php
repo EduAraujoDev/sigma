@@ -30,11 +30,9 @@ class Categoria extends CI_Controller {
 
     public function buscar() {
         $nome = (String) $this->input->get('busca');
-        $user = $_SESSION['userLogin'];
         $categorias = $this->categoria_model->get_categoria_by_nome($nome)->result();
         $data = ['base_url' => $this->config->base_url(),
-            'categorias' => $categorias,
-            'user' => $user,
+            'categorias' => $categorias
         ];
         $this->twig->display('categoria/listar', $data);
     }
@@ -42,21 +40,16 @@ class Categoria extends CI_Controller {
     // Pagina que lista as categorias
     public function listar() {
         $message_success = $this->session->flashdata('message_success');
-        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
-            'categorias' => $this->categoria_model->get_categoria_notDeleted()->result(),
-            'user' => $user,
+            'categorias' => $this->categoria_model->get_categoria_notDeleted()->result()
         ];
         $this->twig->display('categoria/listar', $data);
     }
 
     // Formulario que adiciona nova categoria
     public function novo() {
-        $user = $_SESSION['userLogin'];
-        $data = ['base_url' => $this->config->base_url(),
-            'user' => $user,
-            ];
+        $data = ['base_url' => $this->config->base_url()];
         $this->twig->display('categoria/novo', $data);
     }
 
@@ -79,7 +72,6 @@ class Categoria extends CI_Controller {
     }
 
     public function visualizar($categoria_id) {
-        $user = $_SESSION['userLogin'];
         if ($categoria_id != NULL) {
             $categoria_id = $categoria_id;
         } else {
@@ -87,9 +79,7 @@ class Categoria extends CI_Controller {
         }
         if ($categoria_id != NULL) {
             $data = ['base_url' => $this->config->base_url(),
-                'categoria' => $this->categoria_model->get_categoria_byid($categoria_id)->row(),
-                'user' => $user,
-                ];
+                'categoria' => $this->categoria_model->get_categoria_byid($categoria_id)->row()];
             $this->twig->display('categoria/visualizar', $data);
         } else {
             redirect('categoria/listar', 'refresh');
@@ -98,7 +88,6 @@ class Categoria extends CI_Controller {
     
     // Pagina com o formulario para alterar a categoria selecionado
     public function editar($categoria_id) {
-        $user = $_SESSION['userLogin'];
         if ($categoria_id != NULL) {
             $categoria_id = $categoria_id;
         } else {
@@ -106,9 +95,7 @@ class Categoria extends CI_Controller {
         }
         if ($categoria_id != NULL) {
             $data = ['base_url' => $this->config->base_url(),
-                'categoria' => $this->categoria_model->get_categoria_byid($categoria_id)->row(),
-                'user' => $user,
-                ];
+                'categoria' => $this->categoria_model->get_categoria_byid($categoria_id)->row()];
             $this->twig->display('categoria/editar', $data);
         } else {
             redirect('categoria/listar', 'refresh');

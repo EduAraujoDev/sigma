@@ -49,22 +49,16 @@ class Admin extends CI_Controller {
 
     // Pagina que lista os usuarios
     public function listarUsuario() {
-        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
-            'usuarios' => $this->usuario_model->get_usuario_perfil()->result(),
-            'user' => $user,
-            ];
+            'usuarios' => $this->usuario_model->get_usuario_perfil()->result()];
 
         $this->twig->display('admin/listarUsuario', $data);
     }
 
     // Pagina com o formulario para inclusao de novo usuario
     public function incluirUsuario() {
-        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
-            'tiposPerfis' => $this->perfil_model->get_tiposPerfil_all()->result(),
-            'user' => $user,
-            ];
+            'tiposPerfis' => $this->perfil_model->get_tiposPerfil_all()->result()];
 
         $this->twig->display('admin/incluirUsuario', $data);
     }
@@ -102,16 +96,13 @@ class Admin extends CI_Controller {
 
     // Pagina com o formulario para alterar o usuario selecionado
     public function alterarUsuario() {
-        $user = $_SESSION['userLogin'];
         // Carrega variavel com o id contido na url
         $idUsuario = $this->uri->segment(3);
 
         if ($idUsuario <> NULL) {
             $data = ['base_url' => $this->config->base_url(),
                 'tiposPerfis' => $this->perfil_model->get_tiposPerfil_all()->result(),
-                'usuario' => $this->usuario_model->get_usuario_byid($idUsuario)->row(),
-                'user' => $user,
-                ];
+                'usuario' => $this->usuario_model->get_usuario_byid($idUsuario)->row()];
 
             $this->twig->display('admin/alterarUsuario', $data);
         } else {
@@ -130,7 +121,6 @@ class Admin extends CI_Controller {
 
         // Carrega variavel com o id contido na url
         $idUsuario = $this->uri->segment(3);
-        $user = $_SESSION['userLogin'];
 
         if ($this->form_validation->run() == TRUE) {
             $dados = array(
@@ -148,9 +138,7 @@ class Admin extends CI_Controller {
         } else {
             $data = ['base_url' => $this->config->base_url(),
                 'tiposPerfis' => $this->perfil_model->get_tiposPerfil_all()->result(),
-                'usuario' => $this->usuario_model->get_usuario_byid($idUsuario)->row(),
-                'user' => $user,
-                ];
+                'usuario' => $this->usuario_model->get_usuario_byid($idUsuario)->row()];
 
             $this->twig->display('admin/alterarUsuario', $data);
         }
@@ -160,14 +148,11 @@ class Admin extends CI_Controller {
     public function deletarUsuario() {
         // Carrega variavel com o id contido na url
         $idUsuario = $this->uri->segment(3);
-        $user = $_SESSION['userLogin'];
 
         if ($idUsuario <> NULL) {
             $data = ['base_url' => $this->config->base_url(),
                 'tiposPerfis' => $this->perfil_model->get_tiposPerfil_all()->result(),
-                'usuario' => $this->usuario_model->get_usuario_byid($idUsuario)->row(),
-                'user' => $user,
-                ];
+                'usuario' => $this->usuario_model->get_usuario_byid($idUsuario)->row()];
 
             $this->twig->display('admin/deletarUsuario', $data);
         } else {
