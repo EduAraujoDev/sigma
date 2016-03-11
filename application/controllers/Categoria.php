@@ -102,7 +102,7 @@ class Categoria extends CI_Controller {
         if ($categoria_id != NULL) {
             $categoria_id = $categoria_id;
         } else {
-            $categoria_id = $this->uri->segment(3);
+             $categoria_id = $this->uri->segment(3);
         }
         if ($categoria_id != NULL) {
             $data = ['base_url' => $this->config->base_url(),

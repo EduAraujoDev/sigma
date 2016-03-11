@@ -133,7 +133,7 @@ class Produto extends CI_Controller {
         }
 
         if ($produto_id != NULL) {
-            $user = $_SESSION['userLogin'];
+             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'categorias' => $this->categoria_model->get_categoria_all()->result(),
                 'marcas' => $this->marca_model->get_marca_all()->result(),

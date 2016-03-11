@@ -43,7 +43,7 @@ class Login extends CI_Controller {
 
         if ($this->form_validation->run() == TRUE) {
            
-            $usuario = $this->input->post('usuario');
+             $usuario = $this->input->post('usuario');
             $senha = md5($this->input->post('senha'));
 
             // echo $senha;

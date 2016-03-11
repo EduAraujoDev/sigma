@@ -112,7 +112,7 @@ class Servico extends CI_Controller {
             $servico_id = $this->uri->segment(3);
         }
         if ($servico_id != NULL) {
-            $user = $_SESSION['userLogin'];
+             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'servico' => $this->servico_model->get_servico_byid($servico_id)->row(),
                 'user' => $user,

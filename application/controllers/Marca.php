@@ -107,7 +107,7 @@ class Marca extends CI_Controller {
         }
 
         if ($marca_id != NULL) {
-            $user = $_SESSION['userLogin'];
+             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'marca' => $this->marca_model->get_marca_byid($marca_id)->row(),
                 'user' => $user,

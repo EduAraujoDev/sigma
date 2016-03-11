@@ -141,7 +141,7 @@ class Fornecedor extends CI_Controller {
         }
 
         if ($fornecedor_id != null) {
-            $user = $_SESSION['userLogin'];
+             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'UFS' => array('SP', 'RJ'),
                 'fornecedor' => $this->fornecedor_model->get_fornecedor_byid($fornecedor_id)->row(),

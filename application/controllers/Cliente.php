@@ -64,7 +64,7 @@ class Cliente extends CI_Controller {
 
     // Formulario que adiciona novo cliente
     public function novo() {
-        $user = $_SESSION['userLogin'];
+         $user = $_SESSION['userLogin'];
         $data = array(
             'base_url' => $this->config->base_url(),
             'user' => $user,

@@ -159,7 +159,7 @@ class Admin extends CI_Controller {
     // Pagina com as informacoes do usuario a ser selecionado
     public function deletarUsuario() {
         // Carrega variavel com o id contido na url
-        $idUsuario = $this->uri->segment(3);
+         $idUsuario = $this->uri->segment(3);
         $user = $_SESSION['userLogin'];
 
         if ($idUsuario <> NULL) {
@@ -167,7 +167,7 @@ class Admin extends CI_Controller {
                 'tiposPerfis' => $this->perfil_model->get_tiposPerfil_all()->result(),
                 'usuario' => $this->usuario_model->get_usuario_byid($idUsuario)->row(),
                 'user' => $user,
-                ];
+                ]; 
 
             $this->twig->display('admin/deletarUsuario', $data);
         } else {
