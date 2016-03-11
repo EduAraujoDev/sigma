@@ -20,30 +20,26 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Categoria</h3>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}categoria/atualizar/{{ categoria.id_categoria }}" method="post">
+                <form role="form" action="{{base_url}}categoria/atualizar/{{ categoria.id_categoria }}" method="post">
                     <div class="box-body">
                         
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-12 col-md-5">
-                                <label for="id">Código Categoria</label>
-                                <input type="text" class="form-control" id="descricao" name="descricao" 
+                        <div class="col-xs-12 col-sm-12 col-md-5">
+                            <label for="id">Código Categoria</label>
+                            <input type="text" class="form-control" id="descricao" name="descricao" 
                                    placeholder="Digite a categoria" value="{{ categoria.id_categoria }}" disabled>
-                            </div>
-                        </div>    
+                        </div>
                         
-                        <div class="form-group">    
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <label for="descricao">Descrição</label>
-                                <input type="text" class="form-control" id="descricao" name="descricao" 
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <label for="descricao">Descrição</label>
+                            <input type="text" class="form-control" id="descricao" name="descricao" 
                                    placeholder="Digite a categoria" value="{{ categoria.titulo }}" disabled>
-                            </div>                       
-                        </div>    
+                        </div>                       
                         
                     </div>
                     <div class="box-footer">
                         <!--<button type="submit" class="btn btn-primary">Alterar</button>-->
-                        <a class="btn btn-success" href="{{base_url}}categoria/editar/{{ categoria.id_categoria }}">Alterar</a>
-                        <a class="btn btn-danger" href="{{base_url}}categoria/listar/{{ categoria.id_categoria }}">Voltar</a>
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}categoria/editar/{{ categoria.id_categoria }}">Alterar</a>
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}categoria/listar/{{ categoria.id_categoria }}">Voltar</a>
                     </div>
                 </form>
             </div>

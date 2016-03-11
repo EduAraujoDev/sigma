@@ -57,8 +57,8 @@ class Produto extends CI_Controller {
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
-            'produtos' => $this->produto_model->get_produto_notDeleted()->result(),
             'user' => $user,
+            'produtos' => $this->produto_model->get_produto_notDeleted()->result()
         ];
 
         $this->twig->display('produto/listar', $data);
@@ -115,9 +115,8 @@ class Produto extends CI_Controller {
             $data = ['base_url' => $this->config->base_url(),
                 'categorias' => $this->categoria_model->get_categoria_all()->result(),
                 'marcas' => $this->marca_model->get_marca_all()->result(),
-                'produto' => $this->produto_model->get_produto_byid($produto_id)->row(),
                 'user' => $user,
-                ];
+                'produto' => $this->produto_model->get_produto_byid($produto_id)->row()];
             $this->twig->display('produto/visualizar', $data);
         } else {
             redirect('produto/listar', 'refresh');
@@ -136,10 +135,9 @@ class Produto extends CI_Controller {
              $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'categorias' => $this->categoria_model->get_categoria_all()->result(),
-                'marcas' => $this->marca_model->get_marca_all()->result(),
-                'produto' => $this->produto_model->get_produto_byid($produto_id)->row(),
                 'user' => $user,
-                ];
+                'marcas' => $this->marca_model->get_marca_all()->result(),
+                'produto' => $this->produto_model->get_produto_byid($produto_id)->row()];
             $this->twig->display('produto/editar', $data);
         } else {
             redirect('produto/listar', 'refresh');

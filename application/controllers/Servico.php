@@ -33,9 +33,9 @@ class Servico extends CI_Controller {
         $nome = (String) $this->input->get('busca');
         $servicos = $this->servico_model->get_servico_by_nome($nome)->result();
         $data = ['base_url' => $this->config->base_url(),
-            //'servicos' => $this->servico_model->get_servico_all()->result()
-            'servicos' => $servicos,
             'user' => $user,
+            //'servicos' => $this->servico_model->get_servico_all()->result()
+            'servicos' => $servicos
         ];
         $this->twig->display('servico/listar', $data);
         ;
@@ -47,8 +47,8 @@ class Servico extends CI_Controller {
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
-            'servicos' => $this->servico_model->get_servico_notDeleted()->result(),
             'user' => $user,
+            'servicos' => $this->servico_model->get_servico_notDeleted()->result()
         ];
         $this->twig->display('servico/listar', $data);
     }
@@ -95,9 +95,8 @@ class Servico extends CI_Controller {
         if ($servico_id != NULL) {
             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
-                'servico' => $this->servico_model->get_servico_byid($servico_id)->row(),
                 'user' => $user,
-                ];
+                'servico' => $this->servico_model->get_servico_byid($servico_id)->row()];
             $this->twig->display('servico/visualizar', $data);
         } else {
             redirect('servico/listar', 'refresh');
@@ -114,9 +113,8 @@ class Servico extends CI_Controller {
         if ($servico_id != NULL) {
              $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
-                'servico' => $this->servico_model->get_servico_byid($servico_id)->row(),
                 'user' => $user,
-                ];
+                'servico' => $this->servico_model->get_servico_byid($servico_id)->row()];
             $this->twig->display('servico/editar', $data);
         } else {
             redirect('servico/listar', 'refresh');

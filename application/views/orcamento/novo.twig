@@ -78,15 +78,22 @@
                                             <th class="text-center">Código</th>
                                             <th class="text-center">Descrição</th>
                                             <th class="text-center">Valor</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
-                                <div class="col-md-9 col-md-offset-9">
-                                    <button type="button" class="btn btn-info btn-flat" onclick="buscaServico();">Incluir Serviço</button>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2 col-md-offset-5"> 
+                                <label for="totalServico" style="padding-top: 6px; padding-left: 12px">Total de Serviços(R$):</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="0,00" disabled>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-info btn-flat" onclick="buscaServico();">Incluir Serviço</button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -103,17 +110,24 @@
                                             <th class="text-center">Preço venda</th>
                                             <th class="text-center">Subtotal Bruto</th>
                                             <th class="text-center">Subtotal Liquido</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
-                                <div class="col-md-9 col-md-offset-9">
-                                    <button type="button" class="btn btn-info btn-flat" onclick="buscaProduto();">Incluir Produto</button>
-                                </div>
                             </div>
-                        </div>                        
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2 col-md-offset-5"> 
+                                <label for="totalProdutos" style="padding-top: 6px; padding-left: 7px">Total de Produtos(R$):</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalProdutos" id="totalProdutos" value="0,00" disabled>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-info btn-flat" onclick="buscaProduto();">Incluir Produto</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-success">Cadastrar</button>
@@ -222,6 +236,9 @@
 
             $("#dataFinalizacao").datepicker({dateFormat: 'dd/mm/yy', language: 'pt-BR'});
             $("#dataFinalizacao").val([dia, mes, ano ].join("/"));
+
+            $("#totalProdutos").maskMoney({thousands:'.', decimal:','});
+            $("#totalServico").maskMoney({thousands:'.', decimal:','});
         };
 
         function buscaCliente(){            
@@ -261,9 +278,9 @@
         }
 
         $('#tabelaServico tbody').on( 'click', 'tr', function () {
+            var tabelaServico = document.querySelector("#servicos");
             var dadosLinha = tableServico.row(this).data();
             var novaLinha = "";
-            var tabelaServico = document.querySelector("#servicos");
             var linha = tabelaServico.rows.length;
 
             novaLinha += '<tr>';
@@ -271,7 +288,7 @@
             novaLinha += '  <td>'+dadosLinha[1]+'</td>';            
             novaLinha += '  <td>'+dadosLinha[2]+'</td>';            
             novaLinha += '  <td class="text-right">'+dadosLinha[3]+'</td>';                       
-            novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat" onclick="buscaServico();"><i class="fa fa-remove"></i></button></td>';
+            //novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat" onclick="buscaServico();"><i class="fa fa-remove"></i></button></td>';
             novaLinha += '</tr>';
 
             tabelaServico.innerHTML += novaLinha;
@@ -294,9 +311,9 @@
         }
 
         $('#tabelaProduto tbody').on( 'click', 'tr', function () {
+            var tabelaProduto = document.querySelector("#produtos");
             var dadosLinha = tableProduto.row(this).data();
             var novaLinha = "";
-            var tabelaProduto = document.querySelector("#produtos");
             var linha = tabelaProduto.rows.length;
 
             novaLinha += '<tr>';
@@ -308,7 +325,7 @@
             novaLinha += '  <td class="text-right">'+dadosLinha[2]+'</td>';
             novaLinha += '  <td class="text-right">0</td>';
             novaLinha += '  <td class="text-right">0</td>';
-            novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat"><i class="fa fa-remove"></i></button></td>';
+            //novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat"><i class="fa fa-remove"></i></button></td>';
             novaLinha += '</tr>';
 
             tabelaProduto.innerHTML += novaLinha;

@@ -20,70 +20,61 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Produto</h3>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}produto/adicionar" method="post" class="form-incline" 
+                <form role="form" action="{{base_url}}produto/adicionar" method="post" class="form-incline" 
                       onSubmit="return btnCadastrar();">
                     <div class="box-body">
                         
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="codFornecedor">Código Fabricante</label>
-                                <input type="text" class="form-control" id="codFornecedor" name="codFornecedor" 
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="codFornecedor">Código Fabricante</label>
+                            <input type="text" class="form-control" id="codFornecedor" name="codFornecedor" 
                                    placeholder="Digite o código do fabricante" maxlength="40">
-                            </div>
-                        </div>    
+                        </div>
                         
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
-                                <label for="nome">Descrição</label>
-                                <input type="text" class="form-control" id="nome" name="nome" 
+                        <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
+                            <label for="nome">Descrição</label>
+                            <input type="text" class="form-control" id="nome" name="nome" 
                                    placeholder="Digite a descrição do produto" maxlength="40"
                                    onBlur="verificarNome();">
-                            </div>
-                        </div>    
+                        </div>
                         
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="quantEstoque">Quantidade em estoque</label>
-                                <input type="number" class="form-control" id="quantEstoque" name="quantEstoque" 
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="quantEstoque">Quantidade em estoque</label>
+                            <input type="number" class="form-control" id="quantEstoque" name="quantEstoque" 
                                    min="0" value=0 max="99999999999">
-                            </div>                        
+                        </div>                        
                         
-                            <div class="col-xs-12 col-sm-6 col-md-6" id="divValorCusto">
-                                <label for="valorCusto">Valor Custo</label>
-                                <input type="text" class="form-control" id="valorCusto" 
+                        <div class="col-xs-12 col-sm-6 col-md-6" id="divValorCusto">
+                            <label for="valorCusto">Valor Custo</label>
+                            <input type="text" class="form-control" id="valorCusto" 
                                    name="valorCusto" placeholder="" maxlength="11" 
                                    value="0" placeholder="0.00" onBlur="verificarValorCusto();">
-                            </div>
-                        </div>    
+                            
+                        </div>
                         
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-6 col-md-6" id="divValorVenda">
-                                <label for="valorVenda">Valor Venda</label>
-                                <input type="text" class="form-control" id="valorVenda" 
+                        <div class="col-xs-12 col-sm-6 col-md-6" id="divValorVenda">
+                            <label for="valorVenda">Valor Venda</label>
+                            <input type="text" class="form-control" id="valorVenda" 
                                    name="valorVenda" placeholder="" 
                                    value="0" placeholder="0.00" onBlur="verificarValorVenda();">
-                            </div>
+                        </div>
                         
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="exampleInputEmail1">Marca</label>
-                                <select class="form-control" name="marca">
-                                    {% for marca in marcas %}
-                                        <option value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="exampleInputEmail1">Marca</label>
+                            <select class="form-control" name="marca">
+                                {% for marca in marcas %}
+                                    <option value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                             
-                        <div class="form-group">        
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="exampleInputEmail1">Categoria</label>
-                                <select class="form-control" name="categoria">
-                                    {% for categoria in categorias %}
-                                        <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="exampleInputEmail1">Categoria</label>
+                            <select class="form-control" name="categoria">
+                                {% for categoria in categorias %}
+                                    <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                             
                     </div>
                             
@@ -106,8 +97,8 @@
 
         function btnCadastrar(){
            if (verificarNome() & verificarValorVenda() & verificarValorCusto()) {
-                $("#valorVenda").val() =  $("#valorVenda").maskMoney('unmask')[0];
-                $("#valorCusto").val() =  $("#valorCusto").maskMoney('unmask')[0];
+                $("#valorVenda").val() =  $("#valorVenda").maskMoney('unmasked')[0];
+                $("#valorCusto").val() =  $("#valorCusto").maskMoney('unmasked')[0];
                 return true;   
            } else {
                 return false;

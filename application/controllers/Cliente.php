@@ -107,13 +107,13 @@ class Cliente extends CI_Controller {
     }
    
     public function visualizar($cliente_id) {
-        $user = $_SESSION['userLogin'];
         if ($cliente_id != NULL) {
             $id_cliente = $cliente_id;
         } else {
             $id_cliente = $this->uri->segment(3);
         }
         if ($id_cliente != null) {
+            $user = $_SESSION['userLogin'];
             $cliente = $this->cliente_model->get_cliente_by_id($id_cliente)->row();
             $data = ['base_url' => $this->config->base_url(),
                 'user' => $user,

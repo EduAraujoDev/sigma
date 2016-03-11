@@ -29,8 +29,8 @@ class Categoria extends CI_Controller {
     }
 
     public function buscar() {
-        $nome = (String) $this->input->get('busca');
         $user = $_SESSION['userLogin'];
+        $nome = (String) $this->input->get('busca');
         $categorias = $this->categoria_model->get_categoria_by_nome($nome)->result();
         $data = ['base_url' => $this->config->base_url(),
             'categorias' => $categorias,
@@ -41,8 +41,8 @@ class Categoria extends CI_Controller {
 
     // Pagina que lista as categorias
     public function listar() {
-        $message_success = $this->session->flashdata('message_success');
         $user = $_SESSION['userLogin'];
+        $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
             'categorias' => $this->categoria_model->get_categoria_notDeleted()->result(),
@@ -79,13 +79,13 @@ class Categoria extends CI_Controller {
     }
 
     public function visualizar($categoria_id) {
-        $user = $_SESSION['userLogin'];
         if ($categoria_id != NULL) {
             $categoria_id = $categoria_id;
         } else {
             $categoria_id = $this->uri->segment(3);
         }
         if ($categoria_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'categoria' => $this->categoria_model->get_categoria_byid($categoria_id)->row(),
                 'user' => $user,
@@ -98,13 +98,13 @@ class Categoria extends CI_Controller {
     
     // Pagina com o formulario para alterar a categoria selecionado
     public function editar($categoria_id) {
-        $user = $_SESSION['userLogin'];
         if ($categoria_id != NULL) {
             $categoria_id = $categoria_id;
         } else {
              $categoria_id = $this->uri->segment(3);
         }
         if ($categoria_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'categoria' => $this->categoria_model->get_categoria_byid($categoria_id)->row(),
                 'user' => $user,

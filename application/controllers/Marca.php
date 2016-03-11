@@ -46,8 +46,8 @@ class Marca extends CI_Controller {
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
-            'marcas' => $this->marca_model->get_marca_notDeleted()->result(),
             'user' => $user,
+            'marcas' => $this->marca_model->get_marca_notDeleted()->result()
         ];
         $this->twig->display('marca/listar', $data);
     }
@@ -109,9 +109,8 @@ class Marca extends CI_Controller {
         if ($marca_id != NULL) {
              $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
-                'marca' => $this->marca_model->get_marca_byid($marca_id)->row(),
                 'user' => $user,
-                ];
+                'marca' => $this->marca_model->get_marca_byid($marca_id)->row()];
             $this->twig->display('marca/editar', $data);
         } else {
             redirect('marca/listar', 'refresh');

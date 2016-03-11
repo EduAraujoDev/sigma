@@ -27,8 +27,10 @@ class Login extends CI_Controller {
                 redirect('/usuario', 'refresh');
             }
         } else {
+            $user = $_SESSION['userLogin'];
             $message_success = $this->session->flashdata('message_success');
             $data = ['base_url' => $this->config->base_url(),
+                'user' => $user,
                 'message_success' => $message_success];
             $this->twig->display('login', $data);
         }
