@@ -172,7 +172,7 @@ class Servico extends CI_Controller {
             $linha[] = $servico->id_servico;
             $linha[] = $servico->titulo;
             $linha[] = $servico->descricao;
-            $linha[] = $servico->valor;
+            $linha[] = number_format($servico->valor, 2, ',', '.');
          
             $data[] = $linha;
         }

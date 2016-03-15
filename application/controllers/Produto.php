@@ -201,7 +201,7 @@ class Produto extends CI_Controller {
             $linha[] = $produto->id_produto;
             $linha[] = $produto->nome;
             $linha[] = $produto->quantidade_estoque;
-            $linha[] = $produto->valor_venda;
+            $linha[] = number_format($produto->valor_venda, 2, ',', '.');
          
             $data[] = $linha;
         }

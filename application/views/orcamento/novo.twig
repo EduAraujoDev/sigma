@@ -272,6 +272,12 @@
                     "url": "{{base_url}}servico/ajax_servico",
                     "type": "POST"
                 },
+                "aoColumns": [
+                    {"Id": "Id", "sClass": "text-left"},
+                    {"Titulo": "Titulo", "sClass": "text-left"},
+                    {"Descricao": "Descricao", "sClass": "text-left"},
+                    {"Valor": "Valor", "sClass": "text-right"},
+                ]
             });
 
             $('#modal_servico').modal('show');          
@@ -305,6 +311,12 @@
                     "url": "{{base_url}}produto/ajax_produto",
                     "type": "POST"
                 },
+                "aoColumns": [
+                    {"Id": "Id", "sClass": "text-left"},
+                    {"Descricao": "Descricao", "sClass": "text-left"},
+                    {"Estoque": "Estoque", "sClass": "text-right"},
+                    {"Valor": "Valor", "sClass": "text-right"},
+                ]                
             });
 
             $('#modal_produto').modal('show');          
