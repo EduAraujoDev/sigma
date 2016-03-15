@@ -119,10 +119,10 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-2 col-md-offset-5"> 
-                                <label for="totalProdutos" style="padding-top: 6px; padding-left: 7px">Total de Produtos(R$):</label>
+                                <label for="totalProduto" style="padding-top: 6px; padding-left: 7px">Total de Produtos(R$):</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control text-right" name="totalProdutos" id="totalProdutos" value="0,00" disabled>
+                                <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="0,00" disabled>
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-info btn-flat" onclick="buscaProduto();">Incluir Produto</button>
@@ -237,7 +237,7 @@
             $("#dataFinalizacao").datepicker({dateFormat: 'dd/mm/yy', language: 'pt-BR'});
             $("#dataFinalizacao").val([dia, mes, ano ].join("/"));
 
-            $("#totalProdutos").maskMoney({thousands:'.', decimal:','});
+            $("#totalProduto").maskMoney({thousands:'.', decimal:','});
             $("#totalServico").maskMoney({thousands:'.', decimal:','});
         };
 
@@ -285,9 +285,11 @@
 
         $('#tabelaServico tbody').on( 'click', 'tr', function () {
             var tabelaServico   = document.querySelector("#servicos");
+            var vlrTotalServico = $("#totalServico").maskMoney('unmasked')[0];
             var dadosLinha      = tableServico.row(this).data();
             var numLinha        = tabelaServico.rows.length;
             var row             = tabelaServico.insertRow(numLinha);
+            var vlrServico      = 0;
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -303,6 +305,15 @@
 
             $('#modal_servico').modal('hide');
             tableServico.destroy();
+
+            vlrServico = dadosLinha[3].replace(".", "");
+            vlrServico = vlrServico.replace(",", '.');
+            vlrServico = parseFloat(vlrServico);
+
+            vlrTotalServico += vlrServico;          
+
+            document.querySelector("#totalServico").value = vlrTotalServico.toFixed(2);
+            $('#totalServico').maskMoney({thousands:'.', decimal:','});
         });
 
         function buscaProduto(){
@@ -326,9 +337,11 @@
 
         $('#tabelaProduto tbody').on( 'click', 'tr', function () {
             var tabelaProduto   = document.querySelector("#produtos");
+            var vlrTotalProduto = $("#totalProduto").maskMoney('unmasked')[0];
             var dadosLinha      = tableProduto.row(this).data();
             var numLinha        = tabelaProduto.rows.length;
             var row             = tabelaProduto.insertRow(numLinha);
+            var vlrProduto      = 0;
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -342,11 +355,11 @@
             cell1.innerHTML = cell1.innerHTML + numLinha;
             cell2.innerHTML = cell2.innerHTML + dadosLinha[0];
             cell3.innerHTML = cell3.innerHTML + dadosLinha[1];
-            cell4.innerHTML = cell4.innerHTML + 0;            
+            cell4.innerHTML = cell4.innerHTML + 1;            
             cell5.innerHTML = cell5.innerHTML + 0;
-            cell6.innerHTML = cell6.innerHTML + dadosLinha[2];            
-            cell7.innerHTML = cell7.innerHTML + 0;            
-            cell8.innerHTML = cell8.innerHTML + 0;
+            cell6.innerHTML = cell6.innerHTML + dadosLinha[3];            
+            cell7.innerHTML = cell7.innerHTML + dadosLinha[3];            
+            cell8.innerHTML = cell8.innerHTML + dadosLinha[3];
 
             cell4.setAttribute('class', 'text-right');
             cell5.setAttribute('class', 'text-right');
@@ -355,6 +368,15 @@
 
             $('#modal_produto').modal('hide');
             tableProduto.destroy();
+
+            vlrProduto = dadosLinha[3].replace(".", "");
+            vlrProduto = vlrProduto.replace(",", '.');
+            vlrProduto = parseFloat(vlrProduto);
+
+            vlrTotalProduto += vlrProduto;          
+
+            document.querySelector("#totalProduto").value = vlrTotalProduto.toFixed(2);
+            $('#totalProduto').maskMoney({thousands:'.', decimal:','});            
         });        
     </script>
 {% endblock %}
