@@ -312,8 +312,7 @@
 
             vlrTotalServico += vlrServico;          
 
-            document.querySelector("#totalServico").value = vlrTotalServico.toFixed(2);
-            $('#totalServico').maskMoney({thousands:'.', decimal:','});
+            $('#totalServico').maskMoney('mask', vlrTotalServico);
         });
 
         function buscaProduto(){
@@ -375,8 +374,7 @@
 
             vlrTotalProduto += vlrProduto;          
 
-            document.querySelector("#totalProduto").value = vlrTotalProduto.toFixed(2);
-            $('#totalProduto').maskMoney({thousands:'.', decimal:','});            
+            $('#totalProduto').maskMoney('mask', vlrTotalProduto);
         });        
     </script>
 {% endblock %}
