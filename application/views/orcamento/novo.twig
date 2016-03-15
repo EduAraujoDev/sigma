@@ -96,6 +96,7 @@
                                 <button type="button" class="btn btn-info btn-flat" onclick="buscaServico();">Incluir Serviço</button>
                             </div>
                         </div>
+                        <hr>
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="complemento">Produtos</label>
@@ -110,6 +111,7 @@
                                             <th class="text-center">Preço venda</th>
                                             <th class="text-center">Subtotal Bruto</th>
                                             <th class="text-center">Subtotal Liquido</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -159,7 +161,7 @@
                     </table>                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="fechaModalCli();">Cancel</button>
                 </div>
             </div>
         </div>
@@ -186,7 +188,7 @@
                     </table>                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="fechaModalServ();">Cancel</button>
                 </div>
             </div>
         </div>
@@ -213,11 +215,65 @@
                     </table>                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="fechaModalProd();">Cancel</button>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <div class="modal fade" id="modal_edit_produto" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">                    
+                    <h3 class="modal-title">Produto</h3>
+                </div>
+                <div class="modal-body form">
+                    <form action="#" id="form" class="form-horizontal">
+                        <input type="hidden" value="" name="id"/>
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="mdProdDesc">Descrição</label>
+                                <div class="col-md-9">
+                                    <input name="mdProdDesc" id="mdProdDesc" class="form-control" type="text" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="mdProdDVlr">Valor</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="mdProdDVlr" id="mdProdDVlr" class="form-control" disabled>
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Quantidade</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="mdProdQuant" id="mdProdQuant" class="form-control" onkeyup="calcQntProd();" placeholder="0" value="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="mdProdDs">Desconto</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="mdProdDs" id="mdProdDs" class="form-control" onkeyup="calcQntProd();" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <label class="control-label" for="mdProdTotBr">Subtotal Bruto</label>
+                                    <input type="text" name="mdProdTotBr" id="mdProdTotBr" class="form-control" placeholder="0,00" disabled>
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="control-label" for="mdProdTotLq">Subtotal Liquido</label>
+                                    <input type="text" name="mdProdTotLq" id="mdProdTotLq" class="form-control" placeholder="0,00" disabled>
+                                </div>                                
+                            </div>                              
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Confirmar</button>
+                    <button type="button" class="btn btn-danger" onclick="fechaModalAltProd();">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block js %}
     {{ parent() }}
@@ -260,8 +316,7 @@
             document.querySelector("#codCliente").value = dadosLinha[0];
             document.querySelector("#nomeCliente").value = dadosLinha[1];
 
-            $('#modal_cliente').modal('hide');
-            tableCliente.destroy();
+            fechaModalCli();
         });
 
         function buscaServico(){
@@ -303,8 +358,7 @@
 
             cell4.setAttribute('class', 'text-right');
 
-            $('#modal_servico').modal('hide');
-            tableServico.destroy();
+            fechaModalServ();
 
             vlrServico = dadosLinha[3].replace(".", "");
             vlrServico = vlrServico.replace(",", '.');
@@ -341,6 +395,7 @@
             var numLinha        = tabelaProduto.rows.length;
             var row             = tabelaProduto.insertRow(numLinha);
             var vlrProduto      = 0;
+            var vlrDesconto     = 0;
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -350,23 +405,25 @@
             var cell6 = row.insertCell(5);            
             var cell7 = row.insertCell(6);            
             var cell8 = row.insertCell(7);            
+            var cell9 = row.insertCell(8);
 
             cell1.innerHTML = cell1.innerHTML + numLinha;
             cell2.innerHTML = cell2.innerHTML + dadosLinha[0];
             cell3.innerHTML = cell3.innerHTML + dadosLinha[1];
             cell4.innerHTML = cell4.innerHTML + 1;            
-            cell5.innerHTML = cell5.innerHTML + 0;
+            cell5.innerHTML = cell5.innerHTML + vlrDesconto.toFixed(2);
             cell6.innerHTML = cell6.innerHTML + dadosLinha[3];            
             cell7.innerHTML = cell7.innerHTML + dadosLinha[3];            
             cell8.innerHTML = cell8.innerHTML + dadosLinha[3];
+            cell9.innerHTML = cell9.innerHTML + '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarProduto(this.id);"><i class="fa fa-edit"></i></button>';
 
             cell4.setAttribute('class', 'text-right');
             cell5.setAttribute('class', 'text-right');
             cell6.setAttribute('class', 'text-right');
             cell7.setAttribute('class', 'text-right');
+            cell8.setAttribute('class', 'text-right');
 
-            $('#modal_produto').modal('hide');
-            tableProduto.destroy();
+            fechaModalProd();
 
             vlrProduto = dadosLinha[3].replace(".", "");
             vlrProduto = vlrProduto.replace(",", '.');
@@ -375,6 +432,55 @@
             vlrTotalProduto += vlrProduto;          
 
             $('#totalProduto').maskMoney('mask', vlrTotalProduto);
-        });        
+        });
+
+        function editarProduto(x) {
+            var row = document.querySelector('#produtos').rows[x].cells;
+
+            $('[name="mdProdDesc"]').val(row[2].innerHTML);
+            $('[name="mdProdDVlr"]').val(row[5].innerHTML);
+            $('[name="mdProdDVlr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdQuant"]').val(row[3].innerHTML);
+            $('[name="mdProdDs"]').val(row[4].innerHTML);
+            $('[name="mdProdDs"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdTotBr"]').val(row[6].innerHTML);
+            $('[name="mdProdTotLq"]').val(row[7].innerHTML);
+            $('[name="mdProdTotBr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdTotLq"]').maskMoney({thousands:'.', decimal:','});
+            $('#modal_edit_produto').modal('show');
+        }
+
+        function calcQntProd() {
+             var quantidade  = document.querySelector("#mdProdQuant").value;
+             var vlrProduto  = $("#mdProdDVlr").maskMoney('unmasked')[0];
+             var vlrDesconto = $("#mdProdDs").maskMoney('unmasked')[0];
+             var vlrTotBruto = $("#mdProdTotBr").maskMoney('unmasked')[0];
+             var vlrTotLiqui = $("#mdProdTotLq").maskMoney('unmasked')[0];
+
+             vlrTotBruto = (vlrProduto*quantidade);
+             vlrTotLiqui = ((vlrProduto*quantidade)-vlrDesconto);
+
+             $('#mdProdTotBr').maskMoney('mask', vlrTotBruto);
+             $('#mdProdTotLq').maskMoney('mask', vlrTotLiqui);
+        }
+
+        function fechaModalProd(){
+            $('#modal_produto').modal('hide');
+            tableProduto.destroy();
+        }
+
+        function fechaModalServ(){
+            $('#modal_servico').modal('hide');
+            tableServico.destroy();           
+        }
+
+        function fechaModalCli(){
+            $('#modal_cliente').modal('hide');
+            tableCliente.destroy();
+        }
+
+        function fechaModalAltProd(){
+             $('#modal_edit_produto').modal('hide');
+        }
     </script>
 {% endblock %}
