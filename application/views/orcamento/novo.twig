@@ -284,20 +284,22 @@
         }
 
         $('#tabelaServico tbody').on( 'click', 'tr', function () {
-            var tabelaServico = document.querySelector("#servicos");
-            var dadosLinha = tableServico.row(this).data();
-            var novaLinha = "";
-            var linha = tabelaServico.rows.length;
+            var tabelaServico   = document.querySelector("#servicos");
+            var dadosLinha      = tableServico.row(this).data();
+            var numLinha        = tabelaServico.rows.length;
+            var row             = tabelaServico.insertRow(numLinha);
 
-            novaLinha += '<tr>';
-            novaLinha += '  <td>'+linha+'</td>';
-            novaLinha += '  <td>'+dadosLinha[1]+'</td>';            
-            novaLinha += '  <td>'+dadosLinha[2]+'</td>';            
-            novaLinha += '  <td class="text-right">'+dadosLinha[3]+'</td>';                       
-            //novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat" onclick="buscaServico();"><i class="fa fa-remove"></i></button></td>';
-            novaLinha += '</tr>';
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
 
-            tabelaServico.innerHTML += novaLinha;
+            cell1.innerHTML = cell1.innerHTML + numLinha;
+            cell2.innerHTML = cell2.innerHTML + dadosLinha[1];
+            cell3.innerHTML = cell3.innerHTML + dadosLinha[2];
+            cell4.innerHTML = cell4.innerHTML + dadosLinha[3];
+
+            cell4.setAttribute('class', 'text-right');
 
             $('#modal_servico').modal('hide');
             tableServico.destroy();
@@ -323,24 +325,33 @@
         }
 
         $('#tabelaProduto tbody').on( 'click', 'tr', function () {
-            var tabelaProduto = document.querySelector("#produtos");
-            var dadosLinha = tableProduto.row(this).data();
-            var novaLinha = "";
-            var linha = tabelaProduto.rows.length;
+            var tabelaProduto   = document.querySelector("#produtos");
+            var dadosLinha      = tableProduto.row(this).data();
+            var numLinha        = tabelaProduto.rows.length;
+            var row             = tabelaProduto.insertRow(numLinha);
 
-            novaLinha += '<tr>';
-            novaLinha += '  <td>'+linha+'</td>';
-            novaLinha += '  <td>'+dadosLinha[0]+'</td>';            
-            novaLinha += '  <td class="text-right">'+dadosLinha[1]+'</td>';
-            novaLinha += '  <td class="text-right">0</td>';
-            novaLinha += '  <td class="text-right">0</td>';
-            novaLinha += '  <td class="text-right">'+dadosLinha[2]+'</td>';
-            novaLinha += '  <td class="text-right">0</td>';
-            novaLinha += '  <td class="text-right">0</td>';
-            //novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat"><i class="fa fa-remove"></i></button></td>';
-            novaLinha += '</tr>';
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);            
+            var cell5 = row.insertCell(4);            
+            var cell6 = row.insertCell(5);            
+            var cell7 = row.insertCell(6);            
+            var cell8 = row.insertCell(7);            
 
-            tabelaProduto.innerHTML += novaLinha;
+            cell1.innerHTML = cell1.innerHTML + numLinha;
+            cell2.innerHTML = cell2.innerHTML + dadosLinha[0];
+            cell3.innerHTML = cell3.innerHTML + dadosLinha[1];
+            cell4.innerHTML = cell4.innerHTML + 0;            
+            cell5.innerHTML = cell5.innerHTML + 0;
+            cell6.innerHTML = cell6.innerHTML + dadosLinha[2];            
+            cell7.innerHTML = cell7.innerHTML + 0;            
+            cell8.innerHTML = cell8.innerHTML + 0;
+
+            cell4.setAttribute('class', 'text-right');
+            cell5.setAttribute('class', 'text-right');
+            cell6.setAttribute('class', 'text-right');
+            cell7.setAttribute('class', 'text-right');
 
             $('#modal_produto').modal('hide');
             tableProduto.destroy();
