@@ -556,18 +556,18 @@
         function calcTotais(){
             var vlrTotalServico     = $("#totalServico").maskMoney('unmasked')[0];
             var vlrTotalProduto     = $("#totalProduto").maskMoney('unmasked')[0];
+            var rowsProduto         = document.querySelector('#produtos').rows;
             var totalLiquido        = 0;
             var totalBruto          = 0;
             var totalBrutoProduto   = 0;
+            var totalDesconto       = 0;
 
             totalLiquido = vlrTotalServico + vlrTotalProduto;
-            $('#totalValorLiquido').maskMoney('mask', totalLiquido);
-
-            var rowsProduto = document.querySelector('#produtos').rows;
+            $('#totalValorLiquido').maskMoney('mask', totalLiquido);            
 
             for(var i=1; i < rowsProduto.length; i++){
                 var cellValor = rowsProduto[i].cells;
-
+                
                 cellValor = cellValor[6].innerHTML.replace(".", "");
                 cellValor = cellValor.replace(",", '.');
                 cellValor = parseFloat(cellValor);
@@ -576,7 +576,19 @@
             };
 
             totalBruto = vlrTotalServico + totalBrutoProduto;
-            $('#totalValorBruto').maskMoney('mask', totalBruto);           
+            $('#totalValorBruto').maskMoney('mask', totalBruto);
+
+            for(var i=1; i < rowsProduto.length; i++){
+                var cellValor = rowsProduto[i].cells;
+                
+                cellValor = cellValor[4].innerHTML.replace(".", "");
+                cellValor = cellValor.replace(",", '.');
+                cellValor = parseFloat(cellValor);
+
+                totalDesconto += cellValor;
+            };
+
+            $('#descontoTotal').maskMoney('mask', totalDesconto);            
         }
     </script>
 {% endblock %}
