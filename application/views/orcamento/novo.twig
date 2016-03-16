@@ -136,7 +136,7 @@
                                 <label for="descontoAdicional" style="padding-top: 6px; padding-left: 50px">Desconto Adicional:</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control text-right" name="descontoAdicional" id="descontoAdicional" value="0,00">
+                                <input type="text" class="form-control text-right" name="descontoAdicional" id="descontoAdicional" value="0,00" onkeyup="calcTotais();">
                             </div>
                             <div class="col-md-3">
                                 <label for="descontoTotal" style="padding-top: 6px; padding-left: 50px">Desconto Total:</label>
@@ -281,7 +281,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="mdProdDs">Desconto</label>
                                 <div class="col-md-9">
-                                    <input type="text" name="mdProdDs" id="mdProdDs" class="form-control" onkeyup="calcQntProd();" placeholder="0">
+                                    <input type="text" name="mdProdDs" id="mdProdDs" class="form-control" onkeyup="calcQntProd();" placeholder="0" value="0,00">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -527,7 +527,6 @@
             var linhaProduto    = document.querySelector('#linhaProduto').value;
             var row             = document.querySelector('#produtos').rows[linhaProduto].cells;
             var totalProduto    = 0;
-            var totalDesconto   = 0;
 
             $('#modal_edit_produto').modal('hide');
 
@@ -556,13 +555,14 @@
         function calcTotais(){
             var vlrTotalServico     = $("#totalServico").maskMoney('unmasked')[0];
             var vlrTotalProduto     = $("#totalProduto").maskMoney('unmasked')[0];
+            var vlrDescontoAdc      = $("#descontoAdicional").maskMoney('unmasked')[0];
             var rowsProduto         = document.querySelector('#produtos').rows;
             var totalLiquido        = 0;
             var totalBruto          = 0;
             var totalBrutoProduto   = 0;
             var totalDesconto       = 0;
 
-            totalLiquido = vlrTotalServico + vlrTotalProduto;
+            totalLiquido = vlrTotalServico + vlrTotalProduto - vlrDescontoAdc;
             $('#totalValorLiquido').maskMoney('mask', totalLiquido);            
 
             for(var i=1; i < rowsProduto.length; i++){
@@ -588,6 +588,7 @@
                 totalDesconto += cellValor;
             };
 
+            totalDesconto += vlrDescontoAdc;
             $('#descontoTotal').maskMoney('mask', totalDesconto);            
         }
     </script>
