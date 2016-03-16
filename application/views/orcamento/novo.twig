@@ -554,13 +554,29 @@
         }
 
         function calcTotais(){
-            var vlrTotalServico = $("#totalServico").maskMoney('unmasked')[0];
-            var vlrTotalProduto = $("#totalProduto").maskMoney('unmasked')[0];
-            var totalLiquido    = 0;
+            var vlrTotalServico     = $("#totalServico").maskMoney('unmasked')[0];
+            var vlrTotalProduto     = $("#totalProduto").maskMoney('unmasked')[0];
+            var totalLiquido        = 0;
+            var totalBruto          = 0;
+            var totalBrutoProduto   = 0;
 
             totalLiquido = vlrTotalServico + vlrTotalProduto;
-
             $('#totalValorLiquido').maskMoney('mask', totalLiquido);
+
+            var rowsProduto = document.querySelector('#produtos').rows;
+
+            for(var i=1; i < rowsProduto.length; i++){
+                var cellValor = rowsProduto[i].cells;
+
+                cellValor = cellValor[6].innerHTML.replace(".", "");
+                cellValor = cellValor.replace(",", '.');
+                cellValor = parseFloat(cellValor);
+
+                totalBrutoProduto += cellValor;
+            };
+
+            totalBruto = vlrTotalServico + totalBrutoProduto;
+            $('#totalValorBruto').maskMoney('mask', totalBruto);           
         }
     </script>
 {% endblock %}
