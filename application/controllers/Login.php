@@ -21,11 +21,7 @@ class Login extends CI_Controller {
     // Pagina inicial da aplicacao
     public function index() {
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'ADMIN') {
-                redirect('/admin', 'refresh');
-            } else {
-                redirect('/usuario', 'refresh');
-            }
+            redirect('/admin', 'refresh');
         } else {
             //$user = $_SESSION['userLogin'];
             $message_success = $this->session->flashdata('message_success');
@@ -38,14 +34,14 @@ class Login extends CI_Controller {
 
     // Valida o usuario informado na index
     public function validarUsuario() {
-        
+
         // Validacao dos campos de login e senha
         $this->form_validation->set_rules('usuario', 'usuario', 'required');
         $this->form_validation->set_rules('senha', 'senha', 'required');
 
         if ($this->form_validation->run() == TRUE) {
-           
-             $usuario = $this->input->post('usuario');
+
+            $usuario = $this->input->post('usuario');
             $senha = md5($this->input->post('senha'));
 
             // echo $senha;
@@ -61,18 +57,14 @@ class Login extends CI_Controller {
                 }
 
                 $data = array(
-                    'nome_usuario'=> $retorno->nome,
+                    'nome_usuario' => $retorno->nome,
                     'usuario' => $retorno->login,
                     'tipoAcesso' => $tipoAcesso
                 );
 
                 $this->session->set_userdata('userLogin', $data);
 
-                if ($tipoAcesso == 'ADMIN') {
-                    redirect('/admin', 'refresh');
-                } else {
-                    redirect('/usuario', 'refresh');
-                }
+                redirect('/admin', 'refresh');
             } else {
                 $this->session->set_flashdata('message_success', 'Login ou senha invalido');
                 redirect('/', 'refresh');
@@ -90,4 +82,5 @@ class Login extends CI_Controller {
             redirect('/', 'refresh');
         }
     }
+
 }

@@ -16,9 +16,7 @@ class Fornecedor extends CI_Controller {
         parent::__construct();
         $this->load->model('fornecedor_model', 'fornecedor_model');
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
@@ -129,7 +127,6 @@ class Fornecedor extends CI_Controller {
         }
     }
 
-
     // Pagina com o formulario para alterar o fornecedor selecionado
     public function editar($fornecedor_id) {
         if ($fornecedor_id != NULL) {
@@ -139,7 +136,7 @@ class Fornecedor extends CI_Controller {
         }
 
         if ($fornecedor_id != null) {
-             $user = $_SESSION['userLogin'];
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'UFS' => array('SP', 'RJ'),
                 'user' => $user,

@@ -16,9 +16,7 @@ class Categoria extends CI_Controller {
         parent::__construct();
         $this->load->model('categoria_model', 'categoria_model');
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
@@ -56,7 +54,7 @@ class Categoria extends CI_Controller {
         $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
             'user' => $user,
-            ];
+        ];
         $this->twig->display('categoria/novo', $data);
     }
 
@@ -89,26 +87,26 @@ class Categoria extends CI_Controller {
             $data = ['base_url' => $this->config->base_url(),
                 'categoria' => $this->categoria_model->get_categoria_byid($categoria_id)->row(),
                 'user' => $user,
-                ];
+            ];
             $this->twig->display('categoria/visualizar', $data);
         } else {
             redirect('categoria/listar', 'refresh');
         }
     }
-    
+
     // Pagina com o formulario para alterar a categoria selecionado
     public function editar($categoria_id) {
         if ($categoria_id != NULL) {
             $categoria_id = $categoria_id;
         } else {
-             $categoria_id = $this->uri->segment(3);
+            $categoria_id = $this->uri->segment(3);
         }
         if ($categoria_id != NULL) {
             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'categoria' => $this->categoria_model->get_categoria_byid($categoria_id)->row(),
                 'user' => $user,
-                ];
+            ];
             $this->twig->display('categoria/editar', $data);
         } else {
             redirect('categoria/listar', 'refresh');
@@ -138,7 +136,7 @@ class Categoria extends CI_Controller {
             // Deleta a categotia na base de dadps
             //$this->categoria_model->delete_categoria(array('id_Categoria' => $categoria_id));
             $this->categoria_model->delete_logical_categoria(array('id_Categoria' => $categoria_id));
-             $this->session->set_flashdata('message_success', 'Categoria deletada com sucesso!');
+            $this->session->set_flashdata('message_success', 'Categoria deletada com sucesso!');
         }
         redirect('categoria/listar', 'refresh');
     }

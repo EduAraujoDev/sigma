@@ -25,9 +25,7 @@ class Admin extends CI_Controller {
         $this->load->model('fornecedor_model', 'fornecedor_model');
 
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
@@ -59,7 +57,7 @@ class Admin extends CI_Controller {
     // Pagina com o formulario para inclusao de novo usuario
     public function incluirUsuario() {
         $user = $_SESSION['userLogin'];
-       $data = ['base_url' => $this->config->base_url(),
+        $data = ['base_url' => $this->config->base_url(),
             'tiposPerfis' => $this->perfil_model->get_tiposPerfil_all()->result()];
 
         $this->twig->display('admin/incluirUsuario', $data);
@@ -151,7 +149,7 @@ class Admin extends CI_Controller {
     // Pagina com as informacoes do usuario a ser selecionado
     public function deletarUsuario() {
         // Carrega variavel com o id contido na url
-         $idUsuario = $this->uri->segment(3);
+        $idUsuario = $this->uri->segment(3);
         $user = $_SESSION['userLogin'];
 
         if ($idUsuario <> NULL) {
@@ -160,7 +158,7 @@ class Admin extends CI_Controller {
                 'tiposPerfis' => $this->perfil_model->get_tiposPerfil_all()->result(),
                 'usuario' => $this->usuario_model->get_usuario_byid($idUsuario)->row(),
                 'user' => $user,
-                ]; 
+            ];
             $this->twig->display('admin/deletarUsuario', $data);
         } else {
             redirect('admin/listarUsuario', 'refresh');

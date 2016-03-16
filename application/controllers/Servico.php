@@ -16,9 +16,7 @@ class Servico extends CI_Controller {
         parent::__construct();
         $this->load->model('servico_model', 'servico_model');
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
@@ -58,15 +56,15 @@ class Servico extends CI_Controller {
         $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
             'user' => $user,
-            ];
+        ];
         $this->twig->display('servico/novo', $data);
     }
 
     //Adicona novo servico
-    public function adicionar() {        
+    public function adicionar() {
         // Validacoes de campo do formulario        
         $validacao_formulario = $this->validarformularioServico();
-        if ($validacao_formulario->run() == TRUE) {            
+        if ($validacao_formulario->run() == TRUE) {
             $valor = str_replace('.', '', $this->input->post('valor'));
             $valor = str_replace(',', '.', $valor);
 
@@ -102,7 +100,7 @@ class Servico extends CI_Controller {
             redirect('servico/listar', 'refresh');
         }
     }
-    
+
     // Pagina com o formulario para alterar o servico selecionado
     public function editar($servico_id) {
         if ($servico_id != NULL) {
@@ -111,7 +109,7 @@ class Servico extends CI_Controller {
             $servico_id = $this->uri->segment(3);
         }
         if ($servico_id != NULL) {
-             $user = $_SESSION['userLogin'];
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'user' => $user,
                 'servico' => $this->servico_model->get_servico_byid($servico_id)->row()];
@@ -129,7 +127,7 @@ class Servico extends CI_Controller {
             if ($validacao_formulario->run() == TRUE) {
                 $valor = str_replace('.', '', $this->input->post('valor'));
                 $valor = str_replace(',', '.', $valor);
-                            
+
                 $dados = array(
                     'titulo' => $this->input->post('titulo'),
                     'descricao' => $this->input->post('descricao'),
@@ -163,7 +161,7 @@ class Servico extends CI_Controller {
         return $this->form_validation;
     }
 
-    public function ajax_servico(){
+    public function ajax_servico() {
         $servicos = $this->servico_model->get_servico_notDeleted()->result();
         $data = array();
 
@@ -173,12 +171,13 @@ class Servico extends CI_Controller {
             $linha[] = $servico->titulo;
             $linha[] = $servico->descricao;
             $linha[] = number_format($servico->valor, 2, ',', '.');
-         
+
             $data[] = $linha;
         }
- 
+
         $saida = array("data" => $data);
 
         echo json_encode($saida);
     }
+
 }

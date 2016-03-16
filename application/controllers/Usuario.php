@@ -12,19 +12,17 @@ class Usuario extends CI_Controller {
         $this->load->model('perfil_model', 'perfil_model');
 
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
     }
 
     public function index() {
-         $user = $_SESSION['userLogin'];
+        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
             'user' => $user,
-            ];  
+        ];
         $this->twig->display('usuario/dashboard_usuario', $data);
     }
 
@@ -82,7 +80,7 @@ class Usuario extends CI_Controller {
                 'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result(),
                 'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row(),
                 'user' => $user,
-                ];
+            ];
             $this->twig->display('usuario/visualizar', $data);
         } else {
             redirect('usuario/listar', 'refresh');
@@ -102,7 +100,7 @@ class Usuario extends CI_Controller {
                 'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result(),
                 'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row(),
                 'user' => $user,
-                ];
+            ];
             $this->twig->display('usuario/editar', $data);
         } else {
             redirect('produto/listar', 'refresh');

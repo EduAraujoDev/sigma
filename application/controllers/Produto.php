@@ -18,9 +18,7 @@ class Produto extends CI_Controller {
         $this->load->model('categoria_model', 'categoria_model');
         $this->load->model('marca_model', 'marca_model');
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
@@ -132,7 +130,7 @@ class Produto extends CI_Controller {
         }
 
         if ($produto_id != NULL) {
-             $user = $_SESSION['userLogin'];
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'categorias' => $this->categoria_model->get_categoria_all()->result(),
                 'user' => $user,
@@ -192,7 +190,7 @@ class Produto extends CI_Controller {
         return $this->form_validation;
     }
 
-    public function ajax_produto(){
+    public function ajax_produto() {
         $produtos = $this->produto_model->get_produto_notDeleted()->result();
         $data = array();
 
@@ -202,12 +200,13 @@ class Produto extends CI_Controller {
             $linha[] = $produto->nome;
             $linha[] = $produto->quantidade_estoque;
             $linha[] = number_format($produto->valor_venda, 2, ',', '.');
-         
+
             $data[] = $linha;
         }
- 
+
         $saida = array("data" => $data,);
 
         echo json_encode($saida);
     }
+
 }
