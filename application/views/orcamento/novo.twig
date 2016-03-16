@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="complemento">Serviços</label>
-                                <table id="servicos" class="table table-bordered table-hover">
+                                <table id="servicos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -86,8 +86,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-2 col-md-offset-5"> 
-                                <label for="totalServico" style="padding-top: 6px; padding-left: 12px">Total de Serviços(R$):</label>
+                            <div class="col-md-3 col-md-offset-4"> 
+                                <label for="totalServico" style="padding-top: 6px; padding-left: 50px">Total de Serviços(R$):</label>
                             </div>
                             <div class="col-md-3">
                                 <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="0,00" disabled>
@@ -100,9 +100,9 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="complemento">Produtos</label>
-                                <table id="produtos" class="table table-bordered table-hover">
+                                <table id="produtos" class="table table-bordered table-hover table-striped">
                                     <thead>
-                                        <tr>
+                                        <tr class="titlerow">
                                             <th>#</th>
                                             <th class="text-center">Código</th>
                                             <th class="text-center">Descrição</th>
@@ -120,14 +120,43 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-2 col-md-offset-5"> 
-                                <label for="totalProduto" style="padding-top: 6px; padding-left: 7px">Total de Produtos(R$):</label>
+                            <div class="col-md-3 col-md-offset-4"> 
+                                <label for="totalProduto" style="padding-top: 6px; padding-left: 50px">Total de Produtos(R$):</label>
                             </div>
                             <div class="col-md-3">
                                 <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="0,00" disabled>
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-info btn-flat" onclick="buscaProduto();">Incluir Produto</button>
+                            </div>                            
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="descontoAdicional" style="padding-top: 6px; padding-left: 50px">Desconto Adicional:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="descontoAdicional" id="descontoAdicional" value="0,00">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="descontoTotal" style="padding-top: 6px; padding-left: 50px">Desconto Total:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="descontoTotal" id="descontoTotal" value="0,00" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="0,00" disabled>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="totalValorLiquido" style="padding-top: 6px; padding-left: 50px">Valor Total Liquido:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="totalValorLiquido" id="totalValorLiquido" value="0,00" disabled>
                             </div>
                         </div>
                     </div>
@@ -139,6 +168,7 @@
             </div>
         </div>
     </section>
+    <!-- Modals -->
     <div class="modal fade" id="modal_cliente" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -228,7 +258,7 @@
                 </div>
                 <div class="modal-body form">
                     <form action="#" id="form" class="form-horizontal">
-                        <input type="hidden" value="" name="id"/>
+                        <input type="hidden" value="" name="linhaProduto" id="linhaProduto"/>
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="mdProdDesc">Descrição</label>
@@ -268,7 +298,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Confirmar</button>
+                    <button type="button" id="btnSave" onclick="salvaProduto();" class="btn btn-success">Confirmar</button>
                     <button type="button" class="btn btn-danger" onclick="fechaModalAltProd();">Cancelar</button>
                 </div>
             </div>
@@ -295,6 +325,11 @@
 
             $("#totalProduto").maskMoney({thousands:'.', decimal:','});
             $("#totalServico").maskMoney({thousands:'.', decimal:','});
+            
+            $("#descontoAdicional").maskMoney({thousands:'.', decimal:','});
+            $("#descontoTotal").maskMoney({thousands:'.', decimal:','});
+            $("#totalValorBruto").maskMoney({thousands:'.', decimal:','});
+            $("#totalValorLiquido").maskMoney({thousands:'.', decimal:','});
         };
 
         function buscaCliente(){            
@@ -367,6 +402,8 @@
             vlrTotalServico += vlrServico;          
 
             $('#totalServico').maskMoney('mask', vlrTotalServico);
+
+            calcTotais();
         });
 
         function buscaProduto(){
@@ -395,7 +432,7 @@
             var numLinha        = tabelaProduto.rows.length;
             var row             = tabelaProduto.insertRow(numLinha);
             var vlrProduto      = 0;
-            var vlrDesconto     = 0;
+            var vlrDesconto     = "0,00";
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -411,7 +448,7 @@
             cell2.innerHTML = cell2.innerHTML + dadosLinha[0];
             cell3.innerHTML = cell3.innerHTML + dadosLinha[1];
             cell4.innerHTML = cell4.innerHTML + 1;            
-            cell5.innerHTML = cell5.innerHTML + vlrDesconto.toFixed(2);
+            cell5.innerHTML = cell5.innerHTML + vlrDesconto;
             cell6.innerHTML = cell6.innerHTML + dadosLinha[3];            
             cell7.innerHTML = cell7.innerHTML + dadosLinha[3];            
             cell8.innerHTML = cell8.innerHTML + dadosLinha[3];
@@ -432,11 +469,14 @@
             vlrTotalProduto += vlrProduto;          
 
             $('#totalProduto').maskMoney('mask', vlrTotalProduto);
+
+            calcTotais();
         });
 
         function editarProduto(x) {
             var row = document.querySelector('#produtos').rows[x].cells;
 
+            $('[name="linhaProduto"]').val(x);
             $('[name="mdProdDesc"]').val(row[2].innerHTML);
             $('[name="mdProdDVlr"]').val(row[5].innerHTML);
             $('[name="mdProdDVlr"]').maskMoney({thousands:'.', decimal:','});
@@ -481,6 +521,46 @@
 
         function fechaModalAltProd(){
              $('#modal_edit_produto').modal('hide');
+        }
+
+        function salvaProduto() {
+            var linhaProduto    = document.querySelector('#linhaProduto').value;
+            var row             = document.querySelector('#produtos').rows[linhaProduto].cells;
+            var totalProduto    = 0;
+            var totalDesconto   = 0;
+
+            $('#modal_edit_produto').modal('hide');
+
+            row[3].innerHTML = document.querySelector('#mdProdQuant').value;   
+            row[4].innerHTML = document.querySelector('#mdProdDs').value;
+            row[6].innerHTML = document.querySelector('#mdProdTotBr').value;
+            row[7].innerHTML = document.querySelector('#mdProdTotLq').value;
+
+            var rowsProduto = document.querySelector('#produtos').rows;
+
+            for(var i=1; i < rowsProduto.length; i++){
+                var cellValor = rowsProduto[i].cells;
+
+                cellValor = cellValor[7].innerHTML.replace(".", "");
+                cellValor = cellValor.replace(",", '.');
+                cellValor = parseFloat(cellValor);
+
+                totalProduto += cellValor;
+            };
+
+            $('#totalProduto').maskMoney('mask', totalProduto);
+
+            calcTotais();
+        }
+
+        function calcTotais(){
+            var vlrTotalServico = $("#totalServico").maskMoney('unmasked')[0];
+            var vlrTotalProduto = $("#totalProduto").maskMoney('unmasked')[0];
+            var totalLiquido    = 0;
+
+            totalLiquido = vlrTotalServico + vlrTotalProduto;
+
+            $('#totalValorLiquido').maskMoney('mask', totalLiquido);
         }
     </script>
 {% endblock %}
