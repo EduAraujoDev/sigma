@@ -12,16 +12,17 @@ class Usuario extends CI_Controller {
         $this->load->model('perfil_model', 'perfil_model');
 
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
     }
 
     public function index() {
-        $data = ['base_url' => $this->config->base_url()];
+        $user = $_SESSION['userLogin'];
+        $data = ['base_url' => $this->config->base_url(),
+            'user' => $user,
+        ];
         $this->twig->display('usuario/dashboard_usuario', $data);
     }
 
@@ -38,8 +39,10 @@ class Usuario extends CI_Controller {
 
     // Formulario que adiciona novo usuario
     public function novo() {
+        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
-            'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result()
+            'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result(),
+            'user' => $user,
         ];
         $this->twig->display('usuario/novo', $data);
     }
@@ -72,9 +75,12 @@ class Usuario extends CI_Controller {
         }
 
         if ($usuario_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result(),
-                'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row()];
+                'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row(),
+                'user' => $user,
+            ];
             $this->twig->display('usuario/visualizar', $data);
         } else {
             redirect('usuario/listar', 'refresh');
@@ -89,9 +95,12 @@ class Usuario extends CI_Controller {
         }
 
         if ($usuario_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'tipo_perfils' => $this->perfil_model->get_tiposPerfil_all()->result(),
-                'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row()];
+                'usuario' => $this->usuario_model->get_usuario_byid($usuario_id)->row(),
+                'user' => $user,
+            ];
             $this->twig->display('usuario/editar', $data);
         } else {
             redirect('produto/listar', 'refresh');

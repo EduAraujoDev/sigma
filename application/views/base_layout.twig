@@ -11,9 +11,9 @@
             <!-- Bootstrap 3.3.5 -->
             <link rel="stylesheet" href="{{base_url}}public/bootstrap/css/bootstrap.min.css">
             <!-- Font Awesome -->
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="{{base_url}}public/plugins/font/font-awesome-4.4.0.min.css">
             <!-- Ionicons -->
-            <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+            <link rel="stylesheet" href="{{base_url}}public/plugins/ionicons/ionicons-2.0.1.min.css">
             <!-- Theme style -->
             <link rel="stylesheet" href="{{base_url}}public/dist/css/AdminLTE.min.css">
             <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -60,48 +60,6 @@
 
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            <!-- Notifications: style can be found in dropdown.less -->
-                            {#<li class="dropdown notifications-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell-o"></i>
-                                    <span class="label label-warning">10</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="header">You have 10 notifications</li>
-                                    <li>
-                                        <!-- inner menu: contains the actual data -->
-                                        <ul class="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                                                    page and may cause design problems
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-users text-red"></i> 5 new members joined
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-user text-red"></i> You changed your username
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="footer"><a href="#">View all</a></li>
-                                </ul>
-                            </li>#}
                             <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -154,7 +112,9 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="{{base_url}}usuario/listar"><i class="fa fa-circle-o"></i> Listar Usuários</a></li>
-                                <li><a href="{{base_url}}usuario/novo"><i class="fa fa-circle-o"></i> Novo Usuários</a></li>
+                                    {%if user['tipoAcesso'] == 'ADMIN'%}
+                                    <li><a href="{{base_url}}usuario/novo"><i class="fa fa-circle-o"></i> Novo Usuários</a></li>
+                                    {%endif%}
                             </ul>
                         </li>
                         <li class="treeview">
@@ -465,7 +425,7 @@
             <!-- jQuery 2.1.4 -->
             <script src="{{base_url}}public/plugins/jQuery/jQuery-2.1.4.min.js"></script>
             <!-- jQuery UI 1.11.4 -->
-            <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+            <script src="{{base_url}}public/plugins/jQuery/jquery-ui-1.11.4.min.js"></script>
             <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
             <script>
                 $.widget.bridge('uibutton', $.ui.button);
@@ -482,7 +442,8 @@
             <!-- jQuery Knob Chart -->
             <script src="{{base_url}}public/plugins/knob/jquery.knob.js"></script>
             <!-- daterangepicker -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+            <script src="{{base_url}}public/plugins/moment/moment-2.10.2.min.js"></script>
+            <!-- moment -->
             <script src="{{base_url}}public/plugins/daterangepicker/daterangepicker.js"></script>
             <!-- datepicker -->
             <script src="{{base_url}}public/plugins/datepicker/bootstrap-datepicker.js"></script>

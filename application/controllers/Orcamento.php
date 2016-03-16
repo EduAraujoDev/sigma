@@ -16,14 +16,21 @@ class Orcamento extends CI_Controller {
         redirect('/admin', 'refresh');
     }
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
+        if (isset($_SESSION['userLogin'])) {
+            
+        } else {
+            redirect('/', 'refresh');
+        }
     }
 
     // Formulario que adiciona nova orcamento
     public function novo() {
-        $data = ['base_url' => $this->config->base_url()];
+        $user = $_SESSION['userLogin'];
+        $data = ['base_url' => $this->config->base_url(),
+            'user' => $user,
+        ];
         $this->twig->display('orcamento/novo', $data);
     }
 
@@ -32,4 +39,5 @@ class Orcamento extends CI_Controller {
         var_dump($this->input->post('mail'));
         var_dump($this->input->post('mobile'));
     }
+
 }

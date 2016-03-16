@@ -16,9 +16,7 @@ class Cliente extends CI_Controller {
         parent::__construct();
         $this->load->model('cliente_model', 'cliente_model');
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
@@ -29,6 +27,7 @@ class Cliente extends CI_Controller {
     }
 
     public function buscar() {
+        $user = $_SESSION['userLogin'];
         $busca = (String) $this->input->get('busca');
         $tipo_busca = (String) $this->input->get('tipo_busca');
         $clientes = $this->cliente_model->get_cliente_notDeleted()->result();
@@ -42,26 +41,31 @@ class Cliente extends CI_Controller {
         $data = array(
             'base_url' => $this->config->base_url(),
             'clientes' => $clientes,
+            'user' => $user,
         );
         $this->twig->display('cliente/listar', $data);
     }
 
     // Pagina que lista os clientes
     public function listar() {
-        $message_success    = $this->session->flashdata('message_success');
-        $clientes           = $this->cliente_model->get_cliente_notDeleted()->result();
+        $user = $_SESSION['userLogin'];
+        $message_success = $this->session->flashdata('message_success');
+        $clientes = $this->cliente_model->get_cliente_notDeleted()->result();
         $data = array(
             'base_url' => $this->config->base_url(),
             'message_success' => $message_success,
             'clientes' => $clientes,
+            'user' => $user,
         );
         $this->twig->display('cliente/listar', $data);
     }
 
     // Formulario que adiciona novo cliente
     public function novo() {
+        $user = $_SESSION['userLogin'];
         $data = array(
             'base_url' => $this->config->base_url(),
+            'user' => $user,
         );
         $this->twig->display('cliente/novo', $data);
     }
@@ -99,7 +103,7 @@ class Cliente extends CI_Controller {
             redirect('cliente/novo', 'refresh');
         }
     }
-   
+
     public function visualizar($cliente_id) {
         if ($cliente_id != NULL) {
             $id_cliente = $cliente_id;
@@ -107,8 +111,10 @@ class Cliente extends CI_Controller {
             $id_cliente = $this->uri->segment(3);
         }
         if ($id_cliente != null) {
+            $user = $_SESSION['userLogin'];
             $cliente = $this->cliente_model->get_cliente_by_id($id_cliente)->row();
             $data = ['base_url' => $this->config->base_url(),
+                'user' => $user,
                 'cliente' => $cliente];
 
             $this->twig->display('cliente/visualizar', $data);
@@ -124,8 +130,10 @@ class Cliente extends CI_Controller {
             $id_cliente = $this->uri->segment(3);
         }
         if ($id_cliente != null) {
+            $user = $_SESSION['userLogin'];
             $cliente = $this->cliente_model->get_cliente_by_id($id_cliente)->row();
             $data = ['base_url' => $this->config->base_url(),
+                'user' => $user,
                 'cliente' => $cliente];
 
             $this->twig->display('cliente/editar', $data);
@@ -184,7 +192,7 @@ class Cliente extends CI_Controller {
         return $this->form_validation;
     }
 
-    public function ajax_cliente(){
+    public function ajax_cliente() {
         $clientes = $this->cliente_model->get_cliente_notDeleted()->result();
         $data = array();
 
@@ -194,12 +202,13 @@ class Cliente extends CI_Controller {
             $linha[] = $cliente->nome;
             $linha[] = $cliente->cpf_cnpj;
             $linha[] = $cliente->email;
-         
+
             $data[] = $linha;
         }
- 
+
         $saida = array("data" => $data,);
 
         echo json_encode($saida);
     }
+
 }

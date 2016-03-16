@@ -61,8 +61,10 @@
                                                 <td>{{ usuario.id_tipo_perfil }}</td>
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}usuario/visualizar/{{ usuario.id_usuario }}">Visualizar</a>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}usuario/editar/{{ usuario.id_usuario }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}usuario/deletar/{{ usuario.id_usuario }}">Excluir</a>
+                                                    {%if user['tipoAcesso'] == 'ADMIN'%}
+                                                        <a class="btn btn-primary btn-xs" href="{{base_url}}usuario/editar/{{ usuario.id_usuario }}">Alterar</a>
+                                                        <a class="btn btn-danger btn-xs" href="{{base_url}}usuario/deletar/{{ usuario.id_usuario }}">Excluir</a>
+                                                    {%endif%}
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -83,7 +85,7 @@
 {% block js %}
     {{ parent() }}
     <script type="text/javascript">
-        $("#alerta").fadeTo(2000, 500).slideUp(500, function(){
+        $("#alerta").fadeTo(2000, 500).slideUp(500, function () {
             $("#alerta").alert('close');
         });
     </script>

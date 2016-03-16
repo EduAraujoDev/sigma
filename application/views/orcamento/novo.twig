@@ -71,30 +71,38 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="complemento">Serviços</label>
-                                <table id="servicos" class="table table-bordered table-hover">
+                                <table id="servicos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th class="text-center">Código</th>
                                             <th class="text-center">Descrição</th>
                                             <th class="text-center">Valor</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
-                                <div class="col-md-9 col-md-offset-9">
-                                    <button type="button" class="btn btn-info btn-flat" onclick="buscaServico();">Incluir Serviço</button>
-                                </div>
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-md-3 col-md-offset-4"> 
+                                <label for="totalServico" style="padding-top: 6px; padding-left: 50px">Total de Serviços(R$):</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="0,00" disabled>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-info btn-flat" onclick="buscaServico();">Incluir Serviço</button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="complemento">Produtos</label>
-                                <table id="produtos" class="table table-bordered table-hover">
+                                <table id="produtos" class="table table-bordered table-hover table-striped">
                                     <thead>
-                                        <tr>
+                                        <tr class="titlerow">
                                             <th>#</th>
                                             <th class="text-center">Código</th>
                                             <th class="text-center">Descrição</th>
@@ -109,11 +117,48 @@
                                     <tbody>
                                     </tbody>
                                 </table>
-                                <div class="col-md-9 col-md-offset-9">
-                                    <button type="button" class="btn btn-info btn-flat" onclick="buscaProduto();">Incluir Produto</button>
-                                </div>
                             </div>
-                        </div>                        
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 col-md-offset-4"> 
+                                <label for="totalProduto" style="padding-top: 6px; padding-left: 50px">Total de Produtos(R$):</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="0,00" disabled>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-info btn-flat" onclick="buscaProduto();">Incluir Produto</button>
+                            </div>                            
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="descontoAdicional" style="padding-top: 6px; padding-left: 50px">Desconto Adicional:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="descontoAdicional" id="descontoAdicional" value="0,00" onkeyup="calcTotais();">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="descontoTotal" style="padding-top: 6px; padding-left: 50px">Desconto Total:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="descontoTotal" id="descontoTotal" value="0,00" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="0,00" disabled>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="totalValorLiquido" style="padding-top: 6px; padding-left: 50px">Valor Total Liquido:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="totalValorLiquido" id="totalValorLiquido" value="0,00" disabled>
+                            </div>
+                        </div>
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-success">Cadastrar</button>
@@ -123,6 +168,7 @@
             </div>
         </div>
     </section>
+    <!-- Modals -->
     <div class="modal fade" id="modal_cliente" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -145,7 +191,7 @@
                     </table>                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="fechaModalCli();">Cancel</button>
                 </div>
             </div>
         </div>
@@ -172,7 +218,7 @@
                     </table>                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="fechaModalServ();">Cancel</button>
                 </div>
             </div>
         </div>
@@ -199,11 +245,65 @@
                     </table>                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="fechaModalProd();">Cancel</button>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <div class="modal fade" id="modal_edit_produto" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">                    
+                    <h3 class="modal-title">Produto</h3>
+                </div>
+                <div class="modal-body form">
+                    <form action="#" id="form" class="form-horizontal">
+                        <input type="hidden" value="" name="linhaProduto" id="linhaProduto"/>
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="mdProdDesc">Descrição</label>
+                                <div class="col-md-9">
+                                    <input name="mdProdDesc" id="mdProdDesc" class="form-control" type="text" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="mdProdDVlr">Valor</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="mdProdDVlr" id="mdProdDVlr" class="form-control" disabled>
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Quantidade</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="mdProdQuant" id="mdProdQuant" class="form-control" onkeyup="calcQntProd();" placeholder="0" value="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="mdProdDs">Desconto</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="mdProdDs" id="mdProdDs" class="form-control" onkeyup="calcQntProd();" placeholder="0" value="0,00">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <label class="control-label" for="mdProdTotBr">Subtotal Bruto</label>
+                                    <input type="text" name="mdProdTotBr" id="mdProdTotBr" class="form-control" placeholder="0,00" disabled>
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="control-label" for="mdProdTotLq">Subtotal Liquido</label>
+                                    <input type="text" name="mdProdTotLq" id="mdProdTotLq" class="form-control" placeholder="0,00" disabled>
+                                </div>                                
+                            </div>                              
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnSave" onclick="salvaProduto();" class="btn btn-success">Confirmar</button>
+                    <button type="button" class="btn btn-danger" onclick="fechaModalAltProd();">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block js %}
     {{ parent() }}
@@ -222,6 +322,14 @@
 
             $("#dataFinalizacao").datepicker({dateFormat: 'dd/mm/yy', language: 'pt-BR'});
             $("#dataFinalizacao").val([dia, mes, ano ].join("/"));
+
+            $("#totalProduto").maskMoney({thousands:'.', decimal:','});
+            $("#totalServico").maskMoney({thousands:'.', decimal:','});
+            
+            $("#descontoAdicional").maskMoney({thousands:'.', decimal:','});
+            $("#descontoTotal").maskMoney({thousands:'.', decimal:','});
+            $("#totalValorBruto").maskMoney({thousands:'.', decimal:','});
+            $("#totalValorLiquido").maskMoney({thousands:'.', decimal:','});
         };
 
         function buscaCliente(){            
@@ -243,8 +351,7 @@
             document.querySelector("#codCliente").value = dadosLinha[0];
             document.querySelector("#nomeCliente").value = dadosLinha[1];
 
-            $('#modal_cliente').modal('hide');
-            tableCliente.destroy();
+            fechaModalCli();
         });
 
         function buscaServico(){
@@ -255,29 +362,48 @@
                     "url": "{{base_url}}servico/ajax_servico",
                     "type": "POST"
                 },
+                "aoColumns": [
+                    {"Id": "Id", "sClass": "text-left"},
+                    {"Titulo": "Titulo", "sClass": "text-left"},
+                    {"Descricao": "Descricao", "sClass": "text-left"},
+                    {"Valor": "Valor", "sClass": "text-right"},
+                ]
             });
 
             $('#modal_servico').modal('show');          
         }
 
         $('#tabelaServico tbody').on( 'click', 'tr', function () {
-            var dadosLinha = tableServico.row(this).data();
-            var novaLinha = "";
-            var tabelaServico = document.querySelector("#servicos");
-            var linha = tabelaServico.rows.length;
+            var tabelaServico   = document.querySelector("#servicos");
+            var vlrTotalServico = $("#totalServico").maskMoney('unmasked')[0];
+            var dadosLinha      = tableServico.row(this).data();
+            var numLinha        = tabelaServico.rows.length;
+            var row             = tabelaServico.insertRow(numLinha);
+            var vlrServico      = 0;
 
-            novaLinha += '<tr>';
-            novaLinha += '  <td>'+linha+'</td>';
-            novaLinha += '  <td>'+dadosLinha[1]+'</td>';            
-            novaLinha += '  <td>'+dadosLinha[2]+'</td>';            
-            novaLinha += '  <td class="text-right">'+dadosLinha[3]+'</td>';                       
-            novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat" onclick="buscaServico();"><i class="fa fa-remove"></i></button></td>';
-            novaLinha += '</tr>';
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
 
-            tabelaServico.innerHTML += novaLinha;
+            cell1.innerHTML = cell1.innerHTML + numLinha;
+            cell2.innerHTML = cell2.innerHTML + dadosLinha[1];
+            cell3.innerHTML = cell3.innerHTML + dadosLinha[2];
+            cell4.innerHTML = cell4.innerHTML + dadosLinha[3];
 
-            $('#modal_servico').modal('hide');
-            tableServico.destroy();
+            cell4.setAttribute('class', 'text-right');
+
+            fechaModalServ();
+
+            vlrServico = dadosLinha[3].replace(".", "");
+            vlrServico = vlrServico.replace(",", '.');
+            vlrServico = parseFloat(vlrServico);
+
+            vlrTotalServico += vlrServico;          
+
+            $('#totalServico').maskMoney('mask', vlrTotalServico);
+
+            calcTotais();
         });
 
         function buscaProduto(){
@@ -288,33 +414,182 @@
                     "url": "{{base_url}}produto/ajax_produto",
                     "type": "POST"
                 },
+                "aoColumns": [
+                    {"Id": "Id", "sClass": "text-left"},
+                    {"Descricao": "Descricao", "sClass": "text-left"},
+                    {"Estoque": "Estoque", "sClass": "text-right"},
+                    {"Valor": "Valor", "sClass": "text-right"},
+                ]                
             });
 
             $('#modal_produto').modal('show');          
         }
 
         $('#tabelaProduto tbody').on( 'click', 'tr', function () {
-            var dadosLinha = tableProduto.row(this).data();
-            var novaLinha = "";
-            var tabelaProduto = document.querySelector("#produtos");
-            var linha = tabelaProduto.rows.length;
+            var tabelaProduto   = document.querySelector("#produtos");
+            var vlrTotalProduto = $("#totalProduto").maskMoney('unmasked')[0];
+            var dadosLinha      = tableProduto.row(this).data();
+            var numLinha        = tabelaProduto.rows.length;
+            var row             = tabelaProduto.insertRow(numLinha);
+            var vlrProduto      = 0;
+            var vlrDesconto     = "0,00";
 
-            novaLinha += '<tr>';
-            novaLinha += '  <td>'+linha+'</td>';
-            novaLinha += '  <td>'+dadosLinha[0]+'</td>';            
-            novaLinha += '  <td class="text-right">'+dadosLinha[1]+'</td>';
-            novaLinha += '  <td class="text-right">0</td>';
-            novaLinha += '  <td class="text-right">0</td>';
-            novaLinha += '  <td class="text-right">'+dadosLinha[2]+'</td>';
-            novaLinha += '  <td class="text-right">0</td>';
-            novaLinha += '  <td class="text-right">0</td>';
-            novaLinha += '  <td><button type="button" class="btn btn-danger btn-flat"><i class="fa fa-remove"></i></button></td>';
-            novaLinha += '</tr>';
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);            
+            var cell5 = row.insertCell(4);            
+            var cell6 = row.insertCell(5);            
+            var cell7 = row.insertCell(6);            
+            var cell8 = row.insertCell(7);            
+            var cell9 = row.insertCell(8);
 
-            tabelaProduto.innerHTML += novaLinha;
+            cell1.innerHTML = cell1.innerHTML + numLinha;
+            cell2.innerHTML = cell2.innerHTML + dadosLinha[0];
+            cell3.innerHTML = cell3.innerHTML + dadosLinha[1];
+            cell4.innerHTML = cell4.innerHTML + 1;            
+            cell5.innerHTML = cell5.innerHTML + vlrDesconto;
+            cell6.innerHTML = cell6.innerHTML + dadosLinha[3];            
+            cell7.innerHTML = cell7.innerHTML + dadosLinha[3];            
+            cell8.innerHTML = cell8.innerHTML + dadosLinha[3];
+            cell9.innerHTML = cell9.innerHTML + '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarProduto(this.id);"><i class="fa fa-edit"></i></button>';
 
+            cell4.setAttribute('class', 'text-right');
+            cell5.setAttribute('class', 'text-right');
+            cell6.setAttribute('class', 'text-right');
+            cell7.setAttribute('class', 'text-right');
+            cell8.setAttribute('class', 'text-right');
+
+            fechaModalProd();
+
+            vlrProduto = dadosLinha[3].replace(".", "");
+            vlrProduto = vlrProduto.replace(",", '.');
+            vlrProduto = parseFloat(vlrProduto);
+
+            vlrTotalProduto += vlrProduto;          
+
+            $('#totalProduto').maskMoney('mask', vlrTotalProduto);
+
+            calcTotais();
+        });
+
+        function editarProduto(x) {
+            var row = document.querySelector('#produtos').rows[x].cells;
+
+            $('[name="linhaProduto"]').val(x);
+            $('[name="mdProdDesc"]').val(row[2].innerHTML);
+            $('[name="mdProdDVlr"]').val(row[5].innerHTML);
+            $('[name="mdProdDVlr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdQuant"]').val(row[3].innerHTML);
+            $('[name="mdProdDs"]').val(row[4].innerHTML);
+            $('[name="mdProdDs"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdTotBr"]').val(row[6].innerHTML);
+            $('[name="mdProdTotLq"]').val(row[7].innerHTML);
+            $('[name="mdProdTotBr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdTotLq"]').maskMoney({thousands:'.', decimal:','});
+            $('#modal_edit_produto').modal('show');
+        }
+
+        function calcQntProd() {
+             var quantidade  = document.querySelector("#mdProdQuant").value;
+             var vlrProduto  = $("#mdProdDVlr").maskMoney('unmasked')[0];
+             var vlrDesconto = $("#mdProdDs").maskMoney('unmasked')[0];
+             var vlrTotBruto = $("#mdProdTotBr").maskMoney('unmasked')[0];
+             var vlrTotLiqui = $("#mdProdTotLq").maskMoney('unmasked')[0];
+
+             vlrTotBruto = (vlrProduto*quantidade);
+             vlrTotLiqui = ((vlrProduto*quantidade)-vlrDesconto);
+
+             $('#mdProdTotBr').maskMoney('mask', vlrTotBruto);
+             $('#mdProdTotLq').maskMoney('mask', vlrTotLiqui);
+        }
+
+        function fechaModalProd(){
             $('#modal_produto').modal('hide');
             tableProduto.destroy();
-        });        
+        }
+
+        function fechaModalServ(){
+            $('#modal_servico').modal('hide');
+            tableServico.destroy();           
+        }
+
+        function fechaModalCli(){
+            $('#modal_cliente').modal('hide');
+            tableCliente.destroy();
+        }
+
+        function fechaModalAltProd(){
+             $('#modal_edit_produto').modal('hide');
+        }
+
+        function salvaProduto() {
+            var linhaProduto    = document.querySelector('#linhaProduto').value;
+            var row             = document.querySelector('#produtos').rows[linhaProduto].cells;
+            var totalProduto    = 0;
+
+            $('#modal_edit_produto').modal('hide');
+
+            row[3].innerHTML = document.querySelector('#mdProdQuant').value;   
+            row[4].innerHTML = document.querySelector('#mdProdDs').value;
+            row[6].innerHTML = document.querySelector('#mdProdTotBr').value;
+            row[7].innerHTML = document.querySelector('#mdProdTotLq').value;
+
+            var rowsProduto = document.querySelector('#produtos').rows;
+
+            for(var i=1; i < rowsProduto.length; i++){
+                var cellValor = rowsProduto[i].cells;
+
+                cellValor = cellValor[7].innerHTML.replace(".", "");
+                cellValor = cellValor.replace(",", '.');
+                cellValor = parseFloat(cellValor);
+
+                totalProduto += cellValor;
+            };
+
+            $('#totalProduto').maskMoney('mask', totalProduto);
+
+            calcTotais();
+        }
+
+        function calcTotais(){
+            var vlrTotalServico     = $("#totalServico").maskMoney('unmasked')[0];
+            var vlrTotalProduto     = $("#totalProduto").maskMoney('unmasked')[0];
+            var vlrDescontoAdc      = $("#descontoAdicional").maskMoney('unmasked')[0];
+            var rowsProduto         = document.querySelector('#produtos').rows;
+            var totalLiquido        = 0;
+            var totalBruto          = 0;
+            var totalBrutoProduto   = 0;
+            var totalDesconto       = 0;
+
+            totalLiquido = vlrTotalServico + vlrTotalProduto - vlrDescontoAdc;
+            $('#totalValorLiquido').maskMoney('mask', totalLiquido);            
+
+            for(var i=1; i < rowsProduto.length; i++){
+                var cellValor = rowsProduto[i].cells;
+                
+                cellValor = cellValor[6].innerHTML.replace(".", "");
+                cellValor = cellValor.replace(",", '.');
+                cellValor = parseFloat(cellValor);
+
+                totalBrutoProduto += cellValor;
+            };
+
+            totalBruto = vlrTotalServico + totalBrutoProduto;
+            $('#totalValorBruto').maskMoney('mask', totalBruto);
+
+            for(var i=1; i < rowsProduto.length; i++){
+                var cellValor = rowsProduto[i].cells;
+                
+                cellValor = cellValor[4].innerHTML.replace(".", "");
+                cellValor = cellValor.replace(",", '.');
+                cellValor = parseFloat(cellValor);
+
+                totalDesconto += cellValor;
+            };
+
+            totalDesconto += vlrDescontoAdc;
+            $('#descontoTotal').maskMoney('mask', totalDesconto);            
+        }
     </script>
 {% endblock %}

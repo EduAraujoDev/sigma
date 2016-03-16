@@ -16,9 +16,7 @@ class Marca extends CI_Controller {
         parent::__construct();
         $this->load->model('marca_model', 'marca_model');
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
@@ -29,20 +27,24 @@ class Marca extends CI_Controller {
     }
 
     public function buscar() {
+        $user = $_SESSION['userLogin'];
         $nome = (String) $this->input->get('busca');
         $marcas = $this->marca_model->get_marca_by_nome($nome)->result();
         $data = array(
             'base_url' => $this->config->base_url(),
             'marcas' => $marcas,
+            'user' => $user,
         );
         $this->twig->display('marca/listar', $data);
     }
 
     // Pagina que lista as marcas
     public function listar() {
+        $user = $_SESSION['userLogin'];
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
+            'user' => $user,
             'marcas' => $this->marca_model->get_marca_notDeleted()->result()
         ];
         $this->twig->display('marca/listar', $data);
@@ -50,7 +52,10 @@ class Marca extends CI_Controller {
 
     // Formulario que adiciona nova marca
     public function novo() {
-        $data = ['base_url' => $this->config->base_url()];
+        $user = $_SESSION['userLogin'];
+        $data = ['base_url' => $this->config->base_url(),
+            'user' => $user,
+        ];
         $this->twig->display('marca/novo', $data);
     }
 
@@ -80,14 +85,17 @@ class Marca extends CI_Controller {
         }
 
         if ($marca_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
-                'marca' => $this->marca_model->get_marca_byid($marca_id)->row()];
+                'marca' => $this->marca_model->get_marca_byid($marca_id)->row(),
+                'user' => $user,
+            ];
             $this->twig->display('marca/visualizar', $data);
         } else {
             redirect('marca/listar', 'refresh');
         }
     }
-    
+
     // Pagina com o formulario para alterar a marca selecionada
     public function editar($marca_id) {
         if ($marca_id != NULL) {
@@ -97,7 +105,9 @@ class Marca extends CI_Controller {
         }
 
         if ($marca_id != NULL) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
+                'user' => $user,
                 'marca' => $this->marca_model->get_marca_byid($marca_id)->row()];
             $this->twig->display('marca/editar', $data);
         } else {

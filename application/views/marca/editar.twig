@@ -20,26 +20,22 @@
                 <div class="box-header with-border">
                     <h1 class="box-title">Dados de Marca<br><small>*Campos obrigatorios</small></h1>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}marca/atualizar/{{ marca.id_marca }}" method="post" 
+                <form role="form" action="{{base_url}}marca/atualizar/{{ marca.id_marca }}" method="post" 
                       method="post" onSubmit="return btnCadastrar();">
                     <div id="box"></div>
                     <div class="box-body">
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-12 col-md-5">
-                                <label for="id">Código Marca</label>
-                                <input type="text" class="form-control" id="id" name="id"
+                        <div class="col-xs-12 col-sm-12 col-md-5">
+                            <label for="id">Código Marca</label>
+                            <input type="text" class="form-control" id="id" name="id"
                                    value="{{ marca.id_marca }}" disabled>
-                            </div> 
-                        </div>    
+                        </div> 
                         
-                        <div class="form-group">    
-                            <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
-                                <label for="descricao">Nome*</label>
-                                <input type="text" class="form-control" id="descricao" name="descricao" 
+                        <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
+                            <label for="descricao">Nome*</label>
+                            <input type="text" class="form-control" id="descricao" name="descricao" 
                                    placeholder="Digite a marca" value="{{ marca.titulo }}" onBlur="verificarNome();">
-                            </div>                       
-                        </div>
-                            
+                        </div>                       
+                        
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-success">Alterar</button>

@@ -16,9 +16,7 @@ class Fornecedor extends CI_Controller {
         parent::__construct();
         $this->load->model('fornecedor_model', 'fornecedor_model');
         if (isset($_SESSION['userLogin'])) {
-            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
-                redirect('/usuario', 'refresh');
-            }
+            
         } else {
             redirect('/', 'refresh');
         }
@@ -29,6 +27,7 @@ class Fornecedor extends CI_Controller {
     }
 
     public function buscar() {
+        $user = $_SESSION['userLogin'];
         $busca = (String) $this->input->get('busca');
         $tipo_busca = (String) $this->input->get('tipo_busca');
         $fornecedores = $this->fornecedor_model->get_fornecedor_notDeleted()->result();
@@ -47,15 +46,18 @@ class Fornecedor extends CI_Controller {
         $data = array(
             'base_url' => $this->config->base_url(),
             'fornecedores' => $fornecedores,
+            'user' => $user,
         );
         $this->twig->display('fornecedor/listar', $data);
     }
 
     // Pagina que lista os fornecedores
     public function listar() {
+        $user = $_SESSION['userLogin'];
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
+            'user' => $user,
             'fornecedores' => $this->fornecedor_model->get_fornecedor_notDeleted()->result()
         ];
 
@@ -64,7 +66,9 @@ class Fornecedor extends CI_Controller {
 
     // Pagina com o formulario para inclusao de novo fornecedor
     public function novo() {
+        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
+            'user' => $user,
             'UFS' => array('SP', 'RJ')];
 
         $this->twig->display('fornecedor/novo', $data);
@@ -112,15 +116,16 @@ class Fornecedor extends CI_Controller {
         }
 
         if ($fornecedor_id != null) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'UFS' => array('SP', 'RJ'),
+                'user' => $user,
                 'fornecedor' => $this->fornecedor_model->get_fornecedor_byid($fornecedor_id)->row()];
             $this->twig->display('fornecedor/visualizar', $data);
         } else {
             redirect('fornecedor/listar', 'refresh');
         }
     }
-
 
     // Pagina com o formulario para alterar o fornecedor selecionado
     public function editar($fornecedor_id) {
@@ -131,8 +136,10 @@ class Fornecedor extends CI_Controller {
         }
 
         if ($fornecedor_id != null) {
+            $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
                 'UFS' => array('SP', 'RJ'),
+                'user' => $user,
                 'fornecedor' => $this->fornecedor_model->get_fornecedor_byid($fornecedor_id)->row()];
             $this->twig->display('fornecedor/editar', $data);
         } else {

@@ -20,93 +20,84 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Produto</h3>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}produto/atualizar/{{ produto.id_produto }}" method="post" class="form-incline">
+                <form role="form" action="{{base_url}}produto/atualizar/{{ produto.id_produto }}" method="post" class="form-incline">
                     <div class="box-body">
                         
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="id">Código Produto</label>
-                                <input type="text" class="form-control" id="id" name="id"
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="id">Código Produto</label>
+                            <input type="text" class="form-control" id="id" name="id"
                                   value="{{ produto.id_produto }}" disabled>
-                            </div>
+                        </div>
                         
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="nome">Código Fabricante</label>
-                                <input type="text" class="form-control" id="codFornecedor" name="codFornecedor" 
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="nome">Código Fabricante</label>
+                            <input type="text" class="form-control" id="codFornecedor" name="codFornecedor" 
                                    placeholder="Digite o código da embalagem" maxlength="40" disabled>
-                            </div>
-                        </div>    
+                        </div>
                         
-                        <div class="form-group">    
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <label for="nome">Descrição</label>
-                                <input type="text" class="form-control" id="nome" name="nome" 
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <label for="nome">Descrição</label>
+                            <input type="text" class="form-control" id="nome" name="nome" 
                                    placeholder="Digite a descrição do produto" value="{{ produto.nome }}" maxlength="40" disabled>
-                            </div>
-                        </div>    
+                        </div>
                         
-                        <div class="form-group">    
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="quantEstoque">Quantidade em estoque</label>
-                                <input type="number" class="form-control" id="quantEstoque" 
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="quantEstoque">Quantidade em estoque</label>
+                            <input type="number" class="form-control" id="quantEstoque" 
                                    name="quantEstoque" min="0" value="{{ produto.quantidade_estoque }}" max="99999999999" disabled>
-                            </div>                        
+                        </div>                        
                         
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="quantReservada">Quantidade reservada</label>
-                                <input type="number" class="form-control" id="quantReservada" 
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="quantReservada">Quantidade reservada</label>
+                            <input type="number" class="form-control" id="quantReservada" 
                                    name="quantReservada" min="0" value="{{ produto.quantidade_reservada }}" max="99999999999" 
                                    disabled>
-                            </div>
-                        </div>           
+                        </div>
                         
-                        <div class="form-group">           
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="valorCusto">Valor Custo</label>
-                                <input type="text" class="form-control" id="valorCusto" 
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="valorCusto">Valor Custo</label>
+                            <input type="text" class="form-control" id="valorCusto" 
                                    name="valorCusto" value="{{ produto.valor_custo }}" maxlength="11" disabled>
-                            </div>
-                        
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="valorVenda">Valor Venda</label>
-                                <input type="text" class="form-control" id="valorVenda" 
-                                   name="valorVenda" value="{{ produto.valor_venda }}" maxlength="11" disabled>
-                            </div>
-                        </div>    
-                        
-                        <div class="form-group">    
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="exampleInputEmail1">Marca</label>
-                                <select class="form-control" name="marca" disabled>
-                                    {% for marca in marcas %}
-                                        {% if marca.id_marca == produto.id_marca %}
-                                            <option selected="selected" value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
-                                        {% else %}
-                                            <option value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </div>
                             
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="exampleInputEmail1">Categoria</label>
-                                <select class="form-control" name="categoria" disabled>
-                                    {% for categoria in categorias %}
-                                        {% if categoria.id_categoria == produto.id_categoria %}
-                                            <option selected="selected" value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
-                                        {% else %}
-                                            <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
-                                        {% endif %}                                    
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>        
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="valorVenda">Valor Venda</label>
+                            <input type="text" class="form-control" id="valorVenda" 
+                                   name="valorVenda" value="{{ produto.valor_venda }}" maxlength="11" disabled>
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="exampleInputEmail1">Marca</label>
+                            <select class="form-control" name="marca" disabled>
+                                {% for marca in marcas %}
+                                    {% if marca.id_marca == produto.id_marca %}
+                                        <option selected="selected" value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
+                                    {% else %}
+                                        <option value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                            
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="exampleInputEmail1">Categoria</label>
+                            <select class="form-control" name="categoria" disabled>
+                                {% for categoria in categorias %}
+                                    {% if categoria.id_categoria == produto.id_categoria %}
+                                        <option selected="selected" value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                    {% else %}
+                                        <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                    {% endif %}                                    
+                                {% endfor %}
+                            </select>
+                        </div>
                             
                     </div>
                     <div class="box-footer">
                         <!--<button type="submit" class="btn btn-primary">Alterar</button>-->
-                        <a class="btn btn-success" href="{{base_url}}produto/editar/{{ produto.id_produto }}">Alterar</a>
-                        <a class="btn btn-danger" href="{{base_url}}produto/listar/{{ produto.id_produto }}">Voltar</a>
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}produto/editar/{{ produto.id_produto }}">Alterar</a>
+                        <a class="btn btn-primary btn-xs" href="{{base_url}}produto/listar/{{ produto.id_produto }}">Voltar</a>
                     </div>
                 </form>
             </div>
