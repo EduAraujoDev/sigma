@@ -86,7 +86,7 @@ class Produto extends CI_Controller {
             $valorCusto = str_replace(',', '.', $valorCusto);
             $valoVenda = str_replace('.', '', $this->input->post('valorVenda'));
             $valoVenda = str_replace(',', '.', $valoVenda);
-            
+
             // Monta um array com as informacoes do produto
             $dados = array(
                 'nome' => $this->input->post('nome'),
@@ -153,34 +153,26 @@ class Produto extends CI_Controller {
     public function atualizar() {
         $produto_id = $this->uri->segment(3);
         if ($produto_id != NULL) {
-            // Validacoes de campo do formulario
-            $validacao_formulario = $this->validarformularioProduto();
-            if ($validacao_formulario->run() == TRUE) {
-                $valorCusto = str_replace('.', '', $this->input->post('valorCusto'));
-                $valorCusto = str_replace(',', '.', $valorCusto);
-            
-                $valoVenda = str_replace('.', '', $this->input->post('valorVenda'));
-                $valoVenda = str_replace(',', '.', $valoVenda);
-                
-                $dados = array(
-                    'nome' => $this->input->post('nome'),
-                    'quantidade_estoque' => $this->input->post('quantEstoque'),
-                    'quantidade_reservada' => $this->input->post('quantReservada'),
-                    'valor_custo' => $valorCusto,
-                    'valor_venda' => $valoVenda,
-                    'id_categoria' => $this->input->post('categoria'),
-                    'id_marca' => $this->input->post('marca'),
-                    'codigo_fabricante' => $this->input->post('codFornecedor'),
-                );
+            $valorCusto = str_replace('.', '', $this->input->post('valorCusto'));
+            $valorCusto = str_replace(',', '.', $valorCusto);
 
-                $this->produto_model->update_produto($dados, array('id_produto' => $produto_id));
-                
-                $this->session->set_flashdata('message_success', 'Produto editado com sucesso!');
-            } else {
-                $this->session->set_flashdata('message_error', 'Houve erro na edição do produto!');
-            }
+            $valoVenda = str_replace('.', '', $this->input->post('valorVenda'));
+            $valoVenda = str_replace(',', '.', $valoVenda);
+            $dados = array(
+                'nome' => $this->input->post('nome'),
+                'quantidade_estoque' => $this->input->post('quantEstoque'),
+                'quantidade_reservada' => $this->input->post('quantReservada'),
+                'valor_custo' => $valorCusto,
+                'valor_venda' => $valoVenda,
+                'id_categoria' => $this->input->post('categoria'),
+                'id_marca' => $this->input->post('marca'),
+                'codigo_fabricante' => $this->input->post('codFornecedor'),
+            );
+
+            $this->produto_model->update_produto($dados, array('id_produto' => $produto_id));
+            $this->session->set_flashdata('message_success', 'Produto editado com sucesso!');
         }
-        
+
         redirect('produto/listar', 'refresh');
     }
 
