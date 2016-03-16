@@ -18,12 +18,12 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Dados do Produto</h3>
+                    <h1 class="box-title">Dados do Produto<br><small>*Campos obrigatorios</small></h1>
                 </div>
                 <form class="form-horizontal" role="form" action="{{base_url}}produto/atualizar/{{ produto.id_produto }}" method="post" 
                       class="form-incline" onSubmit="return btnCadastrar();">
+                    <div id="box"></div>
                     <div class="box-body">
-                        
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <label for="id">Código Produto</label>
@@ -40,7 +40,7 @@
                         
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
-                                <label for="nome">Descrição</label>
+                                <label for="nome">Descrição*</label>
                                 <input type="text" class="form-control" id="nome" name="nome" 
                                    placeholder="Digite a descrição do produto" 
                                    value="{{ produto.nome }}" maxlength="40" onBlur="verificarNome();">
@@ -51,20 +51,22 @@
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <label for="quantEstoque">Quantidade em estoque</label>
                                 <input type="number" class="form-control" id="quantEstoque" 
-                                   name="quantEstoque" min="0" value="{{ produto.quantidade_estoque }}" max="99999999999" disabled>
+                                   name="quantEstoque" min="0" value="{{ produto.quantidade_estoque }}" max="99999999999" 
+                                   disabled>
                             </div>                        
                         
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <label for="quantReservada">Quantidade reservada</label>
                                 <input type="number" class="form-control" id="quantReservada" 
-                                   name="quantReservada" min="0" value="{{ produto.quantidade_reservada }}" max="99999999999" 
+                                   name="quantReservada" min="0" value="{{ produto.quantidade_reservada }}" 
+                                   max="99999999999" 
                                    disabled>
                             </div>
                         </div>           
                         
                         <div class="form-group">           
                             <div class="col-xs-12 col-sm-6 col-md-6" id="divValorCusto">
-                                <label for="valorCusto">Valor Custo</label>
+                                <label for="valorCusto">Valor Custo*</label>
                                 <input type="text" class="form-control" id="valorCusto" 
                                    name="valorCusto" value="{{ produto.valor_custo }}" 
                                    maxlength="11" onBlur="verificarValorCusto();">
@@ -72,7 +74,7 @@
                             </div>
                         
                             <div class="col-xs-12 col-sm-6 col-md-6" id="divValorVenda">
-                                <label for="valorVenda">Valor Venda</label>
+                                <label for="valorVenda">Valor Venda*</label>
                                 <input type="text" class="form-control" id="valorVenda" 
                                    name="valorVenda" value="{{ produto.valor_venda }}" 
                                    maxlength="11" onBlur="verificarValorVenda();">
@@ -109,7 +111,9 @@
                             
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Alterar</button>
+                        <button type="submit" class="btn btn-success">Editar</button>
+                        <a href="{{base_url}}produto/listar">
+                            <button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>
@@ -121,14 +125,19 @@
     {{ parent() }}
     <script type="text/javascript">
         jQuery(function ($) {
-            $("#valorVenda").maskMoney();
-            $("#valorCusto").maskMoney();
+            $("#valorVenda").maskMoney({thousands:'.', decimal:','});
+            $("#valorCusto").maskMoney({thousands:'.', decimal:','});
+            
+            $("#alerta").fadeTo(2000, 500).slideUp(700, function(){
+                $("#alerta").alert('close');
+            });   
         });
         
         function btnCadastrar(){
            if (verificarNome() & verificarValorVenda() & verificarValorCusto()) {
              return true;   
            } else {
+             document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';  
              return false;
            }
        }

@@ -52,8 +52,10 @@ class Produto extends CI_Controller {
     // Pagina que lista os produos
     public function listar() {
         $message_success = $this->session->flashdata('message_success');
+        $message_error = $this->session->flashdata('message_error');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
+            'message_error' => $message_error,
             'produtos' => $this->produto_model->get_produto_notDeleted()->result()
         ];
 
@@ -76,13 +78,18 @@ class Produto extends CI_Controller {
         // Validacoes de campo do formulario
         $validacao_formulario = $this->validarformularioProduto();
         if ($validacao_formulario->run() == TRUE) {
+            $valorCusto = str_replace('.', '', $this->input->post('valorCusto'));
+            $valorCusto = str_replace(',', '.', $valorCusto);
+            $valoVenda = str_replace('.', '', $this->input->post('valorVenda'));
+            $valoVenda = str_replace(',', '.', $valoVenda);
+            
             // Monta um array com as informacoes do produto
             $dados = array(
                 'nome' => $this->input->post('nome'),
                 'quantidade_estoque' => $this->input->post('quantEstoque'),
                 'quantidade_reservada' => $this->input->post('quantReservada'),
-                'valor_custo' => $this->input->post('valorCusto'),
-                'valor_venda' => $this->input->post('valorVenda'),
+                'valor_custo' => $valorCusto,
+                'valor_venda' => $valoVenda,
                 'id_categoria' => $this->input->post('categoria'),
                 'id_marca' => $this->input->post('marca'),
                 'codigo_fabricante' => $this->input->post('codFornecedor'),
@@ -141,21 +148,31 @@ class Produto extends CI_Controller {
             // Validacoes de campo do formulario
             $validacao_formulario = $this->validarformularioProduto();
             if ($validacao_formulario->run() == TRUE) {
+                $valorCusto = str_replace('.', '', $this->input->post('valorCusto'));
+                $valorCusto = str_replace(',', '.', $valorCusto);
+            
+                $valoVenda = str_replace('.', '', $this->input->post('valorVenda'));
+                $valoVenda = str_replace(',', '.', $valoVenda);
+                
                 $dados = array(
                     'nome' => $this->input->post('nome'),
                     'quantidade_estoque' => $this->input->post('quantEstoque'),
                     'quantidade_reservada' => $this->input->post('quantReservada'),
-                    'valor_custo' => $this->input->post('valorCusto'),
-                    'valor_venda' => $this->input->post('valorVenda'),
+                    'valor_custo' => $valorCusto,
+                    'valor_venda' => $valoVenda,
                     'id_categoria' => $this->input->post('categoria'),
                     'id_marca' => $this->input->post('marca'),
                     'codigo_fabricante' => $this->input->post('codFornecedor'),
                 );
 
                 $this->produto_model->update_produto($dados, array('id_produto' => $produto_id));
+                
+                $this->session->set_flashdata('message_success', 'Produto editado com sucesso!');
+            } else {
+                $this->session->set_flashdata('message_error', 'Houve erro na edição do produto!');
             }
         }
-        $this->session->set_flashdata('message_success', 'Produto editado com sucesso!');
+        
         redirect('produto/listar', 'refresh');
     }
 

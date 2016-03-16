@@ -27,6 +27,16 @@
                             {{message_success}}
                         </div>
                     {% endif %}
+                    
+                    {% if message_error is not empty %}
+                        <div class="alert alert-error alert-dismissible fade in" role="alert" id="alerta">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Atenção!</strong>
+                            {{message_error}}
+                        </div>
+                    {% endif %}
                     <form role="form" action="{{base_url}}produto/buscar" method="GET">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>

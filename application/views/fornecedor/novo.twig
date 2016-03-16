@@ -22,7 +22,7 @@
                 </div>
                 <form role="form" action="{{base_url}}fornecedor/adicionar" method="post" class="form-incline"
                       onSubmit="return btnCadastrar();">
-                    
+                    <div id="box"></div>
                     <div class="box-body">
                         
                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -165,25 +165,14 @@
         });
 
         function btnCadastrar(){
-           if (verificarRazaoSocial() & verificarTelefone()) {
+           if (verificarRazaoSocial() & verificarTelefone() & verificarCPFCNPJ()) {
              return true;  
            } else {
+             document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';  
              return false;
            }
         }
 
-        function verificarRazaoSocial() {
-            var nome = $("#nome").val();
-            if(nome.length === 0) {
-                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
-                document.querySelector("#nome").focus();
-                return false;
-            } else {
-                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
-                return true;
-            }
-        }
-        
         function verificarCPFCNPJ() {
             var cpfcnpj = $("#cnpj").val().replace(/[^\d]+/g, '');
             var tipoPessoa = document.getElementById('juridico').checked;
@@ -199,7 +188,31 @@
             }
             
         };
-        
+
+        function verificarRazaoSocial() {
+            var nome = $("#nome").val();
+            if(nome.length === 0) {
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
+                document.querySelector("#nome").focus();
+                return false;
+            } else {
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
+                return true;
+            }
+        }
+ 
+        function verificarTelefone() {
+            var telefone = $("#telFixo").val().replace(/[^\d]+/g, '');
+            if(telefone.length !== 12) {
+                document.querySelector("#divTelefone").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
+                document.querySelector("#telFixo").focus();
+                return false;
+            } else {
+                document.querySelector("#divTelefone").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
+                return true;
+            }
+        }
+    
         function cpf(cpf) {
             if (validarCPF(cpf) === false) {
                 document.querySelector("#divCnpj").setAttribute('class', 'col-xs-12 col-sm-3 col-md-3 has-error has-feedback');
@@ -273,18 +286,6 @@
             return true;
         }
  
-        function verificarTelefone() {
-            var telefone = $("#telFixo").val().replace(/[^\d]+/g, '');
-            if(telefone.length !== 12) {
-                document.querySelector("#divTelefone").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
-                document.querySelector("#telFixo").focus();
-                return false;
-            } else {
-                document.querySelector("#divTelefone").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
-                return true;
-            }
-        }
-
         function validarCPF(strCPF) {
             var Soma;
             var Resto;

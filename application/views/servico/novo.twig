@@ -19,7 +19,9 @@
                 <div class="box-header with-border">
                     <h1 class="box-title">Dados do Serviço<br><small>*Campos obrigatorios</small></h1>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}servico/adicionar" method="post" class="form-incline" onSubmit="return btnCadastrar();">
+                <form class="form-horizontal" role="form" action="{{base_url}}servico/adicionar" method="post" 
+                      class="form-incline" onSubmit="return btnCadastrar();">
+                    <div id="box"></div>
                     <div class="box-body">
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-6 col-md-6" id="divTitulo">
@@ -36,7 +38,8 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-3 col-md-3" id="divValor">
                                 <label for="valor">Valor*</label>
-                                <input type="text" class="form-control" id="valor" value="0,00" name="valor" placeholder="0.00" maxlength="8" onBlur="verificarValor();">
+                                <input type="text" class="form-control" id="valor" value="0,00" 
+                                       name="valor" placeholder="0.00" maxlength="8" onBlur="verificarValor();">
                             </div>
                         </div>
                         <div class="form-group">
@@ -71,13 +74,13 @@
            if (verificarNome() & verificarValor()) {
              return true;   
            } else {
+             document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';             
              return false;
            }
         }
         
         function verificarNome() {
             var nome = $("#titulo").val();
-            var alert = "";
             
             if(nome.length === 0) {
                 document.querySelector("#divTitulo").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');

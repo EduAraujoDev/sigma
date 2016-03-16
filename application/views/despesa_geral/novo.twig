@@ -1,0 +1,95 @@
+{% extends "base_layout.twig" %}
+{% block title %}Despesa Geral{% endblock %}
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Novo Categoria</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Novo Categoria</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h1 class="box-title">Dados de Despesa<br><small>*Campos obrigatorios</small></h1>
+                </div>
+                <form class="form-horizontal" role="form" action="{{base_url}}categoria/adicionar" method="post" onSubmit="return btnCadastrar();">
+                    <div id="box"></div>
+                    
+                    <div class="form-group">
+                        <div class="box-body">
+                            
+                            <div class="col-xs-12 col-sm-6 col-md-6" id="divCategoria">
+                                <label for="descricao">Categoria</label>
+                                <input type="text" class="form-control" id="categoria" 
+                                   name="categoria" placeholder="Digite a categoria" onBlur="verificarNome();">
+                            </div>
+                            
+                            <div class="col-xs-12 col-sm-6 col-md-6" id="divStatus">
+                                <label for="descricao">Status</label>
+                                <input type="text" class="form-control" id="status" 
+                                   name="status" placeholder="" onBlur="verificarNome();">
+                            </div>
+                            
+                            <div class="col-xs-12 col-sm-4 col-md-4" id="divCriacao">
+                                <label for="descricao">Data de Criação</label>
+                                <input type="text" class="form-control" id="criacao" 
+                                   name="criacao" placeholder="" onBlur="verificarNome();">
+                            </div>
+                            
+                            <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
+                                <label for="descricao">Data de Criação</label>
+                                <input type="text" class="form-control" id="vencimento" 
+                                   name="vencimento" placeholder="" onBlur="verificarNome();">
+                            </div>
+                            
+                            <div class="col-xs-12 col-sm-4 col-md-4" id="divPagamento">
+                                <label for="descricao">Data de Pagamento</label>
+                                <input type="text" class="form-control" id="pagamento" 
+                                   name="pagamento" placeholder="" onBlur="verificarNome();">
+                            </div>
+                            
+                        </div>
+                    </div>    
+                    
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                        <a href="{{base_url}}categoria/listar">
+                        <button type="button" class="btn btn-danger">Cancelar</button></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        
+        function btnCadastrar(){
+           return verificarNome();
+        }
+        
+        function verificarNome() {
+            var nome = $("#descricao").val();
+            if(nome.length === 0) {
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12 has-error has-feedback');
+                document.querySelector("#descricao").focus();
+                document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';
+                return false;
+            } else {
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-12');
+                return true;
+            }
+            
+        }
+        
+    </script>
+{% endblock %}
