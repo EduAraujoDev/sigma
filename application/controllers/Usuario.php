@@ -138,8 +138,8 @@ class Usuario extends CI_Controller {
         $usuario_id = $this->uri->segment(3);
         if ($usuario_id != NULL) {
             $this->usuario_model->delete_usuario(array('id_usuario' => $usuario_id));
+            $this->session->set_flashdata('message_success', 'Usuario deletado com sucesso!');
         }
-        $this->session->set_flashdata('message_success', 'Usuario deletado com sucesso!');
         redirect('usuario/listar', 'refresh');
     }
 
