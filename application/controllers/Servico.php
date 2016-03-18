@@ -135,9 +135,9 @@ class Servico extends CI_Controller {
                     'observacoes' => $this->input->post('observacoes')
                 );
                 $this->servico_model->update_servico($dados, array('id_servico' => $servico_id));
+                $this->session->set_flashdata('message_success', 'Servico atualizado com sucesso!');
             }
         }
-        $this->session->set_flashdata('message_success', 'Servico atualizado com sucesso!');
         redirect('servico/listar', 'refresh');
     }
 
@@ -148,8 +148,8 @@ class Servico extends CI_Controller {
             // Deleta a categotia na base de dadps
             //$this->servico_model->delete_servico(array('id_servico' => $servico_id));
             $this->servico_model->delete_logical_servico(array('id_servico' => $servico_id));
+            $this->session->set_flashdata('message_success', 'Servico removido com sucesso!');
         }
-        $this->session->set_flashdata('message_success', 'Servico removido com sucesso!');
         redirect('servico/listar', 'refresh');
     }
 
