@@ -174,9 +174,9 @@ class Fornecedor extends CI_Controller {
                 );
 
                 $this->fornecedor_model->update_fornecedor($dados, array('id_fornecedor' => $fornecedor_id));
+                $this->session->set_flashdata('message_success', 'Fornecedor atulizado com sucesso!');
             }
         }
-        $this->session->set_flashdata('message_success', 'Fornecedor atulizado com sucesso!');
         redirect('fornecedor/listar', 'refresh');
     }
 
@@ -186,8 +186,8 @@ class Fornecedor extends CI_Controller {
         if ($fornecedor_id != null) {
             //$this->fornecedor_model->delete_fornecedor(array('id_fornecedor' => $fornecedor_id));
             $this->fornecedor_model->delete_logical_fornecedor(array('id_fornecedor' => $fornecedor_id));
+            $this->session->set_flashdata('message_success', 'Fornecedor removido com sucesso!');
         }
-        $this->session->set_flashdata('message_success', 'Fornecedor removido com sucesso!');
         redirect('fornecedor/listar', 'refresh');
     }
 
