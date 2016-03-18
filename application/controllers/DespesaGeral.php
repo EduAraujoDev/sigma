@@ -104,10 +104,11 @@ class DespesaGeral extends CI_Controller {
                 $dados = array(
                     'titulo' => $this->input->post('descricao')
                 );
+                $this->session->set_flashdata('message_success', 'Despesa geral editada com sucesso!');
+       
                 $this->despesageral_model->update_categoria($dados, array('id_despesageral' => $despesageral_id));
             }
         }
-        $this->session->set_flashdata('message_success', 'Despesa geral editada com sucesso!');
         redirect('despesageral/listar', 'refresh');
     }
 
