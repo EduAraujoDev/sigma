@@ -59,7 +59,8 @@ class Login extends CI_Controller {
                 $data = array(
                     'nome_usuario' => $retorno->nome,
                     'usuario' => $retorno->login,
-                    'tipoAcesso' => $tipoAcesso
+                    'tipoAcesso' => $retorno->id_tipo_perfil,
+                    'NomeTipoAcesso' => '',
                 );
 
                 $this->session->set_userdata('userLogin', $data);
