@@ -19,17 +19,23 @@
                 <div class="box-header with-border">
                     <h1 class="box-title">Dados de Categoria<br><small>*Campos obrigatorios</small></h1>
                 </div>
-                <form role="form" action="{{base_url}}categoria/adicionar" method="post" onSubmit="return btnCadastrar();">
+                <form class="form-horizontal" role="form" action="{{base_url}}categoria/adicionar" method="post" 
+                      class="form-incline" onSubmit="return btnCadastrar();">
                     
+                    <div id="box"></div>
                     <div class="box-body">
+                    
+                        <div class="form-group">
                         
-                        <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
-                            <label for="descricao">Descrição*</label>
-                            <input type="text" class="form-control" id="descricao" 
+                            <div class="col-xs-12 col-sm-12 col-md-12" id="divNome">
+                                <label for="descricao">Descrição*</label>
+                                <input type="text" class="form-control" id="descricao" 
                                    name="descricao" placeholder="Digite a categoria" onBlur="verificarNome();">
-                        </div>                      
+                            </div>                      
                         
-                    </div>
+                        </div>
+                        
+                    </div>    
                     
                     <div class="box-footer">
                         <button type="submit" class="btn btn-success">Cadastrar</button>

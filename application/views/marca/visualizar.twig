@@ -20,19 +20,26 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Marca</h3>
                 </div>
-                <form role="form" action="{{base_url}}marca/atualizar/{{ marca.id_marca }}" method="post" method="post">
+                <form class="form-horizontal" role="form" action="{{base_url}}marca/atualizar/{{ marca.id_marca }}" 
+                      method="post" method="post">
+                    <div id="box"></div>
                     <div class="box-body">
                         
-                        <div class="col-xs-12 col-sm-12 col-md-5">
-                            <label for="id">Código Marca</label>
-                            <input type="text" class="form-control" id="id" name="id"
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-5">
+                                <label for="id">Código Marca</label>
+                                <input type="text" class="form-control" id="id" name="id"
                                    value="{{ marca.id_marca }}" disabled>
-                        </div>
+                            </div>
+                        </div>    
                         
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <label for="descricao">Nome</label>
-                            <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a marca" value="{{ marca.titulo }}" disabled>
-                        </div>                       
+                        <div id="box"></div>    
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="descricao">Nome</label>
+                                <input type="text" class="form-control" id="descricao" name="descricao" 
+                                       placeholder="Digite a marca" value="{{ marca.titulo }}" disabled>
+                            </div>                       
+                        </div>    
                         
                     </div>
                     <div class="box-footer">

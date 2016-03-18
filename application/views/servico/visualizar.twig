@@ -20,8 +20,11 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Serviço</h3>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}servico/atualizar/{{servico.id_servico}}" method="post" class="form-incline">                    
+                <form class="form-horizontal" role="form" action="{{base_url}}servico/atualizar/{{servico.id_servico}}" 
+                      method="post" class="form-incline">    
+                    <div id="box"></div>
                     <div class="box-body">
+                        
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <label for="id">Código Serviço</label>
@@ -32,6 +35,7 @@
                                 <input type="text" class="form-control" id="titulo" value="{{servico.titulo}}" name="titulo" placeholder="" maxlength="40" disabled>
                             </div>
                         </div>
+                            
                         <div class="form-group">                            
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <label for="descricao">Descrição</label>
@@ -42,12 +46,14 @@
                                 <input type="text" class="form-control" id="valor" value="{{servico.valor}}" name="valor" placeholder="" maxlength="6" disabled>
                             </div>
                         </div>
+                            
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label>Observações</label>
                                 <textarea class="form-control" name="observacoes" rows="3" placeholder="" disabled>{{servico.observacoes}}</textarea>
                             </div>
                         </div>
+                            
                     </div>
                     <div class="box-footer">
                         <a class="btn btn-primary" href="{{base_url}}servico/editar/{{ servico.id_servico }}">Alterar</a>

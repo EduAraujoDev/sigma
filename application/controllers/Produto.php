@@ -153,6 +153,9 @@ class Produto extends CI_Controller {
     public function atualizar() {
         $produto_id = $this->uri->segment(3);
         if ($produto_id != NULL) {
+            //echo 'bu'; mostra a variavel na tela
+            //var_dump('a'); mostra a variavel e o tipo
+            //die; para a execucao do codigo!
             $valorCusto = str_replace('.', '', $this->input->post('valorCusto'));
             $valorCusto = str_replace(',', '.', $valorCusto);
 
