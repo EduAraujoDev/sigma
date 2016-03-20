@@ -590,18 +590,21 @@
             var totalBruto          = 0;
             var totalBrutoProduto   = 0;
             var totalDesconto       = 0;
+            var valor               = "";
 
             totalLiquido = vlrTotalServico + vlrTotalProduto - vlrDescontoAdc;
             $('#totalValorLiquido').maskMoney('mask', totalLiquido);            
 
             for(var i=1; i < rowsProduto.length; i++){
                 var cellValor = rowsProduto[i].cells;
-                
-                cellValor = cellValor[6].innerHTML.replace(".", "");
-                cellValor = cellValor.replace(",", '.');
-                cellValor = parseFloat(cellValor);
 
-                totalBrutoProduto += cellValor;
+                valor = cellValor[6].innerHTML;
+                
+                valor = valor.replace(".", "");
+                valor = valor.replace(",", '.');
+                valor = parseFloat(valor);
+
+                totalBrutoProduto += valor;
             };
 
             totalBruto = vlrTotalServico + totalBrutoProduto;
@@ -609,12 +612,14 @@
 
             for(var i=1; i < rowsProduto.length; i++){
                 var cellValor = rowsProduto[i].cells;
-                
-                cellValor = cellValor[4].innerHTML.replace(".", "");
-                cellValor = cellValor.replace(",", '.');
-                cellValor = parseFloat(cellValor);
 
-                totalDesconto += cellValor;
+                valor = cellValor[4].innerHTML;
+                
+                valor = valor.replace(".", "");
+                valor = valor.replace(",", '.');
+                valor = parseFloat(valor);
+
+                totalDesconto += valor;
             };
 
             totalDesconto += vlrDescontoAdc;
