@@ -523,15 +523,15 @@
             $('[name="mdProdDesc"]').val(row[2].innerHTML);
             $('[name="mdProdDVlr"]').val(row[5].innerHTML);
             $('[name="mdProdDVlr"]').maskMoney({thousands:'.', decimal:','});
-            $('[name="mdVlrCobr"]').val(row[5].innerHTML);
+            $('[name="mdVlrCobr"]').val(row[6].innerHTML);
             $('[name="mdVlrCobr"]').maskMoney({thousands:'.', decimal:','});
             $('[name="mdProdQuant"]').val(row[3].innerHTML);
 
             percDesconto = percDesconto.replace('%', '');
             $('[name="mdProdDs"]').val(parseInt(percDesconto));
             
-            $('[name="mdProdTotBr"]').val(row[6].innerHTML);
-            $('[name="mdProdTotLq"]').val(row[7].innerHTML);
+            $('[name="mdProdTotBr"]').val(row[7].innerHTML);
+            $('[name="mdProdTotLq"]').val(row[8].innerHTML);
             $('[name="mdProdTotBr"]').maskMoney({thousands:'.', decimal:','});
             $('[name="mdProdTotLq"]').maskMoney({thousands:'.', decimal:','});
             $('#modal_edit_produto').modal('show');
