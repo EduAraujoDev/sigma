@@ -597,13 +597,16 @@
         function calcTotais(){
             var vlrTotalServico     = $("#totalServico").maskMoney('unmasked')[0];
             var vlrTotalProduto     = $("#totalProduto").maskMoney('unmasked')[0];
-            var vlrDescontoAdc      = $("#descontoAdicional").maskMoney('unmasked')[0];
+            var percDescontoAdc     = document.querySelector('#descontoAdicional').value;
             var rowsProduto         = document.querySelector('#produtos').rows;
+            var vlrDescontoAdc      = 0;
             var totalLiquido        = 0;
             var totalBruto          = 0;
             var totalBrutoProduto   = 0;
             var totalDesconto       = 0;
             var valor               = "";
+
+            vlrDescontoAdc = (percDescontoAdc * vlrTotalProduto)/100;
 
             totalLiquido = vlrTotalServico + vlrTotalProduto - vlrDescontoAdc;
             $('#totalValorLiquido').maskMoney('mask', totalLiquido);            
@@ -627,16 +630,14 @@
                 var cellValor = rowsProduto[i].cells;
 
                 valor = cellValor[4].innerHTML;
-                
-                valor = valor.replace(".", "");
-                valor = valor.replace(",", '.');
-                valor = parseFloat(valor);
+                valor = valor.replace('%', '');
+                valor = parseInt(valor);
 
                 totalDesconto += valor;
             };
 
-            totalDesconto += vlrDescontoAdc;
-            $('#descontoTotal').maskMoney('mask', totalDesconto);            
+            totalDesconto += parseInt(percDescontoAdc);
+            document.querySelector('#descontoTotal').value = totalDesconto;
         }
     </script>
 {% endblock %}
