@@ -136,21 +136,27 @@
                                 <label for="descontoAdicional" style="padding-top: 6px; padding-left: 50px">Desconto Adicional:</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control text-right" name="descontoAdicional" id="descontoAdicional" value="0,00" onkeyup="calcTotais();">
+                                <div class="input-group">
+                                    <input type="text" class="form-control text-right" name="descontoAdicional" id="descontoAdicional" value="0" onkeyup="calcTotais();">
+                                    <span class="input-group-addon">%</span>
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="descontoTotal" style="padding-top: 6px; padding-left: 50px">Desconto Total:</label>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control text-right" name="descontoTotal" id="descontoTotal" value="0,00" disabled>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <div class="col-md-3">
                                 <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
                             </div>
                             <div class="col-md-2">
                                 <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="0,00" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="descontoTotal" style="padding-top: 6px; padding-left: 50px">Desconto Total:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control text-right" name="descontoTotal" id="descontoTotal" value="0" disabled>
+                                    <span class="input-group-addon">%</span>
+                                </div>                                    
                             </div>
                             <div class="col-md-3">
                                 <label for="totalValorLiquido" style="padding-top: 6px; padding-left: 50px">Valor Total Liquido:</label>
@@ -343,8 +349,6 @@
             $("#totalProduto").maskMoney({thousands:'.', decimal:','});
             $("#totalServico").maskMoney({thousands:'.', decimal:','});
             
-            $("#descontoAdicional").maskMoney({thousands:'.', decimal:','});
-            $("#descontoTotal").maskMoney({thousands:'.', decimal:','});
             $("#totalValorBruto").maskMoney({thousands:'.', decimal:','});
             $("#totalValorLiquido").maskMoney({thousands:'.', decimal:','});
         };
