@@ -241,8 +241,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                        </tbody>            
-                    </table>                    
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" onclick="fechaModalProd();">Cancel</button>
@@ -302,8 +302,22 @@
                     <button type="button" class="btn btn-danger" onclick="fechaModalAltProd();">Cancelar</button>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
+    <div class="modal fade" id="modal_alerta" role="dialog">
+        <div class="modal-dialog" style="padding-top: 15%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"></h3>
+                    <h2 class="modal-title-sec"></h2>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="fechaModalAlerta();">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>    
 {% endblock %}
 {% block js %}
     {{ parent() }}
@@ -422,7 +436,7 @@
                 ]                
             });
 
-            $('#modal_produto').modal('show');          
+            $('#modal_produto').modal('show');
         }
 
         $('#tabelaProduto tbody').on( 'click', 'tr', function () {
@@ -433,6 +447,17 @@
             var row             = tabelaProduto.insertRow(numLinha);
             var vlrProduto      = 0;
             var vlrDesconto     = "0,00";
+
+            if(dadosLinha[2] <= 0){
+                $('#modal_alerta').modal('show');
+                $('#modal_alerta').on('shown.bs.modal', function(){
+                    var modal = $(this);
+                    modal.find('.modal-title').text('Atenção');
+                    modal.find('.modal-title-sec').text('O produto não possui estoque!');
+                })
+
+                return false;
+            }
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -519,6 +544,10 @@
             tableCliente.destroy();
         }
 
+        function fechaModalAlerta() {
+            $('#modal_alerta').modal('hide');
+        }
+
         function fechaModalAltProd(){
              $('#modal_edit_produto').modal('hide');
         }
@@ -526,7 +555,7 @@
         function salvaProduto() {
             var linhaProduto    = document.querySelector('#linhaProduto').value;
             var row             = document.querySelector('#produtos').rows[linhaProduto].cells;
-            var totalProduto    = 0;
+            var totalProduto    = 0;            
 
             $('#modal_edit_produto').modal('hide');
 
