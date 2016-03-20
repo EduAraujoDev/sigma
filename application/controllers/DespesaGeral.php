@@ -13,6 +13,9 @@ class DespesaGeral extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('despesageral_model', 'despesageral_model');
+        $this->load->model('despesacategoria_model', 'despesacategoria_model');
+        $this->load->model('despesastatus_model', 'despesastatus_model');
+        
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
                 redirect('/usuario', 'refresh');
@@ -26,44 +29,55 @@ class DespesaGeral extends CI_Controller {
         redirect('/admin', 'refresh');
     }
     
-    public function buscar() {
+    /*public function buscar() {
         $nome = (String) $this->input->get('busca');
         $despesageral = $this->despesageral_model->get_categoria_by_nome($nome)->result();
-        $data = ['base_url' => $this->config->base_url(),
-            'despesageral' => $despesageral
-        ];
+        $data = ['base_url' => $this->config->base_url(), 'despesageral' => $despesageral];
         $this->twig->display('despesageral/listar', $data);
-    }
+    }*/
     
     public function listar() {
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
-            'despesageral' => $this->despesageral_model->get_categoria_notDeleted()->result()
-        ];
+            'despesageral' => $this->despesageral_model->get_despesageral_notDeleted()->result()];
         $this->twig->display('despesageral/listar', $data);
     }
     
     public function novo() {
-        $data = ['base_url' => $this->config->base_url()];
+        $data = ['base_url' => $this->config->base_url(),
+            'status' => $this->despesastatus_model->get_despesastatus_notDeleted()->result(),
+            'categorias' => $this->despesacategoria_model->get_despesacategoria_notDeleted()->result()];
         $this->twig->display('despesageral/novo', $data);
     }
     
     public function adicionar() {
         // Validacoes de campo do formulario
-        $validacao_formulario = $this->validarformularioCategoria();
-        if ($validacao_formulario->run() == TRUE) {
+        
+        //$validacao_formulario = $this->validarformularioCategoria();
+        //if ($validacao_formulario->run() == TRUE) {
+            //echo 'bu';
+            //var_dump('a'); mostra a variavel e o tipo
+            //die; para a execucao do codigo!
+            
             // Monta um array com as informacoes da categoria
             $dados = array(
-                'titulo' => $this->input->post('descricao'),
+                'id_categoria' => $this->input->post('categoria'),
+                'id_status' => $this->input->post('var'),
+                'data_criacao' => $this->input->post('data_criacao'),
+                'data_vencimento' => $this->input->post('data_vencimento'),
+                'data_pagamento' => $this->input->post('data_pagamento'),
+                'total' => $this->input->post('valorTotal'),
+                'observacoes' => $this->input->post('observacoes'),
                 'deletado' => 0
             );
-            $this->despesageral_model->set_categoria($dados);
+            
+            $this->despesageral_model->insert_despesageral($dados);
             $this->session->set_flashdata('message_success', 'Despesa geral adicionada com sucesso!');
             redirect('despesageral/listar', 'refresh');
-        } else {
-            redirect('despesageral/novo', 'refresh');
-        }
+        //} else {
+            //redirect('despesageral/novo', 'refresh');
+        //}
     }
     
     public function visualizar($despesageral_id) {
@@ -102,12 +116,19 @@ class DespesaGeral extends CI_Controller {
             $validacao_formulario = $this->validarformularioCategoria();
             if ($validacao_formulario->run() == TRUE) {
                 $dados = array(
-                    'titulo' => $this->input->post('descricao')
-                );
+                'id_categoria' => $this->input->post('categoria'),
+                'id_status' => $this->input->post('status'),
+                'data_criacao' => $this->input->post('data_criacao'),
+                'data_vencimento' => $this->input->post('data_vencimento'),
+                'data_pagamento' => $this->input->post('data_pagamento'),
+                'total' => $this->input->post('valorTotal'),
+                'observacoes' => $this->input->post('observacoes'),
+                'deletado' => 0
+            );
                 $this->despesageral_model->update_categoria($dados, array('id_despesageral' => $despesageral_id));
+                $this->session->set_flashdata('message_success', 'Despesa geral editada com sucesso!');
             }
         }
-        $this->session->set_flashdata('message_success', 'Despesa geral editada com sucesso!');
         redirect('despesageral/listar', 'refresh');
     }
 
@@ -125,7 +146,10 @@ class DespesaGeral extends CI_Controller {
 
     // Validacoes de campo do formulario
     public function validarformularioCategoria() {
-        $this->form_validation->set_rules('descricao', 'descricao', 'required');
+        $this->form_validation->set_rules('id_categoria', 'id_categoria', 'required|is_natural');
+        $this->form_validation->set_rules('id_status', 'id_status', 'required|is_natural');
+        $this->form_validation->set_rules('data_criacao', 'data_criacao', 'required');
+        $this->form_validation->set_rules('total', 'total', 'required');
         return $this->form_validation;
     }
     

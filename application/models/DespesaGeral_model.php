@@ -6,46 +6,41 @@ if (!defined('BASEPATH'))
 class DespesaGeral_model extends CI_Model {
     
     public function get_despesageral_all() {
-        return "";
+        return $this->db->get('despesa');
     }
     
     public function get_despesageral_notDeleted() {
-        return "";
+        $this->db->where('deletado', 0);
+        return $this->db->get('despesa');
     }
     
-    public function get_despesageral_by_nome($nome) {
-        return "";
+     public function get_despesageral_byid($id_despesa) {
+        $this->db->where('id_despesa', $id_despesa);
+        $this->db->limit(1);
+        return $this->db->get('despesa');
     }
     
-    public function get_despesageral_byid($id = NULL) {
-        if($id <> NULL) {
-            return "";
-        } else {
-            return NULL;
-        }
+    public function get_despesageral_count_notDeleted(){
+        $this->db->where('deletado', 0);
+        $db_result = $this->db->get('despesa');
+        return $db_result->num_rows();
     }
     
-    public function set_despesageral($dados = NULL) {
-        if ($dados <> NULL) {
-            //
-        }
+    public function insert_despesageral($despesa) {
+        $this->db->insert('despesa', $despesa);
     }
     
-    public function update_despesageral($dados = NULL, $condicao = NULL) {
-        if ($dados <> null && $condicao <> NULL) {
-            //
-        }
+    public function update_despesageral($despesa, $id_despesa) {
+        $this->db->update('despesa', $despesa, array('id_despesa' => $id_despesa));
     }
-    
-    public function delete_despesageral($condicao = NULL) {
-        if ($condicao <> NULL) {
-            //
-        }
+
+    public function delete_despesageral($id_despesa) {
+        $this->db->delete('despesa', array('id_despesa' => $id_despesa));
     }
-    
+
     public function delete_logical_despesageral($condicao = NULL) {
         if ($condicao <> NULL) {
-            //
+            $this->db->update('despesa', array('deletado' => 1), $condicao);
         }
     }
     

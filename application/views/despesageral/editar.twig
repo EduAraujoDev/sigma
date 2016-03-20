@@ -5,11 +5,11 @@
     <section class="content-header">
         <h1>
             Área Administrador
-            <small>Nova Despesa Geral</small>
+            <small>Editar Despesa Geral</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Nova Despesa Geral</li>
+            <li class="active">Editar Despesa Geral</li>
         </ol>
     </section>
 {% endblock %}
@@ -21,30 +21,33 @@
                 <div class="box-header with-border">
                     <h1 class="box-title">Dados de Despesa<br><small>*Campos obrigatorios</small></h1>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}despesageral/adicionar" method="post" 
+                <form class="form-horizontal" role="form" action="{{base_url}}despesageral/atualizar" method="post" 
                       onSubmit="return btnCadastrar();">
                     
                         <div id="box"></div>
                         <div class="box-body">
                             
                             <div class="form-group">
-                                
+                                <div class="col-xs-12 col-sm-12 col-md-5">
+                                    <label for="id">Código Despesa Geral</label>
+                                    <input type="text" class="form-control" id="id" name="id"
+                                        value="{{ despesa.id_despesa }}" disabled>
+                                </div> 
+                            </div> 
+                            
+                            <div class="form-group">
                                 <div class="col-xs-12 col-sm-6 col-md-6" id="divCategoria">
                                     <label for="categoria">Categoria</label>
                                     <select class="form-control" name="categoria">
-                                        {% for categoria in categorias %}
-                                            <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                        {% for marca in marcas %}
+                                            <option value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                             
                                 <div class="col-xs-12 col-sm-6 col-md-6" id="divStatus">
-                                    <label for="categoria">Status</label>
-                                    <select class="form-control" name="var">
-                                        {% for var in status %}
-                                            <option value="{{ var.id_status }}">{{ var.titulo }}</option>
-                                        {% endfor %}
-                                    </select>
+                                    <label for="descricao">Status</label>
+                                    <input type="text" class="form-control" id="status" name="status">
                                 </div>
                             </div>    
                             
@@ -52,34 +55,38 @@
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divCriacao">
                                     <label for="data_criacao">Data de Criação</label>
                                     <input id="data_criacao" type="date" class="form-control" 
-                                           name="data_criacao" placeholder="Digite a data de criação">
+                                           name="data_criacao" placeholder="Digite a data de criação"
+                                           value="{{ despesa.data_criacao }}">
                                 </div>
                             
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
                                     <label for="data_vencimento">Data de Vencimento</label>
                                     <input id="data_vencimento" type="date" class="form-control" 
-                                           name="data_vencimento" placeholder="Digite a data de vencimento" onBlur="verificarDataVencimento();">
+                                           name="data_vencimento" placeholder="Digite a data de vencimento"
+                                           value="{{ despesa.data_vencimento }}">
                                 </div>
                             
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divPagamento">
                                      <label for="data_pagamento">Data de Pagamento</label>
                                     <input id="data_pagamento" type="date" class="form-control" 
-                                           name="data_pagamento" placeholder="Digite a data de pagamento">
+                                           name="data_pagamento" placeholder="Digite a data de pagamento"
+                                           value="{{ despesa.data_pagamento }}">
                                 </div>
                             </div>    
                             
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <label>Observações</label>
-                                    <textarea class="form-control" id="observacoes" name="observacoes" rows="3"></textarea>
+                                    <textarea class="form-control" name="observacoes" rows="3"
+                                              value="{{ despesa.observacoes }}"></textarea>
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divValorTotal">
                                 <label for="valorTotal">Valor Total</label>
-                                <input type="text" class="form-control" id="valorTotal" name="valorTotal"
-                                   value="0" placeholder="0.00" onBlur="verificarValor();">
+                                <input type="text" class="form-control" id="valorTotal" 
+                                   value="0" placeholder="0.00" value="{{ despesa.total }}">
                             </div>    
                             
                         </div>
@@ -107,51 +114,8 @@
         });
         
         function btnCadastrar(){
-           if (verificarValor() & verificarDataVencimento()) {
-               return true;
-           } else {
-             document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';             
-             return false;
-           }
-           
+           return true;
         }
-        
-        function verificarDataVencimento() {
-            var data = $("#data_vencimento").val();
-            
-            var dia = data.substring(0,2);
-            var mes = data.substring(3,5);
-            var ano = data.substring(6,10);
-            
-            var novaData = new Date(ano,(mes-1),dia);
-            
-            var mesmoDia = parseInt(dia,10) === parseInt(novaData.getDate());
-            var mesmoMes = parseInt(mes,10) === parseInt(novaData.getMonth())+1;
-            var mesmoAno = parseInt(ano) === parseInt(novaData.getFullYear());
-            
-            if (!((mesmoDia) && (mesmoMes) && (mesmoAno))) {
-                document.querySelector("#divVencimento").setAttribute('class', 'col-xs-12 col-sm-4 col-md-4 has-error has-feedback');
-                document.querySelector("#data_vencimento").focus();
-                return false;
-            } else {
-                document.querySelector("#divVencimento").setAttribute('class', 'col-xs-12 col-sm-4 col-md-4');
-                return true;
-            }
-           
-        }
-        
-        function verificarValor() {
-            var valor = $("#valorTotal").maskMoney('unmasked')[0];
-            
-            if(valor <= 0) {
-                document.querySelector("#divValorTotal").setAttribute('class', 'col-xs-12 col-sm-4 col-md-4 has-error has-feedback');
-                document.querySelector("#valorTotal").focus();
-                return false;
-            } else {
-                document.querySelector("#divValorTotal").setAttribute('class', 'col-xs-12 col-sm-4 col-md-4');
-                return true;
-            }
-        } 
         
     </script>
 {% endblock %}
