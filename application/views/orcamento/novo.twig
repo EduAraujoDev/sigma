@@ -322,15 +322,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3" for="mdProdDVlr">Valor Sugerido</label>
+                                <label class="control-label col-md-3" for="mdProdVlr">Valor Sugerido</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="mdProdDVlr" id="mdProdDVlr" disabled>
+                                    <input type="text" class="form-control" name="mdProdVlr" id="mdProdVlr" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3" for="mdVlrCobr">Valor Cobrado</label>
+                                <label class="control-label col-md-3" for="mdProdProdVlr">Valor Cobrado</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="mdVlrCobr" id="mdVlrCobr" onkeyup="calcProd();">
+                                    <input type="text" class="form-control" name="mdProdProdVlr" id="mdProdProdVlr" onkeyup="calcProd();">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -569,10 +569,10 @@
 
             $('[name="linhaProduto"]').val(x);
             $('[name="mdProdDesc"]').val(row[2].innerHTML);
-            $('[name="mdProdDVlr"]').val(row[5].innerHTML);
-            $('[name="mdProdDVlr"]').maskMoney({thousands:'.', decimal:','});
-            $('[name="mdVlrCobr"]').val(row[6].innerHTML);
-            $('[name="mdVlrCobr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdVlr"]').val(row[5].innerHTML);
+            $('[name="mdProdVlr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdProdVlr"]').val(row[6].innerHTML);
+            $('[name="mdProdProdVlr"]').maskMoney({thousands:'.', decimal:','});
             $('[name="mdProdQuant"]').val(row[3].innerHTML);
 
             percDesconto = percDesconto.replace('%', '');
@@ -588,8 +588,8 @@
         function calcProd() {
             var quantidade     = document.querySelector("#mdProdQuant").value;
             var percDesconto   = document.querySelector('#mdProdDs').value;
-            var vlrProduto     = $("#mdProdDVlr").maskMoney('unmasked')[0];
-            var vlrCobProduto  = $("#mdVlrCobr").maskMoney('unmasked')[0];
+            var vlrProduto     = $("#mdProdVlr").maskMoney('unmasked')[0];
+            var vlrCobProduto  = $("#mdProdProdVlr").maskMoney('unmasked')[0];
             var vlrTotBruto    = $("#mdProdTotBr").maskMoney('unmasked')[0];
             var vlrTotLiqui    = $("#mdProdTotLq").maskMoney('unmasked')[0];
             var vlrDesconto    = 0;
@@ -639,7 +639,7 @@
 
             row[3].innerHTML = document.querySelector('#mdProdQuant').value;   
             row[4].innerHTML = document.querySelector('#mdProdDs').value + "%";
-            row[6].innerHTML = document.querySelector('#mdVlrCobr').value;
+            row[6].innerHTML = document.querySelector('#mdProdProdVlr').value;
             row[7].innerHTML = document.querySelector('#mdProdTotBr').value;
             row[8].innerHTML = document.querySelector('#mdProdTotLq').value;
 
