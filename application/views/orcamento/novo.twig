@@ -108,7 +108,8 @@
                                             <th class="text-center">Descrição</th>
                                             <th class="text-center">Quantidade</th>
                                             <th class="text-center">Desconto</th>
-                                            <th class="text-center">Preço venda</th>
+                                            <th class="text-center">Preço Produto</th>
+                                            <th class="text-center">Preço Cobrado</th>
                                             <th class="text-center">Subtotal Bruto</th>
                                             <th class="text-center">Subtotal Liquido</th>
                                             <th></th>
@@ -137,7 +138,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control text-right" name="descontoAdicional" id="descontoAdicional" value="0" onkeyup="calcTotais();">
+                                    <input type="number" class="form-control" name="descontoAdicional" id="descontoAdicional" value="0" onkeyup="calcTotais();">
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>
@@ -154,7 +155,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control text-right" name="descontoTotal" id="descontoTotal" value="0" disabled>
+                                    <input type="number" class="form-control" name="descontoTotal" id="descontoTotal" value="0" disabled>
                                     <span class="input-group-addon">%</span>
                                 </div>                                    
                             </div>
@@ -273,22 +274,28 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3" for="mdProdDVlr">Valor</label>
+                                <label class="control-label col-md-3" for="mdProdDVlr">Valor Sugerido</label>
                                 <div class="col-md-9">
                                     <input type="text" name="mdProdDVlr" id="mdProdDVlr" class="form-control" disabled>
                                 </div>
-                            </div>                            
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="mdVlrCobr">Valor Cobrado</label>
+                                <div class="col-md-9">
+                                    <input type="text" name="mdVlrCobr" id="mdVlrCobr" onkeyup="calcProd();" class="form-control">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Quantidade</label>
                                 <div class="col-md-9">
-                                    <input type="text" name="mdProdQuant" id="mdProdQuant" class="form-control" onkeyup="calcQntProd();" placeholder="0" value="0">
+                                    <input type="text" name="mdProdQuant" id="mdProdQuant" class="form-control" onkeyup="calcProd();" placeholder="0" value="0">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="mdProdDs">Desconto</label>
                                 <div class="col-md-9">
                                     <div class="input-group">
-                                        <input type="number" name="mdProdDs" id="mdProdDs" class="form-control" onkeyup="calcQntProd();" placeholder="0" value="0">
+                                        <input type="number" name="mdProdDs" id="mdProdDs" class="form-control" onkeyup="calcProd();" placeholder="0" value="0">
                                         <span class="input-group-addon">%</span>
                                     </div>
                                 </div>
@@ -475,6 +482,7 @@
             var cell7 = row.insertCell(6);            
             var cell8 = row.insertCell(7);            
             var cell9 = row.insertCell(8);
+            var cell10 = row.insertCell(9);
 
             cell1.innerHTML = cell1.innerHTML + numLinha;
             cell2.innerHTML = cell2.innerHTML + dadosLinha[0];
@@ -482,15 +490,17 @@
             cell4.innerHTML = cell4.innerHTML + 1;            
             cell5.innerHTML = cell5.innerHTML + vlrDesconto;
             cell6.innerHTML = cell6.innerHTML + dadosLinha[3];
-            cell7.innerHTML = cell7.innerHTML + dadosLinha[3];            
+            cell7.innerHTML = cell7.innerHTML + dadosLinha[3];
             cell8.innerHTML = cell8.innerHTML + dadosLinha[3];
-            cell9.innerHTML = cell9.innerHTML + '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarProduto(this.id);"><i class="fa fa-edit"></i></button>';
+            cell9.innerHTML = cell9.innerHTML + dadosLinha[3];
+            cell10.innerHTML = cell10.innerHTML + '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarProduto(this.id);"><i class="fa fa-edit"></i></button>';
 
             cell4.setAttribute('class', 'text-right');
             cell5.setAttribute('class', 'text-right');
             cell6.setAttribute('class', 'text-right');
             cell7.setAttribute('class', 'text-right');
             cell8.setAttribute('class', 'text-right');
+            cell9.setAttribute('class', 'text-right');
 
             fechaModalProd();
 
@@ -513,6 +523,8 @@
             $('[name="mdProdDesc"]').val(row[2].innerHTML);
             $('[name="mdProdDVlr"]').val(row[5].innerHTML);
             $('[name="mdProdDVlr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdVlrCobr"]').val(row[5].innerHTML);
+            $('[name="mdVlrCobr"]').maskMoney({thousands:'.', decimal:','});
             $('[name="mdProdQuant"]').val(row[3].innerHTML);
 
             percDesconto = percDesconto.replace('%', '');
@@ -525,13 +537,18 @@
             $('#modal_edit_produto').modal('show');
         }
 
-        function calcQntProd() {
+        function calcProd() {
             var quantidade     = document.querySelector("#mdProdQuant").value;
             var percDesconto   = document.querySelector('#mdProdDs').value;
             var vlrProduto     = $("#mdProdDVlr").maskMoney('unmasked')[0];
+            var vlrCobProduto  = $("#mdVlrCobr").maskMoney('unmasked')[0];
             var vlrTotBruto    = $("#mdProdTotBr").maskMoney('unmasked')[0];
             var vlrTotLiqui    = $("#mdProdTotLq").maskMoney('unmasked')[0];
             var vlrDesconto    = 0;
+
+            if(vlrProduto != vlrCobProduto){
+                vlrProduto = vlrCobProduto;
+            }
 
             vlrDesconto = (percDesconto * vlrTotBruto)/100;
 
@@ -574,15 +591,16 @@
 
             row[3].innerHTML = document.querySelector('#mdProdQuant').value;   
             row[4].innerHTML = document.querySelector('#mdProdDs').value + "%";
-            row[6].innerHTML = document.querySelector('#mdProdTotBr').value;
-            row[7].innerHTML = document.querySelector('#mdProdTotLq').value;
+            row[6].innerHTML = document.querySelector('#mdVlrCobr').value;
+            row[7].innerHTML = document.querySelector('#mdProdTotBr').value;
+            row[8].innerHTML = document.querySelector('#mdProdTotLq').value;
 
             var rowsProduto = document.querySelector('#produtos').rows;
 
             for(var i=1; i < rowsProduto.length; i++){
                 var cellValor = rowsProduto[i].cells;
 
-                cellValor = cellValor[7].innerHTML.replace(".", "");
+                cellValor = cellValor[8].innerHTML.replace(".", "");
                 cellValor = cellValor.replace(",", '.');
                 cellValor = parseFloat(cellValor);
 
@@ -614,7 +632,7 @@
             for(var i=1; i < rowsProduto.length; i++){
                 var cellValor = rowsProduto[i].cells;
 
-                valor = cellValor[6].innerHTML;
+                valor = cellValor[7].innerHTML;
                 
                 valor = valor.replace(".", "");
                 valor = valor.replace(",", '.');
