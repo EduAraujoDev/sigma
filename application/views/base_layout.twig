@@ -69,7 +69,7 @@
                                     <!-- User image -->
                                     <li class="user-header">
                                         <p>
-                                            {{user['nome_usuario']}} - {%if user['tipoAcesso'] == 'ADMIN'%}Admistrador{%else%}Usuario{%endif%}
+                                            {{user['nome_usuario']}} - {{user['NomeTipoAcesso']}}
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
@@ -112,7 +112,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="{{base_url}}usuario/listar"><i class="fa fa-circle-o"></i> Listar Usuários</a></li>
-                                    {%if user['tipoAcesso'] == 'ADMIN'%}
+                                    {%if user['tipoAcesso'] == 1%}
                                     <li><a href="{{base_url}}usuario/novo"><i class="fa fa-circle-o"></i> Novo Usuários</a></li>
                                     {%endif%}
                             </ul>

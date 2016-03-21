@@ -126,9 +126,9 @@ class Marca extends CI_Controller {
                     'titulo' => $this->input->post('descricao')
                 );
                 $this->marca_model->update_marca($dados, array('id_marca' => $marca_id));
+                $this->session->set_flashdata('message_success', 'Categoria atualizada com sucesso!');
             }
         }
-        $this->session->set_flashdata('message_success', 'Categoria atualizada com sucesso!');
         redirect('marca/listar', 'refresh');
     }
 
@@ -139,8 +139,8 @@ class Marca extends CI_Controller {
         if ($marca_id != NULL) {
             //$this->marca_model->delete_marca(array('id_marca' => $marca_id));
             $this->marca_model->delete_logical_marca(array('id_marca' => $marca_id));
+            $this->session->set_flashdata('message_success', 'Categoria deletada com sucesso!');
         }
-        $this->session->set_flashdata('message_success', 'Categoria deletada com sucesso!');
         redirect('marca/listar', 'refresh');
     }
 

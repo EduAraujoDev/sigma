@@ -187,8 +187,8 @@ class Produto extends CI_Controller {
         if ($produto_id != NULL) {
             //$this->produto_model->delete_produto(array('id_produto' => $produto_id));
             $this->produto_model->delete_logical_produto(array('id_produto' => $produto_id));
+            $this->session->set_flashdata('message_success', 'Produto removido com sucesso!');
         }
-        $this->session->set_flashdata('message_success', 'Produto removido com sucesso!');
         redirect('produto/listar', 'refresh');
     }
 

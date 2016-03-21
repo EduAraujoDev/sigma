@@ -16,6 +16,7 @@ class Login extends CI_Controller {
         parent::__construct();
 
         $this->load->model('usuario_model', 'usuario_model');
+        $this->load->model('perfil_model', 'perfil_model');
     }
 
     // Pagina inicial da aplicacao
@@ -48,18 +49,13 @@ class Login extends CI_Controller {
             // die;
 
             $retorno = $this->usuario_model->get_usuario_bypwd($usuario, $senha)->row();
-
             if ($retorno != NULL) {
-                if ($retorno->id_tipo_perfil == 1) {
-                    $tipoAcesso = 'ADMIN';
-                } else {
-                    $tipoAcesso = 'USUARIO';
-                }
-
+                $tipo_perfil = $this->perfil_model->get_perfil_byid($retorno->id_tipo_perfil)->row();
                 $data = array(
                     'nome_usuario' => $retorno->nome,
                     'usuario' => $retorno->login,
-                    'tipoAcesso' => $tipoAcesso
+                    'tipoAcesso' => $retorno->id_tipo_perfil,
+                    'NomeTipoAcesso' => $tipo_perfil->titulo,
                 );
 
                 $this->session->set_userdata('userLogin', $data);

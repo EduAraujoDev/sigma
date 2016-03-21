@@ -123,9 +123,9 @@ class Categoria extends CI_Controller {
                     'titulo' => $this->input->post('descricao')
                 );
                 $this->categoria_model->update_categoria($dados, array('id_categoria' => $categoria_id));
+                $this->session->set_flashdata('message_success', 'Categoria editada com sucesso!');
             }
         }
-        $this->session->set_flashdata('message_success', 'Categoria editada com sucesso!');
         redirect('categoria/listar', 'refresh');
     }
 

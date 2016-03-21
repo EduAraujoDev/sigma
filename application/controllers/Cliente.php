@@ -168,9 +168,9 @@ class Cliente extends CI_Controller {
 
                 // Altera as informacoes do usuario
                 $this->cliente_model->update_cliente($cliente, $id_cliente);
+                $this->session->set_flashdata('message_success', 'Cliente editado com sucesso!');
             }
         }
-        $this->session->set_flashdata('message_success', 'Cliente editado com sucesso!');
         $this->editar($id_cliente);
     }
 

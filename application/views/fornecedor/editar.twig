@@ -190,14 +190,14 @@
     <script type="text/javascript">
         jQuery(function ($) {
             $("#cep").mask("99999-999");
-            $("#cnpj").mask("99.999.999/9999-99");
             $("#dataFundacao").mask('99/99/9999');
             $("#telFixo").mask("(999) 9999-9999");
             $("#telCel").mask("(999) 99999-9999");
+            $("#cnpj").mask("999.999.999-99");
         });
-        
+
         function btnCadastrar(){
-           if (verificarCPFCNPJ() & verificarRazaoSocial() & verificarTelefone()) {
+           if (verificarRazaoSocial() & verificarTelefone() & verificarCPFCNPJ()) {
              return true;  
            } else {
              document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';  
@@ -205,30 +205,6 @@
            }
         }
 
-        function verificarRazaoSocial() {
-            var nome = $("#nome").val();
-            if(nome.length === 0) {
-                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
-                document.querySelector("#nome").focus();
-                return false;
-            } else {
-                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
-                return true;
-            }
-        }
-        
-        function verificarTelefone() {
-            var telefone = $("#telFixo").val().replace(/[^\d]+/g, '');
-            if(telefone.length !== 12) {
-                document.querySelector("#divTelefone").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
-                document.querySelector("#telFixo").focus();
-                return false;
-            } else {
-                document.querySelector("#divTelefone").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
-                return true;
-            }
-        }
-        
         function verificarCPFCNPJ() {
             var cpfcnpj = $("#cnpj").val().replace(/[^\d]+/g, '');
             var tipoPessoa = document.getElementById('juridico').checked;
@@ -244,7 +220,32 @@
             }
             
         };
-        
+
+        function verificarRazaoSocial() {
+            var nome = $("#nome").val();
+            if(nome.length === 0) {
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
+                document.querySelector("#nome").focus();
+                return false;
+            } else {
+                document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
+                return true;
+            }
+        }
+ 
+        function verificarTelefone() {
+            var telefone = $("#telFixo").val().replace(/[^\d]+/g, '');
+            
+            if(telefone.length !== 11) {
+                document.querySelector("#divTelefone").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6 has-error has-feedback');
+                document.querySelector("#telFixo").focus();
+                return false;
+            } else {
+                document.querySelector("#divTelefone").setAttribute('class', 'col-xs-12 col-sm-6 col-md-6');
+                return true;
+            }
+        }
+    
         function cpf(cpf) {
             if (validarCPF(cpf) === false) {
                 document.querySelector("#divCnpj").setAttribute('class', 'col-xs-12 col-sm-3 col-md-3 has-error has-feedback');
@@ -268,14 +269,18 @@
         }
         
         function validarCNPJ(cnpj) {
-
             cnpj = cnpj.replace(/[^\d]+/g,'');
 
-            if(cnpj === '') return false;
-
-            if (cnpj.length !== 14)
-            return false;
-
+            if (cnpj === '') {
+                alert("retorno falso vazio");
+                return false;
+            }
+            
+            if (cnpj.length !== 14) {
+                alert("retorno falso menor que 14");
+                return false;
+            }
+            
             if (cnpj === "00000000000000" || 
                 cnpj === "11111111111111" || 
                 cnpj === "22222222222222" || 
@@ -285,39 +290,51 @@
                 cnpj === "66666666666666" || 
                 cnpj === "77777777777777" || 
                 cnpj === "88888888888888" || 
-                cnpj === "99999999999999")
-            return false; 
-
-            tamanho = cnpj.length - 2
-            numeros = cnpj.substring(0,tamanho);
-            digitos = cnpj.substring(tamanho);
-            soma = 0;
-            pos = tamanho - 7;
-            for (i = tamanho; i >= 1; i--) {
-                    soma += numeros.charAt(tamanho - i) * pos--;
-                if (pos < 2)
-                    pos = 9;
+                cnpj === "99999999999999") {
+            
+                alert("retorno falso números iguais");
+                return false;
             }
-            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-            if (resultado !== digitos.charAt(0))
-            return false;
-
-            tamanho = tamanho + 1;
-            numeros = cnpj.substring(0,tamanho);
-            soma = 0;
-            pos = tamanho - 7;
-            for (i = tamanho; i >= 1; i--) {
-                soma += numeros.charAt(tamanho - i) * pos--;
-                if (pos < 2)
-                    pos = 9;
+            
+            var cnpj_original = cnpj;
+            
+            var primeiros_numeros_cnpj = cnpj.substr( 0, 12 );
+            var primeiro_calculo = calc_digitos_posicoes( primeiros_numeros_cnpj, 5 );
+            var segundo_calculo = calc_digitos_posicoes( primeiro_calculo, 6 );
+ 
+            var cnpj_resultado = segundo_calculo;
+ 
+            if ( cnpj_resultado === cnpj_original ) {
+                return true;
             }
-            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-            if (resultado !== digitos.charAt(1))
+    
             return false;
-
-            return true;
         }
  
+        function calc_digitos_posicoes( digitos, posicoes = 10, soma_digitos = 0 ) {
+ 
+            digitos = digitos.toString();
+            for ( var i = 0; i < digitos.length; i++  ) {
+                soma_digitos = soma_digitos + ( digitos[i] * posicoes );
+                posicoes--;
+                if ( posicoes < 2 ) {
+                    posicoes = 9;
+                }
+            }
+ 
+            soma_digitos = soma_digitos % 11;
+ 
+            if ( soma_digitos < 2 ) {
+                soma_digitos = 0;
+            } else {
+                soma_digitos = 11 - soma_digitos;
+            }
+            
+            var cnpj = digitos + soma_digitos;
+            return cnpj;
+    
+        }
+
         function validarCPF(strCPF) {
             var Soma;
             var Resto;
