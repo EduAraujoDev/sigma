@@ -526,6 +526,7 @@
             var dadosLinha      = tableProduto.row(this).data();
             var numLinha        = tabelaProduto.rows.length;
             var row             = tabelaProduto.insertRow(numLinha);
+            var rowsProduto     = tabelaProduto.rows;
             var vlrProduto      = 0;
             var vlrDesconto     = "0%";
 
@@ -539,7 +540,22 @@
 
                 return false;
             }
+            
+            for(var i=1; i < numLinha; i++){
+                var cellValor = rowsProduto[i].cells;
 
+                if(cellValor[1].innerHTML == dadosLinha[0]){
+                    $('#modal_alerta').modal('show');
+                    $('#modal_alerta').on('shown.bs.modal', function(){
+                        var modal = $(this);
+                        modal.find('.modal-title').text('Atenção');
+                        modal.find('.modal-title-sec').text('O produto '+ dadosLinha[1] +' já informado!');
+                    })
+
+                    return false;
+                }
+            };            
+            
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
