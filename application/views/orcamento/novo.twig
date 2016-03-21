@@ -695,7 +695,7 @@
             var totalDesconto       = 0;
             var valor               = "";
 
-            vlrDescontoAdc = (percDescontoAdc * vlrTotalProduto)/100;
+            vlrDescontoAdc = (percDescontoAdc * (vlrTotalProduto+vlrTotalServico))/100;
 
             totalLiquido = vlrTotalServico + vlrTotalProduto - vlrDescontoAdc;
             $('#totalValorLiquido').maskMoney('mask', totalLiquido);            
