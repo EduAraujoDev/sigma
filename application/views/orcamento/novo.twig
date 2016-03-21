@@ -430,7 +430,23 @@
             var dadosLinha      = tableServico.row(this).data();
             var numLinha        = tabelaServico.rows.length;
             var row             = tabelaServico.insertRow(numLinha);
+            var rowsServico     = tabelaServico.rows;
             var vlrServico      = 0;
+
+            for(var i=1; i < numLinha; i++){
+                var cellValor = rowsServico[i].cells;
+
+                if(cellValor[1].innerHTML == dadosLinha[0]){
+                    $('#modal_alerta').modal('show');
+                    $('#modal_alerta').on('shown.bs.modal', function(){
+                        var modal = $(this);
+                        modal.find('.modal-title').text('Atenção');
+                        modal.find('.modal-title-sec').text('O serviço '+ dadosLinha[2] +' já informado!');
+                    })
+
+                    return false;
+                }
+            };             
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -440,7 +456,7 @@
             var cell6 = row.insertCell(5);
 
             cell1.innerHTML = cell1.innerHTML + numLinha;
-            cell2.innerHTML = cell2.innerHTML + dadosLinha[1];
+            cell2.innerHTML = cell2.innerHTML + dadosLinha[0];
             cell3.innerHTML = cell3.innerHTML + dadosLinha[2];
             cell4.innerHTML = cell4.innerHTML + dadosLinha[3];
             cell5.innerHTML = cell5.innerHTML + dadosLinha[3];
