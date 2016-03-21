@@ -715,17 +715,8 @@
             totalBruto = vlrTotalServico + totalBrutoProduto;
             $('#totalValorBruto').maskMoney('mask', totalBruto);
 
-            for(var i=1; i < rowsProduto.length; i++){
-                var cellValor = rowsProduto[i].cells;
-
-                valor = cellValor[4].innerHTML;
-                valor = valor.replace('%', '');
-                valor = parseInt(valor);
-
-                totalDesconto += valor;
-            };
-
-            totalDesconto += parseInt(percDescontoAdc);
+            totalDesconto = ((totalLiquido/totalBruto)-1)*100;
+            totalDesconto = Math.abs(totalDesconto);
             document.querySelector('#descontoTotal').value = totalDesconto;
         }
     </script>
