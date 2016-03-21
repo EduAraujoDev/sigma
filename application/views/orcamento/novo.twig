@@ -309,7 +309,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Quantidade</label>
+                                <label class="control-label col-md-3" for="mdProdQuant">Quantidade</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="mdProdQuant" id="mdProdQuant" onkeyup="calcProd();" placeholder="0" value="0">
                                 </div>
@@ -645,11 +645,11 @@
 
             if(vlrProduto != vlrCobProduto){
                 vlrProduto = vlrCobProduto;
-            }
-
-            vlrDesconto = (percDesconto * vlrTotBruto)/100;
+            }        
 
             vlrTotBruto = (vlrProduto*quantidade);
+
+            vlrDesconto = (percDesconto * vlrTotBruto)/100;
             vlrTotLiqui = ((vlrProduto*quantidade)-vlrDesconto);
 
             $('#mdProdTotBr').maskMoney('mask', vlrTotBruto);
