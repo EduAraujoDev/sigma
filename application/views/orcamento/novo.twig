@@ -548,7 +548,7 @@
             var vlrProduto      = 0;
             var vlrDesconto     = "0%";
 
-            if(dadosLinha[2] <= 0){
+            if((dadosLinha[2]-dadosLinha[3]) <= 0){
                 $('#modal_alerta').modal('show');
                 $('#modal_alerta').on('shown.bs.modal', function(){
                     var modal = $(this);
@@ -567,7 +567,7 @@
                     $('#modal_alerta').on('shown.bs.modal', function(){
                         var modal = $(this);
                         modal.find('.modal-title').text('Atenção');
-                        modal.find('.modal-title-sec').text('O produto '+ dadosLinha[1] +' já informado!');
+                        modal.find('.modal-title-sec').text("O produto '"+ dadosLinha[1] +"' já informado!");
                     })
 
                     return false;
