@@ -311,9 +311,14 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="mdProdQuant">Quantidade</label>
-                                <div class="col-md-9">
+                                <div class="col-md-2">
                                     <input type="text" class="form-control" name="mdProdQuant" id="mdProdQuant" onkeyup="calcProd();" placeholder="0" value="0">
                                 </div>
+
+                                <label class="control-label col-md-4" for="mdProdQuantEst">Quantidade em estoque</label>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" name="mdProdQuantEst" id="mdProdQuantEst" value="0" disabled>
+                                </div>                                
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="mdProdDs">Desconto</label>
@@ -594,7 +599,7 @@
             cell7.innerHTML = cell7.innerHTML + dadosLinha[4];
             cell8.innerHTML = cell8.innerHTML + dadosLinha[4];
             cell9.innerHTML = cell9.innerHTML + dadosLinha[4];
-            cell10.innerHTML = cell10.innerHTML + '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarProduto(this.id);"><i class="fa fa-edit"></i></button>';
+            cell10.innerHTML = cell10.innerHTML + '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarProduto(this.id, '+dadosLinha[0]+');"><i class="fa fa-edit"></i></button>';
 
             cell4.setAttribute('class', 'text-right');
             cell5.setAttribute('class', 'text-right');
@@ -616,7 +621,7 @@
             calcTotais();
         });
 
-        function editarProduto(x) {
+        function editarProduto(x, id) {
             var row             = document.querySelector('#produtos').rows[x].cells;
             var percDesconto    = row[4].innerHTML;
 
@@ -625,8 +630,27 @@
             $('[name="mdProdVlr"]').val(row[5].innerHTML);
             $('[name="mdProdVlr"]').maskMoney({thousands:'.', decimal:','});
             $('[name="mdProdCobVlr"]').val(row[6].innerHTML);
-            $('[name="mdProdCobVlr"]').maskMoney({thousands:'.', decimal:','});
-            $('[name="mdProdQuant"]').val(row[3].innerHTML);
+            $('[name="mdProdCobVlr"]').maskMoney({thousands:'.', decimal:','});            
+
+            $.ajax({
+                url: "{{base_url}}produto/ajax_produto_byId/"+id,
+                type: "POST",
+                dataType: "JSON",
+                success: function(data){                    
+                    var quantEstoque = parseInt(data.quantidade_estoque);
+                    var quantReserva = parseInt(data.quantidade_reservada);
+
+                    console.log(data);
+                    console.log(data.quantidade_estoque);
+                    console.log(data.quantidade_reservada);
+
+                    $('[name="mdProdQuant"]').val(row[3].innerHTML);
+                    $('[name="mdProdQuantEst"]').val(quantEstoque-quantReserva);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                     alert('Error get data from ajax');
+                }
+            });
 
             percDesconto = percDesconto.replace('%', '');
             $('[name="mdProdDs"]').val(parseInt(percDesconto));
