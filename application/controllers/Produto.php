@@ -91,7 +91,8 @@ class Produto extends CI_Controller {
             $dados = array(
                 'nome' => $this->input->post('nome'),
                 'quantidade_estoque' => $this->input->post('quantEstoque'),
-                'quantidade_reservada' => $this->input->post('quantReservada'),
+                //'quantidade_reservada' => $this->input->post('quantReservada'),
+                'quantidade_reservada' => 0,
                 'valor_custo' => $valorCusto,
                 'valor_venda' => $valoVenda,
                 'id_categoria' => $this->input->post('categoria'),
