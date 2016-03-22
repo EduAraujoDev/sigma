@@ -212,11 +212,11 @@
             if (tipoPessoa) {
                 document.getElementById("cpfcnpj").textContent = "CNPJ*";
                 $("#cnpj").mask("99.999.999/9999-99");
-                cnpj(cpfcnpj);
+                return cnpj(cpfcnpj);
             } else {
                 document.getElementById("cpfcnpj").textContent = "CPF*";
                 $("#cnpj").mask("999.999.999-99");
-                cpf(cpfcnpj);
+                return cpf(cpfcnpj);
             }
             
         };
@@ -272,12 +272,10 @@
             cnpj = cnpj.replace(/[^\d]+/g,'');
 
             if (cnpj === '') {
-                alert("retorno falso vazio");
                 return false;
             }
             
             if (cnpj.length !== 14) {
-                alert("retorno falso menor que 14");
                 return false;
             }
             
@@ -291,8 +289,6 @@
                 cnpj === "77777777777777" || 
                 cnpj === "88888888888888" || 
                 cnpj === "99999999999999") {
-            
-                alert("retorno falso números iguais");
                 return false;
             }
             

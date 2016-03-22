@@ -9,7 +9,7 @@ class UsuarioTest extends PHPUnit_Framework_TestCase {
         $this->CI->load->database('default');
     }
 
-    public function testGetAllUsuarios() {
+    public function testInsertUsuario() {
         
         $dados = array(
                 'titulo' => '',
