@@ -77,9 +77,12 @@ class Fornecedor extends CI_Controller {
     //Adicona novo fornecedor
     public function adicionar() {
         // Validacoes de campo do formulario
-        $validacao_formulario = $this->validarformularioFornecedor();
-        if ($validacao_formulario->run() == TRUE) {
+        //echo 'chegou aqui.';
+        
+        //$validacao_formulario = $this->validarformularioFornecedor();
+        //if ($validacao_formulario->run() == TRUE) {
             // Monta um array com as informacoes do fornecedor
+            //echo '2 chegou aqui.';    
             $dados = array(
                 'nome' => $this->input->post('nome'),
                 'nome_fantasia' => $this->input->post('nomeFantasia'),
@@ -103,9 +106,10 @@ class Fornecedor extends CI_Controller {
             $this->fornecedor_model->set_fornecedor($dados);
             $this->session->set_flashdata('message_success', 'Fornecedor adicionado com sucesso!');
             redirect('fornecedor/listar', 'refresh');
-        } else {
-            redirect('fornecedor/novo', 'refresh');
-        }
+        //} else {
+            //$this->session->set_flashdata('message_success', 'Houve erros!');
+            //redirect('fornecedor/novo', 'refresh');
+        //}
     }
 
     public function visualizar($fornecedor_id) {

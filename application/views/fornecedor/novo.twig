@@ -183,10 +183,10 @@
 
         function btnCadastrar(){
            if (verificarRazaoSocial() & verificarTelefone() & verificarCPFCNPJ()) {
-             return true;  
+                return true;  
            } else {
-             document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';  
-             return false;
+                document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';  
+                return false;
            }
         }
 
