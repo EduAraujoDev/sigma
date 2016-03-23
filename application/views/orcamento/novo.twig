@@ -283,7 +283,7 @@
     </div>
     <div class="modal fade" id="modal_edit_produto" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content box">
                 <div class="modal-header">                    
                     <h3 class="modal-title">Produto</h3>
                 </div>
@@ -346,9 +346,12 @@
                     <button type="button" id="btnSave" onclick="salvaProduto();" class="btn btn-success">Confirmar</button>
                     <button type="button" class="btn btn-default" onclick="fechaModalAltProd();">Cancelar</button>
                 </div>
+                <div class="overlay">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>            
             </div>
-        </div>        
-    </div>
+        </div>
+    </div>    
     <div class="modal fade" id="modal_alerta" role="dialog">
         <div class="modal-dialog" style="padding-top: 15%">
             <div class="modal-content">
@@ -642,6 +645,10 @@
                     var quantReserva = parseInt(data.quantidade_reservada);
                     
                     $('[name="mdProdQuantEst"]').val(quantEstoque-quantReserva);
+
+                    $(".overlay").fadeOut(700, function() {
+                        $(this).remove(); 
+                    })
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                      alert('Error get data from ajax');
