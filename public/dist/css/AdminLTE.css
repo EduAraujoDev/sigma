@@ -4439,6 +4439,19 @@ table.text-center th {
 .bg-maroon {
   background-color: #d81b60 !important;
 }
+.bg-vinho {
+    background-color: #99473D;
+}
+.bg-verde {
+    background-color: #A4CC14;
+}
+.bg-chumbo {
+    background-color: #4F596D;
+}
+.bg-azul {
+    background-color: #1461CC;
+}
+
 .bg-gray-active {
   color: #000;
   background-color: #b5bbc8 !important;
