@@ -630,7 +630,8 @@
             $('[name="mdProdVlr"]').val(row[5].innerHTML);
             $('[name="mdProdVlr"]').maskMoney({thousands:'.', decimal:','});
             $('[name="mdProdCobVlr"]').val(row[6].innerHTML);
-            $('[name="mdProdCobVlr"]').maskMoney({thousands:'.', decimal:','});            
+            $('[name="mdProdCobVlr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdQuant"]').val(row[3].innerHTML);
 
             $.ajax({
                 url: "{{base_url}}produto/ajax_produto_byId/"+id,
@@ -639,12 +640,7 @@
                 success: function(data){                    
                     var quantEstoque = parseInt(data.quantidade_estoque);
                     var quantReserva = parseInt(data.quantidade_reservada);
-
-                    console.log(data);
-                    console.log(data.quantidade_estoque);
-                    console.log(data.quantidade_reservada);
-
-                    $('[name="mdProdQuant"]').val(row[3].innerHTML);
+                    
                     $('[name="mdProdQuantEst"]').val(quantEstoque-quantReserva);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -665,7 +661,20 @@
         function salvaProduto() {
             var linhaProduto    = document.querySelector('#linhaProduto').value;
             var row             = document.querySelector('#produtos').rows[linhaProduto].cells;
-            var totalProduto    = 0;            
+            var quantEstoque    = document.querySelector('#mdProdQuantEst').value;
+            var quantSolict     = document.querySelector('#mdProdQuant').value;
+            var totalProduto    = 0;
+
+            if(quantSolict > quantEstoque){
+                $('#modal_alerta').modal('show');
+                $('#modal_alerta').on('shown.bs.modal', function(){
+                    var modal = $(this);
+                    modal.find('.modal-title').text('Atenção');
+                    modal.find('.modal-title-sec').text("  Quantidade solicitada maior que o estoque!");
+                })
+
+                return false;
+            }
 
             $('#modal_edit_produto').modal('hide');
 
