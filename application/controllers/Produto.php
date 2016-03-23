@@ -218,9 +218,14 @@ class Produto extends CI_Controller {
             $data[] = $linha;
         }
 
-        $saida = array("data" => $data,);
+        $saida = array("data" => $data);
 
         echo json_encode($saida);
     }
 
+    public function ajax_produto_byId($id){
+        $produto = $this->produto_model->get_produto_byid($id)->row();
+
+        echo json_encode($produto);
+    }    
 }
