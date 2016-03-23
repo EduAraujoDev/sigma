@@ -441,6 +441,7 @@
             var row             = tabelaServico.insertRow(numLinha);
             var rowsServico     = tabelaServico.rows;
             var vlrServico      = 0;
+            var botoes          = "";
 
             for(var i=1; i < numLinha; i++){
                 var cellValor = rowsServico[i].cells;
@@ -455,7 +456,10 @@
 
                     return false;
                 }
-            };             
+            };
+
+            botoes += '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
+            botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+numLinha+'"onclick="removerServico(this.id);"><i class="fa fa-remove"></i></button>';            
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -469,7 +473,7 @@
             cell3.innerHTML = cell3.innerHTML + dadosLinha[2];
             cell4.innerHTML = cell4.innerHTML + dadosLinha[3];
             cell5.innerHTML = cell5.innerHTML + dadosLinha[3];
-            cell6.innerHTML = cell6.innerHTML + '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>';
+            cell6.innerHTML = cell6.innerHTML + botoes;
 
             cell4.setAttribute('class', 'text-right');
             cell5.setAttribute('class', 'text-right');
@@ -499,6 +503,27 @@
             $('#modal_edit_servico').modal('show');
         }
 
+        function removerServico(id) {
+            var servicos    = document.querySelector('#servicos');
+            var linhas      = servicos.rows;
+            var linha       = id;
+            var botoes      = "";          
+
+            servicos.deleteRow(linha);
+
+            for(var i=1; i < linhas.length; i++){
+                var cellValor = linhas[i].cells;
+
+                botoes = '<button type="button" class="btn btn-info btn-flat" id="'+i+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
+                botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="removerServico(this.id);"><i class="fa fa-remove"></i></button>';                    
+
+                cellValor[0].innerHTML = i;
+                cellValor[5].innerHTML = botoes;
+            };
+
+            recalcServicos();            
+        }
+
         function salvaServico() {
             var linhaServico    = document.querySelector('#linhaServico').value;
             var row             = document.querySelector('#servicos').rows[linhaServico].cells;
@@ -509,7 +534,12 @@
             row[3].innerHTML = document.querySelector('#mdServVlr').value;   
             row[4].innerHTML = document.querySelector('#mdServVlrCobr').value;
 
-            var rowsServico = document.querySelector('#servicos').rows;
+            recalcServicos();
+        }
+
+        function recalcServicos() {
+            var rowsServico     = document.querySelector('#servicos').rows;
+            var totalServico    = 0;
 
             for(var i=1; i < rowsServico.length; i++){
                 var cellValor = rowsServico[i].cells;
@@ -523,7 +553,7 @@
 
             $('#totalServico').maskMoney('mask', totalServico);
 
-            calcTotais();
+            calcTotais();            
         }        
 
         function buscaProduto(){
