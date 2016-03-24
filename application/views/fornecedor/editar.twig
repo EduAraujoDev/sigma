@@ -70,6 +70,12 @@
                         </div>
                         
                         <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <label for="email">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                   placeholder="Digite o email" value="{{ fornecedor.email }}" maxlength="30">
+                            </div>
+                            
                             <div class="col-xs-12 col-sm-3 col-md-3" id="divCnpj">
                                 <label for="cnpj" id="cpfcnpj">CPF*</label>
                                 <input type="text" class="form-control" id="cnpj" name="cnpj" 
@@ -78,22 +84,17 @@
                             </div>
                         
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <label for="ie">Inscrição estadual</label>
+                                <label id="lblIe" for="ie">Inscrição estadual</label>
                                 <input type="text" class="form-control" id="ie" name="ie" 
                                    placeholder="Digite a Inscrição estadual" value="{{ fornecedor.ierg }}" maxlength="18">
                             </div>
                         
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <label for="dataFundacao">Data de fundação</label>
+                                <label id="lblDataFundacao" for="dataFundacao">Data de fundação</label>
                                 <input type="date" class="form-control" id="dataFundacao" name="dataFundacao" 
                                    placeholder="Digite a data de fundação" value="{{ fornecedor.data_fundacao }}">
                             </div>
                         
-                            <div class="hidden-xs col-sm-3 col-md-3">
-                                <label for="cep">CEP</label>
-                                <input type="text" class="form-control" id="cep" onkeyup="getEndereco(event);" name="cep" 
-                                   placeholder="Digite o CEP" maxlength="10">
-                            </div>
                         </div>    
                         
                         <div class="form-group">
@@ -111,17 +112,12 @@
                         </div>    
                         
                         <div class="form-group">
-                            <div class="hidden-xs col-sm-6 col-md-6">
+                            <div class="hidden-xs col-sm-12 col-md-12">
                                 <label for="complemento">Complemento</label>
                                 <input type="text" class="form-control" id="complemento" name="complemento" 
                                    placeholder="Digite o complemento" value="{{ fornecedor.complemento }}" maxlength="100">
                             </div>
                         
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="email">E-mail</label>
-                                <input type="email" class="form-control" id="email" name="email" 
-                                   placeholder="Digite o email" value="{{ fornecedor.email }}" maxlength="30">
-                            </div>
                         </div>    
                         
                         <div class="form-group">    
@@ -149,6 +145,12 @@
                                     {% endfor %}
                                 </select>                        
                             </div>
+                                
+                            <div class="hidden-xs col-sm-3 col-md-3">
+                                <label for="cep">CEP</label>
+                                <input type="text" class="form-control" id="cep" onkeyup="getEndereco(event);" name="cep" 
+                                   placeholder="Digite o CEP" maxlength="10">
+                            </div>    
                         </div>        
                         
                         <div class="form-group">        
@@ -189,11 +191,20 @@
     {{ parent() }}
     <script type="text/javascript">
         jQuery(function ($) {
+            var cnpj = $("#cnpj").val();
+            
+            if(cnpj.length === 18) {
+                document.getElementById('juridico').checked = "true";
+                showElem();
+            } else {
+                document.getElementById('fisico').checked = "true";
+                hideElem();
+            }
+            
             $("#cep").mask("99999-999");
             $("#dataFundacao").mask('99/99/9999');
             $("#telFixo").mask("(999) 9999-9999");
             $("#telCel").mask("(999) 99999-9999");
-            $("#cnpj").mask("999.999.999-99");
         });
 
         function btnCadastrar(){
@@ -205,18 +216,34 @@
            }
         }
 
+        function showElem() {
+            document.getElementById("ie").style.visibility = "visible";
+            document.getElementById("lblIe").style.visibility = "visible";
+            document.getElementById("lblDataFundacao").style.visibility = "visible";
+            document.getElementById("dataFundacao").style.visibility = "visible";
+        }
+
+        function hideElem() {
+            document.getElementById("ie").style.visibility = "hidden";
+            document.getElementById("lblIe").style.visibility = "hidden";
+            document.getElementById("lblDataFundacao").style.visibility = "hidden";
+            document.getElementById("dataFundacao").style.visibility = "hidden";
+        }
+
         function verificarCPFCNPJ() {
             var cpfcnpj = $("#cnpj").val().replace(/[^\d]+/g, '');
             var tipoPessoa = document.getElementById('juridico').checked;
             
             if (tipoPessoa) {
+                showElem();
                 document.getElementById("cpfcnpj").textContent = "CNPJ*";
                 $("#cnpj").mask("99.999.999/9999-99");
-                cnpj(cpfcnpj);
+                return cnpj(cpfcnpj);
             } else {
+                hideElem();
                 document.getElementById("cpfcnpj").textContent = "CPF*";
                 $("#cnpj").mask("999.999.999-99");
-                cpf(cpfcnpj);
+                return cpf(cpfcnpj);
             }
             
         };
@@ -272,12 +299,10 @@
             cnpj = cnpj.replace(/[^\d]+/g,'');
 
             if (cnpj === '') {
-                alert("retorno falso vazio");
                 return false;
             }
             
             if (cnpj.length !== 14) {
-                alert("retorno falso menor que 14");
                 return false;
             }
             
@@ -291,8 +316,6 @@
                 cnpj === "77777777777777" || 
                 cnpj === "88888888888888" || 
                 cnpj === "99999999999999") {
-            
-                alert("retorno falso números iguais");
                 return false;
             }
             
