@@ -346,9 +346,11 @@
                     <button type="button" id="btnSave" onclick="salvaProduto();" class="btn btn-success">Confirmar</button>
                     <button type="button" class="btn btn-default" onclick="fechaModalAltProd();">Cancelar</button>
                 </div>
-                <div class="overlay">
-                    <i class="fa fa-refresh fa-spin"></i>
-                </div>            
+                <div id="overlayProduto">
+                    <div class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>    
@@ -612,10 +614,11 @@
             var vlrTotalProduto = $("#totalProduto").maskMoney('unmasked')[0];
             var dadosLinha      = tableProduto.row(this).data();
             var numLinha        = tabelaProduto.rows.length;
-            var row             = tabelaProduto.insertRow(numLinha);
             var rowsProduto     = tabelaProduto.rows;
             var vlrProduto      = 0;
             var vlrDesconto     = "0%";
+            var row             = "";
+            var botoes          = "";
 
             if((dadosLinha[2]-dadosLinha[3]) <= 0){
                 $('#modal_alerta').modal('show');
@@ -641,7 +644,12 @@
 
                     return false;
                 }
-            };            
+            };
+
+            botoes += '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarProduto(this.id,'+dadosLinha[0]+');"><i class="fa fa-edit"></i></button>&nbsp;';
+            botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+numLinha+'"onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>';            
+
+            row = tabelaProduto.insertRow(numLinha);
             
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -650,7 +658,7 @@
             var cell5 = row.insertCell(4);            
             var cell6 = row.insertCell(5);            
             var cell7 = row.insertCell(6);            
-            var cell8 = row.insertCell(7);            
+            var cell8 = row.insertCell(7);
             var cell9 = row.insertCell(8);
             var cell10 = row.insertCell(9);
 
@@ -663,7 +671,7 @@
             cell7.innerHTML = cell7.innerHTML + dadosLinha[4];
             cell8.innerHTML = cell8.innerHTML + dadosLinha[4];
             cell9.innerHTML = cell9.innerHTML + dadosLinha[4];
-            cell10.innerHTML = cell10.innerHTML + '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarProduto(this.id, '+dadosLinha[0]+');"><i class="fa fa-edit"></i></button>';
+            cell10.innerHTML = cell10.innerHTML + botoes;
 
             cell4.setAttribute('class', 'text-right');
             cell5.setAttribute('class', 'text-right');
@@ -685,9 +693,46 @@
             calcTotais();
         });
 
+        function pergRemoveProduto(x) {
+            var botoes  = '<button type="button" class="btn btn-danger" onclick="removerProduto('+x+');">Excluir</button><button type="button" class="btn btn-default" onclick="fechaModalInfo();">Cancelar</button>'
+
+            $('#modal_info').modal('show');
+            $('#modal_info').on('shown.bs.modal', function(){
+                var modal = $(this);
+
+                modal.find('.modal-title').text('Atenção');
+                modal.find('.modal-title-sec').text('Deseja excluir o produto?');
+                modal.find('.modalInfoBtn').html(botoes);
+            })
+        }
+
+        function removerProduto(id) {
+            var produtos    = document.querySelector('#produtos');
+            var linhas      = produtos.rows;
+            var linha       = id;
+            var botoes      = ""; 
+
+            produtos.deleteRow(linha);
+
+            for(var i=1; i < linhas.length; i++){
+                var cellValor = linhas[i].cells;
+
+                botoes = '<button type="button" class="btn btn-info btn-flat" id="'+i+'"onclick="editarProduto(this.id,'+cellValor[1].innerHTML+');"><i class="fa fa-edit"></i></button>&nbsp;';
+                botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>';    
+
+                cellValor[0].innerHTML = i;
+                cellValor[9].innerHTML = botoes;
+            };
+
+            recalcProdutos();
+            fechaModalInfo();
+        }
+
         function editarProduto(x, id) {
             var row             = document.querySelector('#produtos').rows[x].cells;
             var percDesconto    = row[4].innerHTML;
+
+            document.querySelector('#overlayProduto').innerHTML = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
 
             $('[name="linhaProduto"]').val(x);
             $('[name="mdProdDesc"]').val(row[2].innerHTML);
@@ -767,7 +812,26 @@
             $('#totalProduto').maskMoney('mask', totalProduto);
 
             calcTotais();
-        }        
+        }
+
+        function recalcProdutos() {
+            var rowsProduto     = document.querySelector('#produtos').rows;
+            var totalServico    = 0;
+
+            for(var i=1; i < rowsProduto.length; i++){
+                var cellValor = rowsProduto[i].cells;
+
+                cellValor = cellValor[8].innerHTML.replace(".", "");
+                cellValor = cellValor.replace(",", '.');
+                cellValor = parseFloat(cellValor);
+
+                totalServico += cellValor;
+            };
+
+            $('#totalProduto').maskMoney('mask', totalServico);
+
+            calcTotais();            
+        }         
 
         function calcProd() {
             var quantidade     = document.querySelector("#mdProdQuant").value;
