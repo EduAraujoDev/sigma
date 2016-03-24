@@ -27,6 +27,26 @@
 
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label>
+                                    Tipo de Pessoa: &nbsp;
+                                </label>
+                            
+                                <label class="radio-inline">
+                                    <input type="radio" name="optionRadios" id="fisico" value="F" 
+                                           onclick="verificarCPFCNPJ()" checked disabled/>
+                                    Pessoa Fisica
+                                </label>    
+                        
+                                <label class="radio-inline">
+                                    <input type="radio" name="optionRadios" id="juridico" value="J" 
+                                           onclick="verificarCPFCNPJ()" disabled/>
+                                    Pessoa Juridica
+                                </label>
+                            </div>
+                        </div>   
+                        
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="id">Código Fornecedor</label>
                                 <input type="text" class="form-control" id="nome" name="nome"
                                    value="{{ fornecedor.id_fornecedor }}" disabled>
@@ -48,7 +68,13 @@
                             </div>
                         </div>           
                         
-                        <div class="form-group">           
+                        <div class="form-group">   
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <label for="email">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                   placeholder="Digite o email" value="{{ fornecedor.email }}" maxlength="30" disabled>
+                            </div>
+                            
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <label for="cnpj">CPF/CNPJ</label>
                                 <input type="text" class="form-control" id="cnpj" name="cnpj" 
@@ -56,23 +82,18 @@
                             </div>
                         
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <label for="ie">Inscrição estadual</label>
+                                <label id="lblIe" for="ie">Inscrição estadual</label>
                                 <input type="text" class="form-control" id="ie" name="ie" 
                                    placeholder="Digite a Inscrição estadual" value="{{ fornecedor.ierg }}" 
                                    maxlength="18" disabled>
                             </div>
                         
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <label for="dataFundacao">Data de fundação</label>
+                                <label id="lblDataFundacao" for="dataFundacao">Data de fundação</label>
                                 <input type="date" class="form-control" id="dataFundacao" name="dataFundacao" 
                                    placeholder="Digite a data de fundação" value="{{ fornecedor.data_fundacao }}" disabled>
                             </div>
                         
-                            <div class="hidden-xs col-sm-3 col-md-3">
-                                <label for="cep">CEP</label>
-                                <input type="text" class="form-control" id="cep" name="cep" 
-                                   placeholder="Digite o CEP" maxlength="10" disabled>
-                            </div>
                         </div>    
                         
                        <div class="form-group">     
@@ -91,17 +112,11 @@
                         </div>    
                         
                         <div class="form-group">
-                            <div class="hidden-xs col-sm-6 col-md-6">
+                            <div class="hidden-xs col-sm-12 col-md-12">
                                 <label for="complemento">Complemento</label>
                                 <input type="text" class="form-control" id="complemento" name="complemento" 
                                    placeholder="Digite o complemento" value="{{ fornecedor.complemento }}" 
                                    maxlength="100" disabled>
-                            </div>
-                        
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <label for="email">E-mail</label>
-                                <input type="email" class="form-control" id="email" name="email" 
-                                   placeholder="Digite o email" value="{{ fornecedor.email }}" maxlength="30" disabled>
                             </div>
                         </div>    
                         
@@ -130,6 +145,12 @@
                                     {% endfor %}
                                 </select>                        
                             </div>
+                                
+                            <div class="hidden-xs col-sm-3 col-md-3">
+                                <label for="cep">CEP</label>
+                                <input type="text" class="form-control" id="cep" name="cep" 
+                                   placeholder="Digite o CEP" maxlength="10" disabled>
+                            </div>    
                         </div>        
                         
                         <div class="form-group">        
@@ -171,11 +192,36 @@
     {{ parent() }}
     <script type="text/javascript">
         jQuery(function ($) {
+            
+            var cnpj = $("#cnpj").val();
+            
+            if(cnpj.length === 18) {
+                document.getElementById('juridico').checked = "true";
+                showElem();
+            } else {
+                document.getElementById('fisico').checked = "true";
+                hideElem();
+            }
+            
             $("#cep").mask("99999-999");
             $("#cnpj").mask("99.999.999/9999-99");
             $("#dataFundacao").mask('99/99/9999');
             $("#telFixo").mask("(999) 9999-9999");
             $("#telCel").mask("(999) 99999-9999");
         });
+        
+        function showElem() {
+            document.getElementById("ie").style.visibility = "visible";
+            document.getElementById("lblIe").style.visibility = "visible";
+            document.getElementById("lblDataFundacao").style.visibility = "visible";
+            document.getElementById("dataFundacao").style.visibility = "visible";
+        }
+
+        function hideElem() {
+            document.getElementById("ie").style.visibility = "hidden";
+            document.getElementById("lblIe").style.visibility = "hidden";
+            document.getElementById("lblDataFundacao").style.visibility = "hidden";
+            document.getElementById("dataFundacao").style.visibility = "hidden";
+        }
     </script>
 {% endblock %}
