@@ -918,8 +918,12 @@
             totalBruto = vlrTotalServico + totalBrutoProduto;
             $('#totalValorBruto').maskMoney('mask', totalBruto);
 
-            totalDesconto = ((totalLiquido/totalBruto)-1)*100;
-            totalDesconto = Math.abs(totalDesconto);
+            if(totalLiquido > 0 && totalBruto > 0){
+                totalDesconto = ((totalLiquido/totalBruto)-1)*100;
+                totalDesconto = Math.abs(totalDesconto);
+            } else {
+                totalDesconto = 0;
+            }
             document.querySelector('#descontoTotal').value = totalDesconto;
         }
     </script>
