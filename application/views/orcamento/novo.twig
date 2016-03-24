@@ -366,6 +366,21 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="modal modal-info fade" id="modal_info" role="dialog">
+        <div class="modal-dialog" style="padding-top: 15%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"></h3>
+                </div>
+                <div class="modal-body">
+                    <h2 class="modal-title-sec"></h2>
+                </div>
+                <div class="modal-footer">
+                    <div class="modalInfoBtn"></div>
+                </div>
+            </div>
+        </div>
     </div>    
 {% endblock %}
 {% block js %}
@@ -452,7 +467,7 @@
                     $('#modal_alerta').on('shown.bs.modal', function(){
                         var modal = $(this);
                         modal.find('.modal-title').text('Atenção');
-                        modal.find('.modal-title-sec').text('O serviço '+ dadosLinha[2] +' já informado!');
+                        modal.find('.modal-title-sec').text("O serviço '"+ dadosLinha[2] +"' já informado!");
                     })
 
                     return false;
@@ -460,7 +475,7 @@
             };
 
             botoes += '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
-            botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+numLinha+'"onclick="removerServico(this.id);"><i class="fa fa-remove"></i></button>';            
+            botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+numLinha+'"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';            
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -504,11 +519,24 @@
             $('#modal_edit_servico').modal('show');
         }
 
+        function pergRemoveServico(x) {
+            var botoes  = '<button type="button" class="btn btn-danger" onclick="removerServico('+x+');">Excluir</button><button type="button" class="btn btn-default" onclick="fechaModalInfo();">Cancelar</button>'
+
+            $('#modal_info').modal('show');
+            $('#modal_info').on('shown.bs.modal', function(){
+                var modal = $(this);
+
+                modal.find('.modal-title').text('Atenção');
+                modal.find('.modal-title-sec').text('Deseja excluir o serviço?');   
+                modal.find('.modalInfoBtn').html(botoes);
+            })
+        }
+
         function removerServico(id) {
             var servicos    = document.querySelector('#servicos');
             var linhas      = servicos.rows;
             var linha       = id;
-            var botoes      = "";          
+            var botoes      = ""; 
 
             servicos.deleteRow(linha);
 
@@ -522,7 +550,8 @@
                 cellValor[5].innerHTML = botoes;
             };
 
-            recalcServicos();            
+            recalcServicos();
+            fechaModalInfo();
         }
 
         function salvaServico() {
@@ -778,6 +807,10 @@
 
         function fechaModalAlerta() {
             $('#modal_alerta').modal('hide');
+        }
+
+        function fechaModalInfo() {
+            $('#modal_info').modal('hide');
         }
 
         function fechaModalAltProd(){
