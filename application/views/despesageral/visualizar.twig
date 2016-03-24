@@ -31,7 +31,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-5">
                                     <label for="id">Código Despesa Geral</label>
                                     <input type="text" class="form-control" id="id" name="id"
-                                        value="{{ despesa.id_despesa }}" disabled>
+                                        value="{{ despesageral.id_despesa }}" disabled>
                                 </div> 
                             </div> 
                             
@@ -39,15 +39,27 @@
                                 <div class="col-xs-12 col-sm-6 col-md-6" id="divCategoria">
                                     <label for="categoria">Categoria</label>
                                     <select class="form-control" name="categoria" disabled>
-                                        {% for marca in marcas %}
-                                            <option value="{{ marca.id_marca }}">{{ marca.titulo }}</option>
+                                        {% for categoria in categorias %}
+                                            {% if categoria.id_categoria == despesageral.id_categoria %}
+                                                <option selected="selected" value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                            {% else %}
+                                                <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>
                             
                                 <div class="col-xs-12 col-sm-6 col-md-6" id="divStatus">
-                                    <label for="descricao">Status</label>
-                                    <input type="text" class="form-control" id="status" name="status" disabled>
+                                    <label for="categoria">Status</label>
+                                    <select class="form-control" name="var" disabled>
+                                        {% for var in status %}
+                                            {% if var.id_status == despesageral.id_status %}
+                                                <option selected="selected" value="{{ var.id_status }}">{{ var.titulo }}</option>
+                                            {% else %}
+                                                <option value="{{ var.id_status }}">{{ var.titulo }}</option>     
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </div>    
                             
@@ -56,21 +68,21 @@
                                     <label for="data_criacao">Data de Criação</label>
                                     <input id="data_criacao" type="date" class="form-control" 
                                            name="data_criacao" placeholder="Digite a data de criação"
-                                           value="{{ despesa.data_criacao }}" disabled>
+                                           value="{{ despesageral.data_criacao }}" disabled>
                                 </div>
                             
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
                                     <label for="data_vencimento">Data de Vencimento</label>
                                     <input id="data_vencimento" type="date" class="form-control" 
                                            name="data_vencimento" placeholder="Digite a data de vencimento"
-                                           value="{{ despesa.data_vencimento }}" disabled>
+                                           value="{{ despesageral.data_vencimento }}" disabled>
                                 </div>
                             
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divPagamento">
                                      <label for="data_pagamento">Data de Pagamento</label>
                                     <input id="data_pagamento" type="date" class="form-control" 
                                            name="data_pagamento" placeholder="Digite a data de pagamento"
-                                           value="{{ despesa.data_pagamento }}" disabled>
+                                           value="{{ despesageral.data_pagamento }}" disabled>
                                 </div>
                             </div>    
                             
@@ -78,7 +90,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <label>Observações</label>
                                     <textarea class="form-control" name="observacoes" rows="3"
-                                              value="{{ despesa.observacoes }}" disabled></textarea>
+                                              value="{{ despesageral.observacoes }}" disabled></textarea>
                                 </div>
                             </div>
                             
@@ -86,7 +98,7 @@
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divValorTotal">
                                 <label for="valorTotal">Valor Total</label>
                                 <input type="text" class="form-control" id="valorTotal" 
-                                   value="0" placeholder="0.00" value="{{ despesa.total }}" disabled>
+                                   value="{{ despesageral.total }}" disabled>
                             </div>    
                             
                         </div>

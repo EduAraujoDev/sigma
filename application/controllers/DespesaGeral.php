@@ -46,6 +46,7 @@ class DespesaGeral extends CI_Controller {
     
     public function novo() {
         $data = ['base_url' => $this->config->base_url(),
+            'despesageral' => $this->despesageral_model->get_despesageral_notDeleted()->result(),
             'status' => $this->despesastatus_model->get_despesastatus_notDeleted()->result(),
             'categorias' => $this->despesacategoria_model->get_despesacategoria_notDeleted()->result()];
         $this->twig->display('despesageral/novo', $data);
@@ -88,7 +89,9 @@ class DespesaGeral extends CI_Controller {
         }
         if ($despesageral_id != NULL) {
             $data = ['base_url' => $this->config->base_url(),
-                'despesageral' => $this->despesageral_model->get_categoria_byid($despesageral_id)->row()];
+                'despesageral' => $this->despesageral_model->get_despesageral_byid($despesageral_id)->row(),
+                'status' => $this->despesastatus_model->get_despesastatus_notDeleted()->result(),
+                'categorias' => $this->despesacategoria_model->get_despesacategoria_notDeleted()->result()];
             $this->twig->display('despesageral/visualizar', $data);
         } else {
             redirect('despesageral/listar', 'refresh');
@@ -103,7 +106,10 @@ class DespesaGeral extends CI_Controller {
         }
         if ($despesageral_id != NULL) {
             $data = ['base_url' => $this->config->base_url(),
-                'despesageral' => $this->despesageral_model->get_categoria_byid($despesageral_id)->row()];
+                'despesageral' => $this->despesageral_model->get_despesageral_byid($despesageral_id)->row(),
+                'status' => $this->despesastatus_model->get_despesastatus_notDeleted()->result(),
+                'categorias' => $this->despesacategoria_model->get_despesacategoria_notDeleted()->result()];
+            
             $this->twig->display('despesageral/editar', $data);
         } else {
             redirect('despesageral/listar', 'refresh');
@@ -139,7 +145,7 @@ class DespesaGeral extends CI_Controller {
             // Deleta a categotia na base de dadps
             //$this->categoria_model->delete_categoria(array('id_Categoria' => $categoria_id));
             $this->despesageral_model->delete_logical_categoria(array('id_despesageral' => $despesageral_id));
-             $this->session->set_flashdata('message_success', 'Despesa geral deletada com sucesso!');
+            $this->session->set_flashdata('message_success', 'Despesa geral deletada com sucesso!');
         }
         redirect('categoria/listar', 'refresh');
     }
