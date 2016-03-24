@@ -454,10 +454,10 @@
             var vlrTotalServico = $("#totalServico").maskMoney('unmasked')[0];
             var dadosLinha      = tableServico.row(this).data();
             var numLinha        = tabelaServico.rows.length;
-            var row             = tabelaServico.insertRow(numLinha);
             var rowsServico     = tabelaServico.rows;
             var vlrServico      = 0;
-            var botoes          = "";
+            var row             = "";
+            var botoes          = "";            
 
             for(var i=1; i < numLinha; i++){
                 var cellValor = rowsServico[i].cells;
@@ -469,13 +469,14 @@
                         modal.find('.modal-title').text('Atenção');
                         modal.find('.modal-title-sec').text("O serviço '"+ dadosLinha[2] +"' já informado!");
                     })
-
                     return false;
                 }
             };
 
             botoes += '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
-            botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+numLinha+'"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';            
+            botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+numLinha+'"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';
+
+            row = tabelaServico.insertRow(numLinha);
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -544,7 +545,7 @@
                 var cellValor = linhas[i].cells;
 
                 botoes = '<button type="button" class="btn btn-info btn-flat" id="'+i+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
-                botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="removerServico(this.id);"><i class="fa fa-remove"></i></button>';                    
+                botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';                    
 
                 cellValor[0].innerHTML = i;
                 cellValor[5].innerHTML = botoes;
