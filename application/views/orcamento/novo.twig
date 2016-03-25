@@ -39,11 +39,11 @@
                             </div>
                              <div class="col-xs-12 col-sm-3 col-md-3" >
                                 <label for="login">Data Criação</label>
-                                <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" disabled>
+                                <input type="date" class="form-control" name="dataCriacao" id="dataCriacao" disabled>
                             </div>                          
                             <div class="col-xs-12 col-sm-3 col-md-3" >
                                 <label for="login">Data de finalização</label>
-                                <input type="text" class="form-control" name="dataFinalizacao" id="dataFinalizacao" placeholder="  /  /    " >
+                                <input type="date" class="form-control" id="dataFinalizacao" name="dataFinalizacao">
                             </div>
                         </div>
                         <div class="form-group">
@@ -414,11 +414,7 @@
             dia = dia.toString().length == 1?"0"+dia:dia;                    
             mes = mes.toString().length == 1?"0"+mes:mes;
 
-            $("#dataCriacao").datepicker({dateFormat: 'dd/mm/yy', language: 'pt-BR'});
-            $("#dataCriacao").val([dia, mes, ano ].join("/"));
-
-            $("#dataFinalizacao").datepicker({dateFormat: 'dd/mm/yy', language: 'pt-BR'});
-            $("#dataFinalizacao").val([dia, mes, ano ].join("/"));
+            $("#dataCriacao").val([ano, mes, dia ].join("-"));
 
             $("#totalProduto").maskMoney({thousands:'.', decimal:','});
             $("#totalServico").maskMoney({thousands:'.', decimal:','});
