@@ -569,10 +569,18 @@
                 var cellValor = linhas[i].cells;
 
                 botoes = '<button type="button" class="btn btn-info btn-flat" id="'+i+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
-                botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';                    
+                botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';
 
-                cellValor[0].innerHTML = i;
+                console.log(cellValor[1].textContent);
+
+                cellValor[0].innerHTML = '<input type="hidden" id="servico_linha_'+i+'" name="servico_linha_'+i+'" value="'+i+'">' + i;
+                cellValor[1].innerHTML = '<input type="hidden" id="servico_codigo_'+i+'" name="servico_codigo_'+i+'" value="'+cellValor[1].textContent+'">' + cellValor[1].textContent;
+                cellValor[2].innerHTML = '<input type="hidden" id="servico_desc_'+i+'" name="servico_desc_'+i+'" value="'+cellValor[2].textContent+'">' + cellValor[2].textContent;
+                cellValor[3].innerHTML = '<input type="hidden" id="servico_vlrServico_'+i+'" name="servico_vlrServico_'+i+'" value="'+cellValor[3].textContent+'">' + cellValor[3].textContent;
+                cellValor[4].innerHTML = '<input type="hidden" id="servico_vlrCobrado_'+i+'" name="servico_vlrCobrado_'+i+'" value="'+cellValor[4].textContent+'">' + cellValor[4].textContent;
                 cellValor[5].innerHTML = botoes;
+
+                document.querySelector("#quantidadeServicos").setAttribute('value', i);
             };
 
             recalcServicos();

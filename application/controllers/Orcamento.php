@@ -73,9 +73,9 @@ class Orcamento extends CI_Controller {
             'deletado'                  => 0
         );
         
-        $id = $this->orcamento_model->insert_orcamento($dadosCabec);        
+        $id = $this->orcamento_model->insert_orcamento($dadosCabec);
 
-        $quantidadeServicos = $this->input->post('statusOrcamento');
+        $quantidadeServicos = $this->input->post('quantidadeServicos');
         for ($i=1; $i <= $quantidadeServicos; $i++) {
             $valorCobrado = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
             $valorCobrado = str_replace(',', '.', $valorCobrado);            
@@ -88,7 +88,7 @@ class Orcamento extends CI_Controller {
             );
 
             $this->orcamentoservico_model->insert_orcamentoServico($dadosServico);
-        }
+        }        
 
         $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
         redirect('orcamento/listar', 'refresh');
