@@ -10,20 +10,25 @@ class UsuarioTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testInsertUsuario() {
+        $this->CI->load->model('usuario_model');
+        $usuarioAntes = $this->CI->usuario_model->get_usuario_all();
+        $totalAntes = (count($usuarioAntes->result()) + 1);
         
         $dados = array(
-                'titulo' => '',
-                'descricao' => '',
-                'valor' => 0,
-                'observacoes' => '',
-                'deletado' => 0
-            );
+            'nome' => 'Teste',
+            'login' => 'Teste',
+            'email' => 'Teste',
+            'senha' => 'Teste',
+            'deletado' => 0,
+            'id_tipo_perfil' => 1
+        );
+
         
-        $this->CI->load->model('usuario_model');
-        $this->CI->usuario_model->set_servico($dados);
-        $usuario = $this->CI->usuario_model->get_usuario_notDeleted();
+        $this->CI->usuario_model->set_usuario($dados);
+        $usuario = $this->CI->usuario_model->get_usuario_all();
+        $total = count($usuario->result());
         
-        $this->assertEquals(2, count($usuario));
+        $this->assertEquals($totalAntes, $total);
     }
-    
+
 }
