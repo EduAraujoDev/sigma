@@ -50,22 +50,29 @@ class Orcamento extends CI_Controller {
     }
 
     public function adicionar() {
+        $totalValorBruto = str_replace('.', '', $this->input->post('totalValorBruto'));
+        $totalValorBruto = str_replace(',', '.', $totalValorBruto);
+
+        $totalValorLiquido = str_replace('.', '', $this->input->post('totalValorLiquido'));
+        $totalValorLiquido = str_replace(',', '.', $totalValorLiquido);
+
         $dados = array(
             'id_status'                 => $this->input->post('statusOrcamento'),
             'id_cliente'                => $this->input->post('codCliente'),
             'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
             'data_criacao'              => $this->input->post('dataCriacao'),
+            'data_finalizacao'          => $this->input->post('dataFinalizacao'),
             'data_prevista_finalizacao' => $this->input->post('dataFinalizacao'),
             'desconto_adicional'        => $this->input->post('descontoAdicional'),
             'desconto_total'            => $this->input->post('descontoTotal'),
-            'total_bruto'               => $this->input->post('totalValorBruto'),
-            'total_liquido'             => $this->input->post('totalValorLiquido'),
+            'total_bruto'               => $totalValorBruto,
+            'total_liquido'             => $totalValorLiquido,
             'observacoes'               => $this->input->post('observacoes'),
             'finalizado'                => 0,
             'deletado'                  => 0
         );
         
-        $this->despesageral_model->insert_despesageral($dados);
+        $this->orcamento_model->insert_orcamento($dados);
         $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
         redirect('orcamento/listar', 'refresh');
     }    

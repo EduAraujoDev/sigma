@@ -19,63 +19,63 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Orçamento</h3>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}orcamento/adicionar" method="post" method="post">
+                <form class="form-horizontal" role="form" method="post" action="{{base_url}}orcamento/adicionar">
                     <div class="box-body">
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-3 col-md-3" >
-                                <label for="login">Código</label>
-                                <input type="text" class="form-control" name="codOrcamento" id="codOrcamento" disabled>
+                                <label for="codOrcamento">Código</label>
+                                <input type="text" class="form-control" name="codOrcamento" id="codOrcamento" readonly>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <label for="statusOrcamento">Status</label>
-                                <select class="form-control" name="statusOrcamento" disabled>
+                                <select class="form-control" name="statusOrcamento" id="statusOrcamento" readonly >
                                     {% for statu in status %}
                                         <option value="{{ statu.id_status }}">{{ statu.titulo }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                              <div class="col-xs-12 col-sm-3 col-md-3" >
-                                <label for="login">Data Criação</label>
-                                <input type="date" class="form-control" name="dataCriacao" id="dataCriacao" disabled>
+                                <label for="dataCriacao">Data Criação</label>
+                                <input type="date" class="form-control" name="dataCriacao" id="dataCriacao" readonly>
                             </div>                          
                             <div class="col-xs-12 col-sm-3 col-md-3" >
-                                <label for="login">Data de finalização</label>
+                                <label for="dataFinalizacao">Data de finalização</label>
                                 <input type="date" class="form-control" id="dataFinalizacao" name="dataFinalizacao">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <label for="tipoPagamento">Tipo de Pagamento</label>
-                                <select class="form-control" name="tipoPagamento" disabled>
+                                <select class="form-control" name="tipoPagamento" readonly>
                                     {% for tipoPagamento in tipoPagamentos %}
                                         <option value="{{ tipoPagamento.id_tipo_pagamento }}">{{ tipoPagamento.titulo }}</option>
                                     {% endfor %}
                                 </select>
                             </div>                            
                             <div class="col-xs-12 col-sm-12 col-md-3">
-                                <label for="complemento">Código do Cliente</label>                            
+                                <label for="codCliente">Código do Cliente</label>                            
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="codCliente" id="codCliente" placeholder="Código do Cliente" disabled>
+                                    <input type="text" class="form-control" name="codCliente" id="codCliente" placeholder="Código do Cliente" readonly>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-info btn-flat" onclick="buscaCliente();"><i class="fa fa-search"></i></button>
                                     </span>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6">
-                                <label for="complemento">Nome do Cliente</label>
-                                <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome do Cliente" disabled>
+                                <label for="nomeCliente">Nome do Cliente</label>
+                                <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome do Cliente" readonly>
                             </div>  
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <label for="complemento">Obervações</label>
+                                <label for="observacoes">Obervações</label>
                                 <br>
                                 <textarea class="form-control" name="observacoes" rows="3" placeholder=""></textarea>
                             </div>  
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <label for="complemento">Serviços</label>
+                                <label for="servicos">Serviços</label>
                                 <table id="servicos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
@@ -97,7 +97,7 @@
                                 <label for="totalServico" style="padding-top: 6px; padding-left: 50px">Total de Serviços(R$):</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="0,00" disabled>
+                                <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="0,00" readonly>
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-info btn-flat" onclick="buscaServico();">Incluir Serviço</button>
@@ -106,7 +106,7 @@
                         <hr>
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <label for="complemento">Produtos</label>
+                                <label for="produtos">Produtos</label>
                                 <table id="produtos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr class="titlerow">
@@ -132,7 +132,7 @@
                                 <label for="totalProduto" style="padding-top: 6px; padding-left: 50px">Total de Produtos(R$):</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="0,00" disabled>
+                                <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="0,00" readonly>
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-info btn-flat" onclick="buscaProduto();">Incluir Produto</button>
@@ -153,7 +153,7 @@
                                 <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="0,00" disabled>
+                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="0,00" readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -162,7 +162,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="descontoTotal" id="descontoTotal" value="0" disabled>
+                                    <input type="number" class="form-control" name="descontoTotal" id="descontoTotal" value="0" readonly>
                                     <span class="input-group-addon">%</span>
                                 </div>                                    
                             </div>
@@ -170,7 +170,7 @@
                                 <label for="totalValorLiquido" style="padding-top: 6px; padding-left: 50px">Valor Total Liquido:</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control text-right" name="totalValorLiquido" id="totalValorLiquido" value="0,00" disabled>
+                                <input type="text" class="form-control text-right" name="totalValorLiquido" id="totalValorLiquido" value="0,00" readonly>
                             </div>
                         </div>
                     </div>
