@@ -208,6 +208,19 @@ CREATE TABLE `tipo_pagamento` (
   PRIMARY KEY (`id_tipo_pagamento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ --
+ -- Dumping data for table `orcamento_status`
+ --
+ 
+ LOCK TABLES `tipo_pagamento` WRITE;
+ /*!40000 ALTER TABLE `tipo_pagamento` DISABLE KEYS */;
+ INSERT INTO `tipo_pagamento` VALUES (1,'Dinheiro',0);
+ INSERT INTO `tipo_pagamento` VALUES (2,'Cheque',0);
+ INSERT INTO `tipo_pagamento` VALUES (3,'Cartão de Debito',0);
+ INSERT INTO `tipo_pagamento` VALUES (4,'Cartão de Credito',0);
+ /*!40000 ALTER TABLE `tipo_pagamento` ENABLE KEYS */;
+ UNLOCK TABLES;
+ 
 --
 -- Table structure for table `orcamento_cabecalho`
 --

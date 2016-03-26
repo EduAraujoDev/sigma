@@ -46,4 +46,25 @@ class Orcamento extends CI_Controller {
         ];
         $this->twig->display('orcamento/novo', $data);
     }
+
+    public function adicionar() {
+        $dados = array(
+            'id_status'                 => $this->input->post('statusOrcamento'),
+            'id_cliente'                => $this->input->post('codCliente'),
+            'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
+            'data_criacao'              => $this->input->post('dataCriacao'),
+            'data_prevista_finalizacao' => $this->input->post('dataFinalizacao'),
+            'desconto_adicional'        => $this->input->post('descontoAdicional'),
+            'desconto_total'            => $this->input->post('descontoTotal'),
+            'total_bruto'               => $this->input->post('totalValorBruto'),
+            'total_liquido'             => $this->input->post('totalValorLiquido'),
+            'observacoes'               => $this->input->post('observacoes'),
+            'finalizado'                => 0,
+            'deletado'                  => 0
+        );
+        
+        $this->despesageral_model->insert_despesageral($dados);
+        $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
+        redirect('orcamento/listar', 'refresh');
+    }    
 }

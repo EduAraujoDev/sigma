@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <label for="exampleInputEmail1">Status</label>
-                                <select class="form-control" name="Status" disabled>
+                                <select class="form-control" name="statusOrcamento" disabled>
                                     {% for statu in status %}
                                         <option value="{{ statu.id_status }}">{{ statu.titulo }}</option>
                                     {% endfor %}
