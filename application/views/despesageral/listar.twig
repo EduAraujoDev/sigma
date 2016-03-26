@@ -69,9 +69,9 @@
                                                 <td>{{ despesa.id_status }}</td>
                                                 <td>{{ despesa.total }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}despesageral/visualizar/{{ despesa.id_despesa }}">Visualizar</a>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}despesageral/editar/{{ despesa.id_despesa }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}despesageral/deletar/{{ despesa.id_despesa }}">Excluir</a>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}DespesaGeral/visualizar/{{ despesa.id_despesa }}">Visualizar</a>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}DespesaGeral/editar/{{ despesa.id_despesa }}">Alterar</a>
+                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}DespesaGeral/deletar/{{ despesa.id_despesa }}">Excluir</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a class="btn btn-primary btn-lg" href="{{base_url}}despesageral/novo">Incluir</a>
+                    <a class="btn btn-primary btn-lg" href="{{base_url}}DespesaGeral/novo">Incluir</a>
                 </div>
             </div>
         </div>

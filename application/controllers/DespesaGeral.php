@@ -12,9 +12,9 @@ class DespesaGeral extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
-        $this->load->model('despesageral_model', 'despesageral_model');
-        $this->load->model('despesacategoria_model', 'despesacategoria_model');
-        $this->load->model('despesastatus_model', 'despesastatus_model');
+        $this->load->model('DespesaGeral_model', 'despesageral_model');
+        $this->load->model('DespesaCategoria_model', 'despesacategoria_model');
+        $this->load->model('DespesaStatus_model', 'despesastatus_model');
         
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
