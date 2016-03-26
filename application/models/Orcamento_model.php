@@ -14,5 +14,9 @@ class Orcamento_model extends CI_Model {
 
     public function insert_orcamento($orcamento) {
         $this->db->insert('orcamento_cabecalho', $orcamento);
+
+        $insert_id = $this->db->insert_id();
+
+        return  $insert_id;        
     }
 }

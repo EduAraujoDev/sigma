@@ -72,7 +72,8 @@ class Orcamento extends CI_Controller {
             'deletado'                  => 0
         );
         
-        $this->orcamento_model->insert_orcamento($dados);
+        $id = $this->orcamento_model->insert_orcamento($dados);
+
         $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
         redirect('orcamento/listar', 'refresh');
     }    
