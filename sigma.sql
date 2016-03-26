@@ -226,6 +226,7 @@ CREATE TABLE `orcamento_cabecalho` (
   `total_liquido` decimal(10,2) NOT NULL,
   `data_prevista_finalizacao` datetime NOT NULL,
   `finalizado` TINYINT(1),
+  `observacoes` text,
   `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_orcamento`),
   KEY `FK_OrcamentoCabecalho_status` (`id_status`),
