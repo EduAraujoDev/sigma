@@ -403,6 +403,7 @@ DROP TABLE IF EXISTS `orcamento_servico`;
 CREATE TABLE `orcamento_servico` (
   `id_servico` int(11) NOT NULL,
   `id_orcamento` int(11) NOT NULL,
+  `preco_cobrado` decimal(10,2)  NULL,
   `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   UNIQUE KEY `PK_OrcamentoServicos` (`id_servico`,`id_orcamento`),
   KEY `FK_OrcamentoID` (`id_orcamento`),
