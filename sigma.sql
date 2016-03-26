@@ -214,10 +214,11 @@ CREATE TABLE `tipo_pagamento` (
  
  LOCK TABLES `tipo_pagamento` WRITE;
  /*!40000 ALTER TABLE `tipo_pagamento` DISABLE KEYS */;
- INSERT INTO `tipo_pagamento` VALUES (1,'Dinheiro',0);
- INSERT INTO `tipo_pagamento` VALUES (2,'Cheque',0);
- INSERT INTO `tipo_pagamento` VALUES (3,'Cartão de Debito',0);
- INSERT INTO `tipo_pagamento` VALUES (4,'Cartão de Credito',0);
+ INSERT INTO `tipo_pagamento` VALUES (1,'Sem pagamento',0); 
+ INSERT INTO `tipo_pagamento` VALUES (2,'Dinheiro',0);
+ INSERT INTO `tipo_pagamento` VALUES (3,'Cheque',0);
+ INSERT INTO `tipo_pagamento` VALUES (4,'Cartão de Debito',0);
+ INSERT INTO `tipo_pagamento` VALUES (5,'Cartão de Credito',0);
  /*!40000 ALTER TABLE `tipo_pagamento` ENABLE KEYS */;
  UNLOCK TABLES;
  

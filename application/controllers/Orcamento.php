@@ -17,6 +17,7 @@ class Orcamento extends CI_Controller {
 
         $this->load->model('OrcamentoStatus_model', 'orcamentostatus_model');
         $this->load->model('Orcamento_model', 'orcamento_model');
+        $this->load->model('TipoPagamento_model', 'tipopagamento_model');
 
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
@@ -43,6 +44,7 @@ class Orcamento extends CI_Controller {
         $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
             'status' => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
+            'tipoPagamentos' => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
         ];
         $this->twig->display('orcamento/novo', $data);
     }

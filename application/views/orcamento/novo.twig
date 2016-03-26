@@ -27,7 +27,7 @@
                                 <input type="text" class="form-control" name="codOrcamento" id="codOrcamento" disabled>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-3">
-                                <label for="exampleInputEmail1">Status</label>
+                                <label for="statusOrcamento">Status</label>
                                 <select class="form-control" name="statusOrcamento" disabled>
                                     {% for statu in status %}
                                         <option value="{{ statu.id_status }}">{{ statu.titulo }}</option>
@@ -44,6 +44,14 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <label for="tipoPagamento">Tipo de Pagamento</label>
+                                <select class="form-control" name="tipoPagamento" disabled>
+                                    {% for tipoPagamento in tipoPagamentos %}
+                                        <option value="{{ tipoPagamento.id_tipo_pagamento }}">{{ tipoPagamento.titulo }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>                            
                             <div class="col-xs-12 col-sm-12 col-md-3">
                                 <label for="complemento">Código do Cliente</label>                            
                                 <div class="input-group">
@@ -53,7 +61,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-9">
+                            <div class="col-xs-12 col-sm-12 col-md-6">
                                 <label for="complemento">Nome do Cliente</label>
                                 <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome do Cliente" disabled>
                             </div>  
