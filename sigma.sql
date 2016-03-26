@@ -154,6 +154,21 @@ CREATE TABLE `orcamento_status` (
   PRIMARY KEY (`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ --
+ -- Dumping data for table `orcamento_status`
+ --
+ 
+ LOCK TABLES `orcamento_status` WRITE;
+ /*!40000 ALTER TABLE `orcamento_status` DISABLE KEYS */;
+ INSERT INTO `orcamento_status` VALUES (1,'Aberto',0);
+ INSERT INTO `orcamento_status` VALUES (2,'Reprovado',0);
+ INSERT INTO `orcamento_status` VALUES (3,'Reprovado e Pendente Pagamento',0);
+ INSERT INTO `orcamento_status` VALUES (4,'Reprovado e Pago',0);
+ INSERT INTO `orcamento_status` VALUES (5,'Reprovado e Não Pago',0);
+ INSERT INTO `orcamento_status` VALUES (6,'Aprovado',0);
+ /*!40000 ALTER TABLE `orcamento_status` ENABLE KEYS */;
+ UNLOCK TABLES;
+
 
 --
 -- Table structure for table `clientes`
