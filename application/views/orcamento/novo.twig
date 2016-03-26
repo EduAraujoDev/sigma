@@ -29,12 +29,9 @@
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <label for="exampleInputEmail1">Status</label>
                                 <select class="form-control" name="Status" disabled>
-                                    <option value="1">Aberto</option>
-                                    <option value="2">Reprovado</option>
-                                    <option value="3">Reprovado e Pendente Pagamento</option>
-                                    <option value="4">Reprovado e Pago</option>
-                                    <option value="5">Reprovado e Não Pago</option>
-                                    <option value="6">Aprovado</option>
+                                    {% for statu in status %}
+                                        <option value="{{ statu.id_status }}">{{ statu.titulo }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                              <div class="col-xs-12 col-sm-3 col-md-3" >

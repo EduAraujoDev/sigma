@@ -12,32 +12,29 @@ if (!defined('BASEPATH'))
  * */
 class Orcamento extends CI_Controller {
 
-    public function index() {
-        redirect('/admin', 'refresh');
-    }
-
     public function __construct() {
         parent::__construct();
+
+        $this->load->model('OrcamentoStatus_model', 'orcamentostatus_model');
+
         if (isset($_SESSION['userLogin'])) {
-            
+            if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
+                redirect('/usuario', 'refresh');
+            }
         } else {
             redirect('/', 'refresh');
         }
     }
 
-    // Formulario que adiciona nova orcamento
+    public function index() {
+        redirect('/admin', 'refresh');
+    }
+    
     public function novo() {
         $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
-            'user' => $user,
+            'status' => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
         ];
         $this->twig->display('orcamento/novo', $data);
     }
-
-    public function adicionar() {
-        var_dump($this->input->post('name'));
-        var_dump($this->input->post('mail'));
-        var_dump($this->input->post('mobile'));
-    }
-
 }
