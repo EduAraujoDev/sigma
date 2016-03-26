@@ -76,6 +76,7 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="servicos">Serviços</label>
+                                <input type="hidden" name ="quantidadeServicos" id="quantidadeServicos" value="0">
                                 <table id="servicos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
@@ -505,11 +506,11 @@
             var cell5 = row.insertCell(4);
             var cell6 = row.insertCell(5);
 
-            cell1.innerHTML = cell1.innerHTML + numLinha;
-            cell2.innerHTML = cell2.innerHTML + dadosLinha[0];
-            cell3.innerHTML = cell3.innerHTML + dadosLinha[2];
-            cell4.innerHTML = cell4.innerHTML + dadosLinha[3];
-            cell5.innerHTML = cell5.innerHTML + dadosLinha[3];
+            cell1.innerHTML = cell1.innerHTML + '<input type="hidden" name="servico_linha_'+numLinha+'" value="'+numLinha+'">' + numLinha;
+            cell2.innerHTML = cell2.innerHTML + '<input type="hidden" name="servico_codigo_'+numLinha+'" value="'+dadosLinha[0]+'">' + dadosLinha[0];
+            cell3.innerHTML = cell3.innerHTML + '<input type="hidden" name="servico_desc_'+numLinha+'" value="'+dadosLinha[2]+'">' + dadosLinha[2];
+            cell4.innerHTML = cell4.innerHTML + '<input type="hidden" name="servico_vlrServico_'+numLinha+'" value="'+dadosLinha[3]+'">' + dadosLinha[3];
+            cell5.innerHTML = cell5.innerHTML + '<input type="hidden" name="servico_vlrCobrado_'+numLinha+'" value="'+dadosLinha[3]+'">' + dadosLinha[3];
             cell6.innerHTML = cell6.innerHTML + botoes;
 
             cell4.setAttribute('class', 'text-right');
@@ -524,6 +525,8 @@
             vlrTotalServico += vlrServico;          
 
             $('#totalServico').maskMoney('mask', vlrTotalServico);
+
+            document.querySelector("#quantidadeServicos").setAttribute('value', numLinha);
 
             calcTotais();
         });

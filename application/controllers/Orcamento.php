@@ -15,8 +15,9 @@ class Orcamento extends CI_Controller {
     public function __construct() {
         parent::__construct();
 
-        $this->load->model('OrcamentoStatus_model', 'orcamentostatus_model');
         $this->load->model('Orcamento_model', 'orcamento_model');
+        $this->load->model('OrcamentoStatus_model', 'orcamentostatus_model');
+        $this->load->model('OrcamentoServico_model', 'orcamentoservico_model');        
         $this->load->model('TipoPagamento_model', 'tipopagamento_model');
 
         if (isset($_SESSION['userLogin'])) {
@@ -56,7 +57,7 @@ class Orcamento extends CI_Controller {
         $totalValorLiquido = str_replace('.', '', $this->input->post('totalValorLiquido'));
         $totalValorLiquido = str_replace(',', '.', $totalValorLiquido);
 
-        $dados = array(
+        $dadosCabec = array(
             'id_status'                 => $this->input->post('statusOrcamento'),
             'id_cliente'                => $this->input->post('codCliente'),
             'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
@@ -72,7 +73,22 @@ class Orcamento extends CI_Controller {
             'deletado'                  => 0
         );
         
-        $id = $this->orcamento_model->insert_orcamento($dados);
+        $id = $this->orcamento_model->insert_orcamento($dadosCabec);        
+
+        $quantidadeServicos = $this->input->post('statusOrcamento');
+        for ($i=1; $i <= $quantidadeServicos; $i++) {
+            $valorCobrado = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
+            $valorCobrado = str_replace(',', '.', $valorCobrado);            
+            
+            $dadosServico = array(
+
+                'id_servico'    => $this->input->post('servico_codigo_'.$i),
+                'id_orcamento'  => $id,
+                'preco_cobrado' => $valorCobrado
+            );
+
+            $this->orcamentoservico_model->insert_orcamentoServico($dadosServico);
+        }
 
         $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
         redirect('orcamento/listar', 'refresh');
