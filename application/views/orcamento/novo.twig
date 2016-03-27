@@ -108,6 +108,7 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="produtos">Produtos</label>
+                                <input type="hidden" name ="quantidadeProdutos" id="quantidadeProdutos" value="0">
                                 <table id="produtos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr class="titlerow">
@@ -571,8 +572,6 @@
                 botoes = '<button type="button" class="btn btn-info btn-flat" id="'+i+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
                 botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';
 
-                console.log(cellValor[1].textContent);
-
                 cellValor[0].innerHTML = '<input type="hidden" id="servico_linha_'+i+'" name="servico_linha_'+i+'" value="'+i+'">' + i;
                 cellValor[1].innerHTML = '<input type="hidden" id="servico_codigo_'+i+'" name="servico_codigo_'+i+'" value="'+cellValor[1].textContent+'">' + cellValor[1].textContent;
                 cellValor[2].innerHTML = '<input type="hidden" id="servico_desc_'+i+'" name="servico_desc_'+i+'" value="'+cellValor[2].textContent+'">' + cellValor[2].textContent;
@@ -662,9 +661,10 @@
             }
             
             for(var i=1; i < numLinha; i++){
-                var cellValor = rowsProduto[i].cells;
+                var cellValor   = rowsProduto[i].cells;
+                var codigo      = document.querySelector('#produto_codigo_'+i).value;
 
-                if(cellValor[1].innerHTML == dadosLinha[0]){
+                if(codigo == dadosLinha[0]){
                     $('#modal_alerta').modal('show');
                     $('#modal_alerta').on('shown.bs.modal', function(){
                         var modal = $(this);
@@ -692,15 +692,15 @@
             var cell9 = row.insertCell(8);
             var cell10 = row.insertCell(9);
 
-            cell1.innerHTML = cell1.innerHTML + numLinha;
-            cell2.innerHTML = cell2.innerHTML + dadosLinha[0];
-            cell3.innerHTML = cell3.innerHTML + dadosLinha[1];
-            cell4.innerHTML = cell4.innerHTML + 1;            
-            cell5.innerHTML = cell5.innerHTML + vlrDesconto;
-            cell6.innerHTML = cell6.innerHTML + dadosLinha[4];
-            cell7.innerHTML = cell7.innerHTML + dadosLinha[4];
-            cell8.innerHTML = cell8.innerHTML + dadosLinha[4];
-            cell9.innerHTML = cell9.innerHTML + dadosLinha[4];
+            cell1.innerHTML = cell1.innerHTML + '<input type="hidden" id="produto_linha_'+numLinha+'" name="produto_linha_'+numLinha+'" value="'+numLinha+'">' + numLinha;
+            cell2.innerHTML = cell2.innerHTML + '<input type="hidden" id="produto_codigo_'+numLinha+'" name="produto_codigo_'+numLinha+'" value="'+dadosLinha[0]+'">' + dadosLinha[0];
+            cell3.innerHTML = cell3.innerHTML + '<input type="hidden" id="produto_desc_'+numLinha+'" name="produto_desc_'+numLinha+'" value="'+dadosLinha[1]+'">' + dadosLinha[1];
+            cell4.innerHTML = cell4.innerHTML + '<input type="hidden" id="produto_quantidade_'+numLinha+'" name="produto_quantidade_'+numLinha+'" value="1">' + 1;
+            cell5.innerHTML = cell5.innerHTML + '<input type="hidden" id="produto_desconto_'+numLinha+'" name="produto_desconto_'+numLinha+'" value="'+vlrDesconto+'">' + vlrDesconto;
+            cell6.innerHTML = cell6.innerHTML + '<input type="hidden" id="produto_prcProduto_'+numLinha+'" name="produto_prcProduto_'+numLinha+'" value="'+dadosLinha[4]+'">' + dadosLinha[4];
+            cell7.innerHTML = cell7.innerHTML + '<input type="hidden" id="produto_prcCobrado_'+numLinha+'" name="produto_prcCobrado_'+numLinha+'" value="'+dadosLinha[4]+'">' + dadosLinha[4];
+            cell8.innerHTML = cell8.innerHTML + '<input type="hidden" id="produto_subTotalBr_'+numLinha+'" name="produto_subTotalBr_'+numLinha+'" value="'+dadosLinha[4]+'">' + dadosLinha[4];
+            cell9.innerHTML = cell9.innerHTML + '<input type="hidden" id="produto_subTotalQl_'+numLinha+'" name="produto_subTotalQl_'+numLinha+'" value="'+dadosLinha[4]+'">' + dadosLinha[4];
             cell10.innerHTML = cell10.innerHTML + botoes;
 
             cell4.setAttribute('class', 'text-right');
@@ -719,6 +719,8 @@
             vlrTotalProduto += vlrProduto;          
 
             $('#totalProduto').maskMoney('mask', vlrTotalProduto);
+
+            document.querySelector("#quantidadeProdutos").setAttribute('value', numLinha);
 
             calcTotais();
         });
@@ -747,11 +749,21 @@
             for(var i=1; i < linhas.length; i++){
                 var cellValor = linhas[i].cells;
 
-                botoes = '<button type="button" class="btn btn-info btn-flat" id="'+i+'"onclick="editarProduto(this.id,'+cellValor[1].innerHTML+');"><i class="fa fa-edit"></i></button>&nbsp;';
+                botoes = '<button type="button" class="btn btn-info btn-flat" id="'+i+'"onclick="editarProduto(this.id,'+cellValor[1].textContent+');"><i class="fa fa-edit"></i></button>&nbsp;';
                 botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>';    
 
-                cellValor[0].innerHTML = i;
+                cellValor[0].innerHTML = '<input type="hidden" id="produto_linha_'+i+'" name="produto_linha_'+i+'" value="'+i+'">' + i;
+                cellValor[1].innerHTML = '<input type="hidden" id="produto_codigo_'+i+'" name="produto_codigo_'+i+'" value="'+cellValor[1].textContent+'">' + cellValor[1].textContent;
+                cellValor[2].innerHTML = '<input type="hidden" id="produto_desc_'+i+'" name="produto_desc_'+i+'" value="'+cellValor[2].textContent+'">' + cellValor[2].textContent;
+                cellValor[3].innerHTML = '<input type="hidden" id="produto_quantidade_'+i+'" name="produto_quantidade_'+i+'" value="'+cellValor[3].textContent+'">' + cellValor[3].textContent;
+                cellValor[4].innerHTML = '<input type="hidden" id="produto_desconto_'+i+'" name="produto_desconto_'+i+'" value="'+cellValor[4].textContent+'">' + cellValor[4].textContent;
+                cellValor[5].innerHTML = '<input type="hidden" id="produto_prcProduto_'+i+'" name="produto_prcProduto_'+i+'" value="'+cellValor[5].textContent+'">' + cellValor[5].textContent;
+                cellValor[6].innerHTML = '<input type="hidden" id="produto_prcCobrado_'+i+'" name="produto_prcCobrado_'+i+'" value="'+cellValor[6].textContent+'">' + cellValor[6].textContent;
+                cellValor[7].innerHTML = '<input type="hidden" id="produto_subTotalBr_'+i+'" name="produto_subTotalBr_'+i+'" value="'+cellValor[7].textContent+'">' + cellValor[7].textContent;
+                cellValor[8].innerHTML = '<input type="hidden" id="produto_subTotalQl_'+i+'" name="produto_subTotalQl_'+i+'" value="'+cellValor[8].textContent+'">' + cellValor[8].textContent;
                 cellValor[9].innerHTML = botoes;
+
+                document.querySelector("#quantidadeProdutos").setAttribute('value', i);
             };
 
             recalcProdutos();

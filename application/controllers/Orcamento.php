@@ -17,7 +17,8 @@ class Orcamento extends CI_Controller {
 
         $this->load->model('Orcamento_model', 'orcamento_model');
         $this->load->model('OrcamentoStatus_model', 'orcamentostatus_model');
-        $this->load->model('OrcamentoServico_model', 'orcamentoservico_model');        
+        $this->load->model('OrcamentoServico_model', 'orcamentoservico_model');
+        $this->load->model('OrcamentoProduto_model', 'orcamentoproduto_model');
         $this->load->model('TipoPagamento_model', 'tipopagamento_model');
 
         if (isset($_SESSION['userLogin'])) {
@@ -88,7 +89,30 @@ class Orcamento extends CI_Controller {
             );
 
             $this->orcamentoservico_model->insert_orcamentoServico($dadosServico);
-        }        
+        }
+
+        $quantidadeProdutos = $this->input->post('quantidadeProdutos');
+        for ($i=1; $i <= $quantidadeProdutos; $i++) {
+            $valorVenda = str_replace('.', '', $this->input->post('produto_prcProduto_'.$i));
+            $valorVenda = str_replace(',', '.', $valorCobrado); 
+
+            $valorCobrado = str_replace('.', '', $this->input->post('produto_prcCobrado_'.$i));
+            $valorCobrado = str_replace(',', '.', $valorCobrado);            
+            
+            $desconto = str_replace('%', '', $this->input->post('produto_desconto_'.$i));            
+            
+            $dadosProduto = array(
+
+                'id_produto'    => $this->input->post('produto_codigo_'.$i),
+                'id_orcamento'  => $id,
+                'quantidade'    => $this->input->post('produto_quantidade_'.$i),
+                'desconto'      => $desconto,
+                'preco_venda'   => $valorVenda,
+                'preco_cobrado' => $valorCobrado
+            );
+
+            $this->orcamentoproduto_model->insert_orcamentoProduto($dadosProduto);
+        }
 
         $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
         redirect('orcamento/listar', 'refresh');
