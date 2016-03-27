@@ -311,6 +311,7 @@ CREATE TABLE `orcamento_produto` (
   `quantidade` int(11) NOT NULL,
   `desconto` decimal(10,2) NULL,
   `preco_venda` decimal(10,2) NOT NULL,
+  `preco_cobrado` decimal(10,2) NOT NULL,
   `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   UNIQUE KEY `PK_OrcamentoProdutos` (`id_orcamento`,`id_produto`),
   KEY `Fk_Produto` (`id_produto`),
