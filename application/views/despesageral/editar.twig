@@ -51,14 +51,12 @@
 
                             <div class="col-xs-12 col-sm-6 col-md-6" id="divStatus">
                                 <label for="categoria">Status</label>
-                                <select class="form-control" name="status">
-                                    {% for var in status %}
-                                        {% if var.id_status == despesageral.id_status %}
-                                            <option selected="selected" value="{{ var.id_status }}">{{ var.titulo }}</option>
-                                        {% else %}
-                                            <option value="{{ var.id_status }}">{{ var.titulo }}</option>     
-                                        {% endif %}
-                                    {% endfor %}
+                                {% for var in status %}
+                                    {% if var.id_status == despesageral.id_status %}
+                                        <br>
+                                        <span class="label label-success">{{ var.titulo }}</span>
+                                    {% endif %}
+                                {% endfor %}
                                 </select>
                             </div>
                         </div>    

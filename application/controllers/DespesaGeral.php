@@ -72,21 +72,21 @@ class DespesaGeral extends CI_Controller {
 
         $dados = array(
             'id_categoria' => $this->input->post('categoria'),
-            'id_status' => $this->input->post('status'),
+            'id_status' => 1,
             'data_criacao' => $data_criacao,
             'data_vencimento' => $data_vencimento,
             'data_pagamento' => $data_pagamento,
             'total' => $this->input->post('valorTotal'),
             'observacoes' => $this->input->post('observacoes'),
-            'deletado' => 0
         );
+        try {
+            $this->despesageral_model->insert_despesageral($dados);
+            $this->session->set_flashdata('message_success', 'Despesa geral adicionada com sucesso!');
+        } catch (Exception $exc) {
+            $this->session->set_flashdata('message_success', $exc->getTraceAsString());
+        }
 
-        $this->despesageral_model->insert_despesageral($dados);
-        $this->session->set_flashdata('message_success', 'Despesa geral adicionada com sucesso!');
         redirect('DespesaGeral/listar', 'refresh');
-        //} else {
-        //redirect('despesageral/novo', 'refresh');
-        //}
     }
 
     public function visualizar($despesageral_id) {
@@ -138,7 +138,7 @@ class DespesaGeral extends CI_Controller {
 
             $dados = array(
                 'id_categoria' => $this->input->post('categoria'),
-                'id_status' => $this->input->post('status'),
+                'id_status' => 2,
                 'data_criacao' => $data_criacao,
                 'data_vencimento' => $data_vencimento,
                 'data_pagamento' => $data_pagamento,
