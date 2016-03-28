@@ -65,8 +65,8 @@
                                         {% for despesa in despesageral %}
                                             <tr>
                                                 <td>{{ despesa.id_despesa }}</td>
-                                                <td>{{ despesa.id_categoria }}</td>
-                                                <td>{{ despesa.id_status }}</td>
+                                                <td>{{ despesa.categoria }}</td>
+                                                <td>{{ despesa.status }}</td>
                                                 <td>{{ despesa.total }}</td>
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}DespesaGeral/visualizar/{{ despesa.id_despesa }}">Visualizar</a>
