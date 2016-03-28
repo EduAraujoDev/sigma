@@ -616,7 +616,7 @@
             $('#totalServico').maskMoney('mask', totalServico);
 
             calcTotais();
-        }        
+        }
 
         function buscaProduto(){
             tableProduto = $('#tabelaProduto').DataTable({
@@ -772,17 +772,17 @@
 
         function editarProduto(x, id) {
             var row             = document.querySelector('#produtos').rows[x].cells;
-            var percDesconto    = row[4].innerHTML;
+            var percDesconto    = row[4].textContent;
 
-            document.querySelector('#overlayProduto').innerHTML = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+            document.querySelector('#overlayProduto').textContent = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
 
             $('[name="linhaProduto"]').val(x);
-            $('[name="mdProdDesc"]').val(row[2].innerHTML);
-            $('[name="mdProdVlr"]').val(row[5].innerHTML);
+            $('[name="mdProdDesc"]').val(row[2].textContent);
+            $('[name="mdProdVlr"]').val(row[5].textContent);
             $('[name="mdProdVlr"]').maskMoney({thousands:'.', decimal:','});
-            $('[name="mdProdCobVlr"]').val(row[6].innerHTML);
+            $('[name="mdProdCobVlr"]').val(row[6].textContent);
             $('[name="mdProdCobVlr"]').maskMoney({thousands:'.', decimal:','});
-            $('[name="mdProdQuant"]').val(row[3].innerHTML);
+            $('[name="mdProdQuant"]').val(row[3].textContent);
 
             $.ajax({
                 url: "{{base_url}}produto/ajax_produto_byId/"+id,
@@ -806,8 +806,8 @@
             percDesconto = percDesconto.replace('%', '');
             $('[name="mdProdDs"]').val(parseInt(percDesconto));
             
-            $('[name="mdProdTotBr"]').val(row[7].innerHTML);
-            $('[name="mdProdTotLq"]').val(row[8].innerHTML);
+            $('[name="mdProdTotBr"]').val(row[7].textContent);
+            $('[name="mdProdTotLq"]').val(row[8].textContent);
             $('[name="mdProdTotBr"]').maskMoney({thousands:'.', decimal:','});
             $('[name="mdProdTotLq"]').maskMoney({thousands:'.', decimal:','});
             $('#modal_edit_produto').modal('show');
@@ -833,18 +833,18 @@
 
             $('#modal_edit_produto').modal('hide');
 
-            row[3].innerHTML = document.querySelector('#mdProdQuant').value;   
-            row[4].innerHTML = document.querySelector('#mdProdDs').value + "%";
-            row[6].innerHTML = document.querySelector('#mdProdCobVlr').value;
-            row[7].innerHTML = document.querySelector('#mdProdTotBr').value;
-            row[8].innerHTML = document.querySelector('#mdProdTotLq').value;
+            row[3].innerHTML = '<input type="hidden" id="produto_quantidade_'+linhaProduto+'" name="produto_quantidade_'+linhaProduto+'" value="'+document.querySelector('#mdProdQuant').value+'">' + document.querySelector('#mdProdQuant').value;
+            row[4].innerHTML = '<input type="hidden" id="produto_desconto_'+linhaProduto+'" name="produto_desconto_'+linhaProduto+'" value="'+document.querySelector('#mdProdDs').value + "%"+'">' + document.querySelector('#mdProdDs').value + "%";
+            row[6].innerHTML = '<input type="hidden" id="produto_prcCobrado_'+linhaProduto+'" name="produto_prcCobrado_'+linhaProduto+'" value="'+document.querySelector('#mdProdCobVlr').value+'">' + document.querySelector('#mdProdCobVlr').value;
+            row[7].innerHTML = '<input type="hidden" id="produto_subTotalBr_'+linhaProduto+'" name="produto_subTotalBr_'+linhaProduto+'" value="'+document.querySelector('#mdProdTotBr').value+'">' + document.querySelector('#mdProdTotBr').value;
+            row[8].innerHTML = '<input type="hidden" id="produto_subTotalQl_'+linhaProduto+'" name="produto_subTotalQl_'+linhaProduto+'" value="'+document.querySelector('#mdProdTotLq').value+'">' + document.querySelector('#mdProdTotLq').value;
 
             var rowsProduto = document.querySelector('#produtos').rows;
 
             for(var i=1; i < rowsProduto.length; i++){
                 var cellValor = rowsProduto[i].cells;
 
-                cellValor = cellValor[8].innerHTML.replace(".", "");
+                cellValor = cellValor[8].textContent.replace(".", "");
                 cellValor = cellValor.replace(",", '.');
                 cellValor = parseFloat(cellValor);
 
@@ -863,7 +863,7 @@
             for(var i=1; i < rowsProduto.length; i++){
                 var cellValor = rowsProduto[i].cells;
 
-                cellValor = cellValor[8].innerHTML.replace(".", "");
+                cellValor = cellValor[8].textContent.replace(".", "");
                 cellValor = cellValor.replace(",", '.');
                 cellValor = parseFloat(cellValor);
 
