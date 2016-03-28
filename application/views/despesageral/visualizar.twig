@@ -103,8 +103,13 @@
                         </div>
 
                         <div class="box-footer">
-                            <a href="{{base_url}}DespesaGeral/listar">
-                                <button type="button" class="btn btn-primary">Voltar</button></a>
+                            {%if despesageral.id_status != 2%}
+                                <a class="btn btn-success" href="{{base_url}}DespesaGeral/finalizar/{{ despesageral.id_despesa }}">Finalizar</a>
+                            {%endif%}
+                            {%if despesageral.id_status != 2%}
+                                <a class="btn btn-primary" href="{{base_url}}DespesaGeral/editar/{{ despesageral.id_despesa }}">Alterar</a>
+                            {%endif%}
+                            <a href="{{base_url}}DespesaGeral/listar"><button type="button" class="btn btn-danger">Voltar</button></a>
                         </div>
                 </form>
             </div>
