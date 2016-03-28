@@ -21,6 +21,7 @@ class Orcamento extends CI_Controller {
         $this->load->model('OrcamentoProduto_model', 'orcamentoproduto_model');
         $this->load->model('TipoPagamento_model', 'tipopagamento_model');
         $this->load->model('produto_model', 'produto_model');
+        $this->load->model('cliente_model', 'cliente_model');
 
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
@@ -37,9 +38,12 @@ class Orcamento extends CI_Controller {
 
     public function listar() {
         $message_success = $this->session->flashdata('message_success');
-        $data = ['base_url' => $this->config->base_url(),
-            'message_success' => $message_success,
-            'orcamentos' => $this->orcamento_model->get_orcamento_notDeleted()->result()];
+        $data = ['base_url'     => $this->config->base_url(),
+            'message_success'   => $message_success,
+            'orcamentos'        => $this->orcamento_model->get_orcamento_notDeleted()->result(),
+            'status'            => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
+            'tipoPagamentos'    => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
+            'clientes'          => $this->cliente_model->get_cliente_notDeleted()->result()];
         $this->twig->display('orcamento/listar', $data);
     }    
     

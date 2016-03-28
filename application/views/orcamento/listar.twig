@@ -37,6 +37,8 @@
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Codigo</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Status</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Cliente</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Tipo de Pagamento</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Data Abertura</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Valor</th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Ações</th>
                                         </tr>
@@ -45,9 +47,23 @@
                                         {% for orcamento in orcamentos %}
                                             <tr>
                                                 <td>{{ orcamento.id_orcamento }}</td>
-                                                <td>{{ orcamento.id_status }}</td>
-                                                <td>{{ orcamento.id_cliente }}</td>
-                                                <td>{{ orcamento.total_liquido }}</td>
+                                                {% for statu in status %}
+                                                    {% if statu.id_status == orcamento.id_status %}
+                                                        <td>{{ statu.titulo }}</td>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% for cliente in clientes %}
+                                                    {% if cliente.id_cliente == orcamento.id_cliente %}
+                                                        <td>{{ cliente.nome }}</td>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% for tipoPagamento in tipoPagamentos %}
+                                                    {% if tipoPagamento.id_tipo_pagamento == orcamento.id_tipo_pagamento %}
+                                                        <td>{{ tipoPagamento.titulo }}</td>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <td>{{ orcamento.data_criacao|date('d/m/Y') }}</td>
+                                                <td class="text-right">{{ orcamento.total_liquido|number_format(2, ',', '.') }}</td>
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}orcamento/visualizar/{{ orcamento.id_orcamento }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}orcamento/editar/{{ orcamento.id_orcamento }}">Alterar</a>
