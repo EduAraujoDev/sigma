@@ -53,8 +53,7 @@
                                 <label for="categoria">Status</label>
                                 {% for var in status %}
                                     {% if var.id_status == despesageral.id_status %}
-                                        <br>
-                                        <span class="label label-success">{{ var.titulo }}</span>
+                                         <input type="text" class="form-control"  value="{{ var.titulo }}" disabled>
                                     {% endif %}
                                 {% endfor %}
                                 </select>
@@ -74,13 +73,6 @@
                                 <input id="data_vencimento" type="date" class="form-control" 
                                        name="data_vencimento" placeholder="Digite a data de vencimento"
                                        value="{{ despesageral.data_vencimento|date("d/m/Y") }}">
-                            </div>
-
-                            <div class="col-xs-12 col-sm-4 col-md-4" id="divPagamento">
-                                <label for="data_pagamento">Data de Pagamento</label>
-                                <input id="data_pagamento" type="date" class="form-control" 
-                                       name="data_pagamento" placeholder="Digite a data de pagamento"
-                                       value="{{ despesageral.data_pagamento |date("d/m/Y")}}">
                             </div>
                         </div>    
 

@@ -45,37 +45,27 @@ class DespesaGeral extends CI_Controller {
     }
 
     public function novo() {
+        $data_atual = new DateTime();
         $data = ['base_url' => $this->config->base_url(),
             'despesageral' => $this->despesageral_model->get_despesageral_notDeleted()->result(),
             'status' => $this->despesastatus_model->get_despesastatus_notDeleted()->result(),
+            'data_atual' => $data_atual,
             'categorias' => $this->despesacategoria_model->get_despesacategoria_notDeleted()->result()];
         $this->twig->display('despesageral/novo', $data);
     }
 
     public function adicionar() {
-        // Validacoes de campo do formulario
-        //$validacao_formulario = $this->validarformularioCategoria();
-        //if ($validacao_formulario->run() == TRUE) {
-        //echo 'bu';
-        //var_dump('a'); mostra a variavel e o tipo
-        //die; para a execucao do codigo!
-        // Monta um array com as informacoes da categoria
-
         $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_criacao'));
         $data_criacao = $date->format('Y-m-d');
 
         $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_vencimento'));
         $data_vencimento = $date->format('Y-m-d');
 
-        $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_pagamento'));
-        $data_pagamento = $date->format('Y-m-d');
-
         $dados = array(
             'id_categoria' => $this->input->post('categoria'),
             'id_status' => 1,
             'data_criacao' => $data_criacao,
             'data_vencimento' => $data_vencimento,
-            'data_pagamento' => $data_pagamento,
             'total' => $this->input->post('valorTotal'),
             'observacoes' => $this->input->post('observacoes'),
         );
@@ -85,7 +75,6 @@ class DespesaGeral extends CI_Controller {
         } catch (Exception $exc) {
             $this->session->set_flashdata('message_success', $exc->getTraceAsString());
         }
-
         redirect('DespesaGeral/listar', 'refresh');
     }
 
@@ -96,6 +85,17 @@ class DespesaGeral extends CI_Controller {
             $despesageral_id = $this->uri->segment(3);
         }
         if ($despesageral_id != NULL) {
+
+            $data_atual = new DateTime();
+            $data_atual = $data_atual->format("Y-m-d");
+            $despesageral = $this->despesageral_model->get_despesageral_byid($despesageral_id)->row();
+            $data_vencimento = $despesageral->data_vencimento;
+            $data_vencimento = new DateTime($data_vencimento);
+            $data_vencimento = $data_vencimento->format("Y-m-d");
+            if ($data_atual > $data_vencimento) {
+                $this->StatusAtrazado($despesageral_id);
+            }
+
             $data = ['base_url' => $this->config->base_url(),
                 'despesageral' => $this->despesageral_model->get_despesageral_byid($despesageral_id)->row(),
                 'status' => $this->despesastatus_model->get_despesastatus_notDeleted()->result(),
@@ -113,6 +113,16 @@ class DespesaGeral extends CI_Controller {
             $despesageral_id = $this->uri->segment(3);
         }
         if ($despesageral_id != NULL) {
+
+            $data_atual = new DateTime();
+            $data_atual = $data_atual->format("Y-m-d");
+            $despesageral = $this->despesageral_model->get_despesageral_byid($despesageral_id)->row();
+            $data_vencimento = $despesageral->data_vencimento;
+            $data_vencimento = new DateTime($data_vencimento);
+            $data_vencimento = $data_vencimento->format("Y-m-d");
+            if ($data_atual > $data_vencimento) {
+                $this->StatusAtrazado($despesageral_id);
+            }
             $data = ['base_url' => $this->config->base_url(),
                 'despesageral' => $this->despesageral_model->get_despesageral_byid($despesageral_id)->row(),
                 'status' => $this->despesastatus_model->get_despesastatus_notDeleted()->result(),
@@ -133,15 +143,10 @@ class DespesaGeral extends CI_Controller {
             $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_vencimento'));
             $data_vencimento = $date->format('Y-m-d');
 
-            $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_pagamento'));
-            $data_pagamento = $date->format('Y-m-d');
-
             $dados = array(
                 'id_categoria' => $this->input->post('categoria'),
-                'id_status' => 2,
                 'data_criacao' => $data_criacao,
                 'data_vencimento' => $data_vencimento,
-                'data_pagamento' => $data_pagamento,
                 'total' => $this->input->post('valorTotal'),
                 'observacoes' => $this->input->post('observacoes')
             );
@@ -149,6 +154,13 @@ class DespesaGeral extends CI_Controller {
             $this->session->set_flashdata('message_success', 'Despesa geral editada com sucesso!');
         }
         redirect('DespesaGeral/listar', 'refresh');
+    }
+
+    public function StatusAtrazado($despesageral_id) {
+        $dados = array(
+            'id_status' => 2
+        );
+        $this->despesageral_model->update_despesageral($dados, array('id_despesa' => $despesageral_id));
     }
 
     // Deleta a categoria selecionada na base de dados
@@ -160,15 +172,6 @@ class DespesaGeral extends CI_Controller {
             $this->session->set_flashdata('message_success', 'Despesa geral deletada com sucesso!');
         }
         redirect('DespesaGeral/listar', 'refresh');
-    }
-
-    // Validacoes de campo do formulario
-    public function validarformularioCategoria() {
-        $this->form_validation->set_rules('id_categoria', 'id_categoria', 'required|is_natural');
-        $this->form_validation->set_rules('id_status', 'id_status', 'required|is_natural');
-        $this->form_validation->set_rules('data_criacao', 'data_criacao', 'required');
-        $this->form_validation->set_rules('total', 'total', 'required');
-        return $this->form_validation;
     }
 
 }
