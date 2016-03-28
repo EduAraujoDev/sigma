@@ -70,7 +70,9 @@
                                                 <td>{{ despesa.total }}</td>
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}DespesaGeral/visualizar/{{ despesa.id_despesa }}">Visualizar</a>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}DespesaGeral/editar/{{ despesa.id_despesa }}">Alterar</a>
+                                                    {%if despesa.id_status ==1%}
+                                                        <a class="btn btn-primary btn-xs" href="{{base_url}}DespesaGeral/editar/{{ despesa.id_despesa }}">Alterar</a>
+                                                    {%endif%}
                                                     {%if despesa.id_status != 2%}
                                                         <a class="btn btn-danger btn-xs" href="{{base_url}}DespesaGeral/deletar/{{ despesa.id_despesa }}">Excluir</a>
                                                     {%endif%}

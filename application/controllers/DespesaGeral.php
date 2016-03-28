@@ -134,6 +134,22 @@ class DespesaGeral extends CI_Controller {
         }
     }
 
+    public function finalizar() {
+        $despesageral_id = $this->uri->segment(3);
+        if ($despesageral_id != NULL) {
+            $data_atual = new DateTime();
+            $data_atual = $data_atual->format("Y-m-d");
+            $dados = array(
+                'data_pagamento' => $data_atual,
+                'id_status' => 3,
+                'finalizado' => 1
+            );
+            $this->despesageral_model->update_despesageral($dados, array('id_despesa' => $despesageral_id));
+            $this->session->set_flashdata('message_success', 'Despesa geral finalizada com sucesso!');
+        }
+        redirect('DespesaGeral/listar', 'refresh');
+    }
+
     public function atualizar() {
         $despesageral_id = $this->uri->segment(3);
         if ($despesageral_id != NULL) {

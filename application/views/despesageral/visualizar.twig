@@ -89,7 +89,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label>Observações</label>
                                 <textarea class="form-control" name="observacoes" rows="3"
-                                          value="{{ despesageral.observacoes }}" disabled></textarea>
+                                          value="" disabled>{{ despesageral.observacoes }}</textarea>
                             </div>
                         </div>
 
@@ -103,10 +103,10 @@
                         </div>
 
                         <div class="box-footer">
-                            {%if despesageral.id_status != 2%}
+                            {%if despesageral.id_status ==1%}
                                 <button type="button" class="btn btn-success " data-toggle="modal" data-target="#myModal">Finalizar</button>
                             {%endif%}
-                            {%if despesageral.id_status != 2%}
+                            {%if despesageral.id_status == 1%}
                                 <a class="btn btn-primary" href="{{base_url}}DespesaGeral/editar/{{ despesageral.id_despesa }}">Alterar</a>
                             {%endif%}
                             <a href="{{base_url}}DespesaGeral/listar"><button type="button" class="btn btn-danger">Voltar</button></a>
