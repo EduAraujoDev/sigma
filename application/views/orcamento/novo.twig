@@ -388,7 +388,7 @@
                     <h2 class="modal-title-sec"></h2>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" onclick="fechaModalAlerta();">Cancel</button>
+                    <button type="button" class="btn btn-default" onclick="fechaModalAlerta();">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -774,7 +774,7 @@
             var row             = document.querySelector('#produtos').rows[x].cells;
             var percDesconto    = row[4].textContent;
 
-            document.querySelector('#overlayProduto').textContent = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+            document.querySelector('#overlayProduto').innerHTML = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
 
             $('[name="linhaProduto"]').val(x);
             $('[name="mdProdDesc"]').val(row[2].textContent);
