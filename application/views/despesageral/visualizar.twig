@@ -23,91 +23,91 @@
                 </div>
                 <form class="form-horizontal" role="form" action="{{base_url}}despesageral/atualizar" method="post" 
                       onSubmit="return btnCadastrar();">
-                    
-                        <div id="box"></div>
-                        <div class="box-body">
-                            
-                            <div class="form-group">
-                                <div class="col-xs-12 col-sm-12 col-md-5">
-                                    <label for="id">Código Despesa Geral</label>
-                                    <input type="text" class="form-control" id="id" name="id"
-                                        value="{{ despesageral.id_despesa }}" disabled>
-                                </div> 
+
+                    <div id="box"></div>
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-5">
+                                <label for="id">Código Despesa Geral</label>
+                                <input type="text" class="form-control" id="id" name="id"
+                                       value="{{ despesageral.id_despesa }}" disabled>
                             </div> 
-                            
-                            <div class="form-group">
-                                <div class="col-xs-12 col-sm-6 col-md-6" id="divCategoria">
-                                    <label for="categoria">Categoria</label>
-                                    <select class="form-control" name="categoria" disabled>
-                                        {% for categoria in categorias %}
-                                            {% if categoria.id_categoria == despesageral.id_categoria %}
-                                                <option selected="selected" value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
-                                            {% else %}
-                                                <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            
-                                <div class="col-xs-12 col-sm-6 col-md-6" id="divStatus">
-                                    <label for="categoria">Status</label>
-                                    <select class="form-control" name="var" disabled>
-                                        {% for var in status %}
-                                            {% if var.id_status == despesageral.id_status %}
-                                                <option selected="selected" value="{{ var.id_status }}">{{ var.titulo }}</option>
-                                            {% else %}
-                                                <option value="{{ var.id_status }}">{{ var.titulo }}</option>     
-                                            {% endif %}
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>    
-                            
-                            <div class="form-group">
-                                <div class="col-xs-12 col-sm-4 col-md-4" id="divCriacao">
-                                    <label for="data_criacao">Data de Criação</label>
-                                    <input id="data_criacao" type="date" class="form-control" 
-                                           name="data_criacao" placeholder="Digite a data de criação"
-                                           value="{{ despesageral.data_criacao }}" disabled>
-                                </div>
-                            
-                                <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
-                                    <label for="data_vencimento">Data de Vencimento</label>
-                                    <input id="data_vencimento" type="date" class="form-control" 
-                                           name="data_vencimento" placeholder="Digite a data de vencimento"
-                                           value="{{ despesageral.data_vencimento }}" disabled>
-                                </div>
-                            
-                                <div class="col-xs-12 col-sm-4 col-md-4" id="divPagamento">
-                                     <label for="data_pagamento">Data de Pagamento</label>
-                                    <input id="data_pagamento" type="date" class="form-control" 
-                                           name="data_pagamento" placeholder="Digite a data de pagamento"
-                                           value="{{ despesageral.data_pagamento }}" disabled>
-                                </div>
-                            </div>    
-                            
-                            <div class="form-group">
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <label>Observações</label>
-                                    <textarea class="form-control" name="observacoes" rows="3"
-                                              value="{{ despesageral.observacoes }}" disabled></textarea>
-                                </div>
+                        </div> 
+
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-6 col-md-6" id="divCategoria">
+                                <label for="categoria">Categoria</label>
+                                <select class="form-control" name="categoria" disabled>
+                                    {% for categoria in categorias %}
+                                        {% if categoria.id_categoria == despesageral.id_categoria %}
+                                            <option selected="selected" value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                        {% else %}
+                                            <option value="{{ categoria.id_categoria }}">{{ categoria.titulo }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
                             </div>
-                            
-                            <div class="form-group">
-                                <div class="col-xs-12 col-sm-4 col-md-4" id="divValorTotal">
+
+                            <div class="col-xs-12 col-sm-6 col-md-6" id="divStatus">
+                                <label for="categoria">Status</label>
+                                <select class="form-control" name="var" disabled>
+                                    {% for var in status %}
+                                        {% if var.id_status == despesageral.id_status %}
+                                            <option selected="selected" value="{{ var.id_status }}">{{ var.titulo }}</option>
+                                        {% else %}
+                                            <option value="{{ var.id_status }}">{{ var.titulo }}</option>     
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>    
+
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-4 col-md-4" id="divCriacao">
+                                <label for="data_criacao">Data de Criação</label>
+                                <input id="data_criacao" type="date" class="form-control" 
+                                       name="data_criacao" placeholder="Digite a data de criação"
+                                       value="{{ despesageral.data_criacao |date("d/m/Y")}}" disabled>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
+                                <label for="data_vencimento">Data de Vencimento</label>
+                                <input id="data_vencimento" type="date" class="form-control" 
+                                       name="data_vencimento" placeholder="Digite a data de vencimento"
+                                       value="{{ despesageral.data_vencimento |date("d/m/Y")}}" disabled>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4 col-md-4" id="divPagamento">
+                                <label for="data_pagamento">Data de Pagamento</label>
+                                <input id="data_pagamento" type="date" class="form-control" 
+                                       name="data_pagamento" placeholder="Digite a data de pagamento"
+                                       value="{{ despesageral.data_pagamento|date("d/m/Y") }}" disabled>
+                            </div>
+                        </div>    
+
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label>Observações</label>
+                                <textarea class="form-control" name="observacoes" rows="3"
+                                          value="{{ despesageral.observacoes }}" disabled></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-4 col-md-4" id="divValorTotal">
                                 <label for="valorTotal">Valor Total</label>
                                 <input type="text" class="form-control" id="valorTotal" 
-                                   value="{{ despesageral.total }}" disabled>
+                                       value="{{ despesageral.total }}" disabled>
                             </div>    
-                            
+
                         </div>
-                    
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-success">Cadastrar</button>
-                        <a href="{{base_url}}DespesaGeral/listar">
-                        <button type="button" class="btn btn-danger">Cancelar</button></a>
-                    </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                            <a href="{{base_url}}DespesaGeral/listar">
+                                <button type="button" class="btn btn-danger">Cancelar</button></a>
+                        </div>
                 </form>
             </div>
         </div>
@@ -121,13 +121,13 @@
             $("#data_vencimento").mask('99/99/9999');
             $("#data_criacao").mask('99/99/9999');
             $("#data_pagamento").mask('99/99/9999');
-            $("#valorTotal").maskMoney({thousands:'.', decimal:','});
-            
+            $("#valorTotal").maskMoney({thousands: '.', decimal: ','});
+
         });
-        
-        function btnCadastrar(){
-           return true;
+
+        function btnCadastrar() {
+            return true;
         }
-        
+
     </script>
 {% endblock %}
