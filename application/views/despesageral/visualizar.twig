@@ -104,7 +104,7 @@
 
                         <div class="box-footer">
                             {%if despesageral.id_status != 2%}
-                                <a class="btn btn-success" href="{{base_url}}DespesaGeral/finalizar/{{ despesageral.id_despesa }}">Finalizar</a>
+                                <button type="button" class="btn btn-success " data-toggle="modal" data-target="#myModal">Finalizar</button>
                             {%endif%}
                             {%if despesageral.id_status != 2%}
                                 <a class="btn btn-primary" href="{{base_url}}DespesaGeral/editar/{{ despesageral.id_despesa }}">Alterar</a>
@@ -115,6 +115,21 @@
             </div>
         </div>
     </section>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tem certeza que deseja finalizar essa dispesa?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <a href="{{base_url}}DespesaGeral/finalizar/{{ despesageral.id_despesa }}"><button type="button" class="btn btn-success">Finalizar</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block js %}
