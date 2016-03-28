@@ -10,7 +10,7 @@ class DespesaGeral_model extends CI_Model {
     }
 
     public function get_despesageral_notDeleted() {
-        $this->db->select('despesa.id_despesa,despesa.total,despesa_categoria.titulo as categoria,despesa_status.titulo as status ');
+        $this->db->select('despesa.id_despesa,despesa.id_status,despesa.total,despesa_categoria.titulo as categoria,despesa_status.titulo as status ');
         $this->db->from('despesa');
         $this->db->join('despesa_categoria', 'despesa_categoria.id_categoria = despesa.id_categoria');
         $this->db->join('despesa_status', 'despesa_status.id_status = despesa.id_status');

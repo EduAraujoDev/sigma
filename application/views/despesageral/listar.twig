@@ -38,14 +38,14 @@
                         </div>
                         <br/>    
                         <div class="input-group col-sm-2">
-                         <select class="form-control" name="tipo_busca">
-                            <option disabled selected>Selecione</option>
+                            <select class="form-control" name="tipo_busca">
+                                <option disabled selected>Selecione</option>
                                 <option value="codigo">Codigo</option>
                                 <option value="categoria">Categoria</option>
                                 <option value="status">Status</option>
                                 <option value="valor">Valor</option>
-                         </select>
-                         </div>   
+                            </select>
+                        </div>   
                     </form>
                     <br>
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
@@ -71,7 +71,9 @@
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}DespesaGeral/visualizar/{{ despesa.id_despesa }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}DespesaGeral/editar/{{ despesa.id_despesa }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}DespesaGeral/deletar/{{ despesa.id_despesa }}">Excluir</a>
+                                                    {%if despesa.id_status != 2%}
+                                                        <a class="btn btn-danger btn-xs" href="{{base_url}}DespesaGeral/deletar/{{ despesa.id_despesa }}">Excluir</a>
+                                                    {%endif%}
                                                 </td>
                                             </tr>
                                         {% endfor %}
