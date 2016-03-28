@@ -23,6 +23,7 @@ class Admin extends CI_Controller {
         $this->load->model('servico_model', 'servico_model');
         $this->load->model('produto_model', 'produto_model');
         $this->load->model('fornecedor_model', 'fornecedor_model');
+        $this->load->model('DespesaGeral_model', 'despesageral_model');
 
         if (isset($_SESSION['userLogin'])) {
             
@@ -40,6 +41,7 @@ class Admin extends CI_Controller {
             'qntServico' => $this->servico_model->get_servico_count_notDeleted(),
             'qntProduto' => $this->produto_model->get_produto_count_notDeleted(),
             'qntFornecedor' => $this->fornecedor_model->get_fornecedor_count_notDeleted(),
+            'qntDespesa' => $this->despesageral_model->get_despesageral_count_notDeleted(),
             'user' => $user,
         );
         $this->twig->display('admin/dashboard_admin', $data);
