@@ -537,10 +537,10 @@
             var row             = document.querySelector('#servicos').rows[x].cells;
 
             $('[name="linhaServico"]').val(x);
-            $('[name="mdServDesc"]').val(row[2].innerHTML);
-            $('[name="mdServVlr"]').val(row[3].innerHTML);
+            $('[name="mdServDesc"]').val(row[2].textContent);
+            $('[name="mdServVlr"]').val(row[3].textContent);
             $('[name="mdServVlr"]').maskMoney({thousands:'.', decimal:','});
-            $('[name="mdServVlrCobr"]').val(row[4].innerHTML);
+            $('[name="mdServVlrCobr"]').val(row[4].textContent);
             $('[name="mdServVlrCobr"]').maskMoney({thousands:'.', decimal:','});
             $('#modal_edit_servico').modal('show');
         }
@@ -593,8 +593,8 @@
 
             $('#modal_edit_servico').modal('hide');
 
-            row[3].innerHTML = document.querySelector('#mdServVlr').value;   
-            row[4].innerHTML = document.querySelector('#mdServVlrCobr').value;
+            row[3].innerHTML = '<input type="hidden" id="servico_vlrServico_'+linhaServico+'" name="servico_vlrServico_'+linhaServico+'" value="'+document.querySelector('#mdServVlr').value+'">' + document.querySelector('#mdServVlr').value;   
+            row[4].innerHTML = '<input type="hidden" id="servico_vlrCobrado_'+linhaServico+'" name="servico_vlrCobrado_'+linhaServico+'" value="'+document.querySelector('#mdServVlrCobr').value+'">' + document.querySelector('#mdServVlrCobr').value;
 
             recalcServicos();
         }
@@ -606,7 +606,7 @@
             for(var i=1; i < rowsServico.length; i++){
                 var cellValor = rowsServico[i].cells;
 
-                cellValor = cellValor[4].innerHTML.replace(".", "");
+                cellValor = cellValor[4].textContent.replace(".", "");
                 cellValor = cellValor.replace(",", '.');
                 cellValor = parseFloat(cellValor);
 
@@ -615,7 +615,7 @@
 
             $('#totalServico').maskMoney('mask', totalServico);
 
-            calcTotais();            
+            calcTotais();
         }        
 
         function buscaProduto(){
