@@ -80,8 +80,8 @@
                             <div class="col-xs-12 col-sm-4 col-md-4" id="divPagamento">
                                 <label for="data_pagamento">Data de Pagamento</label>
                                 <input id="data_pagamento" type="date" class="form-control" 
-                                       name="data_pagamento" placeholder="Digite a data de pagamento"
-                                       value="{{ despesageral.data_pagamento|date("d/m/Y") }}" disabled>
+                                       name="data_pagamento" 
+                                       value="{%if despesageral.data_pagamento == NULL%}{%else%}{{despesageral.data_pagamento|date("d/m/Y")}}{%endif%}" disabled>
                             </div>
                         </div>    
 
