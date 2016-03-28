@@ -20,6 +20,7 @@ class Orcamento extends CI_Controller {
         $this->load->model('OrcamentoServico_model', 'orcamentoservico_model');
         $this->load->model('OrcamentoProduto_model', 'orcamentoproduto_model');
         $this->load->model('TipoPagamento_model', 'tipopagamento_model');
+        $this->load->model('produto_model', 'produto_model');
 
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
@@ -99,11 +100,12 @@ class Orcamento extends CI_Controller {
             $valorCobrado = str_replace('.', '', $this->input->post('produto_prcCobrado_'.$i));
             $valorCobrado = str_replace(',', '.', $valorCobrado);            
             
-            $desconto = str_replace('%', '', $this->input->post('produto_desconto_'.$i));            
+            $desconto   = str_replace('%', '', $this->input->post('produto_desconto_'.$i));
+            $idProduto  = $this->input->post('produto_codigo_'.$i);
             
             $dadosProduto = array(
 
-                'id_produto'    => $this->input->post('produto_codigo_'.$i),
+                'id_produto'    => $idProduto,
                 'id_orcamento'  => $id,
                 'quantidade'    => $this->input->post('produto_quantidade_'.$i),
                 'desconto'      => $desconto,
@@ -112,6 +114,12 @@ class Orcamento extends CI_Controller {
             );
 
             $this->orcamentoproduto_model->insert_orcamentoProduto($dadosProduto);
+
+            $dadosProduto = array(
+                'quantidade_reservada' => $this->input->post('produto_quantidade_'.$i),
+            );
+
+            $this->produto_model->update_produto($dadosProduto, array('id_produto' => $idProduto));
         }
 
         $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
