@@ -64,7 +64,7 @@ class DespesaGeral extends CI_Controller {
             // Monta um array com as informacoes da categoria
             $dados = array(
                 'id_categoria' => $this->input->post('categoria'),
-                'id_status' => $this->input->post('var'),
+                'id_status' => $this->input->post('status'),
                 'data_criacao' => $this->input->post('data_criacao'),
                 'data_vencimento' => $this->input->post('data_vencimento'),
                 'data_pagamento' => $this->input->post('data_pagamento'),
@@ -75,7 +75,7 @@ class DespesaGeral extends CI_Controller {
             
             $this->despesageral_model->insert_despesageral($dados);
             $this->session->set_flashdata('message_success', 'Despesa geral adicionada com sucesso!');
-            redirect('despesageral/listar', 'refresh');
+            redirect('DespesaGeral/listar', 'refresh');
         //} else {
             //redirect('despesageral/novo', 'refresh');
         //}
@@ -94,7 +94,7 @@ class DespesaGeral extends CI_Controller {
                 'categorias' => $this->despesacategoria_model->get_despesacategoria_notDeleted()->result()];
             $this->twig->display('despesageral/visualizar', $data);
         } else {
-            redirect('despesageral/listar', 'refresh');
+            redirect('DespesaGeral/listar', 'refresh');
         }
     }
     
@@ -112,7 +112,7 @@ class DespesaGeral extends CI_Controller {
             
             $this->twig->display('despesageral/editar', $data);
         } else {
-            redirect('despesageral/listar', 'refresh');
+            redirect('DespesaGeral/listar', 'refresh');
         }
     }
 
@@ -135,7 +135,7 @@ class DespesaGeral extends CI_Controller {
                 $this->session->set_flashdata('message_success', 'Despesa geral editada com sucesso!');
             }
         }
-        redirect('despesageral/listar', 'refresh');
+        redirect('DespesaGeral/listar', 'refresh');
     }
 
     // Deleta a categoria selecionada na base de dados
@@ -147,7 +147,7 @@ class DespesaGeral extends CI_Controller {
             $this->despesageral_model->delete_logical_categoria(array('id_despesageral' => $despesageral_id));
             $this->session->set_flashdata('message_success', 'Despesa geral deletada com sucesso!');
         }
-        redirect('categoria/listar', 'refresh');
+        redirect('DespesaGeral/listar', 'refresh');
     }
 
     // Validacoes de campo do formulario

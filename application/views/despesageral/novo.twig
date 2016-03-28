@@ -21,7 +21,7 @@
                 <div class="box-header with-border">
                     <h1 class="box-title">Dados de Despesa<br><small>*Campos obrigatorios</small></h1>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}despesageral/adicionar" method="post" 
+                <form class="form-horizontal" role="form" action="{{base_url}}DespesaGeral/adicionar" method="post" 
                       onSubmit="return btnCadastrar();">
                     
                         <div id="box"></div>
@@ -39,8 +39,8 @@
                                 </div>
                             
                                 <div class="col-xs-12 col-sm-6 col-md-6" id="divStatus">
-                                    <label for="categoria">Status</label>
-                                    <select class="form-control" name="var" disabled>
+                                    <label for="status">Status</label>
+                                    <select class="form-control" name="status">
                                         {% for var in status %}
                                             <option value="{{ var.id_status }}">{{ var.titulo }}</option>
                                         {% endfor %}
