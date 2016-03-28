@@ -34,8 +34,8 @@ class DespesaGeral_model extends CI_Model {
         $this->db->insert('despesa', $despesa);
     }
 
-    public function update_despesageral($despesa, $id_despesa) {
-        $this->db->update('despesa', $despesa, array('id_despesa' => $id_despesa));
+    public function update_despesageral($despesa, $condicao) {
+        $this->db->update('despesa', $despesa, $condicao);
     }
 
     public function delete_despesageral($id_despesa) {

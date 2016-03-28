@@ -127,30 +127,26 @@ class DespesaGeral extends CI_Controller {
     public function atualizar() {
         $despesageral_id = $this->uri->segment(3);
         if ($despesageral_id != NULL) {
-            $validacao_formulario = $this->validarformularioCategoria();
-            if ($validacao_formulario->run() == TRUE) {
-                $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_criacao'));
-                $data_criacao = $date->format('Y-m-d');
+            $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_criacao'));
+            $data_criacao = $date->format('Y-m-d');
 
-                $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_vencimento'));
-                $data_vencimento = $date->format('Y-m-d');
+            $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_vencimento'));
+            $data_vencimento = $date->format('Y-m-d');
 
-                $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_pagamento'));
-                $data_pagamento = $date->format('Y-m-d');
+            $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_pagamento'));
+            $data_pagamento = $date->format('Y-m-d');
 
-                $dados = array(
-                    'id_categoria' => $this->input->post('categoria'),
-                    'id_status' => $this->input->post('status'),
-                    'data_criacao' => $data_criacao,
-                    'data_vencimento' => $data_vencimento,
-                    'data_pagamento' => $data_pagamento,
-                    'total' => $this->input->post('valorTotal'),
-                    'observacoes' => $this->input->post('observacoes'),
-                    'deletado' => 0
-                );
-                $this->despesageral_model->update_categoria($dados, array('id_despesageral' => $despesageral_id));
-                $this->session->set_flashdata('message_success', 'Despesa geral editada com sucesso!');
-            }
+            $dados = array(
+                'id_categoria' => $this->input->post('categoria'),
+                'id_status' => $this->input->post('status'),
+                'data_criacao' => $data_criacao,
+                'data_vencimento' => $data_vencimento,
+                'data_pagamento' => $data_pagamento,
+                'total' => $this->input->post('valorTotal'),
+                'observacoes' => $this->input->post('observacoes')
+            );
+            $this->despesageral_model->update_despesageral($dados, array('id_despesa' => $despesageral_id));
+            $this->session->set_flashdata('message_success', 'Despesa geral editada com sucesso!');
         }
         redirect('DespesaGeral/listar', 'refresh');
     }

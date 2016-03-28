@@ -21,7 +21,7 @@
                 <div class="box-header with-border">
                     <h1 class="box-title">Dados de Despesa<br><small>*Campos obrigatorios</small></h1>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}despesageral/atualizar" method="post" 
+                <form class="form-horizontal" role="form" action="{{base_url}}DespesaGeral/atualizar/{{ despesageral.id_despesa }}" method="post" 
                       onSubmit="return btnCadastrar();">
 
                     <div id="box"></div>
@@ -51,7 +51,7 @@
 
                             <div class="col-xs-12 col-sm-6 col-md-6" id="divStatus">
                                 <label for="categoria">Status</label>
-                                <select class="form-control" name="var" disabled>
+                                <select class="form-control" name="status">
                                     {% for var in status %}
                                         {% if var.id_status == despesageral.id_status %}
                                             <option selected="selected" value="{{ var.id_status }}">{{ var.titulo }}</option>
@@ -89,22 +89,21 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label>Observações</label>
-                                <textarea class="form-control" name="observacoes" rows="3"
-                                          value="{{ despesageral.observacoes }}"></textarea>
+                                <textarea class="form-control" name="observacoes" rows="3">{{ despesageral.observacoes }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-4 col-md-4" id="divValorTotal">
                                 <label for="valorTotal">Valor Total</label>
-                                <input type="text" class="form-control" id="valorTotal" 
+                                <input type="text" class="form-control" name="valorTotal" id="valorTotal" 
                                        value="{{ despesageral.total }}">
                             </div>    
 
                         </div>
 
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                            <button type="submit" class="btn btn-primary">Atualizar</button>
                             <a href="{{base_url}}DespesaGeral/listar">
                                 <button type="button" class="btn btn-danger">Cancelar</button></a>
                         </div>
