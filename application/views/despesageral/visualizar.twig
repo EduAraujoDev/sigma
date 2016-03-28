@@ -21,8 +21,7 @@
                 <div class="box-header with-border">
                     <h1 class="box-title">Dados de Despesa<br><small>*Campos obrigatorios</small></h1>
                 </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}despesageral/atualizar" method="post" 
-                      onSubmit="return btnCadastrar();">
+                <form class="form-horizontal">
 
                     <div id="box"></div>
                     <div class="box-body">
@@ -104,9 +103,8 @@
                         </div>
 
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success">Cadastrar</button>
                             <a href="{{base_url}}DespesaGeral/listar">
-                                <button type="button" class="btn btn-danger">Cancelar</button></a>
+                                <button type="button" class="btn btn-primary">Voltar</button></a>
                         </div>
                 </form>
             </div>
@@ -124,10 +122,5 @@
             $("#valorTotal").maskMoney({thousands: '.', decimal: ','});
 
         });
-
-        function btnCadastrar() {
-            return true;
-        }
-
     </script>
 {% endblock %}
