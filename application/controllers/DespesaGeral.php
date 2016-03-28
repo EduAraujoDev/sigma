@@ -160,8 +160,7 @@ class DespesaGeral extends CI_Controller {
         $despesageral_id = $this->uri->segment(3);
         if ($despesageral_id != NULL) {
             // Deleta a categotia na base de dadps
-            //$this->categoria_model->delete_categoria(array('id_Categoria' => $categoria_id));
-            $this->despesageral_model->delete_logical_categoria(array('id_despesageral' => $despesageral_id));
+            $this->despesageral_model->delete_logical_despesageral(array('id_despesa' => $despesageral_id));
             $this->session->set_flashdata('message_success', 'Despesa geral deletada com sucesso!');
         }
         redirect('DespesaGeral/listar', 'refresh');
