@@ -948,7 +948,7 @@
             for(var i=1; i < rowsProduto.length; i++){
                 var cellValor = rowsProduto[i].cells;
 
-                valor = cellValor[7].innerHTML;
+                valor = cellValor[7].textContent;
                 
                 valor = valor.replace(".", "");
                 valor = valor.replace(",", '.');
