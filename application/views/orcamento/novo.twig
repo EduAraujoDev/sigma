@@ -1,5 +1,5 @@
 {% extends "base_layout.twig" %}
-{% block title %}Novo Marca{% endblock %}
+{% block title %}Novo Orçamento{% endblock %}
 {% block content_header %}
     <section class="content-header">
         <h1>
@@ -36,11 +36,17 @@
                             </div>
                              <div class="col-xs-12 col-sm-3 col-md-3" >
                                 <label for="dataCriacao">Data Criação</label>
-                                <input type="date" class="form-control" name="dataCriacao" id="dataCriacao" readonly>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" readonly>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
                             </div>                          
                             <div class="col-xs-12 col-sm-3 col-md-3" >
                                 <label for="dataFinalizacao">Data de finalização</label>
-                                <input type="date" class="form-control" id="dataFinalizacao" name="dataFinalizacao">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -413,15 +419,13 @@
     {{ parent() }}
     <script type="text/javascript">
         window.onload=function(){
-            var dataAtual = new Date();
-            var dia = dataAtual.getDate();
-            var mes = dataAtual.getMonth()+1;
-            var ano = dataAtual.getFullYear();
+            $('#dataCriacao').datepicker({
+               format: 'dd/mm/yyyy' 
+            }).datepicker('setDate', new Date());
 
-            dia = dia.toString().length == 1?"0"+dia:dia;                    
-            mes = mes.toString().length == 1?"0"+mes:mes;
-
-            $("#dataCriacao").val([ano, mes, dia ].join("-"));
+            $('#dataFinalizacao').datepicker({
+                format: 'dd/mm/yyyy'
+            }).datepicker('setDate', '+1d');
 
             $("#totalProduto").maskMoney({thousands:'.', decimal:','});
             $("#totalServico").maskMoney({thousands:'.', decimal:','});
