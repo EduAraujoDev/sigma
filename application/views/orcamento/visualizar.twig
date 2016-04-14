@@ -1,0 +1,214 @@
+{% extends "base_layout.twig" %}
+{% block title %}Alterar Orçamento{% endblock %}
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Alterar Orçamento</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Alterar Orçamento</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Dados do Orçamento</h3>
+                </div>
+                <form class="form-horizontal" role="form" method="post" action="{{base_url}}orcamento/adicionar">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-3" >
+                                <label for="codOrcamento">Código</label>
+                                <input type="text" class="form-control" name="codOrcamento" id="codOrcamento" value="{{ orcamento_cabecalho.id_orcamento }}" readonly>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <label for="statusOrcamento">Status</label>
+                                <select class="form-control" name="statusOrcamento" id="statusOrcamento" readonly >
+                                    {% for statu in status %}
+                                        {% if statu.id_status == orcamento_cabecalho.id_status %}
+                                            <option selected="selected" value="{{ statu.id_status }}">{{ statu.titulo }}</option>
+                                        {% else %}
+                                            <option value="{{ statu.id_status }}">{{ statu.titulo }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                             <div class="col-xs-12 col-sm-3 col-md-3" >
+                                <label for="dataCriacao">Data Criação</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" readonly>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>                          
+                            <div class="col-xs-12 col-sm-3 col-md-3" >
+                                <label for="dataFinalizacao">Data de finalização</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <label for="tipoPagamento">Tipo de Pagamento</label>
+                                <select class="form-control" name="tipoPagamento" readonly>
+                                    {% for tipoPagamento in tipoPagamentos %}
+                                        {% if tipoPagamento.id_tipo_pagamento == orcamento_cabecalho.id_tipo_pagamento %}
+                                            <option selected="selected" value="{{ tipoPagamento.id_tipo_pagamento }}">{{ tipoPagamento.titulo }}</option>
+                                        {% else %}
+                                            <option value="{{ tipoPagamento.id_tipo_pagamento }}">{{ tipoPagamento.titulo }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>                            
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <label for="codCliente">Código do Cliente</label>                            
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="codCliente" id="codCliente" placeholder="Código do Cliente" value="{{ orcamento_cabecalho.id_cliente }}" readonly>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-info btn-flat" onclick="buscaCliente();"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                <label for="nomeCliente">Nome do Cliente</label>
+                                {% for cliente in clientes %}
+                                    {% if cliente.id_cliente == orcamento_cabecalho.id_cliente %}
+                                        <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome do Cliente" value="{{ cliente.nome }}" readonly>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="observacoes">Obervações</label>
+                                <br>
+                                <textarea class="form-control" name="observacoes" rows="3" placeholder="" value="{{ orcamento_cabecalho.observacoes }}"></textarea>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="servicos">Serviços</label>
+                                <input type="hidden" name ="quantidadeServicos" id="quantidadeServicos" value="0">
+                                <table id="servicos" class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th class="text-center">Código</th>
+                                            <th class="text-center">Descrição</th>
+                                            <th class="text-center">Valor Serviço</th>
+                                            <th class="text-center">Valor Cobrado</th>
+                                            <th class="text-center">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for orcamento_servico in orcamento_servicos %}
+                                            <tr>
+                                                <td>"{{ orcamento_servico.id_servico }}"</td>
+                                                <td>"{{ orcamento_servico.id_servico }}"</td>
+                                                <td>"{{ orcamento_servico.id_servico }}"</td>
+                                                <td>"{{ orcamento_servico.id_servico }}"</td>
+                                                <td>"{{ orcamento_servico.preco_cobrado }}"</td>
+                                                <td></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 col-md-offset-4"> 
+                                <label for="totalServico" style="padding-top: 6px; padding-left: 50px">Total de Serviços(R$):</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="0,00" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-info btn-flat" onclick="buscaServico();">Incluir Serviço</button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="produtos">Produtos</label>
+                                <input type="hidden" name ="quantidadeProdutos" id="quantidadeProdutos" value="0">
+                                <table id="produtos" class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr class="titlerow">
+                                            <th>#</th>
+                                            <th class="text-center">Código</th>
+                                            <th class="text-center">Descrição</th>
+                                            <th class="text-center">Quantidade</th>
+                                            <th class="text-center">Desconto</th>
+                                            <th class="text-center">Preço Produto</th>
+                                            <th class="text-center">Preço Cobrado</th>
+                                            <th class="text-center">Subtotal Bruto</th>
+                                            <th class="text-center">Subtotal Liquido</th>
+                                            <th class="text-center">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 col-md-offset-4"> 
+                                <label for="totalProduto" style="padding-top: 6px; padding-left: 50px">Total de Produtos(R$):</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="0,00" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-info btn-flat" onclick="buscaProduto();">Incluir Produto</button>
+                            </div>                            
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="descontoAdicional" style="padding-top: 6px; padding-left: 50px">Desconto Adicional: </label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="descontoAdicional" id="descontoAdicional" onkeyup="calcTotais();" value="{{ orcamento_cabecalho.desconto_adicional }}">
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="{{ orcamento_cabecalho.total_bruto }}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="descontoTotal" style="padding-top: 6px; padding-left: 50px">Desconto Total:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="descontoTotal" id="descontoTotal" value="{{ orcamento_cabecalho.desconto_total }}" readonly>
+                                    <span class="input-group-addon">%</span>
+                                </div>                                    
+                            </div>
+                            <div class="col-md-3">
+                                <label for="totalValorLiquido" style="padding-top: 6px; padding-left: 50px">Valor Total Liquido:</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control text-right" name="totalValorLiquido" id="totalValorLiquido" value="{{ orcamento_cabecalho.total_liquido }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-default">Cancelar</button></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
