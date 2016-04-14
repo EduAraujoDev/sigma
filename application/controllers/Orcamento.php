@@ -128,5 +128,24 @@ class Orcamento extends CI_Controller {
 
         $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
         redirect('orcamento/listar', 'refresh');
+    }
+
+    public function visualizar($orcamento_id) {
+        if ($orcamento_id != NULL) {
+            $orcamento_id = $orcamento_id;
+        } else {
+            $orcamento_id = $this->uri->segment(3);
+        }
+
+        if ($orcamento_id != NULL) {
+            $user = $_SESSION['userLogin'];
+            $data = ['base_url' => $this->config->base_url(),
+                'marca' => $this->marca_model->get_orcamento_byid($orcamento_id)->row(),
+                'user' => $user,
+            ];
+            $this->twig->display('orcamento/visualizar', $data);
+        } else {
+            redirect('orcamento/listar', 'refresh');
+        }
     }    
 }

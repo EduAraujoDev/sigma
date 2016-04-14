@@ -19,4 +19,15 @@ class Orcamento_model extends CI_Model {
 
         return  $insert_id;        
     }
+
+    public function get_orcamento_byid($id = NULL) {
+        if ($id <> NULL) {
+            $this->db->where('id_orcamento', $id);
+            $this->db->limit(1);
+
+            return $this->db->get('orcamento_cabecalho');
+        } else {
+            return NULL;
+        }
+    }    
 }
