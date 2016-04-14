@@ -29,5 +29,5 @@ class Orcamento_model extends CI_Model {
         } else {
             return NULL;
         }
-    }    
+    }
 }

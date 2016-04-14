@@ -6,4 +6,15 @@ class OrcamentoProduto_model extends CI_Model {
     public function insert_orcamentoProduto($orcamento) {
         $this->db->insert('orcamento_produto', $orcamento);     
     }
+
+    public function get_orcamentoProduto_byid($id = NULL) {
+        if ($id <> NULL) {
+            $this->db->where('id_orcamento', $id);
+            $this->db->limit(1);
+
+            return $this->db->get('orcamento_produto');
+        } else {
+            return NULL;
+        }
+    }    
 }

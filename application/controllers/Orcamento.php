@@ -140,7 +140,12 @@ class Orcamento extends CI_Controller {
         if ($orcamento_id != NULL) {
             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
-                'marca' => $this->marca_model->get_orcamento_byid($orcamento_id)->row(),
+                'orcamento_cabecalho' => $this->orcamento_model->get_orcamento_byid($orcamento_id)->row(),
+                'orcamento_produtos' => $this->orcamentoproduto_model->get_orcamentoProduto_byid($orcamento_id)->row(),
+                'orcamento_servicos' => $this->orcamentoservico_model->get_orcamentoServico_byid($orcamento_id)->row(),
+                'status'            => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
+                'tipoPagamentos'    => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
+                'clientes'          => $this->cliente_model->get_cliente_notDeleted()->result(),
                 'user' => $user,
             ];
             $this->twig->display('orcamento/visualizar', $data);
