@@ -14,8 +14,6 @@ class ServicoTest extends PHPUnit_Framework_TestCase {
         $servicoAntes = $this->CI->servico_model->get_servico_all();
         $totalAntes = (count($servicoAntes->result()) + 1);
 
-
-
         $dados = array(
             'titulo' => 'Servico',
             'descricao' => 'Servico auto peça',
@@ -23,11 +21,10 @@ class ServicoTest extends PHPUnit_Framework_TestCase {
             'observacoes' => 'Servico',
             'deletado' => 0
         );
-        
-        
+                
         $this->CI->servico_model->set_servico($dados);
         $servico = $this->CI->servico_model->get_servico_all();
-        $total = (count($servico->result())  );
+        $total = (count($servico->result()));
         $this->assertEquals($totalAntes,$total);
     }
 
