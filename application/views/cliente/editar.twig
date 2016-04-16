@@ -59,8 +59,11 @@
                                    
                             <div class="hidden-xs col-sm-4 col-md-4">
                                 <label for="data_nascimento">Data de Nascimento</label>
+                                <div class="input-group">
                                 <input type="date" class="form-control" value="{{cliente.data_nascimento}}" 
                                     name="data_nascimento" placeholder="Digite a data de nascimento">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
                             </div>    
                                 
                             <div class="hidden-xs col-sm-4 col-md-4">
@@ -158,6 +161,10 @@
             $("#data_nascimento").mask('99/99/9999');
             $("#telefone").mask("(999) 9999-9999");
             $("#celular").mask("(999) 99999-9999");
+            
+            $('#data_nascimento').datepicker({
+               format: 'dd/mm/yyyy' 
+            }).datepicker('setDate', new Date());
         });
         
         function btnCadastrar(){

@@ -59,7 +59,6 @@ class Login extends CI_Controller {
                 );
 
                 $this->session->set_userdata('userLogin', $data);
-
                 redirect('/admin', 'refresh');
             } else {
                 $this->session->set_flashdata('message_success', 'Login ou senha invalido');

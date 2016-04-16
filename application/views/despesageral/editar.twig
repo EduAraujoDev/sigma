@@ -63,16 +63,22 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-4 col-md-4" id="divCriacao">
                                 <label for="data_criacao">Data de Criação</label>
+                                <div class="input-group">
                                 <input id="data_criacao" type="date" class="form-control" 
                                        name="data_criacao" placeholder="Digite a data de criação"
                                        value="{{ despesageral.data_criacao|date("d/m/Y") }}">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
                                 <label for="data_vencimento">Data de Vencimento</label>
+                                <div class="input-group">
                                 <input id="data_vencimento" type="date" class="form-control" 
                                        name="data_vencimento" placeholder="Digite a data de vencimento"
                                        value="{{ despesageral.data_vencimento|date("d/m/Y") }}">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
                             </div>
                         </div>    
 
@@ -107,10 +113,18 @@
     {{ parent() }}
     <script type="text/javascript">
         jQuery(function ($) {
-            $("#data_vencimento").mask('99/99/9999');
+            //$("#data_vencimento").mask('99/99/9999');
             $("#data_criacao").mask('99/99/9999');
             $("#data_pagamento").mask('99/99/9999');
             $("#valorTotal").maskMoney({thousands: '.', decimal: ','});
+            
+            $('#data_criacao').datepicker({
+               format: 'dd/mm/yyyy' 
+            }).datepicker('setDate', new Date());
+            
+            $('#data_vencimento').datepicker({
+               format: 'dd/mm/yyyy' 
+            }).datepicker('setDate', '+1d');
 
         });
 
