@@ -28,29 +28,20 @@
                             {{message_success}}
                         </div>
                     {% endif %}
-                    <form role="form" action="{{base_url}}despesageral/buscar" method="GET">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
 
-                            <input type="text" name="busca" class="form-control" 
-                                   placeholder="Selecione uma opção de busca" >
-                            <span class="input-group-addon"><input type="submit"  value="buscar"></span>
-                        </div>
-                        <br/>    
-                        <div class="input-group col-sm-2">
-                            <select class="form-control" name="tipo_busca">
-                                <option disabled selected>Selecione</option>
-                                <option value="1">Aberto</option>
-                                <option value="2">Atrasado</option>
-                                <option value="3">Pago</option>
-                            </select>
-                        </div>   
-                    </form>
-                    <br>
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="">
+{#                                <div class="input-group col-sm-2">
+                                    <select class="form-control" name="tipo_busca" id="buscaStatus">
+                                        <option disabled selected>Selecione</option>
+                                        <option value="Aberto">Aberto</option>
+                                        <option value="Atrasado">Atrasado</option>
+                                        <option value="Pago">Pago</option>
+                                    </select>
+                                </div>   
+                                <br>#}
+                                <table class="table table-bordered table-hover dataTable" id="tabelaDespesas" role="grid" aria-describedby="">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Codigo</th>
@@ -91,3 +82,17 @@
         </div>
     </section>
 {% endblock %}	
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tabelaDespesas').DataTable({
+                "iDisplayLength": 20,
+                "order": [0, "desc"],
+                "language": {
+                    "sLengthMenu": "",
+                },
+            });
+        });
+    </script>
+{% endblock %}
