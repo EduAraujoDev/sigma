@@ -106,6 +106,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% set quantServico = 1 %}
+                                        {% set valorServico = 0 %}
+
                                         {% for orcamento_servico in orcamento_servicos %}
                                             <tr>
                                                 <td>{{ orcamento_servico.id_servico }}</td>
@@ -114,12 +117,15 @@
                                                 {% for servico in servicos %}
                                                     {% if orcamento_servico.id_servico == servico.id_servico %}
                                                         <td>{{ servico.descricao }}</td>
-                                                        <td>{{ servico.valor|number_format(2, ',', '.') }}</td>
+                                                        <td class="text-right">{{ servico.valor|number_format(2, ',', '.') }}</td>
                                                     {% endif %}
                                                 {% endfor %}
 
-                                                <td>{{ orcamento_servico.preco_cobrado|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right">{{ orcamento_servico.preco_cobrado|number_format(2, ',', '.') }}</td>
                                             </tr>
+
+                                            {% set quantServico = quantServico + 1 %}
+                                            {% set valorServico = valorServico + orcamento_servico.preco_cobrado %}
                                         {% endfor %}
                                     </tbody>
                                 </table>
@@ -130,7 +136,7 @@
                                 <label for="totalServico" style="padding-top: 6px; padding-left: 50px">Total de Serviços(R$):</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="0,00" readonly>
+                                <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="{{valorServico|number_format(2, ',', '.')}}" readonly>
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-info btn-flat" onclick="buscaServico();">Incluir Serviço</button>
@@ -156,6 +162,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% set quantProduto = 1 %}
+                                        {% set valorProduto = 0 %}
+
                                         {% for orcamento_produto in orcamento_produtos %}
                                             <tr>
                                                 <td>{{ orcamento_produto.id_produto }}</td>
@@ -168,12 +177,15 @@
                                                 {% endfor %}
 
                                                 <td>{{ orcamento_produto.quantidade }}</td>
-                                                <td>{{ orcamento_produto.desconto|number_format(2, ',', '.') }}</td>
-                                                <td>{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}</td>
-                                                <td>{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}</td>
-                                                <td>{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}</td>
-                                                <td>{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right">{{ orcamento_produto.desconto|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right">{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right">{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}</td>
                                             </tr>
+
+                                            {% set quantProduto = quantProduto + 1 %}
+                                            {% set valorProduto = valorProduto + (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto) %}
                                         {% endfor %}                                        
                                     </tbody>
                                 </table>
@@ -184,7 +196,7 @@
                                 <label for="totalProduto" style="padding-top: 6px; padding-left: 50px">Total de Produtos(R$):</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="0,00" readonly>
+                                <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="{{valorProduto|number_format(2, ',', '.')}}" readonly>
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-info btn-flat" onclick="buscaProduto();">Incluir Produto</button>
