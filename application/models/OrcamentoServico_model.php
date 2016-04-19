@@ -10,7 +10,6 @@ class OrcamentoServico_model extends CI_Model {
     public function get_orcamentoServico_byid($id = NULL) {
         if ($id <> NULL) {
             $this->db->where('id_orcamento', $id);
-            $this->db->limit(1);
 
             return $this->db->get('orcamento_servico');
         } else {
