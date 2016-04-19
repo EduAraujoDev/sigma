@@ -34,7 +34,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                             <div class="col-xs-12 col-sm-3 col-md-3" >
+                            <div class="col-xs-12 col-sm-3 col-md-3" >
                                 <label for="dataCriacao">Data Criação</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" readonly>
@@ -147,45 +147,61 @@
                             </div>                            
                         </div>
                         <hr>
+                                
                         <div class="form-group">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="0,00" readonly>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                            </div>
                             <div class="col-md-3">
                                 <label for="descontoAdicional" style="padding-top: 6px; padding-left: 50px">Desconto Adicional:</label>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="input-group">
                                     <input type="number" class="form-control" name="descontoAdicional" id="descontoAdicional" value="0" onkeyup="calcTotais();">
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="0,00" readonly>
-                            </div>
                         </div>
+                        <hr>
                         <div class="form-group">
-                            <div class="col-md-3">
-                                <label for="descontoTotal" style="padding-top: 6px; padding-left: 50px">Desconto Total:</label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="input-group">
-                                    <input type="number" class="form-control" name="descontoTotal" id="descontoTotal" value="0" readonly>
-                                    <span class="input-group-addon">%</span>
-                                </div>                                    
+                            <div class="col-md-6">                         
                             </div>
                             <div class="col-md-3">
                                 <label for="totalValorLiquido" style="padding-top: 6px; padding-left: 50px">Valor Total Liquido:</label>
                             </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control text-right" name="totalValorLiquido" id="totalValorLiquido" value="0,00" readonly>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control  text-right" name="totalValorLiquido" id="totalValorLiquido" value="0,00" readonly>
                             </div>
                         </div>
-                    </div>
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-success">Cadastrar</button>
-                        <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-default">Cancelar</button></a>
-                    </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="descontoTotal" style="padding-top: 6px; padding-left: 50px">Desconto Total:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="descontoTotal" id="descontoTotal" value="0" readonly>
+                                    <span class="input-group-addon">%</span>
+                                </div>           
+                            </div>
+                        </div>
+
+                        <div class="box-footer text-right">
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                            <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-default">Cancelar</button></a>
+                        </div>
                 </form>
             </div>
         </div>
@@ -418,36 +434,35 @@
 {% block js %}
     {{ parent() }}
     <script type="text/javascript">
-        window.onload=function(){
+        window.onload = function () {
             $('#dataCriacao').datepicker({
-               format: 'dd/mm/yyyy' 
+                format: 'dd/mm/yyyy'
             }).datepicker('setDate', new Date());
 
             $('#dataFinalizacao').datepicker({
                 format: 'dd/mm/yyyy'
             }).datepicker('setDate', '+1d');
 
-            $("#totalProduto").maskMoney({thousands:'.', decimal:','});
-            $("#totalServico").maskMoney({thousands:'.', decimal:','});
-            
-            $("#totalValorBruto").maskMoney({thousands:'.', decimal:','});
-            $("#totalValorLiquido").maskMoney({thousands:'.', decimal:','});
+            $("#totalProduto").maskMoney({thousands: '.', decimal: ','});
+            $("#totalServico").maskMoney({thousands: '.', decimal: ','});
+
+            $("#totalValorBruto").maskMoney({thousands: '.', decimal: ','});
+            $("#totalValorLiquido").maskMoney({thousands: '.', decimal: ','});
         };
 
-        function buscaCliente(){            
+        function buscaCliente() {
             tableCliente = $('#tabelaCliente').DataTable({
                 "order": [],
-         
                 "ajax": {
                     "url": "{{base_url}}cliente/ajax_cliente",
                     "type": "POST"
                 },
             });
 
-            $('#modal_cliente').modal('show');            
+            $('#modal_cliente').modal('show');
         }
 
-        $('#tabelaCliente tbody').on( 'click', 'tr', function () {
+        $('#tabelaCliente tbody').on('click', 'tr', function () {
             var dadosLinha = tableCliente.row(this).data();
 
             document.querySelector("#codCliente").value = dadosLinha[0];
@@ -456,10 +471,9 @@
             fechaModalCli();
         });
 
-        function buscaServico(){
+        function buscaServico() {
             tableServico = $('#tabelaServico').DataTable({
                 "order": [],
-         
                 "ajax": {
                     "url": "{{base_url}}servico/ajax_servico",
                     "type": "POST"
@@ -472,36 +486,37 @@
                 ]
             });
 
-            $('#modal_servico').modal('show');          
+            $('#modal_servico').modal('show');
         }
 
-        $('#tabelaServico tbody').on( 'click', 'tr', function () {
-            var tabelaServico   = document.querySelector("#servicos");
+        $('#tabelaServico tbody').on('click', 'tr', function () {
+            var tabelaServico = document.querySelector("#servicos");
             var vlrTotalServico = $("#totalServico").maskMoney('unmasked')[0];
-            var dadosLinha      = tableServico.row(this).data();
-            var numLinha        = tabelaServico.rows.length;
-            var rowsServico     = tabelaServico.rows;
-            var vlrServico      = 0;
-            var row             = "";
-            var botoes          = "";            
+            var dadosLinha = tableServico.row(this).data();
+            var numLinha = tabelaServico.rows.length;
+            var rowsServico = tabelaServico.rows;
+            var vlrServico = 0;
+            var row = "";
+            var botoes = "";
 
-            for(var i=1; i < numLinha; i++){
+            for (var i = 1; i < numLinha; i++) {
                 var cellValor = rowsServico[i].cells;
-                var codigo = document.querySelector('#servico_codigo_'+i).value;
+                var codigo = document.querySelector('#servico_codigo_' + i).value;
 
-                if(codigo == dadosLinha[0]){
+                if (codigo == dadosLinha[0]) {
                     $('#modal_alerta').modal('show');
-                    $('#modal_alerta').on('shown.bs.modal', function(){
+                    $('#modal_alerta').on('shown.bs.modal', function () {
                         var modal = $(this);
                         modal.find('.modal-title').text('Atenção');
-                        modal.find('.modal-title-sec').text("O serviço '"+ dadosLinha[2] +"' já informado!");
+                        modal.find('.modal-title-sec').text("O serviço '" + dadosLinha[2] + "' já informado!");
                     })
                     return false;
                 }
-            };
+            }
+            ;
 
-            botoes += '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
-            botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+numLinha+'"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';
+            botoes += '<button type="button" class="btn btn-info btn-flat" id="' + numLinha + '"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
+            botoes += '<button type="button" class="btn btn-danger btn-flat" id="' + numLinha + '"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';
 
             row = tabelaServico.insertRow(numLinha);
 
@@ -512,11 +527,11 @@
             var cell5 = row.insertCell(4);
             var cell6 = row.insertCell(5);
 
-            cell1.innerHTML = cell1.innerHTML + '<input type="hidden" id="servico_linha_'+numLinha+'" name="servico_linha_'+numLinha+'" value="'+numLinha+'">' + numLinha;
-            cell2.innerHTML = cell2.innerHTML + '<input type="hidden" id="servico_codigo_'+numLinha+'" name="servico_codigo_'+numLinha+'" value="'+dadosLinha[0]+'">' + dadosLinha[0];
-            cell3.innerHTML = cell3.innerHTML + '<input type="hidden" id="servico_desc_'+numLinha+'" name="servico_desc_'+numLinha+'" value="'+dadosLinha[2]+'">' + dadosLinha[2];
-            cell4.innerHTML = cell4.innerHTML + '<input type="hidden" id="servico_vlrServico_'+numLinha+'" name="servico_vlrServico_'+numLinha+'" value="'+dadosLinha[3]+'">' + dadosLinha[3];
-            cell5.innerHTML = cell5.innerHTML + '<input type="hidden" id="servico_vlrCobrado_'+numLinha+'" name="servico_vlrCobrado_'+numLinha+'" value="'+dadosLinha[3]+'">' + dadosLinha[3];
+            cell1.innerHTML = cell1.innerHTML + '<input type="hidden" id="servico_linha_' + numLinha + '" name="servico_linha_' + numLinha + '" value="' + numLinha + '">' + numLinha;
+            cell2.innerHTML = cell2.innerHTML + '<input type="hidden" id="servico_codigo_' + numLinha + '" name="servico_codigo_' + numLinha + '" value="' + dadosLinha[0] + '">' + dadosLinha[0];
+            cell3.innerHTML = cell3.innerHTML + '<input type="hidden" id="servico_desc_' + numLinha + '" name="servico_desc_' + numLinha + '" value="' + dadosLinha[2] + '">' + dadosLinha[2];
+            cell4.innerHTML = cell4.innerHTML + '<input type="hidden" id="servico_vlrServico_' + numLinha + '" name="servico_vlrServico_' + numLinha + '" value="' + dadosLinha[3] + '">' + dadosLinha[3];
+            cell5.innerHTML = cell5.innerHTML + '<input type="hidden" id="servico_vlrCobrado_' + numLinha + '" name="servico_vlrCobrado_' + numLinha + '" value="' + dadosLinha[3] + '">' + dadosLinha[3];
             cell6.innerHTML = cell6.innerHTML + botoes;
 
             cell4.setAttribute('class', 'text-right');
@@ -528,7 +543,7 @@
             vlrServico = vlrServico.replace(",", '.');
             vlrServico = parseFloat(vlrServico);
 
-            vlrTotalServico += vlrServico;          
+            vlrTotalServico += vlrServico;
 
             $('#totalServico').maskMoney('mask', vlrTotalServico);
 
@@ -538,76 +553,77 @@
         });
 
         function editarServico(x) {
-            var row             = document.querySelector('#servicos').rows[x].cells;
+            var row = document.querySelector('#servicos').rows[x].cells;
 
             $('[name="linhaServico"]').val(x);
             $('[name="mdServDesc"]').val(row[2].textContent);
             $('[name="mdServVlr"]').val(row[3].textContent);
-            $('[name="mdServVlr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdServVlr"]').maskMoney({thousands: '.', decimal: ','});
             $('[name="mdServVlrCobr"]').val(row[4].textContent);
-            $('[name="mdServVlrCobr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdServVlrCobr"]').maskMoney({thousands: '.', decimal: ','});
             $('#modal_edit_servico').modal('show');
         }
 
         function pergRemoveServico(x) {
-            var botoes  = '<button type="button" class="btn btn-danger" onclick="removerServico('+x+');">Excluir</button><button type="button" class="btn btn-default" onclick="fechaModalInfo();">Cancelar</button>'
+            var botoes = '<button type="button" class="btn btn-danger" onclick="removerServico(' + x + ');">Excluir</button><button type="button" class="btn btn-default" onclick="fechaModalInfo();">Cancelar</button>'
 
             $('#modal_info').modal('show');
-            $('#modal_info').on('shown.bs.modal', function(){
+            $('#modal_info').on('shown.bs.modal', function () {
                 var modal = $(this);
 
                 modal.find('.modal-title').text('Atenção');
-                modal.find('.modal-title-sec').text('Deseja excluir o serviço?');   
+                modal.find('.modal-title-sec').text('Deseja excluir o serviço?');
                 modal.find('.modalInfoBtn').html(botoes);
             })
         }
 
         function removerServico(id) {
-            var servicos    = document.querySelector('#servicos');
-            var linhas      = servicos.rows;
-            var linha       = id;
-            var botoes      = ""; 
+            var servicos = document.querySelector('#servicos');
+            var linhas = servicos.rows;
+            var linha = id;
+            var botoes = "";
 
             servicos.deleteRow(linha);
 
-            for(var i=1; i < linhas.length; i++){
+            for (var i = 1; i < linhas.length; i++) {
                 var cellValor = linhas[i].cells;
 
-                botoes = '<button type="button" class="btn btn-info btn-flat" id="'+i+'"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
-                botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';
+                botoes = '<button type="button" class="btn btn-info btn-flat" id="' + i + '"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;';
+                botoes += '<button type="button" class="btn btn-danger btn-flat" id="' + i + '"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>';
 
-                cellValor[0].innerHTML = '<input type="hidden" id="servico_linha_'+i+'" name="servico_linha_'+i+'" value="'+i+'">' + i;
-                cellValor[1].innerHTML = '<input type="hidden" id="servico_codigo_'+i+'" name="servico_codigo_'+i+'" value="'+cellValor[1].textContent+'">' + cellValor[1].textContent;
-                cellValor[2].innerHTML = '<input type="hidden" id="servico_desc_'+i+'" name="servico_desc_'+i+'" value="'+cellValor[2].textContent+'">' + cellValor[2].textContent;
-                cellValor[3].innerHTML = '<input type="hidden" id="servico_vlrServico_'+i+'" name="servico_vlrServico_'+i+'" value="'+cellValor[3].textContent+'">' + cellValor[3].textContent;
-                cellValor[4].innerHTML = '<input type="hidden" id="servico_vlrCobrado_'+i+'" name="servico_vlrCobrado_'+i+'" value="'+cellValor[4].textContent+'">' + cellValor[4].textContent;
+                cellValor[0].innerHTML = '<input type="hidden" id="servico_linha_' + i + '" name="servico_linha_' + i + '" value="' + i + '">' + i;
+                cellValor[1].innerHTML = '<input type="hidden" id="servico_codigo_' + i + '" name="servico_codigo_' + i + '" value="' + cellValor[1].textContent + '">' + cellValor[1].textContent;
+                cellValor[2].innerHTML = '<input type="hidden" id="servico_desc_' + i + '" name="servico_desc_' + i + '" value="' + cellValor[2].textContent + '">' + cellValor[2].textContent;
+                cellValor[3].innerHTML = '<input type="hidden" id="servico_vlrServico_' + i + '" name="servico_vlrServico_' + i + '" value="' + cellValor[3].textContent + '">' + cellValor[3].textContent;
+                cellValor[4].innerHTML = '<input type="hidden" id="servico_vlrCobrado_' + i + '" name="servico_vlrCobrado_' + i + '" value="' + cellValor[4].textContent + '">' + cellValor[4].textContent;
                 cellValor[5].innerHTML = botoes;
 
                 document.querySelector("#quantidadeServicos").setAttribute('value', i);
-            };
+            }
+            ;
 
             recalcServicos();
             fechaModalInfo();
         }
 
         function salvaServico() {
-            var linhaServico    = document.querySelector('#linhaServico').value;
-            var row             = document.querySelector('#servicos').rows[linhaServico].cells;
-            var totalServico    = 0;
+            var linhaServico = document.querySelector('#linhaServico').value;
+            var row = document.querySelector('#servicos').rows[linhaServico].cells;
+            var totalServico = 0;
 
             $('#modal_edit_servico').modal('hide');
 
-            row[3].innerHTML = '<input type="hidden" id="servico_vlrServico_'+linhaServico+'" name="servico_vlrServico_'+linhaServico+'" value="'+document.querySelector('#mdServVlr').value+'">' + document.querySelector('#mdServVlr').value;   
-            row[4].innerHTML = '<input type="hidden" id="servico_vlrCobrado_'+linhaServico+'" name="servico_vlrCobrado_'+linhaServico+'" value="'+document.querySelector('#mdServVlrCobr').value+'">' + document.querySelector('#mdServVlrCobr').value;
+            row[3].innerHTML = '<input type="hidden" id="servico_vlrServico_' + linhaServico + '" name="servico_vlrServico_' + linhaServico + '" value="' + document.querySelector('#mdServVlr').value + '">' + document.querySelector('#mdServVlr').value;
+            row[4].innerHTML = '<input type="hidden" id="servico_vlrCobrado_' + linhaServico + '" name="servico_vlrCobrado_' + linhaServico + '" value="' + document.querySelector('#mdServVlrCobr').value + '">' + document.querySelector('#mdServVlrCobr').value;
 
             recalcServicos();
         }
 
         function recalcServicos() {
-            var rowsServico     = document.querySelector('#servicos').rows;
-            var totalServico    = 0;
+            var rowsServico = document.querySelector('#servicos').rows;
+            var totalServico = 0;
 
-            for(var i=1; i < rowsServico.length; i++){
+            for (var i = 1; i < rowsServico.length; i++) {
                 var cellValor = rowsServico[i].cells;
 
                 cellValor = cellValor[4].textContent.replace(".", "");
@@ -615,17 +631,17 @@
                 cellValor = parseFloat(cellValor);
 
                 totalServico += cellValor;
-            };
+            }
+            ;
 
             $('#totalServico').maskMoney('mask', totalServico);
 
             calcTotais();
         }
 
-        function buscaProduto(){
+        function buscaProduto() {
             tableProduto = $('#tabelaProduto').DataTable({
                 "order": [],
-         
                 "ajax": {
                     "url": "{{base_url}}produto/ajax_produto",
                     "type": "POST"
@@ -636,26 +652,26 @@
                     {"Estoque": "Estoque", "sClass": "text-right"},
                     {"Reservado": "Reservado", "sClass": "text-right"},
                     {"Valor": "Valor", "sClass": "text-right"},
-                ]                
+                ]
             });
 
             $('#modal_produto').modal('show');
-        }       
+        }
 
-        $('#tabelaProduto tbody').on( 'click', 'tr', function () {
-            var tabelaProduto   = document.querySelector("#produtos");
+        $('#tabelaProduto tbody').on('click', 'tr', function () {
+            var tabelaProduto = document.querySelector("#produtos");
             var vlrTotalProduto = $("#totalProduto").maskMoney('unmasked')[0];
-            var dadosLinha      = tableProduto.row(this).data();
-            var numLinha        = tabelaProduto.rows.length;
-            var rowsProduto     = tabelaProduto.rows;
-            var vlrProduto      = 0;
-            var vlrDesconto     = "0%";
-            var row             = "";
-            var botoes          = "";
+            var dadosLinha = tableProduto.row(this).data();
+            var numLinha = tabelaProduto.rows.length;
+            var rowsProduto = tabelaProduto.rows;
+            var vlrProduto = 0;
+            var vlrDesconto = "0%";
+            var row = "";
+            var botoes = "";
 
-            if((dadosLinha[2]-dadosLinha[3]) <= 0){
+            if ((dadosLinha[2] - dadosLinha[3]) <= 0) {
                 $('#modal_alerta').modal('show');
-                $('#modal_alerta').on('shown.bs.modal', function(){
+                $('#modal_alerta').on('shown.bs.modal', function () {
                     var modal = $(this);
                     modal.find('.modal-title').text('Atenção');
                     modal.find('.modal-title-sec').text('O produto não possui estoque!');
@@ -663,48 +679,49 @@
 
                 return false;
             }
-            
-            for(var i=1; i < numLinha; i++){
-                var cellValor   = rowsProduto[i].cells;
-                var codigo      = document.querySelector('#produto_codigo_'+i).value;
 
-                if(codigo == dadosLinha[0]){
+            for (var i = 1; i < numLinha; i++) {
+                var cellValor = rowsProduto[i].cells;
+                var codigo = document.querySelector('#produto_codigo_' + i).value;
+
+                if (codigo == dadosLinha[0]) {
                     $('#modal_alerta').modal('show');
-                    $('#modal_alerta').on('shown.bs.modal', function(){
+                    $('#modal_alerta').on('shown.bs.modal', function () {
                         var modal = $(this);
                         modal.find('.modal-title').text('Atenção');
-                        modal.find('.modal-title-sec').text("O produto '"+ dadosLinha[1] +"' já informado!");
+                        modal.find('.modal-title-sec').text("O produto '" + dadosLinha[1] + "' já informado!");
                     })
 
                     return false;
                 }
-            };
+            }
+            ;
 
-            botoes += '<button type="button" class="btn btn-info btn-flat" id="'+numLinha+'"onclick="editarProduto(this.id,'+dadosLinha[0]+');"><i class="fa fa-edit"></i></button>&nbsp;';
-            botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+numLinha+'"onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>';            
+            botoes += '<button type="button" class="btn btn-info btn-flat" id="' + numLinha + '"onclick="editarProduto(this.id,' + dadosLinha[0] + ');"><i class="fa fa-edit"></i></button>&nbsp;';
+            botoes += '<button type="button" class="btn btn-danger btn-flat" id="' + numLinha + '"onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>';
 
             row = tabelaProduto.insertRow(numLinha);
-            
+
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);            
-            var cell5 = row.insertCell(4);            
-            var cell6 = row.insertCell(5);            
-            var cell7 = row.insertCell(6);            
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+            var cell7 = row.insertCell(6);
             var cell8 = row.insertCell(7);
             var cell9 = row.insertCell(8);
             var cell10 = row.insertCell(9);
 
-            cell1.innerHTML = cell1.innerHTML + '<input type="hidden" id="produto_linha_'+numLinha+'" name="produto_linha_'+numLinha+'" value="'+numLinha+'">' + numLinha;
-            cell2.innerHTML = cell2.innerHTML + '<input type="hidden" id="produto_codigo_'+numLinha+'" name="produto_codigo_'+numLinha+'" value="'+dadosLinha[0]+'">' + dadosLinha[0];
-            cell3.innerHTML = cell3.innerHTML + '<input type="hidden" id="produto_desc_'+numLinha+'" name="produto_desc_'+numLinha+'" value="'+dadosLinha[1]+'">' + dadosLinha[1];
-            cell4.innerHTML = cell4.innerHTML + '<input type="hidden" id="produto_quantidade_'+numLinha+'" name="produto_quantidade_'+numLinha+'" value="1">' + 1;
-            cell5.innerHTML = cell5.innerHTML + '<input type="hidden" id="produto_desconto_'+numLinha+'" name="produto_desconto_'+numLinha+'" value="'+vlrDesconto+'">' + vlrDesconto;
-            cell6.innerHTML = cell6.innerHTML + '<input type="hidden" id="produto_prcProduto_'+numLinha+'" name="produto_prcProduto_'+numLinha+'" value="'+dadosLinha[4]+'">' + dadosLinha[4];
-            cell7.innerHTML = cell7.innerHTML + '<input type="hidden" id="produto_prcCobrado_'+numLinha+'" name="produto_prcCobrado_'+numLinha+'" value="'+dadosLinha[4]+'">' + dadosLinha[4];
-            cell8.innerHTML = cell8.innerHTML + '<input type="hidden" id="produto_subTotalBr_'+numLinha+'" name="produto_subTotalBr_'+numLinha+'" value="'+dadosLinha[4]+'">' + dadosLinha[4];
-            cell9.innerHTML = cell9.innerHTML + '<input type="hidden" id="produto_subTotalQl_'+numLinha+'" name="produto_subTotalQl_'+numLinha+'" value="'+dadosLinha[4]+'">' + dadosLinha[4];
+            cell1.innerHTML = cell1.innerHTML + '<input type="hidden" id="produto_linha_' + numLinha + '" name="produto_linha_' + numLinha + '" value="' + numLinha + '">' + numLinha;
+            cell2.innerHTML = cell2.innerHTML + '<input type="hidden" id="produto_codigo_' + numLinha + '" name="produto_codigo_' + numLinha + '" value="' + dadosLinha[0] + '">' + dadosLinha[0];
+            cell3.innerHTML = cell3.innerHTML + '<input type="hidden" id="produto_desc_' + numLinha + '" name="produto_desc_' + numLinha + '" value="' + dadosLinha[1] + '">' + dadosLinha[1];
+            cell4.innerHTML = cell4.innerHTML + '<input type="hidden" id="produto_quantidade_' + numLinha + '" name="produto_quantidade_' + numLinha + '" value="1">' + 1;
+            cell5.innerHTML = cell5.innerHTML + '<input type="hidden" id="produto_desconto_' + numLinha + '" name="produto_desconto_' + numLinha + '" value="' + vlrDesconto + '">' + vlrDesconto;
+            cell6.innerHTML = cell6.innerHTML + '<input type="hidden" id="produto_prcProduto_' + numLinha + '" name="produto_prcProduto_' + numLinha + '" value="' + dadosLinha[4] + '">' + dadosLinha[4];
+            cell7.innerHTML = cell7.innerHTML + '<input type="hidden" id="produto_prcCobrado_' + numLinha + '" name="produto_prcCobrado_' + numLinha + '" value="' + dadosLinha[4] + '">' + dadosLinha[4];
+            cell8.innerHTML = cell8.innerHTML + '<input type="hidden" id="produto_subTotalBr_' + numLinha + '" name="produto_subTotalBr_' + numLinha + '" value="' + dadosLinha[4] + '">' + dadosLinha[4];
+            cell9.innerHTML = cell9.innerHTML + '<input type="hidden" id="produto_subTotalQl_' + numLinha + '" name="produto_subTotalQl_' + numLinha + '" value="' + dadosLinha[4] + '">' + dadosLinha[4];
             cell10.innerHTML = cell10.innerHTML + botoes;
 
             cell4.setAttribute('class', 'text-right');
@@ -720,7 +737,7 @@
             vlrProduto = vlrProduto.replace(",", '.');
             vlrProduto = parseFloat(vlrProduto);
 
-            vlrTotalProduto += vlrProduto;          
+            vlrTotalProduto += vlrProduto;
 
             $('#totalProduto').maskMoney('mask', vlrTotalProduto);
 
@@ -730,10 +747,10 @@
         });
 
         function pergRemoveProduto(x) {
-            var botoes  = '<button type="button" class="btn btn-danger" onclick="removerProduto('+x+');">Excluir</button><button type="button" class="btn btn-default" onclick="fechaModalInfo();">Cancelar</button>'
+            var botoes = '<button type="button" class="btn btn-danger" onclick="removerProduto(' + x + ');">Excluir</button><button type="button" class="btn btn-default" onclick="fechaModalInfo();">Cancelar</button>'
 
             $('#modal_info').modal('show');
-            $('#modal_info').on('shown.bs.modal', function(){
+            $('#modal_info').on('shown.bs.modal', function () {
                 var modal = $(this);
 
                 modal.find('.modal-title').text('Atenção');
@@ -743,90 +760,91 @@
         }
 
         function removerProduto(id) {
-            var produtos    = document.querySelector('#produtos');
-            var linhas      = produtos.rows;
-            var linha       = id;
-            var botoes      = ""; 
+            var produtos = document.querySelector('#produtos');
+            var linhas = produtos.rows;
+            var linha = id;
+            var botoes = "";
 
             produtos.deleteRow(linha);
 
-            for(var i=1; i < linhas.length; i++){
+            for (var i = 1; i < linhas.length; i++) {
                 var cellValor = linhas[i].cells;
 
-                botoes = '<button type="button" class="btn btn-info btn-flat" id="'+i+'"onclick="editarProduto(this.id,'+cellValor[1].textContent+');"><i class="fa fa-edit"></i></button>&nbsp;';
-                botoes += '<button type="button" class="btn btn-danger btn-flat" id="'+i+'"onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>';    
+                botoes = '<button type="button" class="btn btn-info btn-flat" id="' + i + '"onclick="editarProduto(this.id,' + cellValor[1].textContent + ');"><i class="fa fa-edit"></i></button>&nbsp;';
+                botoes += '<button type="button" class="btn btn-danger btn-flat" id="' + i + '"onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>';
 
-                cellValor[0].innerHTML = '<input type="hidden" id="produto_linha_'+i+'" name="produto_linha_'+i+'" value="'+i+'">' + i;
-                cellValor[1].innerHTML = '<input type="hidden" id="produto_codigo_'+i+'" name="produto_codigo_'+i+'" value="'+cellValor[1].textContent+'">' + cellValor[1].textContent;
-                cellValor[2].innerHTML = '<input type="hidden" id="produto_desc_'+i+'" name="produto_desc_'+i+'" value="'+cellValor[2].textContent+'">' + cellValor[2].textContent;
-                cellValor[3].innerHTML = '<input type="hidden" id="produto_quantidade_'+i+'" name="produto_quantidade_'+i+'" value="'+cellValor[3].textContent+'">' + cellValor[3].textContent;
-                cellValor[4].innerHTML = '<input type="hidden" id="produto_desconto_'+i+'" name="produto_desconto_'+i+'" value="'+cellValor[4].textContent+'">' + cellValor[4].textContent;
-                cellValor[5].innerHTML = '<input type="hidden" id="produto_prcProduto_'+i+'" name="produto_prcProduto_'+i+'" value="'+cellValor[5].textContent+'">' + cellValor[5].textContent;
-                cellValor[6].innerHTML = '<input type="hidden" id="produto_prcCobrado_'+i+'" name="produto_prcCobrado_'+i+'" value="'+cellValor[6].textContent+'">' + cellValor[6].textContent;
-                cellValor[7].innerHTML = '<input type="hidden" id="produto_subTotalBr_'+i+'" name="produto_subTotalBr_'+i+'" value="'+cellValor[7].textContent+'">' + cellValor[7].textContent;
-                cellValor[8].innerHTML = '<input type="hidden" id="produto_subTotalQl_'+i+'" name="produto_subTotalQl_'+i+'" value="'+cellValor[8].textContent+'">' + cellValor[8].textContent;
+                cellValor[0].innerHTML = '<input type="hidden" id="produto_linha_' + i + '" name="produto_linha_' + i + '" value="' + i + '">' + i;
+                cellValor[1].innerHTML = '<input type="hidden" id="produto_codigo_' + i + '" name="produto_codigo_' + i + '" value="' + cellValor[1].textContent + '">' + cellValor[1].textContent;
+                cellValor[2].innerHTML = '<input type="hidden" id="produto_desc_' + i + '" name="produto_desc_' + i + '" value="' + cellValor[2].textContent + '">' + cellValor[2].textContent;
+                cellValor[3].innerHTML = '<input type="hidden" id="produto_quantidade_' + i + '" name="produto_quantidade_' + i + '" value="' + cellValor[3].textContent + '">' + cellValor[3].textContent;
+                cellValor[4].innerHTML = '<input type="hidden" id="produto_desconto_' + i + '" name="produto_desconto_' + i + '" value="' + cellValor[4].textContent + '">' + cellValor[4].textContent;
+                cellValor[5].innerHTML = '<input type="hidden" id="produto_prcProduto_' + i + '" name="produto_prcProduto_' + i + '" value="' + cellValor[5].textContent + '">' + cellValor[5].textContent;
+                cellValor[6].innerHTML = '<input type="hidden" id="produto_prcCobrado_' + i + '" name="produto_prcCobrado_' + i + '" value="' + cellValor[6].textContent + '">' + cellValor[6].textContent;
+                cellValor[7].innerHTML = '<input type="hidden" id="produto_subTotalBr_' + i + '" name="produto_subTotalBr_' + i + '" value="' + cellValor[7].textContent + '">' + cellValor[7].textContent;
+                cellValor[8].innerHTML = '<input type="hidden" id="produto_subTotalQl_' + i + '" name="produto_subTotalQl_' + i + '" value="' + cellValor[8].textContent + '">' + cellValor[8].textContent;
                 cellValor[9].innerHTML = botoes;
 
                 document.querySelector("#quantidadeProdutos").setAttribute('value', i);
-            };
+            }
+            ;
 
             recalcProdutos();
             fechaModalInfo();
         }
 
         function editarProduto(x, id) {
-            var row             = document.querySelector('#produtos').rows[x].cells;
-            var percDesconto    = row[4].textContent;
+            var row = document.querySelector('#produtos').rows[x].cells;
+            var percDesconto = row[4].textContent;
 
             document.querySelector('#overlayProduto').innerHTML = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
 
             $('[name="linhaProduto"]').val(x);
             $('[name="mdProdDesc"]').val(row[2].textContent);
             $('[name="mdProdVlr"]').val(row[5].textContent);
-            $('[name="mdProdVlr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdVlr"]').maskMoney({thousands: '.', decimal: ','});
             $('[name="mdProdCobVlr"]').val(row[6].textContent);
-            $('[name="mdProdCobVlr"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdCobVlr"]').maskMoney({thousands: '.', decimal: ','});
             $('[name="mdProdQuant"]').val(row[3].textContent);
 
             $.ajax({
-                url: "{{base_url}}produto/ajax_produto_byId/"+id,
+                url: "{{base_url}}produto/ajax_produto_byId/" + id,
                 type: "POST",
                 dataType: "JSON",
-                success: function(data){
+                success: function (data) {
                     var quantEstoque = parseInt(data.quantidade_estoque);
                     var quantReserva = parseInt(data.quantidade_reservada);
-                    
-                    $('[name="mdProdQuantEst"]').val(quantEstoque-quantReserva);
 
-                    $(".overlay").fadeOut(700, function() {
-                        $(this).remove(); 
+                    $('[name="mdProdQuantEst"]').val(quantEstoque - quantReserva);
+
+                    $(".overlay").fadeOut(700, function () {
+                        $(this).remove();
                     })
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
-                     alert('Error get data from ajax');
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error get data from ajax');
                 }
             });
 
             percDesconto = percDesconto.replace('%', '');
             $('[name="mdProdDs"]').val(parseInt(percDesconto));
-            
+
             $('[name="mdProdTotBr"]').val(row[7].textContent);
             $('[name="mdProdTotLq"]').val(row[8].textContent);
-            $('[name="mdProdTotBr"]').maskMoney({thousands:'.', decimal:','});
-            $('[name="mdProdTotLq"]').maskMoney({thousands:'.', decimal:','});
+            $('[name="mdProdTotBr"]').maskMoney({thousands: '.', decimal: ','});
+            $('[name="mdProdTotLq"]').maskMoney({thousands: '.', decimal: ','});
             $('#modal_edit_produto').modal('show');
         }
 
         function salvaProduto() {
-            var linhaProduto    = document.querySelector('#linhaProduto').value;
-            var row             = document.querySelector('#produtos').rows[linhaProduto].cells;
-            var quantEstoque    = document.querySelector('#mdProdQuantEst').value;
-            var quantSolict     = document.querySelector('#mdProdQuant').value;
-            var totalProduto    = 0;
+            var linhaProduto = document.querySelector('#linhaProduto').value;
+            var row = document.querySelector('#produtos').rows[linhaProduto].cells;
+            var quantEstoque = document.querySelector('#mdProdQuantEst').value;
+            var quantSolict = document.querySelector('#mdProdQuant').value;
+            var totalProduto = 0;
 
-            if(quantSolict > quantEstoque){
+            if (quantSolict > quantEstoque) {
                 $('#modal_alerta').modal('show');
-                $('#modal_alerta').on('shown.bs.modal', function(){
+                $('#modal_alerta').on('shown.bs.modal', function () {
                     var modal = $(this);
                     modal.find('.modal-title').text('Atenção');
                     modal.find('.modal-title-sec').text("  Quantidade solicitada maior que o estoque!");
@@ -837,15 +855,15 @@
 
             $('#modal_edit_produto').modal('hide');
 
-            row[3].innerHTML = '<input type="hidden" id="produto_quantidade_'+linhaProduto+'" name="produto_quantidade_'+linhaProduto+'" value="'+document.querySelector('#mdProdQuant').value+'">' + document.querySelector('#mdProdQuant').value;
-            row[4].innerHTML = '<input type="hidden" id="produto_desconto_'+linhaProduto+'" name="produto_desconto_'+linhaProduto+'" value="'+document.querySelector('#mdProdDs').value + "%"+'">' + document.querySelector('#mdProdDs').value + "%";
-            row[6].innerHTML = '<input type="hidden" id="produto_prcCobrado_'+linhaProduto+'" name="produto_prcCobrado_'+linhaProduto+'" value="'+document.querySelector('#mdProdCobVlr').value+'">' + document.querySelector('#mdProdCobVlr').value;
-            row[7].innerHTML = '<input type="hidden" id="produto_subTotalBr_'+linhaProduto+'" name="produto_subTotalBr_'+linhaProduto+'" value="'+document.querySelector('#mdProdTotBr').value+'">' + document.querySelector('#mdProdTotBr').value;
-            row[8].innerHTML = '<input type="hidden" id="produto_subTotalQl_'+linhaProduto+'" name="produto_subTotalQl_'+linhaProduto+'" value="'+document.querySelector('#mdProdTotLq').value+'">' + document.querySelector('#mdProdTotLq').value;
+            row[3].innerHTML = '<input type="hidden" id="produto_quantidade_' + linhaProduto + '" name="produto_quantidade_' + linhaProduto + '" value="' + document.querySelector('#mdProdQuant').value + '">' + document.querySelector('#mdProdQuant').value;
+            row[4].innerHTML = '<input type="hidden" id="produto_desconto_' + linhaProduto + '" name="produto_desconto_' + linhaProduto + '" value="' + document.querySelector('#mdProdDs').value + "%" + '">' + document.querySelector('#mdProdDs').value + "%";
+            row[6].innerHTML = '<input type="hidden" id="produto_prcCobrado_' + linhaProduto + '" name="produto_prcCobrado_' + linhaProduto + '" value="' + document.querySelector('#mdProdCobVlr').value + '">' + document.querySelector('#mdProdCobVlr').value;
+            row[7].innerHTML = '<input type="hidden" id="produto_subTotalBr_' + linhaProduto + '" name="produto_subTotalBr_' + linhaProduto + '" value="' + document.querySelector('#mdProdTotBr').value + '">' + document.querySelector('#mdProdTotBr').value;
+            row[8].innerHTML = '<input type="hidden" id="produto_subTotalQl_' + linhaProduto + '" name="produto_subTotalQl_' + linhaProduto + '" value="' + document.querySelector('#mdProdTotLq').value + '">' + document.querySelector('#mdProdTotLq').value;
 
             var rowsProduto = document.querySelector('#produtos').rows;
 
-            for(var i=1; i < rowsProduto.length; i++){
+            for (var i = 1; i < rowsProduto.length; i++) {
                 var cellValor = rowsProduto[i].cells;
 
                 cellValor = cellValor[8].textContent.replace(".", "");
@@ -853,7 +871,8 @@
                 cellValor = parseFloat(cellValor);
 
                 totalProduto += cellValor;
-            };
+            }
+            ;
 
             $('#totalProduto').maskMoney('mask', totalProduto);
 
@@ -861,10 +880,10 @@
         }
 
         function recalcProdutos() {
-            var rowsProduto     = document.querySelector('#produtos').rows;
-            var totalServico    = 0;
+            var rowsProduto = document.querySelector('#produtos').rows;
+            var totalServico = 0;
 
-            for(var i=1; i < rowsProduto.length; i++){
+            for (var i = 1; i < rowsProduto.length; i++) {
                 var cellValor = rowsProduto[i].cells;
 
                 cellValor = cellValor[8].textContent.replace(".", "");
@@ -872,46 +891,47 @@
                 cellValor = parseFloat(cellValor);
 
                 totalServico += cellValor;
-            };
+            }
+            ;
 
             $('#totalProduto').maskMoney('mask', totalServico);
 
-            calcTotais();            
-        }         
+            calcTotais();
+        }
 
         function calcProd() {
-            var quantidade     = document.querySelector("#mdProdQuant").value;
-            var percDesconto   = document.querySelector('#mdProdDs').value;
-            var vlrProduto     = $("#mdProdVlr").maskMoney('unmasked')[0];
-            var vlrCobProduto  = $("#mdProdCobVlr").maskMoney('unmasked')[0];
-            var vlrTotBruto    = $("#mdProdTotBr").maskMoney('unmasked')[0];
-            var vlrTotLiqui    = $("#mdProdTotLq").maskMoney('unmasked')[0];
-            var vlrDesconto    = 0;
+            var quantidade = document.querySelector("#mdProdQuant").value;
+            var percDesconto = document.querySelector('#mdProdDs').value;
+            var vlrProduto = $("#mdProdVlr").maskMoney('unmasked')[0];
+            var vlrCobProduto = $("#mdProdCobVlr").maskMoney('unmasked')[0];
+            var vlrTotBruto = $("#mdProdTotBr").maskMoney('unmasked')[0];
+            var vlrTotLiqui = $("#mdProdTotLq").maskMoney('unmasked')[0];
+            var vlrDesconto = 0;
 
-            if(vlrProduto != vlrCobProduto){
+            if (vlrProduto != vlrCobProduto) {
                 vlrProduto = vlrCobProduto;
-            }        
+            }
 
-            vlrTotBruto = (vlrProduto*quantidade);
+            vlrTotBruto = (vlrProduto * quantidade);
 
-            vlrDesconto = (percDesconto * vlrTotBruto)/100;
-            vlrTotLiqui = ((vlrProduto*quantidade)-vlrDesconto);
+            vlrDesconto = (percDesconto * vlrTotBruto) / 100;
+            vlrTotLiqui = ((vlrProduto * quantidade) - vlrDesconto);
 
             $('#mdProdTotBr').maskMoney('mask', vlrTotBruto);
             $('#mdProdTotLq').maskMoney('mask', vlrTotLiqui);
         }
 
-        function fechaModalProd(){
+        function fechaModalProd() {
             $('#modal_produto').modal('hide');
             tableProduto.destroy();
         }
 
-        function fechaModalServ(){
+        function fechaModalServ() {
             $('#modal_servico').modal('hide');
-            tableServico.destroy();           
+            tableServico.destroy();
         }
 
-        function fechaModalCli(){
+        function fechaModalCli() {
             $('#modal_cliente').modal('hide');
             tableCliente.destroy();
         }
@@ -924,48 +944,49 @@
             $('#modal_info').modal('hide');
         }
 
-        function fechaModalAltProd(){
-             $('#modal_edit_produto').modal('hide');
+        function fechaModalAltProd() {
+            $('#modal_edit_produto').modal('hide');
         }
 
-        function fechaModalAltServ(){
-             $('#modal_edit_servico').modal('hide');
+        function fechaModalAltServ() {
+            $('#modal_edit_servico').modal('hide');
         }
 
-        function calcTotais(){
-            var vlrTotalServico     = $("#totalServico").maskMoney('unmasked')[0];
-            var vlrTotalProduto     = $("#totalProduto").maskMoney('unmasked')[0];
-            var percDescontoAdc     = document.querySelector('#descontoAdicional').value;
-            var rowsProduto         = document.querySelector('#produtos').rows;
-            var vlrDescontoAdc      = 0;
-            var totalLiquido        = 0;
-            var totalBruto          = 0;
-            var totalBrutoProduto   = 0;
-            var totalDesconto       = 0;
-            var valor               = "";
+        function calcTotais() {
+            var vlrTotalServico = $("#totalServico").maskMoney('unmasked')[0];
+            var vlrTotalProduto = $("#totalProduto").maskMoney('unmasked')[0];
+            var percDescontoAdc = document.querySelector('#descontoAdicional').value;
+            var rowsProduto = document.querySelector('#produtos').rows;
+            var vlrDescontoAdc = 0;
+            var totalLiquido = 0;
+            var totalBruto = 0;
+            var totalBrutoProduto = 0;
+            var totalDesconto = 0;
+            var valor = "";
 
-            vlrDescontoAdc = (percDescontoAdc * (vlrTotalProduto+vlrTotalServico))/100;
+            vlrDescontoAdc = (percDescontoAdc * (vlrTotalProduto + vlrTotalServico)) / 100;
 
             totalLiquido = vlrTotalServico + vlrTotalProduto - vlrDescontoAdc;
-            $('#totalValorLiquido').maskMoney('mask', totalLiquido);            
+            $('#totalValorLiquido').maskMoney('mask', totalLiquido);
 
-            for(var i=1; i < rowsProduto.length; i++){
+            for (var i = 1; i < rowsProduto.length; i++) {
                 var cellValor = rowsProduto[i].cells;
 
                 valor = cellValor[7].textContent;
-                
+
                 valor = valor.replace(".", "");
                 valor = valor.replace(",", '.');
                 valor = parseFloat(valor);
 
                 totalBrutoProduto += valor;
-            };
+            }
+            ;
 
             totalBruto = vlrTotalServico + totalBrutoProduto;
             $('#totalValorBruto').maskMoney('mask', totalBruto);
 
-            if(totalLiquido > 0 && totalBruto > 0){
-                totalDesconto = ((totalLiquido/totalBruto)-1)*100;
+            if (totalLiquido > 0 && totalBruto > 0) {
+                totalDesconto = ((totalLiquido / totalBruto) - 1) * 100;
                 totalDesconto = Math.abs(totalDesconto);
             } else {
                 totalDesconto = 0;
