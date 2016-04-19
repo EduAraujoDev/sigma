@@ -32,15 +32,15 @@
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">
-{#                                <div class="input-group col-sm-2">
+                                <div class="input-group col-sm-2">
                                     <select class="form-control" name="tipo_busca" id="buscaStatus">
                                         <option disabled selected>Selecione</option>
+                                         <option value=" "> </option>
                                         <option value="Aberto">Aberto</option>
                                         <option value="Atrasado">Atrasado</option>
                                         <option value="Pago">Pago</option>
                                     </select>
                                 </div>   
-                                <br>#}
                                 <table class="table table-bordered table-hover dataTable" id="tabelaDespesas" role="grid" aria-describedby="">
                                     <thead>
                                         <tr role="row">
@@ -51,7 +51,7 @@
                                             <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="fbody">
                                         {% for despesa in despesageral %}
                                             <tr>
                                                 <td>{{ despesa.id_despesa }}</td>
@@ -94,5 +94,15 @@
                 },
             });
         });
+
+        $('#buscaStatus').change(function () {
+            var rows = $("#fbody").find("tr").hide();
+            var data = this.value.split(" ");
+            $.each(data, function (i, v) {
+                rows.filter(":contains('" + v + "')").show();
+            });
+
+        })
+
     </script>
 {% endblock %}
