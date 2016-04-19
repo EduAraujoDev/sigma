@@ -41,14 +41,14 @@
                              <div class="col-xs-12 col-sm-3 col-md-3" >
                                 <label for="dataCriacao">Data Criação</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" value="{{orcamento_cabecalho.data_criacao}}" readonly>
+                                    <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" value="{{orcamento_cabecalho.data_criacao|date("d/m/Y")}}" readonly>
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>                          
                             <div class="col-xs-12 col-sm-3 col-md-3" >
                                 <label for="dataFinalizacao">Data de finalização</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="{{orcamento_cabecalho.data_finalizacao}}">
+                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="{{orcamento_cabecalho.data_finalizacao|date("d/m/Y")}}">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
