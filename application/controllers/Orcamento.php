@@ -22,6 +22,7 @@ class Orcamento extends CI_Controller {
         $this->load->model('TipoPagamento_model', 'tipopagamento_model');
         $this->load->model('produto_model', 'produto_model');
         $this->load->model('cliente_model', 'cliente_model');
+        $this->load->model('servico_model', 'servico_model');
 
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
@@ -63,13 +64,19 @@ class Orcamento extends CI_Controller {
         $totalValorLiquido = str_replace('.', '', $this->input->post('totalValorLiquido'));
         $totalValorLiquido = str_replace(',', '.', $totalValorLiquido);
 
+        $dataCriacao = $this->input->post('dataCriacao');
+        $dataCriacao = substr($dataCriacao, 6, 4)."-".substr($dataCriacao, 3, 2)."-".substr($dataCriacao, 0, 2);
+
+        $dataFinalizacao = $this->input->post('dataFinalizacao');
+        $dataFinalizacao = substr($dataFinalizacao, 6, 4)."-".substr($dataFinalizacao, 3, 2)."-".substr($dataFinalizacao, 0, 2);
+
         $dadosCabec = array(
             'id_status'                 => $this->input->post('statusOrcamento'),
             'id_cliente'                => $this->input->post('codCliente'),
             'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
-            'data_criacao'              => $this->input->post('dataCriacao'),
-            'data_finalizacao'          => $this->input->post('dataFinalizacao'),
-            'data_prevista_finalizacao' => $this->input->post('dataFinalizacao'),
+            'data_criacao'              => $dataCriacao,
+            'data_finalizacao'          => $dataFinalizacao,
+            'data_prevista_finalizacao' => $dataFinalizacao,
             'desconto_adicional'        => $this->input->post('descontoAdicional'),
             'desconto_total'            => $this->input->post('descontoTotal'),
             'total_bruto'               => $totalValorBruto,
@@ -140,12 +147,14 @@ class Orcamento extends CI_Controller {
         if ($orcamento_id != NULL) {
             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
-                'orcamento_cabecalho' => $this->orcamento_model->get_orcamento_byid($orcamento_id)->row(),
-                'orcamento_produtos' => $this->orcamentoproduto_model->get_orcamentoProduto_byid($orcamento_id)->row(),
-                'orcamento_servicos' => $this->orcamentoservico_model->get_orcamentoServico_byid($orcamento_id)->row(),
-                'status'            => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
-                'tipoPagamentos'    => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
-                'clientes'          => $this->cliente_model->get_cliente_notDeleted()->result(),
+                'orcamento_cabecalho'   => $this->orcamento_model->get_orcamento_byid($orcamento_id)->row(),
+                'orcamento_produtos'    => $this->orcamentoproduto_model->get_orcamentoProduto_byid($orcamento_id)->result(),
+                'orcamento_servicos'    => $this->orcamentoservico_model->get_orcamentoServico_byid($orcamento_id)->result(),
+                'status'                => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
+                'tipoPagamentos'        => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
+                'clientes'              => $this->cliente_model->get_cliente_notDeleted()->result(),
+                'produtos'              => $this->produto_model->get_produto_notDeleted()->result(),
+                'servicos'              => $this->servico_model->get_servico_notDeleted()->result(),                
                 'user' => $user,
             ];
             $this->twig->display('orcamento/visualizar', $data);
@@ -164,12 +173,14 @@ class Orcamento extends CI_Controller {
         if ($orcamento_id != NULL) {
             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
-                'orcamento_cabecalho' => $this->orcamento_model->get_orcamento_byid($orcamento_id)->row(),
-                'orcamento_produtos' => $this->orcamentoproduto_model->get_orcamentoProduto_byid($orcamento_id)->row(),
-                'orcamento_servicos' => $this->orcamentoservico_model->get_orcamentoServico_byid($orcamento_id)->row(),
-                'status'            => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
-                'tipoPagamentos'    => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
-                'clientes'          => $this->cliente_model->get_cliente_notDeleted()->result(),
+                'orcamento_cabecalho'   => $this->orcamento_model->get_orcamento_byid($orcamento_id)->row(),
+                'orcamento_produtos'    => $this->orcamentoproduto_model->get_orcamentoProduto_byid($orcamento_id)->result(),
+                'orcamento_servicos'    => $this->orcamentoservico_model->get_orcamentoServico_byid($orcamento_id)->result(),
+                'status'                => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
+                'tipoPagamentos'        => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
+                'clientes'              => $this->cliente_model->get_cliente_notDeleted()->result(),
+                'produtos'              => $this->produto_model->get_produto_notDeleted()->result(),
+                'servicos'              => $this->servico_model->get_servico_notDeleted()->result(),
                 'user' => $user,
             ];
             $this->twig->display('orcamento/editar', $data);
