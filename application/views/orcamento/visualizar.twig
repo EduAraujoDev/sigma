@@ -94,7 +94,6 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="servicos">Serviços</label>
-                                <input type="hidden" name ="quantidadeServicos" id="quantidadeServicos" value="0">
                                 <table id="servicos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
@@ -146,7 +145,6 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="produtos">Produtos</label>
-                                <input type="hidden" name ="quantidadeProdutos" id="quantidadeProdutos" value="0">
                                 <table id="produtos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr class="titlerow">
@@ -210,7 +208,7 @@
                                 <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="{{ orcamento_cabecalho.total_bruto }}" readonly>
+                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="{{ orcamento_cabecalho.total_bruto|number_format(2, ',', '.') }}" readonly>
                             </div>
                         </div>
                         <hr>
@@ -235,7 +233,7 @@
                                 <label for="totalValorLiquido" style="padding-top: 6px; padding-left: 50px">Valor Total Liquido:</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control  text-right" name="totalValorLiquido" id="totalValorLiquido" value="{{ orcamento_cabecalho.total_liquido }}" readonly>
+                                <input type="text" class="form-control  text-right" name="totalValorLiquido" id="totalValorLiquido" value="{{ orcamento_cabecalho.total_liquido|number_format(2, ',', '.') }}" readonly>
                             </div>
                         </div>
                         <div class="form-group">

@@ -94,7 +94,6 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="servicos">Serviços</label>
-                                <input type="hidden" name ="quantidadeServicos" id="quantidadeServicos" value="0">
                                 <table id="servicos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
@@ -107,10 +106,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% set quantServico = 1 %}
+                                        {% set quantServico = 0 %}
                                         {% set valorServico = 0 %}
 
                                         {% for orcamento_servico in orcamento_servicos %}
+                                            {% set quantServico = quantServico + 1 %}
+
                                             <tr>
                                                 <td>{{ quantServico }}</td>
                                                 <td>{{ orcamento_servico.id_servico }}</td>
@@ -126,11 +127,11 @@
                                                 <td></td>
                                             </tr>
 
-                                            {% set quantServico = quantServico + 1 %}
                                             {% set valorServico = valorServico + orcamento_servico.preco_cobrado %}
                                         {% endfor %}
                                     </tbody>
                                 </table>
+                                <input type="hidden" name ="quantidadeServicos" id="quantidadeServicos" value="{{ quantServico }}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -148,7 +149,6 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <label for="produtos">Produtos</label>
-                                <input type="hidden" name ="quantidadeProdutos" id="quantidadeProdutos" value="0">
                                 <table id="produtos" class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr class="titlerow">
@@ -165,10 +165,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% set quantProduto = 1 %}
+                                        {% set quantProduto = 0 %}
                                         {% set valorProduto = 0 %}
 
                                         {% for orcamento_produto in orcamento_produtos %}
+                                            {% set quantProduto = quantProduto + 1 %}
+
                                             <tr>
                                                 <td>{{ quantProduto }}</td>
                                                 <td>{{ orcamento_produto.id_produto }}</td>
@@ -187,12 +189,11 @@
                                                 <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}</td>
                                                 <td></td>
                                             </tr>
-
-                                            {% set quantProduto = quantProduto + 1 %}
                                             {% set valorProduto = valorProduto + (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto) %}
                                         {% endfor %}
                                     </tbody>
                                 </table>
+                                <input type="hidden" name ="quantidadeProdutos" id="quantidadeProdutos" value="{{ quantProduto }}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -214,7 +215,7 @@
                                 <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="{{ orcamento_cabecalho.total_bruto }}" readonly>
+                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="{{ orcamento_cabecalho.total_bruto|number_format(2, ',', '.') }}" readonly>
                             </div>
                         </div>
                         <hr>
@@ -239,7 +240,7 @@
                                 <label for="totalValorLiquido" style="padding-top: 6px; padding-left: 50px">Valor Total Liquido:</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control  text-right" name="totalValorLiquido" id="totalValorLiquido" value="{{ orcamento_cabecalho.total_liquido }}" readonly>
+                                <input type="text" class="form-control  text-right" name="totalValorLiquido" id="totalValorLiquido" value="{{ orcamento_cabecalho.total_liquido|number_format(2, ',', '.') }}" readonly>
                             </div>
                         </div>
                         <div class="form-group">
