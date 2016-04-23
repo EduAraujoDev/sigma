@@ -184,15 +184,15 @@
                                                     {% endif %}
                                                 {% endfor %}
 
-                                                <td>{{ orcamento_produto.quantidade }}</td>
+                                                <td class="text-right">{{ orcamento_produto.quantidade }}</td>
                                                 <td class="text-right">{{ orcamento_produto.desconto|number_format(2, ',', '.') }}</td>
                                                 <td class="text-right">{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}</td>
                                                 <td class="text-right">{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}</td>
                                                 <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}</td>
                                                 <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-info btn-flat" id="{{ quantProduto }}"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;
-                                                    <button type="button" class="btn btn-danger btn-flat" id="{{ quantProduto }}"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>
+                                                    <button type="button" class="btn btn-info btn-flat" id="{{ quantProduto }}" onclick="editarProduto(this.id,{{ orcamento_produto.id_produto }});"><i class="fa fa-edit"></i></button>&nbsp;
+                                                    <button type="button" class="btn btn-danger btn-flat" id="{{ quantProduto }}" onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>
                                                 </td>
                                             </tr>
                                             {% set valorProduto = valorProduto + (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto) %}
@@ -263,7 +263,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box-footer">
+                    <div class="box-footer text-right">
                         <button type="submit" class="btn btn-success">Alterar</button>
                         <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-default">Cancelar</button></a>
                     </div>
@@ -500,13 +500,9 @@
     {{ parent() }}
     <script type="text/javascript">
         window.onload = function () {
-            $('#dataCriacao').datepicker({
-                format: 'dd/mm/yyyy'
-            }).datepicker('setDate', new Date());
+            $('#dataCriacao').datepicker();
 
-            $('#dataFinalizacao').datepicker({
-                format: 'dd/mm/yyyy'
-            }).datepicker('setDate', '+1d');
+            $('#dataFinalizacao').datepicker();
 
             $("#totalProduto").maskMoney({thousands: '.', decimal: ','});
             $("#totalServico").maskMoney({thousands: '.', decimal: ','});
