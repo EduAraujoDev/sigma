@@ -24,8 +24,10 @@ class DespesaCategoria extends CI_Controller {
 
     public function listar() {
         $message_success = $this->session->flashdata('message_success');
+        $message_error = $this->session->flashdata('message_error');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
+            'message_error' => $message_error,
             'despesacategorias' => $this->despesacategoria_model->get_despesacategoria_notDeleted()->result()];
         $this->twig->display('despescategoria/listar', $data);
     }
@@ -36,6 +38,11 @@ class DespesaCategoria extends CI_Controller {
     }
 
     public function adicionar() {
+        if ($this->input->post('titulo') == '') {
+            $this->session->set_flashdata('message_error', 'O campo titulo não pode esar vazio!');
+            redirect('DespesaCategoria/listar', 'refresh');
+        }
+
         $dados = array(
             'titulo' => $this->input->post('titulo')
         );
@@ -60,6 +67,10 @@ class DespesaCategoria extends CI_Controller {
     }
 
     public function atualizar() {
+        if ($this->input->post('titulo') == '') {
+            $this->session->set_flashdata('message_error', 'O campo titulo não pode esar vazio!');
+            redirect('DespesaCategoria/listar', 'refresh');
+        }
         $categoria_id = $this->uri->segment(3);
         if ($categoria_id != NULL) {
             $dados = array(

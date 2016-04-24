@@ -27,7 +27,15 @@
                             {{message_success}}
                         </div>
                     {% endif %}
-
+                    {% if message_error is not empty %}
+                        <div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Atenção!</strong>
+                            {{message_error}}
+                        </div>
+                    {% endif %}
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">
