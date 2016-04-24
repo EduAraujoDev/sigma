@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 /**
  * 
- * Controller para a marca
+ * Controller para a Orçamento
  * 
  * @author Eduardo Araujo <eduardo.araujo0@outlook.com>
  * @author Vitor Mantovani <vtrmantovani@gmail.com>
@@ -187,5 +187,45 @@ class Orcamento extends CI_Controller {
         } else {
             redirect('orcamento/listar', 'refresh');
         }
+    }
+
+    public function atualizar() {
+        $idOrcamento = $this->uri->segment(3);
+
+        if ($idOrcamento != NULL) {
+            $totalValorBruto = str_replace('.', '', $this->input->post('totalValorBruto'));
+            $totalValorBruto = str_replace(',', '.', $totalValorBruto);
+
+            $totalValorLiquido = str_replace('.', '', $this->input->post('totalValorLiquido'));
+            $totalValorLiquido = str_replace(',', '.', $totalValorLiquido);
+
+            $dataCriacao = $this->input->post('dataCriacao');
+            $dataCriacao = substr($dataCriacao, 6, 4)."-".substr($dataCriacao, 3, 2)."-".substr($dataCriacao, 0, 2);
+
+            $dataFinalizacao = $this->input->post('dataFinalizacao');
+            $dataFinalizacao = substr($dataFinalizacao, 6, 4)."-".substr($dataFinalizacao, 3, 2)."-".substr($dataFinalizacao, 0, 2);
+
+            $dadosCabec = array(
+                'id_orcamento'              => $idOrcamento,
+                'id_status'                 => $this->input->post('statusOrcamento'),
+                'id_cliente'                => $this->input->post('codCliente'),
+                'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
+                'data_criacao'              => $dataCriacao,
+                'data_finalizacao'          => $dataFinalizacao,
+                'data_prevista_finalizacao' => $dataFinalizacao,
+                'desconto_adicional'        => $this->input->post('descontoAdicional'),
+                'desconto_total'            => $this->input->post('descontoTotal'),
+                'total_bruto'               => $totalValorBruto,
+                'total_liquido'             => $totalValorLiquido,
+                'observacoes'               => $this->input->post('observacoes'),
+                'finalizado'                => 0,
+                'deletado'                  => 0
+            );
+
+            $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
+            $this->session->set_flashdata('message_success', 'Orçamento atualizado com sucesso!');
+        }
+
+        redirect('orcamento/listar', 'refresh');
     }
 }
