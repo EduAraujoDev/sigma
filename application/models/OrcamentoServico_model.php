@@ -15,5 +15,29 @@ class OrcamentoServico_model extends CI_Model {
         } else {
             return NULL;
         }
+    }
+
+    public function get_orcamentoServico_countbyid($id = NULL) {
+        if ($id <> NULL) {
+            $this->db->where('id_orcamento', $id);
+
+            $query = $this->db->get('orcamento_servico');
+
+            return $query->num_rows();
+        } else {
+            return NULL;
+        }
+    }
+
+    public function delete_orcamentoServico($condicao = NULL) {
+        if ($condicao <> NULL) {
+            $this->db->delete("orcamento_servico", $condicao);
+        }
+    }    
+
+    public function delete_logical_orcamentoServico($condicao = NULL) {
+        if ($condicao <> NULL) {
+            $this->db->update('orcamento_servico', array('deletado' => 1), $condicao);
+        }
     }    
 }

@@ -35,5 +35,5 @@ class Orcamento_model extends CI_Model {
         if ($dados <> null && $condicao <> NULL) {
             $this->db->update('orcamento_cabecalho', $dados, $condicao);
         }
-    }    
+    }
 }

@@ -113,17 +113,17 @@
                                             {% set quantServico = quantServico + 1 %}
 
                                             <tr>
-                                                <td>{{ quantServico }}</td>
-                                                <td>{{ orcamento_servico.id_servico }}</td>
+                                                <td><input type="hidden" id="servico_linha_{{ quantServico }}" name="servico_linha_{{ quantServico }}" value="{{ quantServico }}">{{ quantServico }}</td>
+                                                <td><input type="hidden" id="servico_codigo_{{ quantServico }}" name="servico_codigo_{{ quantServico }}" value="{{ orcamento_servico.id_servico }}">{{ orcamento_servico.id_servico }}</td>
 
                                                 {% for servico in servicos %}
                                                     {% if orcamento_servico.id_servico == servico.id_servico %}
-                                                        <td>{{ servico.descricao }}</td>
-                                                        <td class="text-right">{{ servico.valor|number_format(2, ',', '.') }}</td>
+                                                        <td><input type="hidden" id="servico_desc_{{ quantServico }}" name="servico_desc_{{ quantServico }}" value="{{ servico.descricao }}">{{ servico.descricao }}</td>
+                                                        <td class="text-right"><input type="hidden" id="servico_vlrServico_{{ quantServico }}" name="servico_vlrServico_{{ quantServico }}" value="{{ servico.valor|number_format(2, ',', '.') }}">{{ servico.valor|number_format(2, ',', '.') }}</td>
                                                     {% endif %}
                                                 {% endfor %}
 
-                                                <td class="text-right">{{ orcamento_servico.preco_cobrado|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right"><input type="hidden" id="servico_vlrCobrado_{{ quantServico }}" name="servico_vlrCobrado_{{ quantServico }}" value="{{ orcamento_servico.preco_cobrado|number_format(2, ',', '.') }}">{{ orcamento_servico.preco_cobrado|number_format(2, ',', '.') }}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-info btn-flat" id="{{ quantServico }}"onclick="editarServico(this.id);"><i class="fa fa-edit"></i></button>&nbsp;
                                                     <button type="button" class="btn btn-danger btn-flat" id="{{ quantServico }}"onclick="pergRemoveServico(this.id);"><i class="fa fa-remove"></i></button>

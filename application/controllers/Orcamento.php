@@ -223,6 +223,22 @@ class Orcamento extends CI_Controller {
             );
 
             $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
+            
+            $this->orcamentoservico_model->delete_orcamentoServico(array('id_orcamento' => $idOrcamento));
+            $quantidadeServicos = $this->input->post('quantidadeServicos');
+            for ($i=1; $i <= $quantidadeServicos; $i++) {
+                $valorCobrado = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
+                $valorCobrado = str_replace(',', '.', $valorCobrado);            
+                
+                $dadosServico = array(
+                    'id_servico'    => $this->input->post('servico_codigo_'.$i),
+                    'id_orcamento'  => $idOrcamento,
+                    'preco_cobrado' => $valorCobrado
+                );
+
+                $this->orcamentoservico_model->insert_orcamentoServico($dadosServico);
+            }
+
             $this->session->set_flashdata('message_success', 'Orçamento atualizado com sucesso!');
         }
 
