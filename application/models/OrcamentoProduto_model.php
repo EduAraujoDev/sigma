@@ -15,5 +15,17 @@ class OrcamentoProduto_model extends CI_Model {
         } else {
             return NULL;
         }
+    }
+
+    public function delete_orcamentoProduto($condicao = NULL) {
+        if ($condicao <> NULL) {
+            $this->db->delete("orcamento_produto", $condicao);
+        }
     }    
+
+    public function delete_logical_orcamentoProduto($condicao = NULL) {
+        if ($condicao <> NULL) {
+            $this->db->update('orcamento_produto', array('deletado' => 1), $condicao);
+        }
+    }      
 }

@@ -172,24 +172,22 @@
                                         {% set valorProduto = 0 %}
 
                                         {% for orcamento_produto in orcamento_produtos %}
-                                            {% set quantProduto = quantProduto + 1 %}
-
-                                            <tr>
-                                                <td>{{ quantProduto }}</td>
-                                                <td>{{ orcamento_produto.id_produto }}</td>
+                                            {% set quantProduto = quantProduto + 1 %}                                            <tr>
+                                                <td><input type="hidden" id="produto_linha_{{ quantProduto }}" name="produto_linha_{{ quantProduto }}" value="{{ quantProduto }}">{{ quantProduto }}</td>
+                                                <td><input type="hidden" id="produto_codigo_{{ quantProduto }}" name="produto_codigo_{{ quantProduto }}" value="{{ orcamento_produto.id_produto }}">{{ orcamento_produto.id_produto }}</td>
                                   
                                                 {% for produto in produtos %}
                                                     {% if orcamento_produto.id_produto == produto.id_produto %}
-                                                        <td>{{ produto.nome }}</td>
+                                                        <td><input type="hidden" id="produto_desc_{{ quantProduto }}" name="produto_desc_{{ quantProduto }}" value="{{ produto.nome }}">{{ produto.nome }}</td>
                                                     {% endif %}
                                                 {% endfor %}
 
-                                                <td class="text-right">{{ orcamento_produto.quantidade }}</td>
-                                                <td class="text-right">{{ orcamento_produto.desconto|number_format(2, ',', '.') }}</td>
-                                                <td class="text-right">{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}</td>
-                                                <td class="text-right">{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}</td>
-                                                <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}</td>
-                                                <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right"><input type="hidden" id="produto_quantidade_{{ quantProduto }}" name="produto_quantidade_{{ quantProduto }}" value="{{ orcamento_produto.quantidade }}">{{ orcamento_produto.quantidade }}</td>
+                                                <td class="text-right"><input type="hidden" id="produto_desconto_{{ quantProduto }}" name="produto_desconto_{{ quantProduto }}" value="{{ orcamento_produto.desconto|number_format(2, ',', '.') }}">{{ orcamento_produto.desconto|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right"><input type="hidden" id="produto_prcProduto_{{ quantProduto }}" name="produto_prcProduto_{{ quantProduto }}" value="{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}">{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right"><input type="hidden" id="produto_prcCobrado_{{ quantProduto }}" name="produto_prcCobrado_{{ quantProduto }}" value="{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}">{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right"><input type="hidden" id="produto_subTotalBr_{{ quantProduto }}" name="produto_subTotalBr_{{ quantProduto }}" value="{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right"><input type="hidden" id="produto_subTotalQl_{{ quantProduto }}" name="produto_subTotalQl_{{ quantProduto }}" value="{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-info btn-flat" id="{{ quantProduto }}" onclick="editarProduto(this.id,{{ orcamento_produto.id_produto }});"><i class="fa fa-edit"></i></button>&nbsp;
                                                     <button type="button" class="btn btn-danger btn-flat" id="{{ quantProduto }}" onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>
