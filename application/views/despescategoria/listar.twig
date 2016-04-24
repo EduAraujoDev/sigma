@@ -1,0 +1,79 @@
+{% extends "base_layout.twig" %}
+{% block title %}Categoria de Despesa Geral{% endblock %}
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Listar Categorias de  Despesa Geral</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Listar Categorias Despesa Geral</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    {% if message_success is not empty %}
+                        <div class="alert alert-success alert-dismissible fade in" role="alert" id="alerta">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Atenção!</strong>
+                            {{message_success}}
+                        </div>
+                    {% endif %}
+
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-hover dataTable" id="tabelaDespesas" role="grid" aria-describedby="">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Codigo</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Titulo</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="fbody">
+                                        {% for categoria in despesacategorias %}
+                                            <tr>
+                                                <td>{{ categoria.id_categoria }}</td>
+                                                <td>{{ categoria.titulo }}</td>
+                                                <td>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}DespesaCategoria/editar/{{ categoria.id_categoria }}">Alterar</a>
+                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}DespesaCategoria/deletar/{{ categoria.id_categoria }}">Excluir</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <a class="btn btn-primary btn-lg" href="{{base_url}}DespesaCategoria/novo">Incluir</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}	
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tabelaDespesas').DataTable({
+                "iDisplayLength": 20,
+                "order": [0, "desc"],
+                "language": {
+                    "sLengthMenu": "",
+                },
+            });
+        });
+    </script>
+{% endblock %}
