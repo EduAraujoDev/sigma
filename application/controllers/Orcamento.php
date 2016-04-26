@@ -207,7 +207,6 @@ class Orcamento extends CI_Controller {
                 'id_cliente'                => $this->input->post('codCliente'),
                 'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
                 'data_criacao'              => $dataCriacao,
-                'data_finalizacao'          => $dataFinalizacao,
                 'data_prevista_finalizacao' => $dataFinalizacao,
                 'desconto_adicional'        => $this->input->post('descontoAdicional'),
                 'desconto_total'            => $this->input->post('descontoTotal'),
