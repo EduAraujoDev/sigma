@@ -75,7 +75,6 @@ class Orcamento extends CI_Controller {
             'id_cliente'                => $this->input->post('codCliente'),
             'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
             'data_criacao'              => $dataCriacao,
-            'data_finalizacao'          => $dataFinalizacao,
             'data_prevista_finalizacao' => $dataFinalizacao,
             'desconto_adicional'        => $this->input->post('descontoAdicional'),
             'desconto_total'            => $this->input->post('descontoTotal'),
@@ -113,24 +112,21 @@ class Orcamento extends CI_Controller {
             
             $desconto   = str_replace('%', '', $this->input->post('produto_desconto_'.$i));
             $idProduto  = $this->input->post('produto_codigo_'.$i);
+
+            $quantProd = $this->input->post('produto_quantidade_'.$i);
             
             $dadosProduto = array(
 
                 'id_produto'    => $idProduto,
                 'id_orcamento'  => $id,
-                'quantidade'    => $this->input->post('produto_quantidade_'.$i),
+                'quantidade'    => $quantProd,
                 'desconto'      => $desconto,
                 'preco_venda'   => $valorVenda,
                 'preco_cobrado' => $valorCobrado
             );
 
             $this->orcamentoproduto_model->insert_orcamentoProduto($dadosProduto);
-
-            $dadosProduto = array(
-                'quantidade_reservada' => $this->input->post('produto_quantidade_'.$i),
-            );
-
-            $this->produto_model->update_produto($dadosProduto, array('id_produto' => $idProduto));
+            $this->atuEstProdutoOrcamento($idProduto, $quantProd, "NEW");
         }
 
         $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
@@ -239,6 +235,12 @@ class Orcamento extends CI_Controller {
                 $this->orcamentoservico_model->insert_orcamentoServico($dadosServico);
             }
 
+            $produtosOrcamento = $this->orcamentoproduto_model->get_orcamentoProduto_byid($idOrcamento)->result();
+
+            foreach ($produtosOrcamento as $produto) {
+                $this->atuEstProdutoOrcamento($produto->id_produto, $produto->quantidade, "DEL");
+            }
+
             $this->orcamentoproduto_model->delete_orcamentoProduto(array('id_orcamento' => $idOrcamento));
             $quantidadeProdutos = $this->input->post('quantidadeProdutos');
             for ($i=1; $i <= $quantidadeProdutos; $i++) {
@@ -275,4 +277,21 @@ class Orcamento extends CI_Controller {
 
         redirect('orcamento/listar', 'refresh');
     }
+
+    public function atuEstProdutoOrcamento($idProduto, $quantidade, $tipo){
+        $produto    = $this->produto_model->get_produto_byid($idProduto)->row();
+        $qntReserva = $produto->quantidade_reservada;
+
+        if ($tipo == "NEW") {
+            $qntReserva+=$quantidade;
+        } else if ($tipo == "DEL"){
+            $qntReserva-=$quantidade;
+        }
+
+        $dadosProduto = array(
+            'quantidade_reservada' => $qntReserva
+        );
+
+        $this->produto_model->update_produto($dadosProduto, array('id_produto' => $idProduto));
+    }    
 }
