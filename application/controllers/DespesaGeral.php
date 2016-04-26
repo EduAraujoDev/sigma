@@ -60,13 +60,13 @@ class DespesaGeral extends CI_Controller {
 
         $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_vencimento'));
         $data_vencimento = $date->format('Y-m-d');
-
+        $valor_total =  str_replace(",", ".", $this->input->post('valorTotal'));
         $dados = array(
             'id_categoria' => $this->input->post('categoria'),
             'id_status' => 1,
             'data_criacao' => $data_criacao,
             'data_vencimento' => $data_vencimento,
-            'total' => $this->input->post('valorTotal'),
+            'total' => $valor_total,
             'observacoes' => $this->input->post('observacoes'),
         );
         try {
