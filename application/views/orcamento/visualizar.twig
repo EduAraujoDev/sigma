@@ -67,13 +67,8 @@
                                 </select>
                             </div>                            
                             <div class="col-xs-12 col-sm-12 col-md-3">
-                                <label for="codCliente">Código do Cliente</label>                            
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="codCliente" id="codCliente" placeholder="Código do Cliente" value="{{ orcamento_cabecalho.id_cliente }}" readonly>
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info btn-flat"><i class="fa fa-search"></i></button>
-                                    </span>
-                                </div>
+                                <label for="codCliente">Código do Cliente</label>       
+                                <input type="text" class="form-control" name="codCliente" id="codCliente" placeholder="Código do Cliente" value="{{ orcamento_cabecalho.id_cliente }}" readonly>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6">
                                 <label for="nomeCliente">Nome do Cliente</label>
@@ -131,14 +126,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-3 col-md-offset-4"> 
+                            <div class="col-md-3 col-md-offset-6"> 
                                 <label for="totalServico" style="padding-top: 6px; padding-left: 50px">Total de Serviços(R$):</label>
                             </div>
                             <div class="col-md-3">
                                 <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="{{valorServico|number_format(2, ',', '.')}}" readonly>
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-info btn-flat">Incluir Serviço</button>
                             </div>
                         </div>
                         <hr>
@@ -190,15 +182,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-3 col-md-offset-4"> 
+                            <div class="col-md-3 col-md-offset-6">
                                 <label for="totalProduto" style="padding-top: 6px; padding-left: 50px">Total de Produtos(R$):</label>
                             </div>
                             <div class="col-md-3">
                                 <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="{{valorProduto|number_format(2, ',', '.')}}" readonly>
                             </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-info btn-flat">Incluir Produto</button>
-                            </div>                            
                         </div>
                         <hr>
                         <div class="form-group">
@@ -250,7 +239,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box-footer">
+                    <div class="box-footer text-right">
                         <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-default">Cancelar</button></a>
                     </div>
                 </form>
