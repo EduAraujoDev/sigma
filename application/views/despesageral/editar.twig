@@ -64,7 +64,7 @@
                             <div class="col-xs-12 col-sm-4 col-md-4" id="divCriacao">
                                 <label for="data_criacao">Data de Criação</label>
                                 <div class="input-group">
-                                <input id="data_criacao" type="date" class="form-control" 
+                                <input id="data_criacao" type="text" class="form-control" 
                                        name="data_criacao" placeholder="Digite a data de criação"
                                        value="{{ despesageral.data_criacao|date("d/m/Y") }}">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -74,7 +74,7 @@
                             <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
                                 <label for="data_vencimento">Data de Vencimento</label>
                                 <div class="input-group">
-                                <input id="data_vencimento" type="date" class="form-control" 
+                                <input id="data_vencimento" type="text" class="form-control" 
                                        name="data_vencimento" placeholder="Digite a data de vencimento"
                                        value="{{ despesageral.data_vencimento|date("d/m/Y") }}">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -120,11 +120,11 @@
             
             $('#data_criacao').datepicker({
                format: 'dd/mm/yyyy' 
-            }).datepicker('setDate', new Date());
+            }).datepicker('setDate',{{ despesageral.data_criacao|date("d/m/Y") }};
             
             $('#data_vencimento').datepicker({
                format: 'dd/mm/yyyy' 
-            }).datepicker('setDate', '+1d');
+            }).datepicker('setDate', {{ despesageral.data_vencimento|date("d/m/Y") }});
 
         });
 
