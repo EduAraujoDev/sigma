@@ -58,79 +58,85 @@ class Orcamento extends CI_Controller {
     }
 
     public function adicionar() {
-        $totalValorBruto = str_replace('.', '', $this->input->post('totalValorBruto'));
-        $totalValorBruto = str_replace(',', '.', $totalValorBruto);
+        $validacao_formulario = $this->validarformularioOrcamento();
 
-        $totalValorLiquido = str_replace('.', '', $this->input->post('totalValorLiquido'));
-        $totalValorLiquido = str_replace(',', '.', $totalValorLiquido);
+        if ($validacao_formulario->run() == TRUE) {
+            $totalValorBruto = str_replace('.', '', $this->input->post('totalValorBruto'));
+            $totalValorBruto = str_replace(',', '.', $totalValorBruto);
 
-        $dataCriacao = $this->input->post('dataCriacao');
-        $dataCriacao = substr($dataCriacao, 6, 4)."-".substr($dataCriacao, 3, 2)."-".substr($dataCriacao, 0, 2);
+            $totalValorLiquido = str_replace('.', '', $this->input->post('totalValorLiquido'));
+            $totalValorLiquido = str_replace(',', '.', $totalValorLiquido);
 
-        $dataFinalizacao = $this->input->post('dataFinalizacao');
-        $dataFinalizacao = substr($dataFinalizacao, 6, 4)."-".substr($dataFinalizacao, 3, 2)."-".substr($dataFinalizacao, 0, 2);
+            $dataCriacao = $this->input->post('dataCriacao');
+            $dataCriacao = substr($dataCriacao, 6, 4)."-".substr($dataCriacao, 3, 2)."-".substr($dataCriacao, 0, 2);
 
-        $dadosCabec = array(
-            'id_status'                 => $this->input->post('statusOrcamento'),
-            'id_cliente'                => $this->input->post('codCliente'),
-            'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
-            'data_criacao'              => $dataCriacao,
-            'data_prevista_finalizacao' => $dataFinalizacao,
-            'desconto_adicional'        => $this->input->post('descontoAdicional'),
-            'desconto_total'            => $this->input->post('descontoTotal'),
-            'total_bruto'               => $totalValorBruto,
-            'total_liquido'             => $totalValorLiquido,
-            'observacoes'               => $this->input->post('observacoes'),
-            'finalizado'                => 0,
-            'deletado'                  => 0
-        );
-        
-        $id = $this->orcamento_model->insert_orcamento($dadosCabec);
+            $dataFinalizacao = $this->input->post('dataFinalizacao');
+            $dataFinalizacao = substr($dataFinalizacao, 6, 4)."-".substr($dataFinalizacao, 3, 2)."-".substr($dataFinalizacao, 0, 2);
 
-        $quantidadeServicos = $this->input->post('quantidadeServicos');
-        for ($i=1; $i <= $quantidadeServicos; $i++) {
-            $valorCobrado = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
-            $valorCobrado = str_replace(',', '.', $valorCobrado);            
-            
-            $dadosServico = array(
-
-                'id_servico'    => $this->input->post('servico_codigo_'.$i),
-                'id_orcamento'  => $id,
-                'preco_cobrado' => $valorCobrado
+            $dadosCabec = array(
+                'id_status'                 => $this->input->post('statusOrcamento'),
+                'id_cliente'                => $this->input->post('codCliente'),
+                'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
+                'data_criacao'              => $dataCriacao,
+                'data_prevista_finalizacao' => $dataFinalizacao,
+                'desconto_adicional'        => $this->input->post('descontoAdicional'),
+                'desconto_total'            => $this->input->post('descontoTotal'),
+                'total_bruto'               => $totalValorBruto,
+                'total_liquido'             => $totalValorLiquido,
+                'observacoes'               => $this->input->post('observacoes'),
+                'finalizado'                => 0,
+                'deletado'                  => 0
             );
-
-            $this->orcamentoservico_model->insert_orcamentoServico($dadosServico);
-        }
-
-        $quantidadeProdutos = $this->input->post('quantidadeProdutos');
-        for ($i=1; $i <= $quantidadeProdutos; $i++) {
-            $valorVenda = str_replace('.', '', $this->input->post('produto_prcProduto_'.$i));
-            $valorVenda = str_replace(',', '.', $valorCobrado); 
-
-            $valorCobrado = str_replace('.', '', $this->input->post('produto_prcCobrado_'.$i));
-            $valorCobrado = str_replace(',', '.', $valorCobrado);            
             
-            $desconto   = str_replace('%', '', $this->input->post('produto_desconto_'.$i));
-            $idProduto  = $this->input->post('produto_codigo_'.$i);
+            $id = $this->orcamento_model->insert_orcamento($dadosCabec);
 
-            $quantProd = $this->input->post('produto_quantidade_'.$i);
-            
-            $dadosProduto = array(
+            $quantidadeServicos = $this->input->post('quantidadeServicos');
+            for ($i=1; $i <= $quantidadeServicos; $i++) {
+                $valorCobrado = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
+                $valorCobrado = str_replace(',', '.', $valorCobrado);            
+                
+                $dadosServico = array(
 
-                'id_produto'    => $idProduto,
-                'id_orcamento'  => $id,
-                'quantidade'    => $quantProd,
-                'desconto'      => $desconto,
-                'preco_venda'   => $valorVenda,
-                'preco_cobrado' => $valorCobrado
-            );
+                    'id_servico'    => $this->input->post('servico_codigo_'.$i),
+                    'id_orcamento'  => $id,
+                    'preco_cobrado' => $valorCobrado
+                );
 
-            $this->orcamentoproduto_model->insert_orcamentoProduto($dadosProduto);
-            $this->atuEstProdutoOrcamento($idProduto, $quantProd, "NEW");
+                $this->orcamentoservico_model->insert_orcamentoServico($dadosServico);
+            }
+
+            $quantidadeProdutos = $this->input->post('quantidadeProdutos');
+            for ($i=1; $i <= $quantidadeProdutos; $i++) {
+                $valorVenda = str_replace('.', '', $this->input->post('produto_prcProduto_'.$i));
+                $valorVenda = str_replace(',', '.', $valorCobrado); 
+
+                $valorCobrado = str_replace('.', '', $this->input->post('produto_prcCobrado_'.$i));
+                $valorCobrado = str_replace(',', '.', $valorCobrado);            
+                
+                $desconto   = str_replace('%', '', $this->input->post('produto_desconto_'.$i));
+                $idProduto  = $this->input->post('produto_codigo_'.$i);
+
+                $quantProd = $this->input->post('produto_quantidade_'.$i);
+                
+                $dadosProduto = array(
+
+                    'id_produto'    => $idProduto,
+                    'id_orcamento'  => $id,
+                    'quantidade'    => $quantProd,
+                    'desconto'      => $desconto,
+                    'preco_venda'   => $valorVenda,
+                    'preco_cobrado' => $valorCobrado
+                );
+
+                $this->orcamentoproduto_model->insert_orcamentoProduto($dadosProduto);
+                $this->atuEstProdutoOrcamento($idProduto, $quantProd, "NEW");
+            }
+
+            $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
+            redirect('orcamento/listar', 'refresh');
+        } else {
+            redirect('orcamento/novo', 'refresh');
         }
-
-        $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
-        redirect('orcamento/listar', 'refresh');
     }
 
     public function visualizar($orcamento_id) {
@@ -292,5 +298,10 @@ class Orcamento extends CI_Controller {
         );
 
         $this->produto_model->update_produto($dadosProduto, array('id_produto' => $idProduto));
-    }    
+    }
+
+    public function validarformularioOrcamento() {
+        $this->form_validation->set_rules('codCliente', 'codCliente', 'required');
+        return $this->form_validation;
+    }
 }
