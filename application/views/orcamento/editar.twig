@@ -23,11 +23,11 @@
                 <form class="form-horizontal" name="frmorcamento" role="form" action="{{base_url}}orcamento/atualizar/{{ orcamento_cabecalho.id_orcamento }}" method="post" class="form-incline" onSubmit="return btnCriar();">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-xs-12 col-sm-3 col-md-3" >
+                            <div class="col-xs-12 col-sm-3 col-md-2" >
                                 <label for="codOrcamento">Código</label>
                                 <input type="text" class="form-control" name="codOrcamento" id="codOrcamento" value="{{ orcamento_cabecalho.id_orcamento }}" readonly>
                             </div>
-                            <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-xs-12 col-sm-3 col-md-4">
                                 <label for="statusOrcamento">Status</label>
                                 <select class="form-control" name="statusOrcamento" id="statusOrcamento">
                                     {% for statu in status %}
@@ -39,20 +39,27 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                             <div class="col-xs-12 col-sm-3 col-md-3" >
+                             <div class="col-xs-12 col-sm-3 col-md-2" >
                                 <label for="dataCriacao">Data Criação</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" value="{{orcamento_cabecalho.data_criacao|date("d/m/Y")}}" readonly>
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>                          
-                            <div class="col-xs-12 col-sm-3 col-md-3" >
-                                <label for="dataFinalizacao">Data Prevista de finalização</label>
+                            <div class="col-xs-12 col-sm-3 col-md-2" >
+                                <label for="dataFinalizacao">Data Prev. finalização</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="{{orcamento_cabecalho.data_finalizacao|date("d/m/Y")}}">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-3 col-md-2" >
+                                <label for="dataFinalizacao">Data de finalização</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="{{orcamento_cabecalho.data_finalizacao|date("d/m/Y")}}" readonly>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>                            
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-3 col-md-3">
@@ -1087,10 +1094,10 @@
 
         function existeProduto() {
             var tabelaProduto = document.querySelector("#produtos");
-            var qntLinha = tabelaServico.rows.length -1;
+            var qntLinha = tabelaProduto.rows.length -1;
 
             if (qntLinha <= 0) {
-                textoAlerta += '<br>* Adicione serviço';
+                textoAlerta += '<br>* Adicione produto';
                 $('html, body').animate({ scrollTop: 0 }, 'fast');
 
                 return false;
@@ -1104,7 +1111,7 @@
             var qntLinha = tabelaServico.rows.length -1;
 
             if (qntLinha <= 0) {
-                textoAlerta += '<br>* Adicione produto';
+                textoAlerta += '<br>* Adicione serviço';
                 $('html, body').animate({ scrollTop: 0 }, 'fast');
 
                 return false;
