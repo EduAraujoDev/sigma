@@ -47,16 +47,16 @@
                                 </div>
                             </div>                          
                             <div class="col-xs-12 col-sm-3 col-md-2" >
-                                <label for="dataFinalizacao">Data Prev. finalização</label>
+                                <label for="dataPrevistaFinalizacao">Data Prev. finalização</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="{{orcamento_cabecalho.data_finalizacao|date("d/m/Y")}}">
+                                    <input type="text" class="form-control" id="dataPrevistaFinalizacao" name="dataPrevistaFinalizacao" value="{{orcamento_cabecalho.data_prevista_finalizacao|date("d/m/Y")}}">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-2" >
                                 <label for="dataFinalizacao">Data de finalização</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="{{orcamento_cabecalho.data_finalizacao|date("d/m/Y")}}" readonly>
+                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="  /  /    " readonly>
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>                            
@@ -511,6 +511,10 @@
             });
 
             $('#dataFinalizacao').datepicker({
+                format: 'dd/mm/yyyy'
+            });
+
+            $('#dataPrevistaFinalizacao').datepicker({
                 format: 'dd/mm/yyyy'
             });
 
