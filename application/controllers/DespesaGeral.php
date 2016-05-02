@@ -60,13 +60,15 @@ class DespesaGeral extends CI_Controller {
 
         $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_vencimento'));
         $data_vencimento = $date->format('Y-m-d');
-        $valor_total =  str_replace(",", ".", $this->input->post('valorTotal'));
+        $total = $this->input->post('valorTotal');
+        $total = str_replace(".", "", $total);
+        $total = str_replace(",", ".", $total);
         $dados = array(
             'id_categoria' => $this->input->post('categoria'),
             'id_status' => 1,
             'data_criacao' => $data_criacao,
             'data_vencimento' => $data_vencimento,
-            'total' => $valor_total,
+            'total' => $total,
             'observacoes' => $this->input->post('observacoes'),
         );
         try {
@@ -153,6 +155,9 @@ class DespesaGeral extends CI_Controller {
     public function atualizar() {
         $despesageral_id = $this->uri->segment(3);
         if ($despesageral_id != NULL) {
+            $total = $this->input->post('valorTotal');
+            $total = str_replace(".", "", $total);
+            $total = str_replace(",", ".", $total);
             $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_criacao'));
             $data_criacao = $date->format('Y-m-d');
 
@@ -163,7 +168,7 @@ class DespesaGeral extends CI_Controller {
                 'id_categoria' => $this->input->post('categoria'),
                 'data_criacao' => $data_criacao,
                 'data_vencimento' => $data_vencimento,
-                'total' => $this->input->post('valorTotal'),
+                'total' => $total,
                 'observacoes' => $this->input->post('observacoes')
             );
             $this->despesageral_model->update_despesageral($dados, array('id_despesa' => $despesageral_id));
