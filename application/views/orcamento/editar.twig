@@ -1153,9 +1153,33 @@
                 $('#modal_info').on('shown.bs.modal', function () {
                     var modal = $(this);
                     modal.find('.modal-title').text('Atenção');
-                    modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Aprovado", será aberto uma ordem de serviço. Deseja continuar?');
-                    modal.find('.modalInfoBtn').html('<button type="button" class="btn btn-success" onclick="">Sim</button><button type="button" class="btn btn-danger" onclick="">Não</button>');
-                })               
+                    modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Aprovado", será aberto uma Ordem de Serviço. Deseja continuar?');
+                    modal.find('.modalInfoBtn').html('<button type="button" class="btn btn-success" onclick="">Sim</button><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+                })
+            } else if ( x == 4 ) {
+                $('#modal_info').modal('show');
+                $('#modal_info').on('shown.bs.modal', function () {
+                    var modal = $(this);
+                    modal.find('.modal-title').text('Atenção');
+                    modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Reprovado e Pago", será criado uma despesa. Deseja continuar?');
+                    modal.find('.modalInfoBtn').html('<button type="button" class="btn btn-success" onclick="">Sim</button><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+                })                
+            } else if ( x == 5 ) {
+                $('#modal_info').modal('show');
+                $('#modal_info').on('shown.bs.modal', function () {
+                    var modal = $(this);
+                    modal.find('.modal-title').text('Atenção');
+                    modal.find('.modal-title-sec').text('Deseja alterar o status para "Reprovado e Não Pago"?');
+                    modal.find('.modalInfoBtn').html('<button type="button" class="btn btn-success" onclick="">Sim</button><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+                })
+            } else if ( x == 2 ) {
+                $('#modal_info').modal('show');
+                $('#modal_info').on('shown.bs.modal', function () {
+                    var modal = $(this);
+                    modal.find('.modal-title').text('Atenção');
+                    modal.find('.modal-title-sec').text('Deseja alterar o status para "Reprovado"?');
+                    modal.find('.modalInfoBtn').html('<button type="button" class="btn btn-success" onclick="">Sim</button><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+                })                  
             }
         }
     </script>
