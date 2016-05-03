@@ -29,10 +29,12 @@
                             </div>
                             <div class="col-xs-12 col-sm-3 col-md-4">
                                 <label for="statusOrcamento">Status</label>
-                                <select class="form-control" name="statusOrcamento" id="statusOrcamento">
+                                <select class="form-control" name="statusOrcamento" id="statusOrcamento" onchange="alteraStatusOrc();">
+                                    {% set statusOrc = '' %}
                                     {% for statu in status %}
                                         {% if statu.id_status == orcamento_cabecalho.id_status %}
-                                            <option selected="selected" value="{{ statu.id_status }}">{{ statu.titulo }}</option>
+                                            {% set statusOrc = statu.id_status %}
+                                            <option selected="selected" value="{{ statusOrc }}">{{ statu.titulo }}</option>
                                         {% else %}
                                             <option value="{{ statu.id_status }}">{{ statu.titulo }}</option>
                                         {% endif %}
@@ -180,7 +182,8 @@
                                         {% set valorProduto = 0 %}
 
                                         {% for orcamento_produto in orcamento_produtos %}
-                                            {% set quantProduto = quantProduto + 1 %}                                            <tr>
+                                            {% set quantProduto = quantProduto + 1 %}                                            
+                                            <tr>
                                                 <td><input type="hidden" id="produto_linha_{{ quantProduto }}" name="produto_linha_{{ quantProduto }}" value="{{ quantProduto }}">{{ quantProduto }}</td>
                                                 <td><input type="hidden" id="produto_codigo_{{ quantProduto }}" name="produto_codigo_{{ quantProduto }}" value="{{ orcamento_produto.id_produto }}">{{ orcamento_produto.id_produto }}</td>
                                   
@@ -270,8 +273,13 @@
                         </div>
                     </div>
                     <div class="box-footer text-right">
-                        <button type="submit" class="btn btn-success">Alterar</button>
-                        <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-default">Cancelar</button></a>
+                        {% if statusOrc == 6 %}
+                            <span id="spanBotaoFinalizar"><button type="button" id="botaoFinalizar" class="btn btn-success" onclick="alertMudStatus({{ statusOrc }});">Finalizar</button></span>
+                        {% else %}
+                            <span id="spanBotaoFinalizar"></span>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>
@@ -490,10 +498,10 @@
         <div class="modal-dialog" style="padding-top: 15%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title"></h3>
+                    <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
-                    <h2 class="modal-title-sec"></h2>
+                    <p class="modal-title-sec"></p>
                 </div>
                 <div class="modal-footer">
                     <div class="modalInfoBtn"></div>
@@ -1122,6 +1130,33 @@
             } else {
                 return true;
             }
-        }        
+        }
+
+        function alteraStatusOrc(){
+            var x = parseInt(document.querySelector('#statusOrcamento').value);
+            
+            if ( x == 1 || x == 3) {
+                var botaoFinalizar = document.querySelector('#botaoFinalizar');
+                
+                if (botaoFinalizar != null) {
+                    botaoFinalizar.parentNode.removeChild(botaoFinalizar);   
+                }
+            } else {
+                var divBotaoFinalizar = document.querySelector('#spanBotaoFinalizar');
+                divBotaoFinalizar.innerHTML = '<button type="button" id="botaoFinalizar" class="btn btn-success" onclick="alertMudStatus('+x+');">Finalizar</button>';
+            }
+        }
+
+        function alertMudStatus(x) {
+            if ( x == 6 ) {
+                $('#modal_info').modal('show');
+                $('#modal_info').on('shown.bs.modal', function () {
+                    var modal = $(this);
+                    modal.find('.modal-title').text('Atenção');
+                    modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Aprovado", será aberto uma ordem de serviço. Deseja continuar?');
+                    modal.find('.modalInfoBtn').html('<button type="button" class="btn btn-success" onclick="">Sim</button><button type="button" class="btn btn-danger" onclick="">Não</button>');
+                })               
+            }
+        }
     </script>
 {% endblock %}
