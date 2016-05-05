@@ -1,0 +1,120 @@
+{% extends "base_layout.twig" %}
+{% block title %}Despesa Geral{% endblock %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Caixa</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Caixa</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block content %}
+  <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h1 class="box-title">Dados de Despesa<br><small>*Campos obrigatorios</small></h1>
+                </div>
+                <form class="form-horizontal" role="form" action="{{base_url}}caixa/listarBusca" method="post" 
+                      onSubmit="return btnCadastrar();">
+                    
+                        <div id="box"></div>
+                        <div class="box-body">
+                            
+                            <div class="form-group">
+                                
+                                <div class="col-xs-12 col-sm-6 col-md-6" id="divCategoria">
+                                    <label for="categoria">Caixa</label>
+                                </div>
+                            
+                            </div>    
+                            
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-4 col-md-4" id="divCriacao">
+                                    <label for="data_criacao">Data de Criação</label>
+                                    <div class="input-group">
+                                    <input id="data_criacao" type="text" class="form-control" 
+                                           name="data_criacao" value="{{data_atual|date("d/m/Y")}}" placeholder="Digite a data de criação">
+                                           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            
+                                <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
+                                    <label for="data_vencimento">Data de Vencimento</label>
+                                    <div class="input-group">
+                                    <input id="data_vencimento" type="text" class="form-control" 
+                                           name="data_vencimento" placeholder="Digite a data de vencimento">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    </div>
+                                        
+                                    <div class="col-xs-12 col-sm-4 col-md-4" id="submitConsulta">
+                                        <label for="data_vencimento"></label>
+                                        <br/>
+                                    <button type="submit" class="btn btn-success">Consultar</button>
+                                    
+                                    </div>
+                                    </div>
+                            <div class="form-group">
+                            <div class="col-xs-10 col-sm-10 col-md-10">
+                                <table id="servicos" class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Código</th>
+                                            <th class="text-center">Tipo</th>
+                                            <th class="text-center">Data Finalização / Pagamento </th>
+                                            <th class="text-center">Valor</th>
+                                            <th class="text-center">Balanço Total: {{ balancos.total }} </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                           {% for extrato in extratos %}
+                                            <tr>
+                                                <td>{{ extrato.codigo }}</td>
+                                                <td>{{ extrato.tipo }}</td>
+                                                <td>{{ extrato.dataFinalizacao }}</td>
+                                                <td>{{ extrato.valor }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                           </div>
+                           
+                    
+                    <div class="box-footer">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $("#data_vencimento").mask('99/99/9999');
+            $("#data_criacao").mask('99/99/9999');
+            
+            $('#data_criacao').datepicker({
+               format: 'dd/mm/yyyy' 
+            }).datepicker('setDate', new Date());
+            
+            $('#data_vencimento').datepicker({
+               format: 'dd/mm/yyyy' 
+            }).datepicker('setDate', '+1d');
+
+            
+        });
+        
+        
+        
+    </script>
+{% endblock %}
