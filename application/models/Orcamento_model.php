@@ -36,4 +36,10 @@ class Orcamento_model extends CI_Model {
             $this->db->update('orcamento_cabecalho', $dados, $condicao);
         }
     }
+
+    public function delete_logical_orcamento($condicao = NULL) {
+        if ($condicao <> NULL) {
+            $this->db->update('orcamento_cabecalho', array('deletado' => 1), $condicao);
+        }
+    }     
 }
