@@ -304,4 +304,17 @@ class Orcamento extends CI_Controller {
         $this->form_validation->set_rules('codCliente', 'codCliente', 'required');
         return $this->form_validation;
     }
+
+    public function deletar() {
+        $idOrcamento = $this->uri->segment(3);
+
+        if ($idOrcamento != NULL) {
+            $this->orcamento_model->delete_logical_orcamento(array('id_orcamento' => $idOrcamento));
+            $this->orcamentoservico_model->delete_logical_orcamentoServico(array('id_orcamento' => $idOrcamento));
+            $this->orcamentoproduto_model->delete_logical_orcamentoProduto(array('id_orcamento' => $idOrcamento));
+
+            $this->session->set_flashdata('message_success', 'Orçamento removido com sucesso!');
+        }
+        redirect('orcamento/listar', 'refresh');
+    }    
 }
