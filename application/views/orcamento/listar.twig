@@ -77,7 +77,7 @@
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}orcamento/visualizar/{{ orcamento.id_orcamento }}">Visualizar</a>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}orcamento/editar/{{ orcamento.id_orcamento }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" href="{{base_url}}orcamento/deletar/{{ orcamento.id_orcamento }}">Excluir</a>
+                                                    <a class="btn btn-danger btn-xs" onclick="pergExclui({{ orcamento.id_orcamento }});">Excluir</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -93,6 +93,21 @@
             </div>
         </div>
     </section>
+    <div class="modal modal-info fade" id="modal_info" role="dialog">
+        <div class="modal-dialog" style="padding-top: 15%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-title-sec"></p>
+                </div>
+                <div class="modal-footer">
+                    <div class="modalInfoBtn"></div>
+                </div>
+            </div>
+        </div>
+    </div>    
 {% endblock %}
 {% block js %}
     {{ parent() }}
@@ -125,5 +140,19 @@
                 }                
             });
         });
+
+        function pergExclui(idOrcamento) {
+            $('#modal_info').modal('show');
+            $('#modal_info').on('shown.bs.modal', function () {
+                var modal = $(this);
+                modal.find('.modal-title').text('Atenção');
+                modal.find('.modal-title-sec').text('Deseja excluir o orçamento?');
+                modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}orcamento/deletar/'+idOrcamento+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+            })
+        }
+
+        function fechaModalInfo() {
+            $('#modal_info').modal('hide');
+        }
     </script>
 {% endblock %}
