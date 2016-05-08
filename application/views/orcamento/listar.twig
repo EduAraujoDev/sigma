@@ -34,8 +34,9 @@
                                 <div class="input-group col-sm-2">
                                     Filtrar orçamento por:
                                     <select class="form-control" name="tipo_busca" id="buscaStatus">
+                                        <option value="">Selecione</option>
                                         {% for statu in status %}
-                                                <option value="{{ statu.titulo }}">{{ statu.titulo }}</option>
+                                            <option value="{{ statu.titulo }}">{{ statu.titulo }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>                                  
@@ -52,12 +53,14 @@
                                         </tr>
                                     </thead>
                                     <tbody id="fbody">
+                                        {% set statusOrc = 0 %}
                                         {% for orcamento in orcamentos %}
                                             <tr>
                                                 <td>{{ orcamento.id_orcamento }}</td>
                                                 {% for statu in status %}
                                                     {% if statu.id_status == orcamento.id_status %}
                                                         <td>{{ statu.titulo }}</td>
+                                                        {% set statusOrc = statu.id_status %}
                                                     {% endif %}
                                                 {% endfor %}
                                                 {% for cliente in clientes %}
@@ -74,8 +77,10 @@
                                                 <td class="text-right">{{ orcamento.total_liquido|number_format(2, ',', '.') }}</td>
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}orcamento/visualizar/{{ orcamento.id_orcamento }}">Visualizar</a>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}orcamento/editar/{{ orcamento.id_orcamento }}">Alterar</a>
-                                                    <a class="btn btn-danger btn-xs" onclick="pergExclui({{ orcamento.id_orcamento }});">Excluir</a>
+                                                    {% if statusOrc == 1 or statusOrc == 3 %}
+                                                        <a class="btn btn-primary btn-xs" href="{{base_url}}orcamento/editar/{{ orcamento.id_orcamento }}">Alterar</a>
+                                                        <a class="btn btn-danger btn-xs" onclick="pergExclui({{ orcamento.id_orcamento }});">Excluir</a>
+                                                    {% endif %}
                                                 </td>
                                             </tr>
                                         {% endfor %}
