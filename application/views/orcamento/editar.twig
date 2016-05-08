@@ -32,7 +32,7 @@
                                 <select class="form-control" name="statusOrcamento" id="statusOrcamento" onchange="alteraStatusOrc();">
                                     {% for statu in status %}
                                         {% if statu.id_status == orcamento_cabecalho.id_status %}
-                                            <option selected="selected" value="{{ statusOrc }}">{{ statu.titulo }}</option>
+                                            <option selected="selected" value="{{ statu.id_status }}">{{ statu.titulo }}</option>
                                         {% else %}
                                             <option value="{{ statu.id_status }}">{{ statu.titulo }}</option>
                                         {% endif %}
