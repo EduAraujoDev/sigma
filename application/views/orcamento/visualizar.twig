@@ -251,10 +251,15 @@
                     <div class="box-footer text-right">
                         {% if statusOrc == 6 %}
                             <span id="spanBotaoFinalizar"><button type="button" id="botaoFinalizar" class="btn btn-success" onclick="alertMudStatus({{ statusOrc }});">Finalizar</button></span>
+                            <span id="spanBotaoAlterar"><a class="btn btn-info" id="botaoAlterar" href="{{base_url}}orcamento/editar/{{ orcamento_cabecalho.id_orcamento }}">Alterar</a></span>
+                        {% elseif statusOrc == 1 or statusOrc == 3 %}
+                            <span id="spanBotaoFinalizar"></span>
+                            <span id="spanBotaoAlterar"><a class="btn btn-info" id="botaoAlterar" href="{{base_url}}orcamento/editar/{{ orcamento_cabecalho.id_orcamento }}">Alterar</a></span>                        
                         {% else %}
                             <span id="spanBotaoFinalizar"></span>
+                            <span id="spanBotaoAlterar"></span>
                         {% endif %}
-                        <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-default">Cancelar</button></a>
+                        <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>
