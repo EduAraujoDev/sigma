@@ -22,7 +22,7 @@
                 <form class="form-horizontal" role="form" method="post" action="{{base_url}}orcamento/adicionar">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-xs-12 col-sm-3 col-md-2" >
+                            <div class="col-xs-12 col-sm-3 col-md-4" >
                                 <label for="codOrcamento">Código</label>
                                 <input type="text" class="form-control" name="codOrcamento" id="codOrcamento" value="{{ orcamento_cabecalho.id_orcamento }}" readonly>
                             </div>
@@ -40,30 +40,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                             <div class="col-xs-12 col-sm-3 col-md-2" >
-                                <label for="dataCriacao">Data Criação</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" value="{{orcamento_cabecalho.data_criacao|date("d/m/Y")}}" readonly>
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>                          
-                            <div class="col-xs-12 col-sm-3 col-md-2" >
-                                <label for="dataPrevistaFinalizacao">Data Prev. finalização</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="dataPrevistaFinalizacao" name="dataPrevistaFinalizacao" value="{{orcamento_cabecalho.data_prevista_finalizacao|date("d/m/Y")}}" readonly>
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 col-md-2" >
-                                <label for="dataFinalizacao">Data de finalização</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="  /  /    " readonly>
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-xs-12 col-sm-3 col-md-4">
                                 <label for="tipoPagamento">Tipo de Pagamento</label>
                                 <select class="form-control" name="tipoPagamento" readonly>
                                     {% for tipoPagamento in tipoPagamentos %}
@@ -74,12 +51,37 @@
                                         {% endif %}
                                     {% endfor %}
                                 </select>
-                            </div>                            
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-4" >
+                                <label for="dataCriacao">Data Criação</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" value="{{orcamento_cabecalho.data_criacao|date("d/m/Y")}}" readonly>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>                          
+                            <div class="col-xs-12 col-sm-3 col-md-4" >
+                                <label for="dataPrevistaFinalizacao">Previsão de finalização</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="dataPrevistaFinalizacao" name="dataPrevistaFinalizacao" value="{{orcamento_cabecalho.data_prevista_finalizacao|date("d/m/Y")}}" readonly>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-4" >
+                                <label for="dataFinalizacao">Data de finalização</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="  /  /    " readonly>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-3">
                                 <label for="codCliente">Código do Cliente</label>       
                                 <input type="text" class="form-control" name="codCliente" id="codCliente" placeholder="Código do Cliente" value="{{ orcamento_cabecalho.id_cliente }}" readonly>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-6">
+                            <div class="col-xs-12 col-sm-12 col-md-9">
                                 <label for="nomeCliente">Nome do Cliente</label>
                                 {% for cliente in clientes %}
                                     {% if cliente.id_cliente == orcamento_cabecalho.id_cliente %}
