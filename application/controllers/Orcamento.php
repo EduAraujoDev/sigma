@@ -287,6 +287,25 @@ class Orcamento extends CI_Controller {
         }
     }
 
+    public function finalizarOrcamento(){
+        $idOrcamento        = $this->uri->segment(3);
+        $statusOrcamento    = $this->uri->segment(4);
+
+        if ( $idOrcamento != NULL && $statusOrcamento != NULL ) {
+            if ( $statusOrcamento == 6 ) {
+                $dadosCabec = array(
+                    'data_finalizacao' => date("Y-m-d")
+                    );
+                
+                $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
+
+                $this->session->set_flashdata('message_success', 'Orçamento finalizado com sucesso!');
+            }
+        }
+
+        redirect('orcamento/listar', 'refresh');        
+    }
+
     public function atuEstProdutoOrcamento($idProduto, $quantidade, $tipo){
         $produto    = $this->produto_model->get_produto_byid($idProduto)->row();
         $qntReserva = $produto->quantidade_reservada;
