@@ -261,7 +261,7 @@
                         </div>
                     </div>
                     <div class="box-footer text-right">
-                        {% if statusOrc == 6 %}
+                        {% if statusOrc == 2 or statusOrc == 4 or statusOrc == 5 or statusOrc == 6 %}
                             <span id="spanBotaoFinalizar"><button type="button" id="botaoFinalizar" class="btn btn-success" onclick="alertMudStatus({{ statusOrc }});">Finalizar</button></span>
                             <span id="spanBotaoAlterar"><a class="btn btn-info" id="botaoAlterar" href="{{base_url}}orcamento/editar/{{ orcamento_cabecalho.id_orcamento }}">Alterar</a></span>
                         {% elseif statusOrc == 1 or statusOrc == 3 %}
