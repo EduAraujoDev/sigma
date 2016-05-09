@@ -70,7 +70,7 @@ class Orcamento extends CI_Controller {
             $dataCriacao = $this->input->post('dataCriacao');
             $dataCriacao = substr($dataCriacao, 6, 4)."-".substr($dataCriacao, 3, 2)."-".substr($dataCriacao, 0, 2);
 
-            $dataFinalizacao = $this->input->post('dataFinalizacao');
+            $dataFinalizacao = $this->input->post('dataPrevistaFinalizacao');
             $dataFinalizacao = substr($dataFinalizacao, 6, 4)."-".substr($dataFinalizacao, 3, 2)."-".substr($dataFinalizacao, 0, 2);
 
             $dadosCabec = array(
@@ -206,7 +206,7 @@ class Orcamento extends CI_Controller {
             $dataCriacao = $this->input->post('dataCriacao');
             $dataCriacao = substr($dataCriacao, 6, 4)."-".substr($dataCriacao, 3, 2)."-".substr($dataCriacao, 0, 2);
 
-            $dataFinalizacao = $this->input->post('dataFinalizacao');
+            $dataFinalizacao = $this->input->post('dataPrevistaFinalizacao');
             $dataFinalizacao = substr($dataFinalizacao, 6, 4)."-".substr($dataFinalizacao, 3, 2)."-".substr($dataFinalizacao, 0, 2);
 
             $dadosCabec = array(
