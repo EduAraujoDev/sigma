@@ -129,12 +129,11 @@
         });
 
         $('#buscaStatus').change(function () {
-            var rows = $("#fbody").find("tr").hide();
-            var data = this.value.split(" ");
-            $.each(data, function (i, v) {
-                rows.filter(":contains('" + v + "')").show();
-            });
-        })        
+            var oTable;
+            oTable = $('#tabelaOrcamento').dataTable();            
+            
+            oTable.fnFilter( "^"+$(this).val()+"$", 1, true );
+        });
 
         function pergExclui(idOrcamento) {
             $('#modal_info').modal('show');
