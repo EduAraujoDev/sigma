@@ -293,14 +293,24 @@ class Orcamento extends CI_Controller {
 
         if ( $idOrcamento != NULL && $statusOrcamento != NULL ) {
             if ( $statusOrcamento == 6 ) {
-                $dadosCabec = array(
-                    'data_finalizacao' => date("Y-m-d")
-                    );
+                $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
                 
                 $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
-
-                $this->session->set_flashdata('message_success', 'Orçamento finalizado com sucesso!');
+            } else if ( $statusOrcamento == 4 ) {
+                $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
+                
+                $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
+            } else if ( $statusOrcamento == 5 ) {
+                $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
+                
+                $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
+            } else if ( $statusOrcamento == 2 ) {
+                $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
+                
+                $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
             }
+            
+            $this->session->set_flashdata('message_success', 'Orçamento finalizado com sucesso!');
         }
 
         redirect('orcamento/listar', 'refresh');        
