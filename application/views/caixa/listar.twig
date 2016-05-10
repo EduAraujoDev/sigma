@@ -3,10 +3,10 @@
 
 {% block content_header %}
     <section class="content-header">
-        <h1>
+        <h3>
             Área Administrador
             <small>Caixa</small>
-        </h1>
+        </h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Caixa</li>
@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h1 class="box-title">Dados de Despesa<br><small>*Campos obrigatorios</small></h1>
+                    <h1 class="box-title">Caixa<br><small>*Campos obrigatorios</small></h1>
                 </div>
                 <form class="form-horizontal" role="form" action="{{base_url}}caixa/listarBusca" method="post" 
                       onSubmit="return btnCadastrar();">
@@ -27,12 +27,7 @@
                         <div id="box"></div>
                         <div class="box-body">
                             
-                            <div class="form-group">
-                                
-                                <div class="col-xs-12 col-sm-6 col-md-6" id="divCategoria">
-                                    <label for="categoria">Caixa</label>
-                                </div>
-                            
+                            <div class="form-group">                            
                             </div>    
                             
                             <div class="form-group">
@@ -61,6 +56,11 @@
                                     
                                     </div>
                                     </div>
+                                  <div class="col-xs-12 col-sm-4 col-md-4">
+                                        <label for="balancoTotal">Balanço Total: {{ balancos.Total }}</label>
+                                        </div>
+                                    </div>
+                                           
                             <div class="form-group">
                             <div class="col-xs-10 col-sm-10 col-md-10">
                                 <table id="servicos" class="table table-bordered table-hover table-striped">
@@ -70,16 +70,17 @@
                                             <th class="text-center">Tipo</th>
                                             <th class="text-center">Data Finalização / Pagamento </th>
                                             <th class="text-center">Valor</th>
-                                            <th class="text-center">Balanço Total: {{ balancos.total }} </th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        
                                            {% for extrato in extratos %}
                                             <tr>
-                                                <td>{{ extrato.codigo }}</td>
-                                                <td>{{ extrato.tipo }}</td>
-                                                <td>{{ extrato.dataFinalizacao }}</td>
-                                                <td>{{ extrato.valor }}</td>
+                                                <td>{{ extrato.Codigo }}</td>
+                                                <td>{{ extrato.Tipo }}</td>
+                                                <td>{{ extrato.DataFinalizacao }}</td>
+                                                <td>{{ extrato.Valor }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -88,9 +89,7 @@
                         </div>
                            </div>
                            
-                    
-                    <div class="box-footer">
-                    </div>
+
                 </form>
             </div>
         </div>
