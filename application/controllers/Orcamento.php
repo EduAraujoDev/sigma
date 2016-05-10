@@ -70,7 +70,7 @@ class Orcamento extends CI_Controller {
             $dataCriacao = $this->input->post('dataCriacao');
             $dataCriacao = substr($dataCriacao, 6, 4)."-".substr($dataCriacao, 3, 2)."-".substr($dataCriacao, 0, 2);
 
-            $dataFinalizacao = $this->input->post('dataFinalizacao');
+            $dataFinalizacao = $this->input->post('dataPrevistaFinalizacao');
             $dataFinalizacao = substr($dataFinalizacao, 6, 4)."-".substr($dataFinalizacao, 3, 2)."-".substr($dataFinalizacao, 0, 2);
 
             $dadosCabec = array(
@@ -147,8 +147,10 @@ class Orcamento extends CI_Controller {
         }
 
         if ($orcamento_id != NULL) {
+            $message_success = $this->session->flashdata('message_success');
             $user = $_SESSION['userLogin'];
             $data = ['base_url' => $this->config->base_url(),
+                'message_success'       => $message_success,
                 'orcamento_cabecalho'   => $this->orcamento_model->get_orcamento_byid($orcamento_id)->row(),
                 'orcamento_produtos'    => $this->orcamentoproduto_model->get_orcamentoProduto_byid($orcamento_id)->result(),
                 'orcamento_servicos'    => $this->orcamentoservico_model->get_orcamentoServico_byid($orcamento_id)->result(),
@@ -204,7 +206,7 @@ class Orcamento extends CI_Controller {
             $dataCriacao = $this->input->post('dataCriacao');
             $dataCriacao = substr($dataCriacao, 6, 4)."-".substr($dataCriacao, 3, 2)."-".substr($dataCriacao, 0, 2);
 
-            $dataFinalizacao = $this->input->post('dataFinalizacao');
+            $dataFinalizacao = $this->input->post('dataPrevistaFinalizacao');
             $dataFinalizacao = substr($dataFinalizacao, 6, 4)."-".substr($dataFinalizacao, 3, 2)."-".substr($dataFinalizacao, 0, 2);
 
             $dadosCabec = array(
@@ -278,9 +280,30 @@ class Orcamento extends CI_Controller {
             }            
 
             $this->session->set_flashdata('message_success', 'Orçamento atualizado com sucesso!');
+
+            redirect('orcamento/visualizar/'.$idOrcamento, 'refresh');
+        } else {
+            redirect('orcamento/listar', 'refresh');
+        }
+    }
+
+    public function finalizarOrcamento(){
+        $idOrcamento        = $this->uri->segment(3);
+        $statusOrcamento    = $this->uri->segment(4);
+
+        if ( $idOrcamento != NULL && $statusOrcamento != NULL ) {
+            if ( $statusOrcamento == 6 ) {
+                $dadosCabec = array(
+                    'data_finalizacao' => date("Y-m-d")
+                    );
+                
+                $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
+
+                $this->session->set_flashdata('message_success', 'Orçamento finalizado com sucesso!');
+            }
         }
 
-        redirect('orcamento/listar', 'refresh');
+        redirect('orcamento/listar', 'refresh');        
     }
 
     public function atuEstProdutoOrcamento($idProduto, $quantidade, $tipo){
