@@ -7,7 +7,8 @@
             <small>Novo Orçamento</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="{{base_url}}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="{{base_url}}orcamento/listar">Listar Orçamento</a></li>
             <li class="active">Novo Orçamento</li>
         </ol>
     </section>
@@ -44,9 +45,9 @@
                                 </div>
                             </div>                          
                             <div class="col-xs-12 col-sm-3 col-md-3" >
-                                <label for="dataFinalizacao">Data Prevista de finalização</label>
+                                <label for="dataPrevistaFinalizacao">Data Prevista de finalização</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao">
+                                    <input type="text" class="form-control" id="dataPrevistaFinalizacao" name="dataPrevistaFinalizacao">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
@@ -442,7 +443,7 @@
                 format: 'dd/mm/yyyy'
             }).datepicker('setDate', new Date());
 
-            $('#dataFinalizacao').datepicker({
+            $('#dataPrevistaFinalizacao').datepicker({
                 format: 'dd/mm/yyyy'
             }).datepicker('setDate', '+1d');
 

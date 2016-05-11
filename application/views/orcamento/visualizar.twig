@@ -192,7 +192,7 @@
                                                 {% endfor %}
 
                                                 <td>{{ orcamento_produto.quantidade }}</td>
-                                                <td class="text-right">{{ orcamento_produto.desconto }}</td>
+                                                <td class="text-right">{{ orcamento_produto.desconto|number_format(0) }}%</td>
                                                 <td class="text-right">{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}</td>
                                                 <td class="text-right">{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}</td>
                                                 <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}</td>
