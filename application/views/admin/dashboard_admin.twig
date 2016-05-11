@@ -75,7 +75,7 @@
                 <!-- /.info-box -->
             </div>
             <!-- /.col -->
-           <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-vinho">
                         <a href="{{base_url}}orcamento/listar" style="color: #fff;">
@@ -95,24 +95,24 @@
             </div>
             <!-- /.col -->
 
-                      <div class="col-md-3 col-sm-6 col-xs-12">
-                           <div class="info-box">
-                               <span class="info-box-icon bg-red">
-                                   <a href="{{base_url}}servico/listar" style="color: #fff;">
-                                       <i class="fa fa-list-alt"></i>
-                                   </a>
-                               </span>
-           
-                               <div class="info-box-content">
-                                   <a href="{{base_url}}servico/listar" style="color: #000;">
-                                       <span class="info-box-text">Ordens de <br/> Serviço</span>
-                                       <span class="info-box-number">{{qntServico}}</span>
-                                   </a>
-                               </div>
-                               <!-- /.info-box-content -->
-                           </div>
-                           <!-- /.info-box -->
-                       </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red">
+                        <a href="{{base_url}}servico/listar" style="color: #fff;">
+                            <i class="fa fa-list-alt"></i>
+                        </a>
+                    </span>
+
+                    <div class="info-box-content">
+                        <a href="{{base_url}}servico/listar" style="color: #000;">
+                            <span class="info-box-text">Ordens de <br/> Serviço</span>
+                            <span class="info-box-number">{{qntServico}}</span>
+                        </a>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
             <!-- /.col -->
 
             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -132,10 +132,10 @@
                 </div>
             </div>
 
-          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-chumbo">
-                          <a href="{{base_url}}compra/listar" style="color: #fff;">
+                        <a href="{{base_url}}compra/listar" style="color: #fff;">
                             <img alt="pedidos de compra" src="public/dist/img/icons/pedidos-sigma.png">
                         </a>
                     </span>
@@ -163,8 +163,8 @@
                     <div class="info-box-content">
                         <a href="{{base_url}}fornecedor/listar" style="color: #000;">
                             <span class="info-box-text" style="
-                                font-family: 'Source Sans Pro','Helvetica Neue','Helvetica','Arial','sans-serif';
-                                font-size: 10pt;">Fornecedores</span>
+                                  font-family: 'Source Sans Pro','Helvetica Neue','Helvetica','Arial','sans-serif';
+                                  font-size: 10pt;">Fornecedores</span>
                             <span class="info-box-number">{{qntFornecedor}}</span>
                         </a>
                     </div>
@@ -172,9 +172,128 @@
                 </div>
                 <!-- /.info-box -->
             </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Status de Despesas</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <center>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <canvas id="skills2"></canvas>
+                                </div>
+                                <div class="col-md-5">
+                                    {% for label in des_label %}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div style="width:30px;height:30px;background: {{label.color}};border-radius:30px;"></div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: 5px;">
+                                                {{label.nome}}
+                                            </div>
+                                        </div>
+                                        <br>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+
+                        </center>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Aprovação de Orçamentos</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <center>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <canvas id="skills"></canvas>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <div style="width:30px;height:30px;background:rgb(20, 97, 204);border-radius:30px;"></div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 5px;">
+                                            PHP
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <div style="width:30px;height:30px;background:rgb(221, 75, 57);border-radius:30px;"></div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 5px;">
+                                            HTML
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </center>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
             <!-- /.col -->
 
 
         </div>
         <!-- /.row -->
+    {% endblock %}
+
+    {% block js %}
+
+        <!-- jQuery 2.2.0 -->
+        <script src="{{base_url}}public/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="{{base_url}}public/bootstrap/js/bootstrap.min.js"></script>
+        <!-- ChartJS 1.0.1 -->
+        <script src="{{base_url}}public/plugins/chartjs/Chart.min.js"></script>
+        <!-- FastClick -->
+        <script src="{{base_url}}public/plugins/fastclick/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <script src="{{base_url}}public/dist/js/app.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="{{base_url}}public/dist/js/demo.js"></script>
+        <!-- page script -->
+        <script>
+            $(function () {
+            {% autoescape false %}
+                    var pieData
+                    = {{des_chart|json_encode()}};
+            {% endautoescape %}
+
+                            var doughnutData = [
+                                {
+                                    value: 50,
+                                    color: 'rgb(20, 97, 204)',
+                                    label: 'HTML',
+                                },
+                                {
+                                    value: 50,
+                                    color: 'rgb(221, 75, 57)',
+                                    label: 'PHP',
+                                }
+                            ];
+
+                    var context = document.getElementById('skills').getContext('2d');
+                    var skillsChart = new Chart(context).Doughnut(doughnutData);
+
+                    var context = document.getElementById('skills2').getContext('2d');
+                    var skillsChart = new Chart(context).Pie(pieData);
+                });
+        </script>
     {% endblock %}
