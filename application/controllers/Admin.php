@@ -35,6 +35,37 @@ class Admin extends CI_Controller {
     // Pagina inicial para usuario administrador
     public function index() {
         $user = $_SESSION['userLogin'];
+
+
+        $sql = "SELECT
+	DS.titulo AS STATUS,
+	CONVERT((IFNULL(IFNULL(COUNT(DISTINCT D.id_despesa),0)/(SELECT COUNT(*) FROM despesa WHERE data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW()),0))*100,SIGNED INTEGER) AS Total
+        FROM
+	despesa_status AS DS
+	LEFT JOIN despesa AS D ON DS.id_status = D.id_status
+        WHERE
+	(D.data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() OR D.data_criacao IS NULL)
+	AND D.deletado = 0
+        GROUP BY
+	DS.titulo";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        $des_chart = [];
+        $des_label = [];
+        foreach ($result as $r) {
+
+            if ($r->STATUS == 'Aberta') {
+                $color = 'rgb(0, 192, 239)';
+            } elseif ($r->STATUS == 'Paga') {
+                $color = 'rgb(0, 166, 90)';
+            } else {
+                $color = 'rgb(243, 156, 18)';
+            }
+
+            $des_chart[] = ['value' => $r->Total, 'color' => $color, 'label' => $r->STATUS];
+            $des_label[] = ['color' => $color, 'nome' => $r->STATUS];
+        }
+
         $data = array(
             'base_url' => $this->config->base_url(),
             'qntCliente' => $this->cliente_model->get_cliente_count_notDeleted(),
@@ -43,6 +74,8 @@ class Admin extends CI_Controller {
             'qntFornecedor' => $this->fornecedor_model->get_fornecedor_count_notDeleted(),
             'qntDespesa' => $this->despesageral_model->get_despesageral_count_notDeleted(),
             'user' => $user,
+            'des_chart' => $des_chart,
+            'des_label' => $des_label,
         );
         $this->twig->display('admin/dashboard_admin', $data);
     }
