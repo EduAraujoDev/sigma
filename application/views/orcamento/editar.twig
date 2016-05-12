@@ -185,6 +185,8 @@
                                     <tbody>
                                         {% set quantProduto = 0 %}
                                         {% set valorProduto = 0 %}
+                                        {% set totalBrutoProduto = 0.00 %}
+                                        {% set totalLiquidoProduto = 0.00 %}                                            
 
                                         {% for orcamento_produto in orcamento_produtos %}
                                             {% set quantProduto = quantProduto + 1 %}                                            
@@ -202,14 +204,18 @@
                                                 <td class="text-right"><input type="hidden" id="produto_desconto_{{ quantProduto }}" name="produto_desconto_{{ quantProduto }}" value="{{ orcamento_produto.desconto|number_format(0) }}">{{ orcamento_produto.desconto|number_format(0) }}%</td>
                                                 <td class="text-right"><input type="hidden" id="produto_prcProduto_{{ quantProduto }}" name="produto_prcProduto_{{ quantProduto }}" value="{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}">{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}</td>
                                                 <td class="text-right"><input type="hidden" id="produto_prcCobrado_{{ quantProduto }}" name="produto_prcCobrado_{{ quantProduto }}" value="{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}">{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}</td>
-                                                <td class="text-right"><input type="hidden" id="produto_subTotalBr_{{ quantProduto }}" name="produto_subTotalBr_{{ quantProduto }}" value="{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}</td>
-                                                <td class="text-right"><input type="hidden" id="produto_subTotalQl_{{ quantProduto }}" name="produto_subTotalQl_{{ quantProduto }}" value="{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}</td>
+
+                                                {% set totalBrutoProduto = orcamento_produto.quantidade * orcamento_produto.preco_cobrado %}
+                                                <td class="text-right"><input type="hidden" id="produto_subTotalBr_{{ quantProduto }}" name="produto_subTotalBr_{{ quantProduto }}" value="{{ totalBrutoProduto|number_format(2, ',', '.') }}">{{ totalBrutoProduto|number_format(2, ',', '.') }}</td>
+
+                                                {% set totalLiquidoProduto = totalBrutoProduto - (totalBrutoProduto * orcamento_produto.desconto / 100) %}
+                                                <td class="text-right"><input type="hidden" id="produto_subTotalQl_{{ quantProduto }}" name="produto_subTotalQl_{{ quantProduto }}" value="{{ totalLiquidoProduto|number_format(2, ',', '.') }}">{{ totalLiquidoProduto|number_format(2, ',', '.') }}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-info btn-flat" id="{{ quantProduto }}" onclick="editarProduto(this.id,{{ orcamento_produto.id_produto }});"><i class="fa fa-edit"></i></button>&nbsp;
                                                     <button type="button" class="btn btn-danger btn-flat" id="{{ quantProduto }}" onclick="pergRemoveProduto(this.id);"><i class="fa fa-remove"></i></button>
                                                 </td>
                                             </tr>
-                                            {% set valorProduto = valorProduto + (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto) %}
+                                            {% set valorProduto = valorProduto + totalLiquidoProduto %}
                                         {% endfor %}
                                     </tbody>
                                 </table>

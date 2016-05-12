@@ -179,6 +179,8 @@
                                     <tbody>
                                         {% set quantProduto = 1 %}
                                         {% set valorProduto = 0 %}
+                                        {% set totalBrutoProduto = 0.00 %}
+                                        {% set totalLiquidoProduto = 0.00 %}
 
                                         {% for orcamento_produto in orcamento_produtos %}
                                             <tr>
@@ -195,12 +197,16 @@
                                                 <td class="text-right">{{ orcamento_produto.desconto|number_format(0) }}%</td>
                                                 <td class="text-right">{{ orcamento_produto.preco_venda|number_format(2, ',', '.') }}</td>
                                                 <td class="text-right">{{ orcamento_produto.preco_cobrado|number_format(2, ',', '.') }}</td>
-                                                <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado)|number_format(2, ',', '.') }}</td>
-                                                <td class="text-right">{{ (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto)|number_format(2, ',', '.') }}</td>
+
+                                                {% set totalBrutoProduto = orcamento_produto.quantidade * orcamento_produto.preco_cobrado %}
+                                                <td class="text-right">{{ ( totalBrutoProduto )|number_format(2, ',', '.') }}</td>
+
+                                                {% set totalLiquidoProduto = totalBrutoProduto - (totalBrutoProduto * orcamento_produto.desconto / 100) %}
+                                                <td class="text-right">{{ totalLiquidoProduto|number_format(2, ',', '.') }}</td>
                                             </tr>
 
                                             {% set quantProduto = quantProduto + 1 %}
-                                            {% set valorProduto = valorProduto + (orcamento_produto.quantidade * orcamento_produto.preco_cobrado - orcamento_produto.desconto) %}
+                                            {% set valorProduto = valorProduto + totalLiquidoProduto %}
                                         {% endfor %}                                        
                                     </tbody>
                                 </table>
