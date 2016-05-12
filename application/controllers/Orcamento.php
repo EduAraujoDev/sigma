@@ -93,14 +93,14 @@ class Orcamento extends CI_Controller {
 
             $quantidadeServicos = $this->input->post('quantidadeServicos');
             for ($i=1; $i <= $quantidadeServicos; $i++) {
-                $valorCobrado = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
-                $valorCobrado = str_replace(',', '.', $valorCobrado);            
+                $vlrCobServico = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
+                $vlrCobServico = str_replace(',', '.', $vlrCobServico);
                 
                 $dadosServico = array(
 
                     'id_servico'    => $this->input->post('servico_codigo_'.$i),
                     'id_orcamento'  => $id,
-                    'preco_cobrado' => $valorCobrado
+                    'preco_cobrado' => $vlrCobServico
                 );
 
                 $this->orcamentoservico_model->insert_orcamentoServico($dadosServico);
@@ -108,11 +108,11 @@ class Orcamento extends CI_Controller {
 
             $quantidadeProdutos = $this->input->post('quantidadeProdutos');
             for ($i=1; $i <= $quantidadeProdutos; $i++) {
-                $valorVenda = str_replace('.', '', $this->input->post('produto_prcProduto_'.$i));
-                $valorVenda = str_replace(',', '.', $valorCobrado); 
+                $vlrVndProduto = str_replace('.', '', $this->input->post('produto_prcProduto_'.$i));
+                $vlrVndProduto = str_replace(',', '.', $vlrVndProduto); 
 
-                $valorCobrado = str_replace('.', '', $this->input->post('produto_prcCobrado_'.$i));
-                $valorCobrado = str_replace(',', '.', $valorCobrado);            
+                $vlrCobProduto = str_replace('.', '', $this->input->post('produto_prcCobrado_'.$i));
+                $vlrCobProduto = str_replace(',', '.', $vlrCobProduto);            
                 
                 $desconto   = str_replace('%', '', $this->input->post('produto_desconto_'.$i));
                 $idProduto  = $this->input->post('produto_codigo_'.$i);
@@ -125,8 +125,8 @@ class Orcamento extends CI_Controller {
                     'id_orcamento'  => $id,
                     'quantidade'    => $quantProd,
                     'desconto'      => $desconto,
-                    'preco_venda'   => $valorVenda,
-                    'preco_cobrado' => $valorCobrado
+                    'preco_venda'   => $vlrVndProduto,
+                    'preco_cobrado' => $vlrCobProduto
                 );
 
                 $this->orcamentoproduto_model->insert_orcamentoProduto($dadosProduto);
@@ -232,13 +232,13 @@ class Orcamento extends CI_Controller {
             $this->orcamentoservico_model->delete_orcamentoServico(array('id_orcamento' => $idOrcamento));
             $quantidadeServicos = $this->input->post('quantidadeServicos');
             for ($i=1; $i <= $quantidadeServicos; $i++) {
-                $valorCobrado = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
-                $valorCobrado = str_replace(',', '.', $valorCobrado);            
+                $vlrCobServico = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
+                $vlrCobServico = str_replace(',', '.', $vlrCobServico);            
                 
                 $dadosServico = array(
                     'id_servico'    => $this->input->post('servico_codigo_'.$i),
                     'id_orcamento'  => $idOrcamento,
-                    'preco_cobrado' => $valorCobrado
+                    'preco_cobrado' => $vlrCobServico
                 );
 
                 $this->orcamentoservico_model->insert_orcamentoServico($dadosServico);
@@ -253,11 +253,11 @@ class Orcamento extends CI_Controller {
             $this->orcamentoproduto_model->delete_orcamentoProduto(array('id_orcamento' => $idOrcamento));
             $quantidadeProdutos = $this->input->post('quantidadeProdutos');
             for ($i=1; $i <= $quantidadeProdutos; $i++) {
-                $valorVenda = str_replace('.', '', $this->input->post('produto_prcProduto_'.$i));
-                $valorVenda = str_replace(',', '.', $valorCobrado); 
+                $vlrVndProduto = str_replace('.', '', $this->input->post('produto_prcProduto_'.$i));
+                $vlrVndProduto = str_replace(',', '.', $vlrVndProduto); 
 
-                $valorCobrado = str_replace('.', '', $this->input->post('produto_prcCobrado_'.$i));
-                $valorCobrado = str_replace(',', '.', $valorCobrado);            
+                $vlrCobProduto = str_replace('.', '', $this->input->post('produto_prcCobrado_'.$i));
+                $vlrCobProduto = str_replace(',', '.', $vlrCobProduto);            
                 
                 $desconto   = str_replace('%', '', $this->input->post('produto_desconto_'.$i));
                 $idProduto  = $this->input->post('produto_codigo_'.$i);
@@ -268,8 +268,8 @@ class Orcamento extends CI_Controller {
                     'id_orcamento'  => $idOrcamento,
                     'quantidade'    => $this->input->post('produto_quantidade_'.$i),
                     'desconto'      => $desconto,
-                    'preco_venda'   => $valorVenda,
-                    'preco_cobrado' => $valorCobrado
+                    'preco_venda'   => $vlrVndProduto,
+                    'preco_cobrado' => $vlrCobProduto
                 );
 
                 $this->orcamentoproduto_model->insert_orcamentoProduto($dadosProduto);
