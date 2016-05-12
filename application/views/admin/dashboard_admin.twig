@@ -220,23 +220,17 @@
                                     <canvas id="skills"></canvas>
                                 </div>
                                 <div class="col-md-5">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <div style="width:30px;height:30px;background:rgb(20, 97, 204);border-radius:30px;"></div>
+                                    {% for label in orc_label %}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div style="width:30px;height:30px;background: {{label.color}};border-radius:30px;"></div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: 5px;">
+                                                {{label.nome}}
+                                            </div>
                                         </div>
-                                        <div class="col-md-6" style="margin-top: 5px;">
-                                            PHP
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <div style="width:30px;height:30px;background:rgb(221, 75, 57);border-radius:30px;"></div>
-                                        </div>
-                                        <div class="col-md-6" style="margin-top: 5px;">
-                                            HTML
-                                        </div>
-                                    </div>
+                                        <br>
+                                    {% endfor %}
                                 </div>
                             </div>
 
@@ -272,24 +266,12 @@
         <script>
             $(function () {
             {% autoescape false %}
-                    var pieData
-                    = {{des_chart|json_encode()}};
+                    var pieData = {{des_chart|json_encode()}};
             {% endautoescape %}
-
-                            var doughnutData = [
-                                {
-                                    value: 50,
-                                    color: 'rgb(20, 97, 204)',
-                                    label: 'HTML',
-                                },
-                                {
-                                    value: 50,
-                                    color: 'rgb(221, 75, 57)',
-                                    label: 'PHP',
-                                }
-                            ];
-
-                    var context = document.getElementById('skills').getContext('2d');
+            {% autoescape false %}
+                            var doughnutData = {{orc_chart|json_encode()}};
+            {% endautoescape %}
+                            var context = document.getElementById('skills').getContext('2d');
                     var skillsChart = new Chart(context).Doughnut(doughnutData);
 
                     var context = document.getElementById('skills2').getContext('2d');

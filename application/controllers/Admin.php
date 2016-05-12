@@ -35,11 +35,17 @@ class Admin extends CI_Controller {
     // Pagina inicial para usuario administrador
     public function index() {
         $user = $_SESSION['userLogin'];
+        //Grafico Status de Despesas
         $result_des_chart = $this->getdes_chart();
-
         $return_des_chart = $this->create_des_chart($result_des_chart);
         $des_chart = $return_des_chart['des_chart'];
         $des_label = $return_des_chart['des_label'];
+
+        //Aprovação de Orçamentos
+        $result_orc_chart = $this->getorc_chart();
+        $return_orc_chart = $this->create_orc_chart($result_orc_chart);
+        $orc_chart = $return_orc_chart['orc_chart'];
+        $orc_label = $return_orc_chart['orc_label'];
 
         $data = array(
             'base_url' => $this->config->base_url(),
@@ -51,6 +57,8 @@ class Admin extends CI_Controller {
             'user' => $user,
             'des_chart' => $des_chart,
             'des_label' => $des_label,
+            'orc_chart' => $orc_chart,
+            'orc_label' => $orc_label,
         );
         $this->twig->display('admin/dashboard_admin', $data);
     }
@@ -226,6 +234,44 @@ class Admin extends CI_Controller {
         }
 
         return ['des_chart' => $des_chart, 'des_label' => $des_label];
+    }
+
+    public function getorc_chart() {
+        $sql = "SELECT
+	Z.Status,
+	CONVERT(IFNULL((IFNULL(COUNT(DISTINCT Z.id_orcamento),0)/(SELECT COUNT(*) FROM orcamento_cabecalho WHERE YEAR(data_prevista_finalizacao)*100+MONTH(data_prevista_finalizacao) = YEAR(NOW())*100+MONTH(NOW())))*100,0),SIGNED INTEGER) AS Total
+        FROM
+	(
+		SELECT
+			OC.id_orcamento,
+			CASE WHEN OS.titulo = 'Aprovado' AND OC.finalizado = 1 THEN 'Aprovado' ELSE 'Não aprovado' END AS Status
+		FROM
+			orcamento_status AS OS
+			INNER JOIN orcamento_cabecalho AS OC ON OS.id_status = OC.id_status
+		WHERE
+			YEAR(OC.data_prevista_finalizacao)*100+MONTH(OC.data_prevista_finalizacao) = YEAR(NOW())*100+MONTH(NOW())
+			AND IFNULL(OC.deletado,0) = 0	
+	) AS Z
+        GROUP BY
+	Z.Status";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
+    public function create_orc_chart($result_orc_chart) {
+        $orc_chart = [];
+        $orc_label = [];
+        foreach ($result_orc_chart as $r) {
+            if ($r->Status == 'Aberta') {
+                $color = 'rgb(20, 97, 204)';
+            } else {
+                $color = 'rgb(221, 75, 57)';
+            }
+            $orc_chart[] = ['value' => $r->Total, 'color' => $color, 'label' => $r->Status];
+            $orc_label[] = ['color' => $color, 'nome' => $r->Status];
+        }
+        return ['orc_chart' => $orc_chart, 'orc_label' => $orc_label];
     }
 
 }
