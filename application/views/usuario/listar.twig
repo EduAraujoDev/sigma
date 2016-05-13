@@ -28,33 +28,21 @@
                         </div>
                     {% endif %}
                     <a class="btn btn-primary" href="{{base_url}}usuario/novo">Incluir Usuário</a>
-                    <br/>
-                    <form role="form" action="{{base_url}}usuario/buscar" method="GET">
-                        <br/>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-
-                            <input type="text" name="busca" class="form-control" 
-                                   placeholder="Nome da Usuário" >
-
-                            <span class="input-group-addon"><input type="submit"  value="buscar"></span>
-                        </div>
-                    </form>
-                    <br>
+                    <br/><br/>
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">                                
-                                <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="tabelaUsuario">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Id</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>                                            
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Login</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">E-mail</th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Tipo</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Id</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Nome</th>                                            
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Login</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">E-mail</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Tipo</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="fbody">
                                         {% for usuario in usuarios %}                                            
                                             <tr>
                                                 <td>{{ usuario.id_usuario }}</td>
@@ -90,6 +78,16 @@
     <script type="text/javascript">
         $("#alerta").fadeTo(2000, 500).slideUp(500, function () {
             $("#alerta").alert('close');
+        });
+        
+        $(document).ready(function () {
+            $('#tabelaUsuario').DataTable({
+                "iDisplayLength": 10,
+                "order": [0, "desc"],
+                "language": {
+                    "sLengthMenu": "",
+                },
+            });
         });
     </script>
 {% endblock %}
