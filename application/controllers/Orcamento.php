@@ -38,12 +38,14 @@ class Orcamento extends CI_Controller {
     }
 
     public function listar() {
+        $user = $_SESSION['userLogin'];
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url'     => $this->config->base_url(),
             'message_success'   => $message_success,
             'orcamentos'        => $this->orcamento_model->get_orcamento_notDeleted()->result(),
             'status'            => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
             'tipoPagamentos'    => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
+            'user'              => $user,
             'clientes'          => $this->cliente_model->get_cliente_notDeleted()->result()];
         $this->twig->display('orcamento/listar', $data);
     }    
@@ -53,6 +55,7 @@ class Orcamento extends CI_Controller {
         $data = ['base_url' => $this->config->base_url(),
             'status' => $this->orcamentostatus_model->get_orcamentoStatus_notDeleted()->result(),
             'tipoPagamentos' => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
+            'user' => $user,
         ];
         $this->twig->display('orcamento/novo', $data);
     }
