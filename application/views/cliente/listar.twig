@@ -28,6 +28,8 @@
                             {{message_success}}
                         </div>
                     {% endif %}
+                        <a class="btn btn-primary" href="{{base_url}}cliente/novo">Incluir Cliente</a>
+                    <br/><br/>
                     <form role="form" action="{{base_url}}cliente/buscar" method="GET">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -75,8 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-footer">
-                    <a class="btn btn-primary btn-lg" href="{{base_url}}cliente/novo">Incluir</a>
+                <div class="box-footer">               
                 </div>
             </div>
         </div>

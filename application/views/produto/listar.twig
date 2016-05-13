@@ -37,6 +37,8 @@
                             {{message_error}}
                         </div>
                     {% endif %}
+                        <a class="btn btn-primary" href="{{base_url}}produto/novo">Incluir Produto</a>
+                        <br/><br/>
                     <form role="form" action="{{base_url}}produto/buscar" method="GET">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -82,7 +84,6 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a class="btn btn-primary btn-lg" href="{{base_url}}produto/novo">Incluir</a>
                 </div>
             </div>
         </div>
