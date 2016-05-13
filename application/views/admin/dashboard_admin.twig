@@ -188,7 +188,7 @@
                                 <div class="col-md-5">
                                     {% for label in des_label %}
                                         <div class="row">
-                                            <div class="col-md-1">
+                                            <div class="col-md-2">
                                                 <div style="width:30px;height:30px;background: {{label.color}};border-radius:30px;"></div>
                                             </div>
                                             <div class="col-md-6" style="margin-top: 5px;">
@@ -222,7 +222,7 @@
                                 <div class="col-md-5">
                                     {% for label in orc_label %}
                                         <div class="row">
-                                            <div class="col-md-1">
+                                            <div class="col-md-2">
                                                 <div style="width:30px;height:30px;background: {{label.color}};border-radius:30px;"></div>
                                             </div>
                                             <div class="col-md-6" style="margin-top: 5px;">
@@ -235,6 +235,40 @@
                             </div>
 
 
+                        </center>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Status de Orçamentos</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <center>
+                            <canvas id="clients" style="width:100%;"></canvas>
+                        </center>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Status de Ordem de Serviço</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <center>
+                            <div class="row">
+                                <canvas id="clients2" style="width:100%;"></canvas>
+                            </div>
                         </center>
                         <!-- /.row -->
                     </div>
@@ -271,9 +305,42 @@
             {% autoescape false %}
                             var doughnutData = {{orc_chart|json_encode()}};
             {% endautoescape %}
-                            var context = document.getElementById('skills').getContext('2d');
-                    var skillsChart = new Chart(context).Doughnut(doughnutData);
 
+                            var sorData = {
+            {% autoescape false %}
+                            labels:{{orc_barlabel|json_encode()}},
+            {% endautoescape %}
+                                    datasets: [
+                                    {
+                                    label: '2010 customers #',
+                                            fillColor: '#4F596D',
+            {% autoescape false %}
+                                            data:{{orc_barchart|json_encode()}}
+            {% endautoescape %}
+                                    }
+                                    ]
+                            };
+
+                    var sosData = {
+            {% autoescape false %}
+                    labels:{{ors_barlabel|json_encode()}},
+            {% endautoescape %}
+                            datasets: [
+                            {
+                            label: '2010 customers #',
+                                    fillColor: '#4F596D',
+            {% autoescape false %}
+                                    data:{{ors_barchart|json_encode()}}
+            {% endautoescape %}
+                            }
+                            ]
+                    };
+                    var context = document.getElementById('clients').getContext('2d');
+                    var clientsChart = new Chart(context).Bar(sorData);
+                    var context = document.getElementById('clients2').getContext('2d');
+                    var clientsChart = new Chart(context).Bar(sosData);
+                    var context = document.getElementById('skills').getContext('2d');
+                    var skillsChart = new Chart(context).Doughnut(doughnutData);
                     var context = document.getElementById('skills2').getContext('2d');
                     var skillsChart = new Chart(context).Pie(pieData);
                 });

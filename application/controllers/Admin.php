@@ -47,6 +47,18 @@ class Admin extends CI_Controller {
         $orc_chart = $return_orc_chart['orc_chart'];
         $orc_label = $return_orc_chart['orc_label'];
 
+        //Status de Orçamentos
+        $result_orc_barchart = $this->getorc_brchart();
+        $return_orc_barchart = $this->create_orc_barchart($result_orc_barchart);
+        $orc_barchart = $return_orc_barchart['orc_barchart'];
+        $orc_barlabel = $return_orc_barchart['orc_barlabel'];
+
+        //Status de Ordem de Serviço
+        $result_ors_barchart = $this->getors_brchart();
+        $return_ors_barchart = $this->create_ors_barchart($result_ors_barchart);
+        $ors_barchart = $return_ors_barchart['ors_barchart'];
+        $ors_barlabel = $return_ors_barchart['ors_barlabel'];
+
         $data = array(
             'base_url' => $this->config->base_url(),
             'qntCliente' => $this->cliente_model->get_cliente_count_notDeleted(),
@@ -59,6 +71,10 @@ class Admin extends CI_Controller {
             'des_label' => $des_label,
             'orc_chart' => $orc_chart,
             'orc_label' => $orc_label,
+            'orc_barchart' => $orc_barchart,
+            'orc_barlabel' => $orc_barlabel,
+            'ors_barchart' => $ors_barchart,
+            'ors_barlabel' => $ors_barlabel,
         );
         $this->twig->display('admin/dashboard_admin', $data);
     }
@@ -230,7 +246,7 @@ class Admin extends CI_Controller {
             }
 
             $des_chart[] = ['value' => $r->Total, 'color' => $color, 'label' => $r->STATUS];
-            $des_label[] = ['color' => $color, 'nome' => $r->STATUS];
+            $des_label[] = ['color' => $color, 'nome' => $r->STATUS . ' - ' . $r->Total . '%'];
         }
 
         return ['des_chart' => $des_chart, 'des_label' => $des_label];
@@ -269,9 +285,76 @@ class Admin extends CI_Controller {
                 $color = 'rgb(221, 75, 57)';
             }
             $orc_chart[] = ['value' => $r->Total, 'color' => $color, 'label' => $r->Status];
-            $orc_label[] = ['color' => $color, 'nome' => $r->Status];
+            $orc_label[] = ['color' => $color, 'nome' => $r->Status . ' - ' . $r->Total . '%'];
         }
         return ['orc_chart' => $orc_chart, 'orc_label' => $orc_label];
+    }
+
+    public function getorc_brchart() {
+        $sql = "SELECT
+	OS.titulo AS STATUS,
+	CONVERT((IFNULL(IFNULL(COUNT(DISTINCT OC.id_orcamento),0)/(SELECT COUNT(*) FROM orcamento_cabecalho WHERE data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW()),0))*100,SIGNED INTEGER) AS Total
+            FROM
+	orcamento_status AS OS
+	LEFT JOIN orcamento_cabecalho AS OC ON OS.id_status = OC.id_status
+            WHERE
+	(OC.data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() OR OC.data_criacao IS NULL)
+	AND IFNULL(OC.deletado,0) = 0
+            GROUP BY
+	OS.titulo";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
+    public function create_orc_barchart($result_orc_barchart) {
+        $orc_chart = [];
+        $orc_label = [];
+        foreach ($result_orc_barchart as $r) {
+            if ($r->STATUS == 'Aberto') {
+                $orc_label[] = 'Aberto';
+            } else if ($r->STATUS == 'Reprovado') {
+                $orc_label[] = 'Reprovado';
+            } else if ($r->STATUS == 'Aprovado') {
+                $orc_label[] = 'Aprovado';
+            } else if ($r->STATUS == 'Reprovado e Pago') {
+                $orc_label[] = 'Repr Pag';
+            } else if ($r->STATUS == 'Reprovado e Pendente Pagamento') {
+                $orc_label[] = 'Repr Pend Pag';
+            } else {
+                $orc_label[] = 'Repr N Pag';
+            }
+
+            $orc_chart[] = doubleval($r->Total);
+        }
+        return ['orc_barchart' => $orc_chart, 'orc_barlabel' => $orc_label];
+    }
+
+    public function getors_brchart() {
+        $sql = "SELECT
+	OS.titulo AS STATUS,
+	CONVERT((IFNULL(IFNULL(COUNT(DISTINCT OC.id_ordem_servico),0)/(SELECT COUNT(*) FROM ordem_servico_cabecalho WHERE data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW()),0))*100,SIGNED INTEGER) AS Total
+FROM
+	ordem_servico_status AS OS
+	LEFT JOIN ordem_servico_cabecalho AS OC ON OS.id_status = OC.id_status
+WHERE
+	(OC.data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() OR OC.data_criacao IS NULL)
+	AND IFNULL(OC.deletado,0) = 0
+GROUP BY
+	OS.titulo";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
+    public function create_ors_barchart($result_ors_barchart) {
+        $orc_chart = [];
+        $orc_label = [];
+        foreach ($result_ors_barchart as $r) {
+            $orc_label[] = $r->STATUS;
+            $orc_chart[] = doubleval($r->Total);
+        }
+        return ['ors_barchart' => $orc_chart, 'ors_barlabel' => $orc_label];
     }
 
 }
