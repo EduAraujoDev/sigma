@@ -344,6 +344,12 @@ class Orcamento extends CI_Controller {
         $idOrcamento = $this->uri->segment(3);
 
         if ($idOrcamento != NULL) {
+            $orcamento_produtos = $this->orcamentoproduto_model->get_orcamentoProduto_byid($idOrcamento)->result();
+
+            foreach ($orcamento_produtos as $produto) {
+                $this->atuEstProdutoOrcamento($produto->id_produto, $produto->quantidade, "DEL");
+            }
+
             $this->orcamento_model->delete_logical_orcamento(array('id_orcamento' => $idOrcamento));
             $this->orcamentoservico_model->delete_logical_orcamentoServico(array('id_orcamento' => $idOrcamento));
             $this->orcamentoproduto_model->delete_logical_orcamentoProduto(array('id_orcamento' => $idOrcamento));
