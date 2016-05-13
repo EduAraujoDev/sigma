@@ -23,17 +23,22 @@ class DespesaCategoria extends CI_Controller {
     }
 
     public function listar() {
+        $user = $_SESSION['userLogin'];
         $message_success = $this->session->flashdata('message_success');
         $message_error = $this->session->flashdata('message_error');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
             'message_error' => $message_error,
+            'user' => $user,
             'despesacategorias' => $this->despesacategoria_model->get_despesacategoria_notDeleted()->result()];
         $this->twig->display('despescategoria/listar', $data);
     }
 
     public function novo() {
-        $data = ['base_url' => $this->config->base_url()];
+        $user = $_SESSION['userLogin'];
+        $data = ['base_url' => $this->config->base_url(),
+            'user' => $user,
+            ];
         $this->twig->display('despescategoria/novo', $data);
     }
 

@@ -37,24 +37,29 @@ class DespesaGeral extends CI_Controller {
       } */
 
     public function listar() {
+        $user = $_SESSION['userLogin'];
         $message_success = $this->session->flashdata('message_success');
         $data = ['base_url' => $this->config->base_url(),
             'message_success' => $message_success,
+            'user' => $user,
             'despesageral' => $this->despesageral_model->get_despesageral_notDeleted()->result()];
         $this->twig->display('despesageral/listar', $data);
     }
 
     public function novo() {
+        $user = $_SESSION['userLogin'];
         $data_atual = new DateTime();
         $data = ['base_url' => $this->config->base_url(),
             'despesageral' => $this->despesageral_model->get_despesageral_notDeleted()->result(),
             'status' => $this->despesastatus_model->get_despesastatus_notDeleted()->result(),
             'data_atual' => $data_atual,
+            'user' => $user,
             'categorias' => $this->despesacategoria_model->get_despesacategoria_notDeleted()->result()];
         $this->twig->display('despesageral/novo', $data);
     }
 
     public function adicionar() {
+        $user = $_SESSION['userLogin'];
         $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_criacao'));
         $data_criacao = $date->format('Y-m-d');
 
@@ -69,6 +74,7 @@ class DespesaGeral extends CI_Controller {
             'data_criacao' => $data_criacao,
             'data_vencimento' => $data_vencimento,
             'total' => $total,
+            'user' => $user,
             'observacoes' => $this->input->post('observacoes'),
         );
         try {
