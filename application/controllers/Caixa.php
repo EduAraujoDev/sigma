@@ -6,7 +6,9 @@ if (!defined('BASEPATH'))
 class Caixa extends CI_Controller {
 
     public function index() {
+        $user = $_SESSION['userLogin'];
         $data = ['base_url' => $this->config->base_url(),
+         'user' => $user,
         ];
         $this->twig->display('caixa/listar', $data);
     }
