@@ -420,6 +420,7 @@ DROP TABLE IF EXISTS `ordem_servico_servico`;
 CREATE TABLE `ordem_servico_servico` (
   `id_servico` int(11) NOT NULL,
   `id_ordem_servico` int(11) NOT NULL,
+  `preco_cobrado` decimal(10,2)  NULL,
    `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   UNIQUE KEY `PK_OrdemServicoServicos` (`id_servico`,`id_ordem_servico`),
   KEY `FK_OrdemServicoServicos_OSID` (`id_ordem_servico`),
