@@ -428,6 +428,19 @@ CREATE TABLE `ordem_servico_servico` (
   CONSTRAINT `FK_OrdemServicoServicos_OSID` FOREIGN KEY (`id_ordem_servico`) REFERENCES `ordem_servico_cabecalho` (`id_ordem_servico`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ --
+ -- Dumping data for table `ordem_servico_servico`
+ --
+
+ LOCK TABLES `ordem_servico_servico` WRITE;
+ /*!40000 ALTER TABLE `ordem_servico_servico` DISABLE KEYS */;
+ INSERT INTO `ordem_servico_servico` VALUES (1,'Aberto',0);
+ INSERT INTO `ordem_servico_servico` VALUES (3,'Reprovado e Pendente Pagamento',0);
+ INSERT INTO `ordem_servico_servico` VALUES (4,'Reprovado e Pago',0);
+ INSERT INTO `ordem_servico_servico` VALUES (5,'Reprovado e Não Pago',0);
+ /*!40000 ALTER TABLE `ordem_servico_servico` ENABLE KEYS */;
+ UNLOCK TABLES;
+
 --
 -- Table structure for table `pedido_compra_produto`
 --
