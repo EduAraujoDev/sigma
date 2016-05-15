@@ -100,7 +100,7 @@ body {
   z-index: 800;
 }
 .main-footer {
-  background: #ECF0F5;
+  background: #fff;
   padding: 15px;
   color: #444;
   border-top: 1px solid #d2d6de;
@@ -231,7 +231,7 @@ a:focus {
 .main-header .navbar-right {
   float: right;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .main-header .navbar-custom-menu a,
   .main-header .navbar-right a {
     color: inherit;
@@ -348,7 +348,7 @@ a:focus {
 .content-header > .breadcrumb > li + li:before {
   content: '>\00a0';
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .content-header > .breadcrumb {
     position: relative;
     margin-top: 5px;
@@ -368,7 +368,7 @@ a:focus {
   margin: 0;
   padding: 15px 15px;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .navbar-custom-menu .navbar-nav > li {
     float: left;
   }
@@ -398,7 +398,7 @@ a:focus {
     float: right;
   }
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .navbar-collapse.pull-left {
     float: none !important;
   }
@@ -964,7 +964,7 @@ a:focus {
   color: #444 !important;
   text-align: center;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .navbar-nav > .notifications-menu > .dropdown-menu > li.footer > a,
   .navbar-nav > .messages-menu > .dropdown-menu > li.footer > a,
   .navbar-nav > .tasks-menu > .dropdown-menu > li.footer > a {
@@ -1113,7 +1113,7 @@ a:focus {
 .navbar-nav > .user-menu > .dropdown-menu > .user-body a {
   color: #444 !important;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .navbar-nav > .user-menu > .dropdown-menu > .user-body a {
     background: #fff !important;
     color: #444 !important;
@@ -1134,7 +1134,7 @@ a:focus {
 .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default {
   color: #666666;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default:hover {
     background-color: #f9f9f9;
   }
@@ -1214,7 +1214,7 @@ a:focus {
   right: 0;
   left: auto;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .navbar-custom-menu > .navbar-nav {
     float: right;
   }
@@ -1804,7 +1804,7 @@ a:focus {
 .chart-legend {
   margin: 10px 0;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .chart-legend > li {
     float: left;
     margin-right: 10px;
@@ -3242,7 +3242,7 @@ table.text-center th {
   width: 600px;
   margin: 20px auto 0 auto;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .error-page {
     width: 100%;
   }
@@ -3252,7 +3252,7 @@ table.text-center th {
   font-size: 100px;
   font-weight: 300;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .error-page > .headline {
     float: none;
     text-align: center;
@@ -3262,7 +3262,7 @@ table.text-center th {
   margin-left: 190px;
   display: block;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .error-page > .error-content {
     margin-left: 0;
   }
@@ -3271,7 +3271,7 @@ table.text-center th {
   font-weight: 300;
   font-size: 25px;
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .error-page > .error-content > h3 {
     text-align: center;
   }
