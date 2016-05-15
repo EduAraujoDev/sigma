@@ -19,6 +19,10 @@ class Orcamento extends CI_Controller {
         $this->load->model('OrcamentoStatus_model', 'orcamentostatus_model');
         $this->load->model('OrcamentoServico_model', 'orcamentoservico_model');
         $this->load->model('OrcamentoProduto_model', 'orcamentoproduto_model');
+        $this->load->model('OrdemServico_model', 'ordemservico_model');
+        $this->load->model('OrdemServicoProduto_model', 'ordemServicoproduto_model');
+        $this->load->model('OrdemServicoServico_model', 'ordemservicoservico_model');
+
         $this->load->model('TipoPagamento_model', 'tipopagamento_model');
         $this->load->model('produto_model', 'produto_model');
         $this->load->model('cliente_model', 'cliente_model');
@@ -297,22 +301,61 @@ class Orcamento extends CI_Controller {
         $statusOrcamento    = $this->uri->segment(4);
 
         if ( $idOrcamento != NULL && $statusOrcamento != NULL ) {
-            if ( $statusOrcamento == 6 ) {
+            if ( $statusOrcamento == 4 || $statusOrcamento == 5) {
                 $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
                 
                 $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
-            } else if ( $statusOrcamento == 4 ) {
+            } else if ( $statusOrcamento == 6 ) {
                 $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
-                
                 $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
-            } else if ( $statusOrcamento == 5 ) {
-                $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
+
+                $dadosOrcamento = $this->orcamento_model->get_orcamento_byid($idOrcamento)->row();
+
+                $dadosCabec = array(
+                    'id_orcamento'              => $idOrcamento,
+                    'id_status'                 => 1,
+                    'id_cliente'                => $dadosOrcamento->id_cliente,
+                    'id_tipo_pagamento'         => $dadosOrcamento->id_tipo_pagamento,
+                    'data_criacao'              => date("Y-m-d"),
+                    'data_finalizacao'          => null,
+                    'desconto_adicional'        => $dadosOrcamento->desconto_adicional,
+                    'desconto_total'            => $dadosOrcamento->desconto_total,
+                    'total_bruto'               => $dadosOrcamento->total_bruto,
+                    'total_liquido'             => $dadosOrcamento->total_liquido,
+                    'data_prevista_finalizacao' => date("Y-m-d"),
+                    'finalizado'                => 0,
+                    'deletado'                  => 0
+                );
                 
-                $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
-            } else if ( $statusOrcamento == 2 ) {
-                $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
+                $id = $this->ordemservico_model->insert_ordemServico($dadosCabec);                
+
+                $dadosOrcamentoProduto = $this->orcamentoproduto_model->get_orcamentoProduto_byid($idOrcamento)->result();
                 
-                $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
+                foreach ($dadosOrcamentoProduto as $orcamentoProduto) {
+                    $dadosProduto = array(
+                        'id_ordem_servico'  => $id,
+                        'id_produto'        => $orcamentoProduto->id_produto,
+                        'quantidade'        => $orcamentoProduto->quantidade,
+                        'desconto'          => $orcamentoProduto->desconto,
+                        'preco_venda'       => $orcamentoProduto->preco_venda,
+                        'deletado'          => 0,
+                    );
+
+                    $this->ordemServicoproduto_model->insert_ordemServicoProduto($dadosProduto);
+                }
+
+                $dadosOrcamentoServico = $this->orcamentoservico_model->get_orcamentoServico_byid($idOrcamento)->result();
+
+                foreach ($dadosOrcamentoServico as $orcamentoServico) {
+                    $dadosServico = array(
+                        'id_ordem_servico'  => $id,
+                        'id_servico'        => $orcamentoServico->id_servico,
+                        'preco_cobrado'     => $orcamentoServico->preco_cobrado,
+                        'deletado'          => 0,
+                    );
+
+                    $this->ordemservicoservico_model->insert_orcamentoServicoServico($dadosServico);
+                }
             }
             
             $this->session->set_flashdata('message_success', 'Orçamento finalizado com sucesso!');

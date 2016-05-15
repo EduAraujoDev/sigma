@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class OrdemServicoServico_model extends CI_Model {
 
 	public function insert_orcamentoServicoServico($ordemServicoServico) {
-        $this->db->insert('ordem_servico_servico', $orcamento);     
+        $this->db->insert('ordem_servico_servico', $ordemServicoServico);     
     }
 
     public function get_orcamentoServicoServico_byid($id = NULL) {
