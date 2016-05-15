@@ -288,14 +288,14 @@
 
                             var sorData = {
             {% autoescape false %}
-                            labels:{{ors_barlabel|json_encode()}},
+                            labels:{{orc_barlabel|json_encode()}},
             {% endautoescape %}
                                     datasets: [
                                     {
                                     label: '2010 customers #',
-                                            fillColor: '#4F596D',
+                                            fillColor: 'rgb(20, 97, 204)',
             {% autoescape false %}
-                                            data:{{ors_barchart|json_encode()}}
+                                            data:{{orc_barchart|json_encode()}}
             {% endautoescape %}
                                     }
                                     ]
@@ -303,14 +303,14 @@
 
                     var sosData = {
             {% autoescape false %}
-                    labels:{{orc_barlabel|json_encode()}},
+                    labels:{{ors_barlabel|json_encode()}},
             {% endautoescape %}
                             datasets: [
                             {
                             label: '2010 customers #',
-                                    fillColor: 'rgb(20, 97, 204)',
+                                    fillColor: '#4F596D',
             {% autoescape false %}
-                                    data:{{orc_barchart|json_encode()}}
+                                    data:{{ors_barchart|json_encode()}}
             {% endautoescape %}
                             }
                             ]
