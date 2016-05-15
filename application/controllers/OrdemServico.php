@@ -1,9 +1,22 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 class OrdemServico extends CI_Controller {
 
-	public function index(){
+	public function __construct(){
+		parent::__construct();
+
+        $this->load->model('OrdemServico_model', 'ordemservico_model');
+        $this->load->model('OrdemServicoProduto_model', 'ordemServicoproduto_model');
+        $this->load->model('OrdemServicoServico_model', 'ordemservicoservico_model');
+        $this->load->model('OrdemServicoStatus_model', 'ordemservicostatus_model');
+
+        $this->load->model('TipoPagamento_model', 'tipopagamento_model');
+        $this->load->model('produto_model', 'produto_model');
+        $this->load->model('cliente_model', 'cliente_model');
+        $this->load->model('servico_model', 'servico_model');
+
 		if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
                 redirect('/usuario', 'refresh');
@@ -15,5 +28,18 @@ class OrdemServico extends CI_Controller {
 
 	public function index() {
         redirect('/admin', 'refresh');
-    }	
+    }
+
+    public function listar() {
+        $user = $_SESSION['userLogin'];
+        $message_success = $this->session->flashdata('message_success');
+        $data = ['base_url'     => $this->config->base_url(),
+            'message_success'   => $message_success,
+            'ordemServicos'     => $this->ordemservico_model->get_ordemServico_notDeleted()->result(),
+            'status'            => $this->ordemservicostatus_model->get_ordemServicoStatus_notDeleted()->result(),
+            'tipoPagamentos'    => $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
+            'user'              => $user,
+            'clientes'          => $this->cliente_model->get_cliente_notDeleted()->result()];
+        $this->twig->display('ordemservico/listar', $data);
+    }
 }
