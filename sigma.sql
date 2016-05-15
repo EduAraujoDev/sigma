@@ -338,9 +338,9 @@ CREATE TABLE `ordem_servico_status` (
  LOCK TABLES `ordem_servico_status` WRITE;
  /*!40000 ALTER TABLE `ordem_servico_status` DISABLE KEYS */;
  INSERT INTO `ordem_servico_status` VALUES (1,'Aberto',0);
- INSERT INTO `ordem_servico_status` VALUES (2,'Reprovado e Pendente Pagamento',0);
- INSERT INTO `ordem_servico_status` VALUES (3,'Reprovado e Pago',0);
- INSERT INTO `ordem_servico_status` VALUES (4,'Reprovado e Não Pago',0);
+ INSERT INTO `ordem_servico_status` VALUES (2,'Finalizado e Pendente Pagamento',0);
+ INSERT INTO `ordem_servico_status` VALUES (3,'Finalizado e Pago',0);
+ INSERT INTO `ordem_servico_status` VALUES (4,'Finalizado e Não Pago',0);
  /*!40000 ALTER TABLE `ordem_servico_status` ENABLE KEYS */;
  UNLOCK TABLES;
 
