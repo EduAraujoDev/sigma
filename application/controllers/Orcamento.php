@@ -137,7 +137,7 @@ class Orcamento extends CI_Controller {
                 );
 
                 $this->orcamentoproduto_model->insert_orcamentoProduto($dadosProduto);
-                $this->atuEstProdutoOrcamento($idProduto, $quantProd, "NEW");
+                $this->atuEstProdutoOrcamento($idProduto, $quantProd, "I", true);
             }
 
             $this->session->set_flashdata('message_success', 'Orçamento adicionado com sucesso!');
@@ -254,7 +254,7 @@ class Orcamento extends CI_Controller {
             $produtosOrcamento = $this->orcamentoproduto_model->get_orcamentoProduto_byid($idOrcamento)->result();
 
             foreach ($produtosOrcamento as $produto) {
-                $this->atuEstProdutoOrcamento($produto->id_produto, $produto->quantidade, "DEL");
+                $this->atuEstProdutoOrcamento($produto->id_produto, $produto->quantidade, "R", true);
             }
 
             $this->orcamentoproduto_model->delete_orcamentoProduto(array('id_orcamento' => $idOrcamento));
@@ -268,24 +268,21 @@ class Orcamento extends CI_Controller {
                 
                 $desconto   = str_replace('%', '', $this->input->post('produto_desconto_'.$i));
                 $idProduto  = $this->input->post('produto_codigo_'.$i);
+
+                $quantProd = $this->input->post('produto_quantidade_'.$i);
                 
                 $dadosProduto = array(
 
                     'id_produto'    => $idProduto,
                     'id_orcamento'  => $idOrcamento,
-                    'quantidade'    => $this->input->post('produto_quantidade_'.$i),
+                    'quantidade'    => $quantProd,
                     'desconto'      => $desconto,
                     'preco_venda'   => $vlrVndProduto,
                     'preco_cobrado' => $vlrCobProduto
                 );
 
                 $this->orcamentoproduto_model->insert_orcamentoProduto($dadosProduto);
-
-                $dadosProduto = array(
-                    'quantidade_reservada' => $this->input->post('produto_quantidade_'.$i),
-                );
-
-                $this->produto_model->update_produto($dadosProduto, array('id_produto' => $idProduto));
+                $this->atuEstProdutoOrcamento($idProduto, $quantProd, "I", true);
             }            
 
             $this->session->set_flashdata('message_success', 'Orçamento atualizado com sucesso!');
@@ -365,19 +362,23 @@ class Orcamento extends CI_Controller {
         redirect('orcamento/listar', 'refresh');        
     }
 
-    public function atuEstProdutoOrcamento($idProduto, $quantidade, $tipo){
+    public function atuEstProdutoOrcamento($idProduto, $quantidade, $tipo, $reserva = false){
         $produto    = $this->produto_model->get_produto_byid($idProduto)->row();
         $qntReserva = $produto->quantidade_reservada;
+        $qntEstoque = $produto->quantidade_estoque;
 
-        if ($tipo == "NEW") {
-            $qntReserva+=$quantidade;
-        } else if ($tipo == "DEL"){
-            $qntReserva-=$quantidade;
+        if ($reserva) {
+            if ($tipo == "I") {
+                $qntReserva+=$quantidade;
+            } else if ($tipo == "R"){
+                $qntReserva-=$quantidade;
+            }
+
+            $dadosProduto = array(
+                'quantidade_reservada' => $qntReserva
+            );          
         }
 
-        $dadosProduto = array(
-            'quantidade_reservada' => $qntReserva
-        );
 
         $this->produto_model->update_produto($dadosProduto, array('id_produto' => $idProduto));
     }
@@ -394,7 +395,7 @@ class Orcamento extends CI_Controller {
             $orcamento_produtos = $this->orcamentoproduto_model->get_orcamentoProduto_byid($idOrcamento)->result();
 
             foreach ($orcamento_produtos as $produto) {
-                $this->atuEstProdutoOrcamento($produto->id_produto, $produto->quantidade, "DEL");
+                $this->atuEstProdutoOrcamento($produto->id_produto, $produto->quantidade, "R", true);
             }
 
             $this->orcamento_model->delete_logical_orcamento(array('id_orcamento' => $idOrcamento));
