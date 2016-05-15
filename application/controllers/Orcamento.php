@@ -355,7 +355,7 @@ class Orcamento extends CI_Controller {
                         'deletado'          => 0,
                     );
 
-                    $this->ordemservicoservico_model->insert_orcamentoServicoServico($dadosServico);
+                    $this->ordemservicoservico_model->insert_ordemServicoServico($dadosServico);
                 }
             }
             
