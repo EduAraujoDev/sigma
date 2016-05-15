@@ -219,14 +219,14 @@ class Admin extends CI_Controller {
     public function getdes_chart() {
         $sql = "SELECT
 	DS.titulo AS STATUS,
-	CONVERT((IFNULL(IFNULL(COUNT(DISTINCT D.id_despesa),0)/(SELECT COUNT(*) FROM despesa WHERE data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW()),0))*100,SIGNED INTEGER) AS Total
-        FROM
-	despesa_status AS DS
-	LEFT JOIN despesa AS D ON DS.id_status = D.id_status
-        WHERE
-	(D.data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() OR D.data_criacao IS NULL)
+	CONVERT((COUNT(DISTINCT D.id_despesa)/(SELECT COUNT(*) FROM despesa WHERE data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() AND deletado = 0))*100,SIGNED INTEGER) AS Total
+FROM
+	despesa AS D
+	INNER JOIN despesa_status AS DS ON D.id_status = DS.id_status
+WHERE
+	(D.data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW())
 	AND D.deletado = 0
-        GROUP BY
+GROUP BY
 	DS.titulo";
 
         $query = $this->db->query($sql);
@@ -255,20 +255,20 @@ class Admin extends CI_Controller {
     public function getorc_chart() {
         $sql = "SELECT
 	Z.Status,
-	CONVERT(IFNULL((IFNULL(COUNT(DISTINCT Z.id_orcamento),0)/(SELECT COUNT(*) FROM orcamento_cabecalho WHERE YEAR(data_prevista_finalizacao)*100+MONTH(data_prevista_finalizacao) = YEAR(NOW())*100+MONTH(NOW())))*100,0),SIGNED INTEGER) AS Total
-        FROM
+	CONVERT(IFNULL((IFNULL(COUNT(DISTINCT Z.id_orcamento),0)/(SELECT COUNT(*) FROM orcamento_cabecalho WHERE YEAR(data_criacao)*100+MONTH(data_criacao) = YEAR(NOW())*100+MONTH(NOW())))*100,0),SIGNED INTEGER) AS Total
+FROM
 	(
 		SELECT
 			OC.id_orcamento,
-			CASE WHEN OS.titulo = 'Aprovado' AND OC.finalizado = 1 THEN 'Aprovado' ELSE 'Não aprovado' END AS Status
+			CASE WHEN OS.titulo = 'Aprovado' THEN 'Aprovado' ELSE 'Não aprovado' END AS Status
 		FROM
 			orcamento_status AS OS
 			INNER JOIN orcamento_cabecalho AS OC ON OS.id_status = OC.id_status
 		WHERE
-			YEAR(OC.data_prevista_finalizacao)*100+MONTH(OC.data_prevista_finalizacao) = YEAR(NOW())*100+MONTH(NOW())
+			YEAR(OC.data_criacao)*100+MONTH(OC.data_criacao) = YEAR(NOW())*100+MONTH(NOW())
 			AND IFNULL(OC.deletado,0) = 0	
 	) AS Z
-        GROUP BY
+GROUP BY
 	Z.Status";
 
         $query = $this->db->query($sql);
@@ -279,7 +279,7 @@ class Admin extends CI_Controller {
         $orc_chart = [];
         $orc_label = [];
         foreach ($result_orc_chart as $r) {
-            if ($r->Status == 'Aberta') {
+            if ($r->Status == 'Aprovado') {
                 $color = 'rgb(20, 97, 204)';
             } else {
                 $color = 'rgb(221, 75, 57)';
@@ -293,14 +293,14 @@ class Admin extends CI_Controller {
     public function getorc_brchart() {
         $sql = "SELECT
 	OS.titulo AS STATUS,
-	CONVERT((IFNULL(IFNULL(COUNT(DISTINCT OC.id_orcamento),0)/(SELECT COUNT(*) FROM orcamento_cabecalho WHERE data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW()),0))*100,SIGNED INTEGER) AS Total
-            FROM
-	orcamento_status AS OS
-	LEFT JOIN orcamento_cabecalho AS OC ON OS.id_status = OC.id_status
-            WHERE
+	COUNT(DISTINCT OC.id_orcamento) AS Total
+FROM
+	orcamento_cabecalho AS OC
+	INNER JOIN orcamento_status AS OS  ON OC.id_status = OS.id_status
+WHERE
 	(OC.data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() OR OC.data_criacao IS NULL)
 	AND IFNULL(OC.deletado,0) = 0
-            GROUP BY
+GROUP BY
 	OS.titulo";
 
         $query = $this->db->query($sql);
@@ -333,10 +333,10 @@ class Admin extends CI_Controller {
     public function getors_brchart() {
         $sql = "SELECT
 	OS.titulo AS STATUS,
-	CONVERT((IFNULL(IFNULL(COUNT(DISTINCT OC.id_ordem_servico),0)/(SELECT COUNT(*) FROM ordem_servico_cabecalho WHERE data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW()),0))*100,SIGNED INTEGER) AS Total
+	COUNT(DISTINCT OC.id_ordem_servico) AS Total
 FROM
-	ordem_servico_status AS OS
-	LEFT JOIN ordem_servico_cabecalho AS OC ON OS.id_status = OC.id_status
+	ordem_servico_cabecalho AS OC
+	INNER JOIN ordem_servico_status AS OS ON OC.id_status = OS.id_status
 WHERE
 	(OC.data_criacao BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() OR OC.data_criacao IS NULL)
 	AND IFNULL(OC.deletado,0) = 0

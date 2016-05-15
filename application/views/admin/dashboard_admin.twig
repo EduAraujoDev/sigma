@@ -152,7 +152,9 @@
                 <!-- /.info-box -->
             </div>
 
-            <div class="col-md-6 col-sm-6 col-xs-12">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Status de Despesas</h3>
@@ -186,7 +188,7 @@
                     <!-- /.box-body -->
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Aprovação de Orçamentos</h3>
@@ -220,8 +222,9 @@
                     <!-- /.box-body -->
                 </div>
             </div>
-
-            <div class="col-md-6 col-sm-6 col-xs-12">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Status de Orçamentos</h3>
@@ -229,7 +232,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <center>
-                            <canvas id="clients" style="width:100%;"></canvas>
+                            <canvas id="clients" style="width:80%;"></canvas>
                         </center>
                         <!-- /.row -->
                     </div>
@@ -237,7 +240,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Status de Ordem de Serviço</h3>
@@ -246,7 +249,7 @@
                     <div class="box-body">
                         <center>
                             <div class="row">
-                                <canvas id="clients2" style="width:100%;"></canvas>
+                                <canvas id="clients2" style="width:80%;"></canvas>
                             </div>
                         </center>
                         <!-- /.row -->
@@ -254,8 +257,6 @@
                     <!-- /.box-body -->
                 </div>
             </div>
-            <!-- /.col -->
-
 
         </div>
         <!-- /.row -->
@@ -292,7 +293,7 @@
                                     datasets: [
                                     {
                                     label: '2010 customers #',
-                                            fillColor: '#4F596D',
+                                            fillColor: 'rgb(20, 97, 204)',
             {% autoescape false %}
                                             data:{{orc_barchart|json_encode()}}
             {% endautoescape %}
