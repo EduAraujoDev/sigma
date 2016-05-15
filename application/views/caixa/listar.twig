@@ -32,7 +32,7 @@
                             
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divCriacao">
-                                    <label for="data_criacao">Data de Criação</label>
+                                    <label for="data_criacao">Data Inicial</label>
                                     <div class="input-group">
                                     <input id="data_criacao" type="text" class="form-control" 
                                            name="data_criacao" value="{{data_atual|date("d/m/Y")}}" placeholder="Digite a data de criação">
@@ -41,10 +41,10 @@
                                 </div>
                             
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
-                                    <label for="data_vencimento">Data de Vencimento</label>
+                                    <label for="data_vencimento">Data Final</label>
                                     <div class="input-group">
                                     <input id="data_vencimento" type="text" class="form-control" 
-                                           name="data_vencimento" placeholder="Digite a data de vencimento">
+                                           name="data_vencimento" placeholder="Digite a data de vencimento" onBlur="verificarDataVencimento();">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     </div>
                                     </div>
@@ -76,7 +76,7 @@
                                     <tbody>
                                         
                                            {% for extrato in extratos %}
-                                            <tr>
+                                            <tr class="text-center">
                                                 <td>{{ extrato.Codigo }}</td>
                                                 <td>{{ extrato.Tipo }}</td>
                                                 <td>{{ extrato.DataFinalizacao }}</td>
@@ -112,6 +112,40 @@
 
             
         });
+        
+           function btnCadastrar(){
+           if (verificarDataVencimento()) {
+               return true;
+           } else {
+             document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';             
+             return false;
+           }
+           
+        }
+        
+        function verificarDataVencimento() {
+            var data = $("#data_vencimento").val();
+            
+            var dia = data.substring(0,2);
+            var mes = data.substring(3,5);
+            var ano = data.substring(6,10);
+            
+            var novaData = new Date(ano,(mes-1),dia);
+            
+            var mesmoDia = parseInt(dia,10) === parseInt(novaData.getDate());
+            var mesmoMes = parseInt(mes,10) === parseInt(novaData.getMonth())+1;
+            var mesmoAno = parseInt(ano) === parseInt(novaData.getFullYear());
+            
+            if (!((mesmoDia) && (mesmoMes) && (mesmoAno))) {
+                document.querySelector("#divVencimento").setAttribute('class', 'col-xs-12 col-sm-4 col-md-4 has-error has-feedback');
+                document.querySelector("#data_vencimento").focus();
+                return false;
+            } else {
+                document.querySelector("#divVencimento").setAttribute('class', 'col-xs-12 col-sm-4 col-md-4');
+                return true;
+            }
+           
+        }
         
         
         
