@@ -340,6 +340,7 @@ class Orcamento extends CI_Controller {
                     );
 
                     $this->ordemServicoproduto_model->insert_ordemServicoProduto($dadosProduto);
+                    $this->atuEstProdutoOrcamento($orcamentoProduto->id_produto, $orcamentoProduto->quantidade, "");
                 }
 
                 $dadosOrcamentoServico = $this->orcamentoservico_model->get_orcamentoServico_byid($idOrcamento)->result();
@@ -367,7 +368,7 @@ class Orcamento extends CI_Controller {
         $qntReserva = $produto->quantidade_reservada;
         $qntEstoque = $produto->quantidade_estoque;
 
-        if ($reserva) {
+        if ( $reserva ) {
             if ($tipo == "I") {
                 $qntReserva+=$quantidade;
             } else if ($tipo == "R"){
@@ -376,7 +377,15 @@ class Orcamento extends CI_Controller {
 
             $dadosProduto = array(
                 'quantidade_reservada' => $qntReserva
-            );          
+            );
+        } else {
+            $qntEstoque = $qntEstoque - $quantidade;
+            $qntReserva = $qntReserva - $quantidade;
+
+            $dadosProduto = array(
+                'quantidade_estoque'    => $qntEstoque,
+                'quantidade_reservada'  => $qntReserva
+            );            
         }
 
 
