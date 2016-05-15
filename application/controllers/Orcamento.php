@@ -306,7 +306,7 @@ class Orcamento extends CI_Controller {
                 
                 $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
             } else if ( $statusOrcamento == 6 ) {
-                $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
+                $dadosCabec = array( 'data_finalizacao' => date("Y-m-d"), 'finalizado' => 1 );
                 $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
 
                 $dadosOrcamento = $this->orcamento_model->get_orcamento_byid($idOrcamento)->row();
