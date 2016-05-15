@@ -386,6 +386,7 @@ CREATE TABLE `ordem_servico_produto` (
   `quantidade` int(11) NOT NULL,
   `desconto` decimal(10,2)  NULL,
   `preco_venda` decimal(10,2) NOT NULL,
+  `preco_cobrado` decimal(10,2) NOT NULL,  
   `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   KEY `Fk_OrdemServicoProdutos_Produto` (`id_produto`),
   KEY `FK_OrdemServicoProdutos_OSID` (`id_ordem_servico`),

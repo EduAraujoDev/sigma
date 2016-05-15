@@ -338,6 +338,7 @@ class Orcamento extends CI_Controller {
                         'quantidade'        => $orcamentoProduto->quantidade,
                         'desconto'          => $orcamentoProduto->desconto,
                         'preco_venda'       => $orcamentoProduto->preco_venda,
+                        'preco_cobrado'     => $orcamentoProduto->preco_cobrado,
                         'deletado'          => 0,
                     );
 
