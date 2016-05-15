@@ -1,0 +1,345 @@
+{% extends "base_layout.twig" %}
+{% block title %}Visualizar Ordem de Serviço{% endblock %}
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            Área Administrador
+            <small>Visualizar Ordem de Serviço</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{base_url}}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="{{base_url}}ordemservico/listar">Listar Ordem de Serviço</a></li>
+            <li class="active">Visualizar Ordem de Serviço</li>
+        </ol>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    {% if message_success is not empty %}
+                        <div class="alert alert-success alert-dismissible fade in" role="alert" id="alerta">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Atenção!</strong>
+                            {{message_success}}
+                        </div>
+                    {% endif %}                  
+                    <h3 class="box-title">Dados do Ordem de Serviço</h3>
+                </div>
+                <form class="form-horizontal" role="form" method="post" action="{{base_url}}ordemservico/adicionar">
+                    <div class="box-body">                      
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-3" >
+                                <label for="codOrdemServico">Código</label>
+                                <input type="text" class="form-control" name="codOrdemServico" id="codOrdemServico" value="{{ ordemServico_cabecalho.id_ordem_servico }}" readonly>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-3" >
+                                <label for="codOrcamento">Orçamento</label>
+                                <input type="text" class="form-control" name="codOrcamento" id="codOrcamento" value="{{ ordemServico_cabecalho.id_orcamento }}" readonly>
+                            </div>                            
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <label for="statusOrdemServico">Status</label>
+                                <select class="form-control" name="statusOrdemServico" id="statusOrdemServico" readonly >
+                                    {% set statusOrdemServico = 0 %}
+                                    {% for statu in status %}
+                                        {% if statu.id_status == ordemServico_cabecalho.id_status %}
+                                            {% set statusOrdemServico = statu.id_status %}
+                                            <option selected="selected" value="{{ statu.id_status }}">{{ statu.titulo }}</option>
+                                        {% else %}
+                                            <option value="{{ statu.id_status }}">{{ statu.titulo }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <label for="tipoPagamento">Tipo de Pagamento</label>
+                                <select class="form-control" name="tipoPagamento" readonly>
+                                    {% for tipoPagamento in tipoPagamentos %}
+                                        {% if tipoPagamento.id_tipo_pagamento == ordemServico_cabecalho.id_tipo_pagamento %}
+                                            <option selected="selected" value="{{ tipoPagamento.id_tipo_pagamento }}">{{ tipoPagamento.titulo }}</option>
+                                        {% else %}
+                                            <option value="{{ tipoPagamento.id_tipo_pagamento }}">{{ tipoPagamento.titulo }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-3 col-md-4" >
+                                <label for="dataCriacao">Data Criação</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="dataCriacao" id="dataCriacao" value="{{ordemServico_cabecalho.data_criacao|date("d/m/Y")}}" readonly>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>                          
+                            <div class="col-xs-12 col-sm-3 col-md-4" >
+                                <label for="dataPrevistaFinalizacao">Previsão de finalização</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="dataPrevistaFinalizacao" name="dataPrevistaFinalizacao" value="{{ordemServico_cabecalho.data_prevista_finalizacao|date("d/m/Y")}}" readonly>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-4" >
+                                <label for="dataFinalizacao">Data de finalização</label>
+                                <div class="input-group">
+                                    {% if ordemServico_cabecalho.data_finalizacao is null %}
+                                        <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="  /  /    " readonly>
+                                    {% else %}
+                                        <input type="text" class="form-control" id="dataFinalizacao" name="dataFinalizacao" value="{{ordemServico_cabecalho.data_finalizacao|date("d/m/Y")}}" readonly>
+                                    {% endif %}                                    
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <label for="codCliente">Código do Cliente</label>       
+                                <input type="text" class="form-control" name="codCliente" id="codCliente" placeholder="Código do Cliente" value="{{ ordemServico_cabecalho.id_cliente }}" readonly>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-9">
+                                <label for="nomeCliente">Nome do Cliente</label>
+                                {% for cliente in clientes %}
+                                    {% if cliente.id_cliente == ordemServico_cabecalho.id_cliente %}
+                                        <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome do Cliente" value="{{ cliente.nome }}" readonly>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="observacoes">Obervações</label>
+                                <br>
+                                <textarea class="form-control" name="observacoes" rows="3" placeholder="" value="{{ ordemServico_cabecalho.observacoes }}"></textarea>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="servicos">Serviços</label>
+                                <table id="servicos" class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th class="text-center">Código</th>
+                                            <th class="text-center">Descrição</th>
+                                            <th class="text-center">Valor Serviço</th>
+                                            <th class="text-center">Valor Cobrado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% set quantServico = 1 %}
+                                        {% set valorServico = 0 %}
+
+                                        {% for ordemServico_servico in ordemServico_servicos %}
+                                            <tr>
+                                                <td>{{ quantServico }}</td>
+                                                <td>{{ ordemServico_servico.id_servico }}</td>
+
+                                                {% for servico in servicos %}
+                                                    {% if ordemServico_servico.id_servico == servico.id_servico %}
+                                                        <td>{{ servico.descricao }}</td>
+                                                        <td class="text-right">{{ servico.valor|number_format(2, ',', '.') }}</td>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                                <td class="text-right">{{ ordemServico_servico.preco_cobrado|number_format(2, ',', '.') }}</td>
+                                            </tr>
+
+                                            {% set quantServico = quantServico + 1 %}
+                                            {% set valorServico = valorServico + ordemServico_servico.preco_cobrado %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 col-md-offset-6"> 
+                                <label for="totalServico" style="padding-top: 6px; padding-left: 50px">Total de Serviços(R$):</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalServico" id="totalServico" value="{{valorServico|number_format(2, ',', '.')}}" readonly>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <label for="produtos">Produtos</label>
+                                <table id="produtos" class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr class="titlerow">
+                                            <th>#</th>
+                                            <th class="text-center">Código</th>
+                                            <th class="text-center">Descrição</th>
+                                            <th class="text-center">Quantidade</th>
+                                            <th class="text-center">Desconto</th>
+                                            <th class="text-center">Preço Produto</th>
+                                            <th class="text-center">Preço Cobrado</th>
+                                            <th class="text-center">Subtotal Bruto</th>
+                                            <th class="text-center">Subtotal Liquido</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% set quantProduto = 1 %}
+                                        {% set valorProduto = 0 %}
+                                        {% set totalBrutoProduto = 0.00 %}
+                                        {% set totalLiquidoProduto = 0.00 %}
+
+                                        {% for ordemServico_produto in ordemServico_produtos %}
+                                            <tr>
+                                                <td>{{ quantProduto }}</td>
+                                                <td>{{ ordemServico_produto.id_produto }}</td>
+                                  
+                                                {% for produto in produtos %}
+                                                    {% if ordemServico_produto.id_produto == produto.id_produto %}
+                                                        <td>{{ produto.nome }}</td>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                                <td>{{ ordemServico_produto.quantidade }}</td>
+                                                <td class="text-right">{{ ordemServico_produto.desconto|number_format(0) }}%</td>
+                                                <td class="text-right">{{ ordemServico_produto.preco_venda|number_format(2, ',', '.') }}</td>
+                                                <td class="text-right">{{ ordemServico_produto.preco_cobrado|number_format(2, ',', '.') }}</td>
+
+                                                {% set totalBrutoProduto = ordemServico_produto.quantidade * ordemServico_produto.preco_cobrado %}
+                                                <td class="text-right">{{ ( totalBrutoProduto )|number_format(2, ',', '.') }}</td>
+
+                                                {% set totalLiquidoProduto = totalBrutoProduto - (totalBrutoProduto * ordemServico_produto.desconto / 100) %}
+                                                <td class="text-right">{{ totalLiquidoProduto|number_format(2, ',', '.') }}</td>
+                                            </tr>
+
+                                            {% set quantProduto = quantProduto + 1 %}
+                                            {% set valorProduto = valorProduto + totalLiquidoProduto %}
+                                        {% endfor %}                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 col-md-offset-6">
+                                <label for="totalProduto" style="padding-top: 6px; padding-left: 50px">Total de Produtos(R$):</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalProduto" id="totalProduto" value="{{valorProduto|number_format(2, ',', '.')}}" readonly>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="totalValorBruto" style="padding-top: 6px; padding-left: 50px">Valor Total Bruto:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control text-right" name="totalValorBruto" id="totalValorBruto" value="{{ ordemServico_cabecalho.total_bruto|number_format(2, ',', '.') }}" readonly>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="descontoAdicional" style="padding-top: 6px; padding-left: 50px">Desconto Adicional:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="descontoAdicional" id="descontoAdicional" value="{{ ordemServico_cabecalho.desconto_adicional }}" readonly>
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-6">                         
+                            </div>
+                            <div class="col-md-3">
+                                <label for="totalValorLiquido" style="padding-top: 6px; padding-left: 50px">Valor Total Liquido:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control  text-right" name="totalValorLiquido" id="totalValorLiquido" value="{{ ordemServico_cabecalho.total_liquido|number_format(2, ',', '.') }}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="descontoTotal" style="padding-top: 6px; padding-left: 50px">Desconto Total:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="descontoTotal" id="descontoTotal" value="{{ ordemServico_cabecalho.desconto_total }}" readonly>
+                                    <span class="input-group-addon">%</span>
+                                </div>           
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer text-right">
+                        {% if statusOrdemServico == 3 or statusOrdemServico == 4 %}
+                            {% if ordemServico_cabecalho.data_finalizacao is null %}
+                                <span id="spanBotaoFinalizar"><button type="button" id="botaoFinalizar" class="btn btn-success" onclick="alertMudStatus({{ statusOrdemServico }});">Finalizar</button></span>
+                            {% else %}
+                                <span id="spanBotaoFinalizar"></span>
+                            {% endif %}
+                            <span id="spanBotaoAlterar"></span>
+                        {% elseif statusOrdemServico == 1 or statusOrdemServico == 2 %}
+                            <span id="spanBotaoFinalizar"></span>
+                            <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}ordemservico/editar/{{ ordemServico_cabecalho.id_orcamento }}">Alterar</a></span>
+                        {% else %}
+                            <span id="spanBotaoFinalizar"></span>
+                            <span id="spanBotaoAlterar"></span>
+                        {% endif %}
+                        <a href="{{base_url}}ordemservico/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="modal modal-info fade" id="modal_info" role="dialog">
+        <div class="modal-dialog" style="padding-top: 15%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-title-sec"></p>
+                </div>
+                <div class="modal-footer">
+                    <div class="modalInfoBtn"></div>
+                </div>
+            </div>
+        </div>
+    </div>     
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $("#alerta").fadeTo(2000, 500).slideUp(500, function(){
+            $("#alerta").alert('close');
+        });
+
+        function alertMudStatus(x) {
+            if ( x == 3 ) {
+                $('#modal_info').modal('show');
+                $('#modal_info').on('shown.bs.modal', function () {
+                    var modal = $(this);
+                    modal.find('.modal-title').text('Atenção');
+                    modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Finalizado e pago", será criado uma despesa. Deseja continuar?');
+                    modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}orcamento/finalizarOrcamento/{{ ordemServico_cabecalho.id_orcamento }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+                })
+            } else if ( x == 4 ) {
+                $('#modal_info').modal('show');
+                $('#modal_info').on('shown.bs.modal', function () {
+                    var modal = $(this);
+                    modal.find('.modal-title').text('Atenção');
+                    modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Finalizado e não pago", será criado uma despesa. Deseja continuar?');
+                    modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}orcamento/finalizarOrcamento/{{ ordemServico_cabecalho.id_orcamento }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+                })                 
+            }
+        }
+
+        function fechaModalInfo() {
+            $('#modal_info').modal('hide');
+        }        
+    </script>
+{% endblock %}
