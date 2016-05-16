@@ -14,6 +14,7 @@ class Caixa extends CI_Controller {
     }
 
     public function listarBusca() {
+        $user = $_SESSION['userLogin'];
         $date = \DateTime::createFromFormat('d/m/Y', $this->input->post('data_criacao'));
         $dataInicio = $date->format('Y-m-d');
 
@@ -46,7 +47,8 @@ class Caixa extends CI_Controller {
         $data = [
             'base_url' => $this->config->base_url(),
             'balancos' => $result[0],
-            'extratos' => $result2
+            'extratos' => $result2,
+            'user' => $user,
         ];
 //                printf(extratos);
 //                printf($data); 
