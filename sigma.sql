@@ -362,6 +362,7 @@ CREATE TABLE `ordem_servico_cabecalho` (
   `total_bruto` decimal(10,2) NOT NULL,
   `total_liquido` decimal(10,2) NOT NULL,
   `data_prevista_finalizacao` datetime NOT NULL,
+  `observacoes` text,
   `finalizado` TINYINT(1),
   `deletado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_ordem_servico`),
