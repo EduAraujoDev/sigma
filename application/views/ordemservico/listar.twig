@@ -76,9 +76,9 @@
                                                 <td>{{ ordemServicos.data_criacao|date('d/m/Y') }}</td>
                                                 <td class="text-right">{{ ordemServicos.total_liquido|number_format(2, ',', '.') }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}ordemservico/visualizar/{{ ordemServicos.id_ordem_servico }}">Visualizar</a>
+                                                    <a class="btn btn-primary btn-xs" href="{{base_url}}OrdemServico/visualizar/{{ ordemServicos.id_ordem_servico }}">Visualizar</a>
                                                     {% if statusOrdem == 1 or statusOrdem == 2 %}
-                                                        <a class="btn btn-primary btn-xs" href="{{base_url}}ordemservico/editar/{{ ordemServicos.id_ordem_servico }}">Alterar</a>
+                                                        <a class="btn btn-primary btn-xs" href="{{base_url}}OrdemServico/editar/{{ ordemServicos.id_ordem_servico }}">Alterar</a>
                                                         <a class="btn btn-danger btn-xs" onclick="pergExclui({{ ordemServicos.id_ordem_servico }});">Excluir</a>
                                                     {% endif %}
                                                 </td>
@@ -140,7 +140,7 @@
                 var modal = $(this);
                 modal.find('.modal-title').text('Atenção');
                 modal.find('.modal-title-sec').text('Deseja excluir o orçamento?');
-                modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}ordemservico/deletar/'+idOrdemServico+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+                modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}OrdemServico/deletar/'+idOrdemServico+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
             })
         }
 

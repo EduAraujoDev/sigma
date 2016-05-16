@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{base_url}}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="{{base_url}}ordemservico/listar">Listar Ordem de Serviço</a></li>
+            <li><a href="{{base_url}}OrdemServico/listar">Listar Ordem de Serviço</a></li>
             <li class="active">Editar Ordem de Serviço</li>
         </ol>
     </section>
@@ -29,7 +29,7 @@
                     {% endif %}                  
                     <h3 class="box-title">Dados do Ordem de Serviço</h3>
                 </div>
-                <form class="form-horizontal" role="form" method="post" action="{{base_url}}ordemservico/atualizar/{{ ordemServico_cabecalho.id_ordem_servico }}" method="post" class="form-incline" onSubmit="return btnCriar();">
+                <form class="form-horizontal" role="form" method="post" action="{{base_url}}OrdemServico/atualizar/{{ ordemServico_cabecalho.id_ordem_servico }}" method="post" class="form-incline" onSubmit="return btnCriar();">
                     <div class="box-body">                      
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-3 col-md-3" >
@@ -302,7 +302,7 @@
                     </div>
                     <div class="box-footer text-right">
                         <button type="submit" class="btn btn-success">Salvar</button>
-                        <a href="{{base_url}}ordemservico/visualizar/{{ ordemServico_cabecalho.id_ordem_servico }}"><button type="button" class="btn btn-danger">Cancelar</button></a>
+                        <a href="{{base_url}}OrdemServico/visualizar/{{ ordemServico_cabecalho.id_ordem_servico }}"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
             </div>
         </div>

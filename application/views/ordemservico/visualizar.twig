@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{base_url}}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="{{base_url}}ordemservico/listar">Listar Ordem de Serviço</a></li>
+            <li><a href="{{base_url}}OrdemServico/listar">Listar Ordem de Serviço</a></li>
             <li class="active">Visualizar Ordem de Serviço</li>
         </ol>
     </section>
@@ -29,7 +29,7 @@
                     {% endif %}                  
                     <h3 class="box-title">Dados do Ordem de Serviço</h3>
                 </div>
-                <form class="form-horizontal" role="form" method="post" action="{{base_url}}ordemservico/adicionar">
+                <form class="form-horizontal" role="form" method="post" action="{{base_url}}OrdemServico/adicionar">
                     <div class="box-body">                      
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-3 col-md-3" >
@@ -284,12 +284,12 @@
                             <span id="spanBotaoAlterar"></span>
                         {% elseif statusOrdemServico == 1 or statusOrdemServico == 2 %}
                             <span id="spanBotaoFinalizar"></span>
-                            <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}ordemservico/editar/{{ ordemServico_cabecalho.id_ordem_servico }}">Alterar</a></span>
+                            <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}OrdemServico/editar/{{ ordemServico_cabecalho.id_ordem_servico }}">Alterar</a></span>
                         {% else %}
                             <span id="spanBotaoFinalizar"></span>
                             <span id="spanBotaoAlterar"></span>
                         {% endif %}
-                        <a href="{{base_url}}ordemservico/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
+                        <a href="{{base_url}}OrdemServico/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>
@@ -325,7 +325,7 @@
                     var modal = $(this);
                     modal.find('.modal-title').text('Atenção');
                     modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Finalizado e pago", será criado uma despesa. Deseja continuar?');
-                    modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}ordemservico/finalizarOrdemServico/{{ ordemServico_cabecalho.id_ordem_servico }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+                    modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}OrdemServico/finalizarOrdemServico/{{ ordemServico_cabecalho.id_ordem_servico }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
                 })
             } else if ( x == 4 ) {
                 $('#modal_info').modal('show');
@@ -333,7 +333,7 @@
                     var modal = $(this);
                     modal.find('.modal-title').text('Atenção');
                     modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Finalizado e não pago", será criado uma despesa. Deseja continuar?');
-                    modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}ordemservico/finalizarOrdemServico/{{ ordemServico_cabecalho.id_ordem_servico }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
+                    modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}OrdemServico/finalizarOrdemServico/{{ ordemServico_cabecalho.id_ordem_servico }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
                 })                 
             }
         }
