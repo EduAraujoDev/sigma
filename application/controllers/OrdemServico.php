@@ -69,5 +69,42 @@ class OrdemServico extends CI_Controller {
         } else {
             redirect('ordemservico/listar', 'refresh');
         }
+    }
+
+    public function atuEstProdutoOrdemServico($idProduto, $quantidade, $tipo){
+        $produto    = $this->produto_model->get_produto_byid($idProduto)->row();
+        $qntEstoque = $produto->quantidade_estoque;
+
+       	if ($tipo == "I") {
+            $qntReserva+=$quantidade;
+        } else if ($tipo == "R"){
+            $qntEstoque = $qntEstoque + $quantidade;
+        }
+
+        $dadosProduto = array(
+            'quantidade_estoque'    => $qntEstoque,
+        );
+
+        $this->produto_model->update_produto($dadosProduto, array('id_produto' => $idProduto));
     }    
+
+    public function deletar() {
+        $ordemServico_id = $this->uri->segment(3);
+
+        if ($ordemServico_id != NULL) {
+            $ordemServicoProdutos = $this->ordemservicoproduto_model->get_ordemServicoProduto_byid($ordemServico_id)->result();
+
+            foreach ($ordemServicoProdutos as $produto) {
+                $this->atuEstProdutoOrdemServico($produto->id_produto, $produto->quantidade, "R");
+            }
+
+            $this->ordemservico_model->delete_logical_ordemServico(array('id_ordem_servico' => $ordemServico_id));
+            $this->ordemservicoservico_model->delete_logical_ordemServicoServico(array('id_ordem_servico' => $ordemServico_id));
+            $this->ordemservicoproduto_model->delete_logical_ordemServicoProduto(array('id_ordem_servico' => $ordemServico_id));
+
+            $this->session->set_flashdata('message_success', 'Orçamento removido com sucesso!');
+        }
+
+        redirect('ordemservico/listar', 'refresh');
+    }
 }
