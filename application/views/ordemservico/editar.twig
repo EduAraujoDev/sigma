@@ -301,23 +301,9 @@
                         </div>
                     </div>
                     <div class="box-footer text-right">
-                        {% if statusOrdemServico == 3 or statusOrdemServico == 4 %}
-                            {% if ordemServico_cabecalho.data_finalizacao is null %}
-                                <span id="spanBotaoFinalizar"><button type="button" id="botaoFinalizar" class="btn btn-success" onclick="alertMudStatus({{ statusOrdemServico }});">Finalizar</button></span>
-                            {% else %}
-                                <span id="spanBotaoFinalizar"></span>
-                            {% endif %}
-                            <span id="spanBotaoAlterar"></span>
-                        {% elseif statusOrdemServico == 1 or statusOrdemServico == 2 %}
-                            <span id="spanBotaoFinalizar"></span>
-                            <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}ordemservico/editar/{{ ordemServico_cabecalho.id_orcamento }}">Alterar</a></span>
-                        {% else %}
-                            <span id="spanBotaoFinalizar"></span>
-                            <span id="spanBotaoAlterar"></span>
-                        {% endif %}
-                        <a href="{{base_url}}ordemservico/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <a href="{{base_url}}ordemservico/visualizar/{{ ordemServico_cabecalho.id_ordem_servico }}"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
-                </form>
             </div>
         </div>
     </section>
