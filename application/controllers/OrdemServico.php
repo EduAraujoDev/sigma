@@ -71,6 +71,32 @@ class OrdemServico extends CI_Controller {
         }
     }
 
+    public function editar($ordemServico_id) {
+        if ($ordemServico_id != NULL) {
+            $ordemServico_id = $ordemServico_id;
+        } else {
+            $ordemServico_id = $this->uri->segment(3);
+        }
+
+        if ($ordemServico_id != NULL) {
+            $user = $_SESSION['userLogin'];
+            $data = ['base_url' => $this->config->base_url(),
+                'ordemServico_cabecalho'	=> $this->ordemservico_model->get_ordemServico_byid($ordemServico_id)->row(),
+                'ordemServico_produtos'    	=> $this->ordemservicoproduto_model->get_ordemServicoProduto_byid($ordemServico_id)->result(),
+                'ordemServico_servicos'    	=> $this->ordemservicoservico_model->get_ordemServicoServico_byid($ordemServico_id)->result(),
+                'status'                	=> $this->ordemservicostatus_model->get_ordemServicoStatus_notDeleted()->result(),
+                'tipoPagamentos'        	=> $this->tipopagamento_model->get_tipoPagamento_notDeleted()->result(),
+                'clientes'              	=> $this->cliente_model->get_cliente_notDeleted()->result(),
+                'produtos'              	=> $this->produto_model->get_produto_notDeleted()->result(),
+                'servicos'              	=> $this->servico_model->get_servico_notDeleted()->result(),                
+                'user' => $user,
+            ];
+            $this->twig->display('ordemservico/editar', $data);
+        } else {
+            redirect('ordemservico/listar', 'refresh');
+        }
+    }    
+
     public function atuEstProdutoOrdemServico($idProduto, $quantidade, $tipo){
         $produto    = $this->produto_model->get_produto_byid($idProduto)->row();
         $qntEstoque = $produto->quantidade_estoque;
