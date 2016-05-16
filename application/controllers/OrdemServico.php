@@ -95,20 +95,114 @@ class OrdemServico extends CI_Controller {
         } else {
             redirect('ordemservico/listar', 'refresh');
         }
-    }    
+    }
+
+    public function atualizar() {
+        $ordemServico_id = $this->uri->segment(3);
+
+        if ($ordemServico_id != NULL) {
+            $totalValorBruto = str_replace('.', '', $this->input->post('totalValorBruto'));
+            $totalValorBruto = str_replace(',', '.', $totalValorBruto);
+
+            $totalValorLiquido = str_replace('.', '', $this->input->post('totalValorLiquido'));
+            $totalValorLiquido = str_replace(',', '.', $totalValorLiquido);
+
+            $dataCriacao = $this->input->post('dataCriacao');
+            $dataCriacao = substr($dataCriacao, 6, 4)."-".substr($dataCriacao, 3, 2)."-".substr($dataCriacao, 0, 2);
+
+            $dataFinalizacao = $this->input->post('dataPrevistaFinalizacao');
+            $dataFinalizacao = substr($dataFinalizacao, 6, 4)."-".substr($dataFinalizacao, 3, 2)."-".substr($dataFinalizacao, 0, 2);
+
+            $dadosCabec = array(
+            	'id_ordem_servico'			=> $ordemServico_id,
+                'id_orcamento'              => $this->input->post('codOrcamento'),
+                'id_status'                 => $this->input->post('statusOrdemServico'),
+                'id_cliente'                => $this->input->post('codCliente'),
+                'id_tipo_pagamento'         => $this->input->post('tipoPagamento'),
+                'data_criacao'              => $dataCriacao,
+                'data_prevista_finalizacao' => $dataFinalizacao,
+                'data_finalizacao'          => null,
+                'desconto_adicional'        => $this->input->post('descontoAdicional'),
+                'desconto_total'            => $this->input->post('descontoTotal'),
+                'total_bruto'               => $totalValorBruto,
+                'total_liquido'             => $totalValorLiquido,
+                'observacoes'               => $this->input->post('observacoes'),
+                'finalizado'                => 0,
+                'deletado'                  => 0
+            );
+
+            $this->ordemservico_model->update_ordemServico($dadosCabec, array('id_ordem_servico' => $ordemServico_id));
+            
+            $this->ordemservicoservico_model->delete_ordemServicoServico(array('id_ordem_servico' => $ordemServico_id));
+            $quantidadeServicos = $this->input->post('quantidadeServicos');
+            for ($i=1; $i <= $quantidadeServicos; $i++) {
+                $vlrCobServico = str_replace('.', '', $this->input->post('servico_vlrCobrado_'.$i));
+                $vlrCobServico = str_replace(',', '.', $vlrCobServico);            
+                
+                $dadosServico = array(
+                    'id_servico'		=> $this->input->post('servico_codigo_'.$i),
+                    'id_ordem_servico'  => $ordemServico_id,
+                    'preco_cobrado'		=> $vlrCobServico,
+                    'deletado'			=> 0
+                );
+
+                $this->ordemservicoservico_model->insert_ordemServicoServico($dadosServico);
+            }
+
+            $produtosOrdemServico = $this->ordemservicoproduto_model->get_ordemServicoProduto_byid($ordemServico_id)->result();
+
+            foreach ($produtosOrdemServico as $produto) {
+                $this->atuEstProdutoOrdemServico($produto->id_produto, $produto->quantidade, "R");
+            }
+
+            $this->ordemservicoproduto_model->delete_ordemServicoProduto(array('id_ordem_servico' => $ordemServico_id));
+            $quantidadeProdutos = $this->input->post('quantidadeProdutos');
+            for ($i=1; $i <= $quantidadeProdutos; $i++) {
+                $vlrVndProduto = str_replace('.', '', $this->input->post('produto_prcProduto_'.$i));
+                $vlrVndProduto = str_replace(',', '.', $vlrVndProduto); 
+
+                $vlrCobProduto = str_replace('.', '', $this->input->post('produto_prcCobrado_'.$i));
+                $vlrCobProduto = str_replace(',', '.', $vlrCobProduto);            
+                
+                $desconto   = str_replace('%', '', $this->input->post('produto_desconto_'.$i));
+                $idProduto  = $this->input->post('produto_codigo_'.$i);
+
+                $quantProd = $this->input->post('produto_quantidade_'.$i);
+                
+                $dadosProduto = array(
+                	'id_produto'    	=> $idProduto,
+                    'id_ordem_servico'	=> $ordemServico_id,
+                    'quantidade'		=> $quantProd,
+                    'desconto'			=> $desconto,
+                    'preco_venda'		=> $vlrVndProduto,
+                    'preco_cobrado'		=> $vlrCobProduto,
+                    'deletado'			=> 0
+                );
+
+                $this->ordemservicoproduto_model->insert_ordemServicoProduto($dadosProduto);
+                $this->atuEstProdutoOrdemServico($idProduto, $quantProd, "I");
+            }            
+
+            $this->session->set_flashdata('message_success', 'Orçamento atualizado com sucesso!');
+
+            redirect('ordemservico/visualizar/'.$ordemServico_id, 'refresh');
+        } else {
+            redirect('ordemservico/listar', 'refresh');
+        }
+    }
 
     public function atuEstProdutoOrdemServico($idProduto, $quantidade, $tipo){
         $produto    = $this->produto_model->get_produto_byid($idProduto)->row();
         $qntEstoque = $produto->quantidade_estoque;
 
        	if ($tipo == "I") {
-            $qntReserva+=$quantidade;
+            $qntEstoque = $qntEstoque - $quantidade;
         } else if ($tipo == "R"){
             $qntEstoque = $qntEstoque + $quantidade;
         }
 
         $dadosProduto = array(
-            'quantidade_estoque'    => $qntEstoque,
+            'quantidade_estoque' => $qntEstoque,
         );
 
         $this->produto_model->update_produto($dadosProduto, array('id_produto' => $idProduto));

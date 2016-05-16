@@ -29,7 +29,7 @@
                     {% endif %}                  
                     <h3 class="box-title">Dados do Ordem de Serviço</h3>
                 </div>
-                <form class="form-horizontal" role="form" method="post" action="{{base_url}}ordemservico/adicionar">
+                <form class="form-horizontal" role="form" method="post" action="{{base_url}}ordemservico/atualizar/{{ ordemServico_cabecalho.id_ordem_servico }}" method="post" class="form-incline" onSubmit="return btnCriar();">
                     <div class="box-body">                      
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-3 col-md-3" >
