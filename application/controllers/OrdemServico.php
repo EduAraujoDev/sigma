@@ -192,6 +192,22 @@ class OrdemServico extends CI_Controller {
         }
     }
 
+    public function finalizarOrdemServico(){
+        $idOrdemServico     = $this->uri->segment(3);
+        $statusOrdemServico = $this->uri->segment(4);
+
+        if ( $idOrdemServico != null && $statusOrdemServico != null ) {
+            if ( $statusOrdemServico == 3 || $statusOrdemServico == 4 ) {
+                $dadosCabec = array( 'data_finalizacao' => date("Y-m-d") );
+                
+                $this->ordemservico_model->update_ordemServico($dadosCabec, array('id_ordem_servico' => $idOrdemServico));
+                $this->session->set_flashdata('message_success', 'Ordem de serviço finalizado com sucesso!');
+            }
+        }
+
+        redirect('OrdemServico/listar', 'refresh');
+    }
+
     public function atuEstProdutoOrdemServico($idProduto, $quantidade, $tipo){
         $produto    = $this->produto_model->get_produto_byid($idProduto)->row();
         $qntEstoque = $produto->quantidade_estoque;
