@@ -320,6 +320,7 @@ class Orcamento extends CI_Controller {
                     'total_bruto'               => $dadosOrcamento->total_bruto,
                     'total_liquido'             => $dadosOrcamento->total_liquido,
                     'data_prevista_finalizacao' => date("Y-m-d"),
+                    'observacoes'               => $dadosOrcamento->observacoes,
                     'finalizado'                => 0,
                     'deletado'                  => 0
                 );
