@@ -15,53 +15,54 @@
 {% endblock %}
 
 {% block content %}
-  <section class="content">
-        <div class="col-md-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h1 class="box-title">Caixa<br><small>*Campos obrigatorios</small></h1>
-                </div>
-                <form class="form-horizontal" role="form" action="{{base_url}}caixa/listarBusca" method="post" 
-                      onSubmit="return btnCadastrar();">
-                    
+    <section class="content">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="box-header with-border">
+                        <h1 class="box-title">Caixa<br><small>*Campos obrigatorios</small></h1>
+                    </div>
+                    <form class="form-horizontal" role="form" action="{{base_url}}caixa/listarBusca" method="post" 
+                          onSubmit="return btnCadastrar();">
+
                         <div id="box"></div>
                         <div class="box-body">
-                            
+
                             <div class="form-group">                            
                             </div>    
-                            
+
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divCriacao">
                                     <label for="data_criacao">Data Inicial</label>
                                     <div class="input-group">
-                                    <input id="data_criacao" type="text" class="form-control" 
-                                           name="data_criacao" value="{{data_atual|date("d/m/Y")}}" placeholder="Digite a data de criação">
-                                           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input id="data_criacao" type="text" class="form-control" 
+                                               name="data_criacao" value="{{data_atual|date("d/m/Y")}}" placeholder="Digite a data de criação">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-xs-12 col-sm-4 col-md-4" id="divVencimento">
                                     <label for="data_vencimento">Data Final</label>
                                     <div class="input-group">
-                                    <input id="data_vencimento" type="text" class="form-control" 
-                                           name="data_vencimento" placeholder="Digite a data de vencimento" onBlur="verificarDataVencimento();">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input id="data_vencimento" type="text" class="form-control" 
+                                               name="data_vencimento" placeholder="Digite a data de vencimento" onBlur="verificarDataVencimento();">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     </div>
-                                    </div>
-                                        
-                                    <div class="col-xs-12 col-sm-4 col-md-4" id="submitConsulta">
-                                        <label for="data_vencimento"></label>
-                                        <br/>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-4 col-md-4" id="submitConsulta">
+                                    <label for="data_vencimento"></label>
+                                    <br/>
                                     <button type="submit" class="btn btn-success">Consultar</button>
-                                    
-                                    </div>
-                                    </div>
-                                  <div class="col-xs-12 col-sm-4 col-md-4">
-                                        <label for="balancoTotal">Balanço Total: {{ balancos.Total }}</label>
-                                        </div>
-                                    </div>
-                                           
-                            <div class="form-group">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <label for="balancoTotal">Balanço Total: {{ balancos.Total }}</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-xs-10 col-sm-10 col-md-10">
                                 <table id="servicos" class="table table-bordered table-hover table-striped">
                                     <thead>
@@ -70,12 +71,12 @@
                                             <th class="text-center">Tipo</th>
                                             <th class="text-center">Data Finalização / Pagamento </th>
                                             <th class="text-center">Valor</th>
-                                            
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
-                                           {% for extrato in extratos %}
+
+                                        {% for extrato in extratos %}
                                             <tr class="text-center">
                                                 <td>{{ extrato.Codigo }}</td>
                                                 <td>{{ extrato.Tipo }}</td>
@@ -87,13 +88,11 @@
                                 </table>
                             </div>
                         </div>
-                           </div>
-                           
-
                 </form>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock %}
 {% block js %}
     {{ parent() }}
@@ -101,41 +100,31 @@
         jQuery(function ($) {
             $("#data_vencimento").mask('99/99/9999');
             $("#data_criacao").mask('99/99/9999');
-            
+
             $('#data_criacao').datepicker({
-               format: 'dd/mm/yyyy' 
+                format: 'dd/mm/yyyy'
             }).datepicker('setDate', new Date());
-            
+
             $('#data_vencimento').datepicker({
-               format: 'dd/mm/yyyy' 
+                format: 'dd/mm/yyyy'
             }).datepicker('setDate', '+1d');
 
-            
+
         });
-        
-           function btnCadastrar(){
-           if (verificarDataVencimento()) {
-               return true;
-           } else {
-             document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>Existem campos que devem ser preenchidos!</strong></div>';             
-             return false;
-           }
-           
-        }
-        
+
         function verificarDataVencimento() {
             var data = $("#data_vencimento").val();
-            
-            var dia = data.substring(0,2);
-            var mes = data.substring(3,5);
-            var ano = data.substring(6,10);
-            
-            var novaData = new Date(ano,(mes-1),dia);
-            
-            var mesmoDia = parseInt(dia,10) === parseInt(novaData.getDate());
-            var mesmoMes = parseInt(mes,10) === parseInt(novaData.getMonth())+1;
+
+            var dia = data.substring(0, 2);
+            var mes = data.substring(3, 5);
+            var ano = data.substring(6, 10);
+
+            var novaData = new Date(ano, (mes - 1), dia);
+
+            var mesmoDia = parseInt(dia, 10) === parseInt(novaData.getDate());
+            var mesmoMes = parseInt(mes, 10) === parseInt(novaData.getMonth()) + 1;
             var mesmoAno = parseInt(ano) === parseInt(novaData.getFullYear());
-            
+
             if (!((mesmoDia) && (mesmoMes) && (mesmoAno))) {
                 document.querySelector("#divVencimento").setAttribute('class', 'col-xs-12 col-sm-4 col-md-4 has-error has-feedback');
                 document.querySelector("#data_vencimento").focus();
@@ -144,10 +133,10 @@
                 document.querySelector("#divVencimento").setAttribute('class', 'col-xs-12 col-sm-4 col-md-4');
                 return true;
             }
-           
+
         }
-        
-        
-        
+
+
+
     </script>
 {% endblock %}
