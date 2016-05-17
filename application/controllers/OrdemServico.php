@@ -67,7 +67,7 @@ class OrdemServico extends CI_Controller {
             ];
             $this->twig->display('ordemservico/visualizar', $data);
         } else {
-            redirect('ordemservico/listar', 'refresh');
+            redirect('OrdemServico/listar', 'refresh');
         }
     }
 
@@ -93,7 +93,7 @@ class OrdemServico extends CI_Controller {
             ];
             $this->twig->display('ordemservico/editar', $data);
         } else {
-            redirect('ordemservico/listar', 'refresh');
+            redirect('OrdemServico/listar', 'refresh');
         }
     }
 
@@ -156,6 +156,7 @@ class OrdemServico extends CI_Controller {
             }
 
             $this->ordemservicoproduto_model->delete_ordemServicoProduto(array('id_ordem_servico' => $ordemServico_id));
+            
             $quantidadeProdutos = $this->input->post('quantidadeProdutos');
             for ($i=1; $i <= $quantidadeProdutos; $i++) {
                 $vlrVndProduto = str_replace('.', '', $this->input->post('produto_prcProduto_'.$i));
@@ -185,9 +186,9 @@ class OrdemServico extends CI_Controller {
 
             $this->session->set_flashdata('message_success', 'Orçamento atualizado com sucesso!');
 
-            redirect('ordemservico/visualizar/'.$ordemServico_id, 'refresh');
+            redirect('OrdemServico/visualizar/'.$ordemServico_id, 'refresh');
         } else {
-            redirect('ordemservico/listar', 'refresh');
+            redirect('OrdemServico/listar', 'refresh');
         }
     }
 
@@ -225,6 +226,6 @@ class OrdemServico extends CI_Controller {
             $this->session->set_flashdata('message_success', 'Orçamento removido com sucesso!');
         }
 
-        redirect('ordemservico/listar', 'refresh');
+        redirect('OrdemServico/listar', 'refresh');
     }
 }
