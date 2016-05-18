@@ -79,7 +79,7 @@
                                                 <td class="text-right">{{ orcamento.total_liquido|number_format(2, ',', '.') }}</td>
                                                 <td>
                                                     <a class="btn btn-primary btn-xs" href="{{base_url}}orcamento/visualizar/{{ orcamento.id_orcamento }}">Visualizar</a>
-                                                    {% if statusOrc == 1 or statusOrc == 3 %}
+                                                    {% if orcamento.data_finalizacao is null %}
                                                         <a class="btn btn-primary btn-xs" href="{{base_url}}orcamento/editar/{{ orcamento.id_orcamento }}">Alterar</a>
                                                         <a class="btn btn-danger btn-xs" onclick="pergExclui({{ orcamento.id_orcamento }});">Excluir</a>
                                                     {% endif %}
