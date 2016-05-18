@@ -14,6 +14,7 @@ class GCMP extends CI_Controller {
         $gcpm->setDevices($devices);
         $response = $gcpm->send($message, array('title' => 'Test title'));
         var_dump($response);
+        die;
     }
 
 }
