@@ -73,8 +73,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 $active_group = 'default';
 $query_builder = TRUE;
-
-if (isset(getenv("CLEARDB_DATABASE_URL"))) {
+$CLEARDB_DATABASE_URL = getenv("CLEARDB_DATABASE_URL");
+if ($CLEARDB_DATABASE_URL != NULL) {
     $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
     $db['default'] = array(
         'dsn' => '',

@@ -1,7 +1,7 @@
 {
 	"description" : "Sigma",
 	"require": {
-		"php": ">=5.4",
+		"php": ">=5.5",
 		"codeigniter/framework": "3.0.*",
 		"kenjis/codeigniter-ss-twig": "1.0.x@dev"
 	},
