@@ -358,10 +358,10 @@ class Orcamento extends CI_Controller {
                 }
             }
             
-            $this->session->set_flashdata('message_success', 'Orçamento finalizado com sucesso!');
+            $this->session->set_flashdata('message_success', 'Orçamento finalizado com sucesso! Gerado ordem de serviço número: '.$id.'!');
         }
 
-        redirect('orcamento/listar', 'refresh');        
+        redirect('OrdemServico/visualizar/'.$id, 'refresh');        
     }
 
     public function atuEstProdutoOrcamento($idProduto, $quantidade, $tipo, $reserva = false){
