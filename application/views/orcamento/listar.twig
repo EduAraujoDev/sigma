@@ -36,6 +36,7 @@
                                     Filtrar orçamento por:
                                     <select class="form-control" name="tipo_busca" id="buscaStatus">
                                         <option value="">Selecione</option>
+                                        <option value=" "> </option>
                                         {% for statu in status %}
                                             <option value="{{ statu.titulo }}">{{ statu.titulo }}</option>
                                         {% endfor %}
