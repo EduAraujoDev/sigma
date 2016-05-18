@@ -1086,7 +1086,7 @@
         function btnCriar() {
             textoAlerta = "";
 
-            if (verificarCodigo() & existeProduto() & existeServico()) {
+            if (verificarCodigo() & existeServico()) {
                 return true;   
             } else {
                 document.querySelector("#box").innerHTML = '<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alerta"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><p><h4><i class="icon fa fa-ban"></i>Atenção</h4>Existem campos que devem ser preenchidos!'+textoAlerta+'<p></div>';
@@ -1106,20 +1106,6 @@
                 return false;
             } else {
                 document.querySelector("#divNome").setAttribute('class', 'col-xs-12 col-sm-12 col-md-3');
-                return true;
-            }
-        }
-
-        function existeProduto() {
-            var tabelaProduto = document.querySelector("#produtos");
-            var qntLinha = tabelaProduto.rows.length -1;
-
-            if (qntLinha <= 0) {
-                textoAlerta += '<br>* Adicione produto';
-                $('html, body').animate({ scrollTop: 0 }, 'fast');
-
-                return false;
-            } else {
                 return true;
             }
         }
