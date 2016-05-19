@@ -324,7 +324,7 @@
                 $('#modal_info').on('shown.bs.modal', function () {
                     var modal = $(this);
                     modal.find('.modal-title').text('Atenção');
-                    modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Finalizado e pago", será criado uma despesa. Deseja continuar?');
+                    modal.find('.modal-title-sec').text('A ordem de serviço será finalizada com o status "Finalizado e pago". Deseja continuar?');
                     modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}OrdemServico/finalizarOrdemServico/{{ ordemServico_cabecalho.id_ordem_servico }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
                 })
             } else if ( x == 4 ) {
@@ -332,7 +332,7 @@
                 $('#modal_info').on('shown.bs.modal', function () {
                     var modal = $(this);
                     modal.find('.modal-title').text('Atenção');
-                    modal.find('.modal-title-sec').text('Ao finalizar o orçamento com status "Finalizado e não pago", será criado uma despesa. Deseja continuar?');
+                    modal.find('.modal-title-sec').text('A ordem de serviço será finalizada com o status "Finalizado e não pago". Deseja continuar?');
                     modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}OrdemServico/finalizarOrdemServico/{{ ordemServico_cabecalho.id_ordem_servico }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
                 })                 
             }
