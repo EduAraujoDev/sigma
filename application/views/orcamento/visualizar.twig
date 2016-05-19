@@ -271,21 +271,21 @@
                         </div>
                     </div>
                     <div class="box-footer text-right">
-                        {% if statusOrc == 2 or statusOrc == 4 or statusOrc == 5 or statusOrc == 6 %}
-                            {% if orcamento_cabecalho.data_finalizacao is null %}
+                        {% if orcamento_cabecalho.data_finalizacao is null %}
+                            {% if statusOrc == 2 or statusOrc == 4 or statusOrc == 5 or statusOrc == 6 %}
                                 <span id="spanBotaoFinalizar"><button type="button" id="botaoFinalizar" class="btn btn-success" onclick="alertMudStatus({{ statusOrc }});">Finalizar</button></span>
-                            {% else %}
+                                <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}orcamento/editar/{{ orcamento_cabecalho.id_orcamento }}">Alterar</a></span>
+                            {% elseif statusOrc == 1 or statusOrc == 3 %}
                                 <span id="spanBotaoFinalizar"></span>
+                                <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}orcamento/editar/{{ orcamento_cabecalho.id_orcamento }}">Alterar</a></span>
                             {% endif %}
-                            <span id="spanBotaoAlterar"></span>
-                        {% elseif statusOrc == 1 or statusOrc == 3 %}
-                            <span id="spanBotaoFinalizar"></span>
-                            <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}orcamento/editar/{{ orcamento_cabecalho.id_orcamento }}">Alterar</a></span>
+                        
+                            <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
                         {% else %}
                             <span id="spanBotaoFinalizar"></span>
-                            <span id="spanBotaoAlterar"></span>
+                            <span id="spanBotaoAlterar"></span>                        
+                            <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
                         {% endif %}
-                        <a href="{{base_url}}orcamento/listar"><button type="button" class="btn btn-danger">Cancelar</button></a>
                     </div>
                 </form>
             </div>
