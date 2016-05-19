@@ -6,14 +6,15 @@ if (!defined('BASEPATH'))
 class GCMP extends CI_Controller {
 
     public function teste() {
-        $devices = array('eI7OTRc6Ow4:APA91bHQBZziePEIA21z7Uvw9GMXYUR9eOrHB3-2Y5lm1KxP58qcuSfSaqJT1VQV3toIyJj_VpcCK2B3SiNqd2JKCZgOWlvj65ok93BzSLZkgTjyWjOrMEilHoZvY2u_7wy4PYVLnR_W');
+        $devices = array('fkLoMHxo8Io:APA91bH-kCWLZGgPha6Ui0_ktaQf5f-QO9JCduoJXnCtPdzspqS3zCmjokuc-Zqdj12ZwqJgmJFkCjvQ5b82AH2_kzLmqyQzwJPfclK1JD3r1N08tTTX50RkrTX65sZuM4r9BxG5G2fp');
         $message = "The message to send";
         $this->load->library('GCMPushMessage');
         $gcpm = new GCMPushMessage();
-        $gcpm->setserverApiKey('AIzaSyD6vIY905fbC45y-dlSjmPdduOCt75cbYY');
+        $gcpm->setserverApiKey('AIzaSyBbo9uVQdKqGb8FJ5EHvfAP7iht9TwgUQ4');
         $gcpm->setDevices($devices);
         $response = $gcpm->send($message, array('title' => 'Test title'));
         var_dump($response);
+        die;
     }
 
 }

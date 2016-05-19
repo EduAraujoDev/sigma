@@ -27,6 +27,9 @@ class Orcamento extends CI_Controller {
         $this->load->model('produto_model', 'produto_model');
         $this->load->model('cliente_model', 'cliente_model');
         $this->load->model('servico_model', 'servico_model');
+        
+        $this->load->library('GCMPushMessage');
+        $this->load->model('cliente_model', 'cliente_model');
 
         if (isset($_SESSION['userLogin'])) {
             if (strtoupper($_SESSION['userLogin']['tipoAcesso']) == 'USUARIO') {
@@ -355,6 +358,17 @@ class Orcamento extends CI_Controller {
                     );
 
                     $this->ordemservicoservico_model->insert_ordemServicoServico($dadosServico);
+                    $id_cliente = $dadosOrcamento->id_cliente;
+                    $cliente = $this->cliente_model->get_cliente_by_id($id_cliente)->row();
+                    if ($cliente != NULL) {
+                        if ($cliente->token != NULL) {
+                            $gcpm = new GCMPushMessage();
+                            $gcpm->setserverApiKey('AIzaSyBbo9uVQdKqGb8FJ5EHvfAP7iht9TwgUQ4');
+                            $message = "Olá " . $cliente->nome . ' seu orçamento foi finalizado';
+                            $gcpm->setDevices(array($cliente->token));
+                            $response = $gcpm->send($message, array('title' => 'Sigma'));
+                        }
+                    }
                 }
             }
             
