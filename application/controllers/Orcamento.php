@@ -307,8 +307,6 @@ class Orcamento extends CI_Controller {
                 $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
             } else if ( $statusOrcamento == 6 ) {
                 $dadosCabec = array( 'data_finalizacao' => date("Y-m-d"), 'finalizado' => 1 );
-                $this->orcamento_model->update_orcamento($dadosCabec, array('id_orcamento' => $idOrcamento));
-
                 $dadosOrcamento = $this->orcamento_model->get_orcamento_byid($idOrcamento)->row();
 
                 $dadosCabec = array(
@@ -322,7 +320,7 @@ class Orcamento extends CI_Controller {
                     'desconto_total'            => $dadosOrcamento->desconto_total,
                     'total_bruto'               => $dadosOrcamento->total_bruto,
                     'total_liquido'             => $dadosOrcamento->total_liquido,
-                    'data_prevista_finalizacao' => date("Y-m-d"),
+                    'data_prevista_finalizacao' => date("Y-m-d", strtotime("+2 day")),
                     'observacoes'               => $dadosOrcamento->observacoes,
                     'finalizado'                => 0,
                     'deletado'                  => 0
