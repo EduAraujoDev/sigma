@@ -351,7 +351,15 @@ GROUP BY
         $orc_chart = [];
         $orc_label = [];
         foreach ($result_ors_barchart as $r) {
-            $orc_label[] = $r->STATUS;
+            if ($r->STATUS == 'Aberta') {
+                $orc_label[] = 'Aberta';
+            } else if ($r->STATUS == 'Finalizada e Paga') {
+                $orc_label[] = 'Final Pag';
+            } else if ($r->STATUS == 'Finalizada e Pendente de Pagam') {
+                $orc_label[] = 'Final Pend Pag';
+            } else {
+                $orc_label[] = 'Final N Pag';
+            }
             $orc_chart[] = doubleval($r->Total);
         }
         return ['ors_barchart' => $orc_chart, 'ors_barlabel' => $orc_label];
