@@ -211,7 +211,7 @@ class OrdemServico extends CI_Controller {
                         if ($cliente->token != NULL) {
                             $gcpm = new GCMPushMessage();
                             $gcpm->setserverApiKey('AIzaSyBbo9uVQdKqGb8FJ5EHvfAP7iht9TwgUQ4');
-                            $message = "Olá " . $cliente->nome . ' seu orçamento foi finalizado';
+                            $message = "Olá " . $cliente->nome . ' sua ordem de serviço foi finalizada';
                             $gcpm->setDevices(array($cliente->token));
                             $gcpm->send($message, array('title' => 'Sigma'));
                         }
