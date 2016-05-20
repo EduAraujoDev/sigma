@@ -364,7 +364,7 @@ class Orcamento extends CI_Controller {
                             $gcpm->setserverApiKey('AIzaSyBbo9uVQdKqGb8FJ5EHvfAP7iht9TwgUQ4');
                             $message = "Olá " . $cliente->nome . ' seu orçamento foi finalizado';
                             $gcpm->setDevices(array($cliente->token));
-                            $response = $gcpm->send($message, array('title' => 'Sigma'));
+                            $gcpm->send($message, array('title' => 'Sigma'));
                         }
                     }
                 }
