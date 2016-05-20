@@ -275,16 +275,14 @@
                         </div>
                     </div>
                     <div class="box-footer text-right">
-                        {% if statusOrdemServico == 3 or statusOrdemServico == 4 %}
-                            {% if ordemServico_cabecalho.data_finalizacao is null %}
-                                <span id="spanBotaoFinalizar"><button type="button" id="botaoFinalizar" class="btn btn-success" onclick="alertMudStatus({{ statusOrdemServico }});">Finalizar</button></span>
-                            {% else %}
+                        {% if ordemServico_cabecalho.data_finalizacao is null %}
+                            {% if statusOrdemServico == 1 or statusOrdemServico == 2 %}
                                 <span id="spanBotaoFinalizar"></span>
+                                <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}OrdemServico/editar/{{ ordemServico_cabecalho.id_ordem_servico }}">Alterar</a></span>
+                            {% else %}
+                                <span id="spanBotaoFinalizar"><button type="button" id="botaoFinalizar" class="btn btn-success" onclick="alertMudStatus({{ statusOrdemServico }});">Finalizar</button></span>
+                                <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}OrdemServico/editar/{{ ordemServico_cabecalho.id_ordem_servico }}">Alterar</a></span>
                             {% endif %}
-                            <span id="spanBotaoAlterar"></span>
-                        {% elseif statusOrdemServico == 1 or statusOrdemServico == 2 %}
-                            <span id="spanBotaoFinalizar"></span>
-                            <span id="spanBotaoAlterar"><a class="btn btn-success" id="botaoAlterar" href="{{base_url}}OrdemServico/editar/{{ ordemServico_cabecalho.id_ordem_servico }}">Alterar</a></span>
                         {% else %}
                             <span id="spanBotaoFinalizar"></span>
                             <span id="spanBotaoAlterar"></span>
@@ -324,7 +322,7 @@
                 $('#modal_info').on('shown.bs.modal', function () {
                     var modal = $(this);
                     modal.find('.modal-title').text('Atenção');
-                    modal.find('.modal-title-sec').text('A ordem de serviço será finalizada com o status "Finalizado e pago". Deseja continuar?');
+                    modal.find('.modal-title-sec').text('A ordem de serviço será finalizada com o status "Finalizada e não paga". Deseja continuar?');
                     modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}OrdemServico/finalizarOrdemServico/{{ ordemServico_cabecalho.id_ordem_servico }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
                 })
             } else if ( x == 4 ) {
@@ -332,7 +330,7 @@
                 $('#modal_info').on('shown.bs.modal', function () {
                     var modal = $(this);
                     modal.find('.modal-title').text('Atenção');
-                    modal.find('.modal-title-sec').text('A ordem de serviço será finalizada com o status "Finalizado e não pago". Deseja continuar?');
+                    modal.find('.modal-title-sec').text('A ordem de serviço será finalizada com o status "Finalizada e paga". Deseja continuar?');
                     modal.find('.modalInfoBtn').html('<a class="btn btn-success" href="{{base_url}}OrdemServico/finalizarOrdemServico/{{ ordemServico_cabecalho.id_ordem_servico }}/'+x+'">Sim</a><button type="button" class="btn btn-danger" onclick="fechaModalInfo();">Não</button>');
                 })                 
             }
