@@ -36,7 +36,9 @@
                             <input type="text" name="busca" class="form-control" 
                                    placeholder="Nome da marca" >
 
-                            <span class="input-group-addon"><input type="submit"  value="buscar"></span>
+                            <span class="input-group-addon" style="border: none;">
+                                <input type="submit" class="btn btn-primary btn-xs" value="buscar">
+                            </span>
                         </div>
                     </form>
                     <br>
@@ -81,7 +83,7 @@
 {% block js %}
     {{ parent() }}
     <script type="text/javascript">
-        $("#alerta").fadeTo(2000, 500).slideUp(500, function(){
+        $("#alerta").fadeTo(2000, 500).slideUp(500, function () {
             $("#alerta").alert('close');
         });
     </script>

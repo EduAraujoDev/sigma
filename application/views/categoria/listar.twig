@@ -28,7 +28,7 @@
                         </div>
                     {% endif %}
                     <a class="btn btn-primary" href="{{base_url}}categoria/novo">Incluir Categoria</a>
-                        <br/><br/>
+                    <br/><br/>
                     <form role="form" action="{{base_url}}categoria/buscar" method="GET">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -36,7 +36,9 @@
                             <input type="text" name="busca" class="form-control" 
                                    placeholder="Nome da categoria" >
 
-                            <span class="input-group-addon"><input type="submit"  value="buscar"></span>
+                            <span class="input-group-addon" style="border: none;">
+                                <input type="submit" class="btn btn-primary btn-xs" value="buscar">
+                            </span>
                         </div>
                     </form>
                     <br>
@@ -79,7 +81,7 @@
 {% block js %}
     {{ parent() }}
     <script type="text/javascript">
-        $("#alerta").fadeTo(2000, 500).slideUp(500, function(){
+        $("#alerta").fadeTo(2000, 500).slideUp(500, function () {
             $("#alerta").alert('close');
         });
     </script>

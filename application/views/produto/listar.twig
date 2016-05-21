@@ -27,7 +27,7 @@
                             {{message_success}}
                         </div>
                     {% endif %}
-                    
+
                     {% if message_error is not empty %}
                         <div class="alert alert-error alert-dismissible fade in" role="alert" id="alerta">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -37,8 +37,8 @@
                             {{message_error}}
                         </div>
                     {% endif %}
-                        <a class="btn btn-primary" href="{{base_url}}produto/novo">Incluir Produto</a>
-                        <br/><br/>
+                    <a class="btn btn-primary" href="{{base_url}}produto/novo">Incluir Produto</a>
+                    <br/><br/>
                     <form role="form" action="{{base_url}}produto/buscar" method="GET">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -46,7 +46,9 @@
                             <input type="text" name="busca" class="form-control" 
                                    placeholder="Nome da marca" >
 
-                            <span class="input-group-addon"><input type="submit"  value="buscar"></span>
+                            <span class="input-group-addon" style="border: none;">
+                                <input type="submit" class="btn btn-primary btn-xs" value="buscar">
+                            </span>
                         </div>
                         <input type="radio" name="tipo_busca" value="nome"> Nome
                         <input type="radio" name="tipo_busca" value="codigo"> Código de Fabricante
